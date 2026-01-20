@@ -12,16 +12,14 @@ export default function DesignSystemPage() {
 
   return (
     <div className={`min-h-screen p-8 ${isDark ? "dark" : ""}`}>
-      <div className="max-w-5xl mx-auto">
+      <div className="mx-auto max-w-5xl">
         {/* Header */}
-        <div className="flex justify-between items-center mb-12">
-          <h1 className="text-4xl font-bold text-text-primary">
-            Design System
-          </h1>
+        <div className="mb-12 flex items-center justify-between">
+          <h1 className="font-bold text-4xl text-text-primary">Design System</h1>
           <button
             type="button"
             onClick={toggleDarkMode}
-            className="px-4 py-2 bg-interactive-primary text-text-inverse rounded-lg hover:bg-interactive-primary-hover transition-colors"
+            className="rounded-lg bg-interactive-primary px-4 py-2 text-text-inverse transition-colors hover:bg-interactive-primary-hover"
           >
             {isDark ? "Light Mode" : "Dark Mode"}
           </button>
@@ -29,81 +27,59 @@ export default function DesignSystemPage() {
 
         {/* Colors Section */}
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">
-            Colors
-          </h2>
+          <h2 className="mb-6 font-semibold text-2xl text-text-primary">Colors</h2>
 
           {/* Primary Colors */}
           <div className="mb-8">
-            <h3 className="text-lg font-medium text-text-secondary mb-4">
-              Primary
-            </h3>
-            <div className="grid grid-cols-5 md:grid-cols-11 gap-2">
-              {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
-                (shade) => (
-                  <div key={shade} className="text-center">
-                    <div
-                      className={`h-12 rounded-md bg-primary-${shade}`}
-                      style={{
-                        backgroundColor: `var(--primary-${shade})`,
-                      }}
-                    />
-                    <span className="text-xs text-text-tertiary mt-1 block">
-                      {shade}
-                    </span>
-                  </div>
-                )
-              )}
+            <h3 className="mb-4 font-medium text-lg text-text-secondary">Primary</h3>
+            <div className="grid grid-cols-5 gap-2 md:grid-cols-11">
+              {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
+                <div key={shade} className="text-center">
+                  <div
+                    className={`h-12 rounded-md bg-primary-${shade}`}
+                    style={{
+                      backgroundColor: `var(--primary-${shade})`,
+                    }}
+                  />
+                  <span className="mt-1 block text-text-tertiary text-xs">{shade}</span>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Gray Colors */}
           <div className="mb-8">
-            <h3 className="text-lg font-medium text-text-secondary mb-4">
-              Gray
-            </h3>
-            <div className="grid grid-cols-5 md:grid-cols-11 gap-2">
-              {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
-                (shade) => (
-                  <div key={shade} className="text-center">
-                    <div
-                      className="h-12 rounded-md"
-                      style={{
-                        backgroundColor: `var(--gray-${shade})`,
-                      }}
-                    />
-                    <span className="text-xs text-text-tertiary mt-1 block">
-                      {shade}
-                    </span>
-                  </div>
-                )
-              )}
+            <h3 className="mb-4 font-medium text-lg text-text-secondary">Gray</h3>
+            <div className="grid grid-cols-5 gap-2 md:grid-cols-11">
+              {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((shade) => (
+                <div key={shade} className="text-center">
+                  <div
+                    className="h-12 rounded-md"
+                    style={{
+                      backgroundColor: `var(--gray-${shade})`,
+                    }}
+                  />
+                  <span className="mt-1 block text-text-tertiary text-xs">{shade}</span>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Semantic Colors */}
           <div className="mb-8">
-            <h3 className="text-lg font-medium text-text-secondary mb-4">
-              Semantic
-            </h3>
+            <h3 className="mb-4 font-medium text-lg text-text-secondary">Semantic</h3>
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <div className="h-12 rounded-md bg-success-500" />
-                <span className="text-xs text-text-tertiary mt-1 block">
-                  Success
-                </span>
+                <span className="mt-1 block text-text-tertiary text-xs">Success</span>
               </div>
               <div>
                 <div className="h-12 rounded-md bg-warning-500" />
-                <span className="text-xs text-text-tertiary mt-1 block">
-                  Warning
-                </span>
+                <span className="mt-1 block text-text-tertiary text-xs">Warning</span>
               </div>
               <div>
                 <div className="h-12 rounded-md bg-error-500" />
-                <span className="text-xs text-text-tertiary mt-1 block">
-                  Error
-                </span>
+                <span className="mt-1 block text-text-tertiary text-xs">Error</span>
               </div>
             </div>
           </div>
@@ -111,71 +87,57 @@ export default function DesignSystemPage() {
 
         {/* Typography Section */}
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">
-            Typography
-          </h2>
+          <h2 className="mb-6 font-semibold text-2xl text-text-primary">Typography</h2>
 
-          <div className="space-y-4 bg-surface-primary p-6 rounded-xl border border-border-primary">
+          <div className="space-y-4 rounded-xl border border-border-primary bg-surface-primary p-6">
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">4xl</span>
-              <p className="text-4xl font-bold text-text-primary">
-                Display Text
-              </p>
+              <span className="w-16 text-text-tertiary text-xs">4xl</span>
+              <p className="font-bold text-4xl text-text-primary">Display Text</p>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">3xl</span>
-              <p className="text-3xl font-semibold text-text-primary">
-                Heading 1
-              </p>
+              <span className="w-16 text-text-tertiary text-xs">3xl</span>
+              <p className="font-semibold text-3xl text-text-primary">Heading 1</p>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">2xl</span>
-              <p className="text-2xl font-semibold text-text-primary">
-                Heading 2
-              </p>
+              <span className="w-16 text-text-tertiary text-xs">2xl</span>
+              <p className="font-semibold text-2xl text-text-primary">Heading 2</p>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">xl</span>
-              <p className="text-xl font-medium text-text-primary">Heading 3</p>
+              <span className="w-16 text-text-tertiary text-xs">xl</span>
+              <p className="font-medium text-text-primary text-xl">Heading 3</p>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">lg</span>
+              <span className="w-16 text-text-tertiary text-xs">lg</span>
               <p className="text-lg text-text-primary">Large Text</p>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">base</span>
+              <span className="w-16 text-text-tertiary text-xs">base</span>
               <p className="text-base text-text-primary">Body Text</p>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">sm</span>
+              <span className="w-16 text-text-tertiary text-xs">sm</span>
               <p className="text-sm text-text-secondary">Small Text</p>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="text-xs text-text-tertiary w-16">xs</span>
-              <p className="text-xs text-text-tertiary">Caption Text</p>
+              <span className="w-16 text-text-tertiary text-xs">xs</span>
+              <p className="text-text-tertiary text-xs">Caption Text</p>
             </div>
           </div>
         </section>
 
         {/* Spacing Section */}
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">
-            Spacing
-          </h2>
+          <h2 className="mb-6 font-semibold text-2xl text-text-primary">Spacing</h2>
 
-          <div className="space-y-3 bg-surface-primary p-6 rounded-xl border border-border-primary">
+          <div className="space-y-3 rounded-xl border border-border-primary bg-surface-primary p-6">
             {[1, 2, 3, 4, 5, 6, 8, 10, 12, 16].map((space) => (
               <div key={space} className="flex items-center gap-4">
-                <span className="text-xs text-text-tertiary w-12">
-                  space-{space}
-                </span>
+                <span className="w-12 text-text-tertiary text-xs">space-{space}</span>
                 <div
-                  className="h-4 bg-primary-500 rounded"
+                  className="h-4 rounded bg-primary-500"
                   style={{ width: `var(--space-${space})` }}
                 />
-                <span className="text-xs text-text-tertiary">
-                  {space * 4}px
-                </span>
+                <span className="text-text-tertiary text-xs">{space * 4}px</span>
               </div>
             ))}
           </div>
@@ -183,20 +145,16 @@ export default function DesignSystemPage() {
 
         {/* Border Radius Section */}
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">
-            Border Radius
-          </h2>
+          <h2 className="mb-6 font-semibold text-2xl text-text-primary">Border Radius</h2>
 
           <div className="flex flex-wrap gap-6">
             {["sm", "md", "lg", "xl", "full"].map((radius) => (
               <div key={radius} className="text-center">
                 <div
-                  className={`w-16 h-16 bg-primary-500 rounded-${radius}`}
+                  className={`h-16 w-16 bg-primary-500 rounded-${radius}`}
                   style={{ borderRadius: `var(--radius-${radius})` }}
                 />
-                <span className="text-xs text-text-tertiary mt-2 block">
-                  {radius}
-                </span>
+                <span className="mt-2 block text-text-tertiary text-xs">{radius}</span>
               </div>
             ))}
           </div>
@@ -204,66 +162,50 @@ export default function DesignSystemPage() {
 
         {/* Surfaces Section */}
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">
-            Surfaces
-          </h2>
+          <h2 className="mb-6 font-semibold text-2xl text-text-primary">Surfaces</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-6 rounded-xl bg-surface-primary border border-border-primary">
-              <p className="text-sm font-medium text-text-primary">
-                Surface Primary
-              </p>
-              <p className="text-xs text-text-secondary mt-1">
-                Cards, main content areas
-              </p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-xl border border-border-primary bg-surface-primary p-6">
+              <p className="font-medium text-sm text-text-primary">Surface Primary</p>
+              <p className="mt-1 text-text-secondary text-xs">Cards, main content areas</p>
             </div>
-            <div className="p-6 rounded-xl bg-surface-secondary border border-border-primary">
-              <p className="text-sm font-medium text-text-primary">
-                Surface Secondary
-              </p>
-              <p className="text-xs text-text-secondary mt-1">
-                Nested containers
-              </p>
+            <div className="rounded-xl border border-border-primary bg-surface-secondary p-6">
+              <p className="font-medium text-sm text-text-primary">Surface Secondary</p>
+              <p className="mt-1 text-text-secondary text-xs">Nested containers</p>
             </div>
-            <div className="p-6 rounded-xl bg-surface-elevated border border-border-primary shadow-lg">
-              <p className="text-sm font-medium text-text-primary">
-                Surface Elevated
-              </p>
-              <p className="text-xs text-text-secondary mt-1">
-                Modals, popovers
-              </p>
+            <div className="rounded-xl border border-border-primary bg-surface-elevated p-6 shadow-lg">
+              <p className="font-medium text-sm text-text-primary">Surface Elevated</p>
+              <p className="mt-1 text-text-secondary text-xs">Modals, popovers</p>
             </div>
           </div>
         </section>
 
         {/* Buttons Example */}
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">
-            Interactive Examples
-          </h2>
+          <h2 className="mb-6 font-semibold text-2xl text-text-primary">Interactive Examples</h2>
 
           <div className="flex flex-wrap gap-4">
             <button
               type="button"
-              className="px-4 py-2 bg-interactive-primary text-text-inverse rounded-lg hover:bg-interactive-primary-hover transition-colors"
+              className="rounded-lg bg-interactive-primary px-4 py-2 text-text-inverse transition-colors hover:bg-interactive-primary-hover"
             >
               Primary Button
             </button>
             <button
               type="button"
-              className="px-4 py-2 bg-interactive-secondary text-text-primary rounded-lg hover:bg-interactive-secondary-hover transition-colors border border-border-primary"
+              className="rounded-lg border border-border-primary bg-interactive-secondary px-4 py-2 text-text-primary transition-colors hover:bg-interactive-secondary-hover"
             >
               Secondary Button
             </button>
             <button
               type="button"
-              className="px-4 py-2 bg-success-500 text-white rounded-lg hover:bg-success-600 transition-colors"
+              className="rounded-lg bg-success-500 px-4 py-2 text-white transition-colors hover:bg-success-600"
             >
               Success
             </button>
             <button
               type="button"
-              className="px-4 py-2 bg-error-500 text-white rounded-lg hover:bg-error-600 transition-colors"
+              className="rounded-lg bg-error-500 px-4 py-2 text-white transition-colors hover:bg-error-600"
             >
               Error
             </button>
@@ -272,30 +214,22 @@ export default function DesignSystemPage() {
 
         {/* Usage Guide */}
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">
-            Usage Guide
-          </h2>
+          <h2 className="mb-6 font-semibold text-2xl text-text-primary">Usage Guide</h2>
 
-          <div className="bg-surface-primary p-6 rounded-xl border border-border-primary">
-            <h3 className="text-lg font-medium text-text-primary mb-4">
-              Tailwind Classes
-            </h3>
+          <div className="rounded-xl border border-border-primary bg-surface-primary p-6">
+            <h3 className="mb-4 font-medium text-lg text-text-primary">Tailwind Classes</h3>
             <div className="space-y-2 font-mono text-sm">
               <p className="text-text-secondary">
-                <span className="text-primary-500">bg-primary-500</span> -
-                Primary color background
+                <span className="text-primary-500">bg-primary-500</span> - Primary color background
               </p>
               <p className="text-text-secondary">
-                <span className="text-primary-500">text-text-primary</span> -
-                Primary text color
+                <span className="text-primary-500">text-text-primary</span> - Primary text color
               </p>
               <p className="text-text-secondary">
-                <span className="text-primary-500">bg-surface-primary</span> -
-                Card background
+                <span className="text-primary-500">bg-surface-primary</span> - Card background
               </p>
               <p className="text-text-secondary">
-                <span className="text-primary-500">border-border-primary</span>{" "}
-                - Border color
+                <span className="text-primary-500">border-border-primary</span> - Border color
               </p>
               <p className="text-text-secondary">
                 <span className="text-primary-500">

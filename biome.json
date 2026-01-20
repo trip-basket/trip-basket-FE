@@ -39,7 +39,8 @@
       "correctness": {
         "noUnusedVariables": "error",
         "useExhaustiveDependencies": "error",
-        "useHookAtTopLevel": "error"
+        "useHookAtTopLevel": "error",
+        "noUndeclaredVariables": "error"
       },
       "style": {
         "useBlockStatements": "error",
@@ -47,20 +48,33 @@
         "useNamingConvention": {
           "level": "error",
           "options": { "strictCase": true }
+        },
+        "useImportType": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
         }
       },
       "suspicious": {
         "noExplicitAny": "warn",
         "noArrayIndexKey": "error",
-        "noDoubleEquals": "error"
+        "noDoubleEquals": "error",
+        "noConsole": "warn"
       },
       "a11y": {
         "useButtonType": "error",
         "noSvgWithoutTitle": "warn"
       },
+      "security": {
+        "noDangerouslySetInnerHtml": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "error"
+      },
       "nursery": {
         "useSortedClasses": {
-          "level": "warn",
+          "level": "error",
+          "fix": "safe",
           "options": {
             "functions": ["clsx", "cva", "twMerge", "cn"]
           }
