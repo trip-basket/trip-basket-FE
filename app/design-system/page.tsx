@@ -11,7 +11,7 @@ export default function DesignSystemPage() {
   };
 
   return (
-    <div className={`min-h-screen p-8 ${isDark ? "dark" : ""}`}>
+    <div className={`min-h-screen p-8`}>
       <div className="mx-auto max-w-5xl">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">

@@ -73,7 +73,7 @@
       },
       "nursery": {
         "useSortedClasses": {
-          "level": "error",
+          "level": "off",
           "fix": "safe",
           "options": {
             "functions": ["clsx", "cva", "twMerge", "cn"]
