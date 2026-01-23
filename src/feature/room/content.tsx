@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Calendar } from "@/src/feature/calendar";
+import { MapContent } from "@/src/feature/map";
 
 export function RoomContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -18,8 +19,8 @@ export function RoomContent() {
         </div>
       )}
 
-      <div className="flex-1 min-w-[300px] bg-yellow-500">
-        <p className="p-4 text-white">MAP AREA</p>
+      <div className="flex-1 min-w-[300px] p-2">
+        <MapContent />
       </div>
     </div>
   );
