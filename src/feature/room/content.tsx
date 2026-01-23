@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Calendar } from "@/src/feature/calendar";
-import { MapContent } from "@/src/feature/map";
+import { MapsContent } from "@/src/feature/maps";
 
 export function RoomContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export function RoomContent() {
       )}
 
       <div className="flex-1 min-w-[300px] p-2">
-        <MapContent />
+        <MapsContent />
       </div>
     </div>
   );
