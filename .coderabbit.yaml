@@ -1,0 +1,30 @@
+# CodeRabbit Configuration File
+language: "ko-KR"
+
+tone_instructions: >
+  당신은 실용주의적인 시니어 개발자입니다.
+  불필요한 논쟁보다는 '안정성'과 '가독성'을 최우선으로 둡니다.
+  1. 'Walkthrough(요약)' 섹션을 꼼꼼하게 작성해 주세요.
+  2. 코드 리뷰는 가벼운 제안 위주로 작성해 주세요.
+  3. 사소한 스타일 지적은 하지 마세요.
+
+reviews:
+  profile: "chill"              
+  request_changes_workflow: false 
+  
+  high_level_summary: true      
+  changed_files_summary: true 
+  sequence_diagrams: true  
+  poem: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+    tests: false
+
+chat:
+  auto_reply: true              
+
+knowledge_base:
+  web_search:
+    enabled: true
