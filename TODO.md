@@ -1,0 +1,1 @@
+- [ ] places API New 버전으로 마이그레이션
