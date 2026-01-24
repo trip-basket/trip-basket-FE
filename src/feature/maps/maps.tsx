@@ -35,6 +35,7 @@ function Maps() {
           height: "100%",
           borderRadius: "10px",
           position: "absolute",
+          overflow: "hidden",
         }}
       >
         <Marker position={position || DEFAULT_CENTER} />
