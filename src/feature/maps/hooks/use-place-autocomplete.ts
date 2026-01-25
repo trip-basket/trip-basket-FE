@@ -35,6 +35,9 @@ export function usePlaceAutocomplete(
     };
 
     autocomplete.addEventListener("gmp-select", handleSelect);
-    return () => autocomplete.removeEventListener("gmp-select", handleSelect);
+    return () => {
+      autocomplete.removeEventListener("gmp-select", handleSelect);
+      autocomplete.remove();
+    };
   }, [placesLib, containerRef]);
 }
