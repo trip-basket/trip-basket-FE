@@ -5,7 +5,13 @@ export function usePlaceAutocomplete(
   placesLib: google.maps.PlacesLibrary | null,
   onSelect: (place: google.maps.places.Place) => Promise<void>,
 ) {
-  const initialized = useRef(false);
+  const initialized = useRef<boolean>(false);
+
+  const onSelectRef = useRef<typeof onSelect>(onSelect);
+
+  useEffect(() => {
+    onSelectRef.current = onSelect;
+  }, [onSelect]);
 
   useEffect(() => {
     if (!placesLib || !containerRef.current || initialized.current) {
@@ -24,11 +30,11 @@ export function usePlaceAutocomplete(
     const handleSelect = async (event: any) => {
       const place = event.placePrediction?.toPlace();
       if (place) {
-        await onSelect(place);
+        await onSelectRef.current(place);
       }
     };
 
     autocomplete.addEventListener("gmp-select", handleSelect);
     return () => autocomplete.removeEventListener("gmp-select", handleSelect);
-  }, [placesLib, containerRef, onSelect]);
+  }, [placesLib, containerRef]);
 }
