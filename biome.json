@@ -90,7 +90,8 @@
       "semicolons": "always",
       "arrowParentheses": "always",
       "bracketSpacing": true
-    }
+    },
+    "globals": ["google"]
   },
   "assist": {
     "enabled": true,
