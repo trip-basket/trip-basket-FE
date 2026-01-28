@@ -1,0 +1,79 @@
+/**
+* [DEPRECATED - 2-layer 구조로 전환됨]
+*
+* 이 파일은 더 이상 사용되지 않습니다.
+* theme.css에서 primitives(design-tokens.css)를 직접 참조합니다.
+* 추후 복잡한 시맨틱 조합이 필요할 경우를 대비해 보존합니다.
+*
+* [기존 Design System Naming Rule]
+* --[Property]-[Context]-[Hierarchy]-[State]
+* 1. Property: bg, text, border 등 (기술적 구현 매체)
+* 2. Context: Interactive, Field 등 (맥락/범주, 기본 요소는 생략)
+* 3. Hierarchy: primary, secondary, tertiary (위계 단어 통일)
+* 4. State: hover, focus, error 등 (상태)
+*/
+
+/*
+:root {
+    -- Background --
+    --bg-primary: var(--gray-50);
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #ffffff;
+
+    -- Text --
+    --text-primary: var(--gray-900);
+    --text-secondary: var(--gray-600);
+    --text-tertiary: var(--gray-400);
+    --text-inverse: #ffffff;
+    --text-error: var(--error-500);
+    --text-success: var(--success-500);
+
+    -- Border --
+    --border-primary: var(--gray-200);
+    --border-secondary: var(--gray-300);
+
+    -- Interactive(Buttons, Links, etc.) --
+    --bg-interactive-primary: var(--brand-600);
+    --bg-interactive-primary-hover: var(--brand-700);
+    --text-interactive-primary: var(--text-inverse);
+    --border-interactive-primary: var(--brand-600);
+    --border-interactive-primary-hover: var(--brand-700);
+
+    -- Interactive - Destructive --
+    --bg-interactive-destructive: var(--error-600);
+    --bg-interactive-destructive-hover: var(--error-700);
+    --text-interactive-destructive: var(--text-inverse);
+    --border-interactive-destructive: var(--error-600);
+    --border-interactive-destructive-hover: var(--error-700);
+
+    -- Field(Inputs, Textareas, etc.) --
+    --bg-field-primary: var(--gray-100);
+    --bg-field-primary-focus: #ffffff;
+    --border-field-primary: var(--gray-300);
+    --border-field-primary-focus: var(--brand-500);
+    --border-field-primary-error: var(--error-500);
+    --text-field-primary: var(--gray-900);
+    --text-field-primary-placeholder: var(--gray-400);
+}
+
+.dark {
+  --bg-canvas: var(--gray-950);
+  --bg-surface: var(--gray-900);
+  --bg-overlay: var(--gray-800);
+  --bg-field: var(--gray-800);
+
+  --text-main: var(--gray-50);
+  --text-sub: var(--gray-400);
+  --text-muted: var(--gray-500);
+  --text-inverse: var(--gray-950);
+  --text-brand: var(--brand-400);
+
+  --border-primary: var(--gray-800);
+  --border-secondary: var(--gray-700);
+  --border-brand: var(--brand-400);
+
+  --bg-interactive-primary: var(--brand-500);
+  --bg-interactive-primary-hover: var(--brand-400);
+  --text-on-interactive: var(--gray-950);
+}
+*/
