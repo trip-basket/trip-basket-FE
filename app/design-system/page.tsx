@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/src/components/ui";
+import { Button, Text } from "@/src/components/ui";
 
 function PlusIcon() {
   return (
@@ -116,41 +116,76 @@ export default function DesignSystemPage() {
 
         {/* Typography Section */}
         <section className="mb-16">
-          <h2 className="mb-6 font-semibold text-2xl text-main">Typography</h2>
+          <Text variant="h2" className="mb-6">
+            Typography
+          </Text>
 
           <div className="space-y-4 rounded-xl border border-outline bg-surface p-6">
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">4xl</span>
-              <p className="font-bold text-4xl text-main">Display Text</p>
+              <Text variant="caption" color="muted" className="w-20">
+                display
+              </Text>
+              <Text variant="display">Display Text</Text>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">3xl</span>
-              <p className="font-semibold text-3xl text-main">Heading 1</p>
+              <Text variant="caption" color="muted" className="w-20">
+                h1
+              </Text>
+              <Text variant="h1">Heading 1</Text>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">2xl</span>
-              <p className="font-semibold text-2xl text-main">Heading 2</p>
+              <Text variant="caption" color="muted" className="w-20">
+                h2
+              </Text>
+              <Text variant="h2">Heading 2</Text>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">xl</span>
-              <p className="font-medium text-main text-xl">Heading 3</p>
+              <Text variant="caption" color="muted" className="w-20">
+                h3
+              </Text>
+              <Text variant="h3">Heading 3</Text>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">lg</span>
-              <p className="text-lg text-main">Large Text</p>
+              <Text variant="caption" color="muted" className="w-20">
+                h4
+              </Text>
+              <Text variant="h4">Heading 4</Text>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">base</span>
-              <p className="text-base text-main">Body Text</p>
+              <Text variant="caption" color="muted" className="w-20">
+                body
+              </Text>
+              <Text variant="body">Body Text</Text>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">sm</span>
-              <p className="text-sm text-sub">Small Text</p>
+              <Text variant="caption" color="muted" className="w-20">
+                small
+              </Text>
+              <Text variant="small" color="sub">
+                Small Text
+              </Text>
             </div>
             <div className="flex items-baseline gap-4">
-              <span className="w-16 text-muted text-xs">xs</span>
-              <p className="text-muted text-xs">Caption Text</p>
+              <Text variant="caption" color="muted" className="w-20">
+                caption
+              </Text>
+              <Text variant="caption" color="muted">
+                Caption Text
+              </Text>
             </div>
+          </div>
+
+          {/* Text Colors */}
+          <Text variant="h4" className="mb-4 mt-8">
+            Colors
+          </Text>
+          <div className="space-y-2 rounded-xl border border-outline bg-surface p-6">
+            <Text color="main">Main - Primary text color</Text>
+            <Text color="sub">Sub - Secondary text color</Text>
+            <Text color="muted">Muted - Tertiary text color</Text>
+            <Text color="error">Error - Error text color</Text>
+            <Text color="success">Success - Success text color</Text>
+            <Text color="action">Action - Action text color</Text>
           </div>
         </section>
 
