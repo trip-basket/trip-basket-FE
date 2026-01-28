@@ -27,6 +27,7 @@
 
   /* Success (Green) */
   --success-50: #f0fdf4;
+  --success-400: #4ade80;
   --success-500: #22c55e;
   --success-600: #16a34a;
 
@@ -37,27 +38,29 @@
 
   /* Error (Red) */
   --error-50: #fef2f2;
+  --error-100: #fee2e2;
+  --error-400: #f87171;
   --error-500: #ef4444;
   --error-600: #dc2626;
+  --error-700: #b91c1c;
 
   /* ----------------------------------------
      Typography Primitives
      ---------------------------------------- */
 
-  /* Font Sizes */
-  --text-xs: 0.75rem;      /* 12px */
-  --text-sm: 0.875rem;     /* 14px */
-  --text-base: 1rem;       /* 16px */
-  --text-lg: 1.125rem;     /* 18px */
-  --text-xl: 1.25rem;      /* 20px */
-  --text-2xl: 1.5rem;      /* 24px */
-  --text-3xl: 1.875rem;    /* 30px */
-  --text-4xl: 2.25rem;     /* 36px */
+   --text-xs: 0.8125rem;    /* 13px */
+   --text-sm: 0.9375rem;    /* 15px */
+   --text-base: 1.0625rem;  /* 17px */
+   --text-lg: 1.25rem;      /* 20px */
+   --text-xl: 1.375rem;     /* 22px */
+   --text-2xl: 1.625rem;    /* 26px */
+   --text-3xl: 2.125rem;    /* 34px */
+   --text-4xl: 2.625rem;    /* 42px */
 
-  /* Line Heights */
-  --leading-tight: 1.25;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.75;
+   /* Line Heights */
+   --leading-tight: 1.2;
+   --leading-normal: 1.6;
+   --leading-relaxed: 1.85;
 
   /* Font Weights */
   --font-normal: 400;

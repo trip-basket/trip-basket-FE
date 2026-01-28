@@ -3,8 +3,8 @@
 * --color-[Role]: 짧고 직관적인 별칭
 * on- 접두사: 배경색과의 대비(Relationship)가 필요한 콘텐츠(텍스트/아이콘)에 사용
 *
-* [2-layer 구조]
-* design-tokens.css (primitives) → theme.css (Tailwind 연결 + 다크모드)
+* [3-layer 구조]
+* design-tokens.css (primitives) → semantic-tokens.css (의미 + 다크모드) → theme.css (Tailwind 연결)
 */
 
 @theme inline {
@@ -12,7 +12,6 @@
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
 
-    /* Colors - Primitives */
     --color-gray-50: var(--gray-50);
     --color-gray-100: var(--gray-100);
     --color-gray-200: var(--gray-200);
@@ -38,6 +37,7 @@
     --color-brand-950: var(--brand-950);
 
     --color-success-50: var(--success-50);
+    --color-success-400: var(--success-400);
     --color-success-500: var(--success-500);
     --color-success-600: var(--success-600);
 
@@ -46,11 +46,15 @@
     --color-warning-600: var(--warning-600);
 
     --color-error-50: var(--error-50);
+    --color-error-100: var(--error-100);
+    --color-error-400: var(--error-400);
     --color-error-500: var(--error-500);
     --color-error-600: var(--error-600);
     --color-error-700: var(--error-700);
 
-    /* Spacing */
+    /* ============================================
+       Spacing
+       ============================================ */
     --spacing-0: var(--space-0);
     --spacing-1: var(--space-1);
     --spacing-2: var(--space-2);
@@ -63,14 +67,18 @@
     --spacing-12: var(--space-12);
     --spacing-16: var(--space-16);
 
-    /* Border Radius */
+    /* ============================================
+       Border Radius
+       ============================================ */
     --radius-sm: var(--radius-sm);
     --radius-md: var(--radius-md);
     --radius-lg: var(--radius-lg);
     --radius-xl: var(--radius-xl);
     --radius-full: var(--radius-full);
 
-    /* Font Sizes */
+    /* ============================================
+       Font Sizes
+       ============================================ */
     --font-size-xs: var(--text-xs);
     --font-size-sm: var(--text-sm);
     --font-size-base: var(--text-base);
@@ -81,88 +89,46 @@
     --font-size-4xl: var(--text-4xl);
 
     /* ============================================
-       Semantic Tokens (Light Mode - Default)
+       Semantic Colors
        ============================================ */
 
     /* Background */
-    --color-canvas: var(--gray-50);
-    --color-surface: #ffffff;
-    --color-elevated: #ffffff;
+    --color-canvas: var(--bg-primary);
+    --color-surface: var(--bg-secondary);
+    --color-elevated: var(--bg-tertiary);
 
     /* Text */
-    --color-main: var(--gray-900);
-    --color-sub: var(--gray-600);
-    --color-muted: var(--gray-400);
-    --color-inverse: #ffffff;
-    --color-error: var(--error-500);
-    --color-success: var(--success-500);
+    --color-main: var(--text-primary);
+    --color-sub: var(--text-secondary);
+    --color-muted: var(--text-tertiary);
+    --color-inverse: var(--text-inverse);
+    --color-error: var(--text-error);
+    --color-success: var(--text-success);
 
     /* Border */
-    --color-outline: var(--gray-200);
-    --color-outline-strong: var(--gray-300);
+    --color-outline: var(--border-primary);
+    --color-outline-strong: var(--border-secondary);
 
     /* Interactive (Buttons, Links, etc.) */
-    --color-action: var(--brand-600);
-    --color-action-hover: var(--brand-700);
-    --color-on-action: #ffffff;
-    --color-action-outline: var(--brand-600);
-    --color-action-outline-hover: var(--brand-700);
+    --color-action: var(--bg-interactive-primary);
+    --color-action-hover: var(--bg-interactive-primary-hover);
+    --color-on-action: var(--text-interactive-primary);
+    --color-action-outline: var(--border-interactive-primary);
+    --color-action-outline-hover: var(--border-interactive-primary-hover);
 
     /* Interactive - Destructive */
-    --color-action-danger: var(--error-600);
-    --color-action-danger-hover: var(--error-700);
-    --color-on-action-danger: #ffffff;
-    --color-action-danger-outline: var(--error-600);
-    --color-action-danger-outline-hover: var(--error-700);
+    --color-action-danger: var(--bg-interactive-destructive);
+    --color-action-danger-hover: var(--bg-interactive-destructive-hover);
+    --color-on-action-danger: var(--text-interactive-destructive);
+    --color-action-danger-outline: var(--border-interactive-destructive);
+    --color-action-danger-outline-hover: var(--border-interactive-destructive-hover);
 
     /* Field (Inputs, Textareas, etc.) */
-    --color-field: var(--gray-100);
-    --color-field-focus: #ffffff;
-    --color-field-outline: var(--gray-300);
-    --color-field-outline-focus: var(--brand-500);
-    --color-field-outline-error: var(--error-500);
-    --color-on-field: var(--gray-900);
-    --color-on-field-placeholder: var(--gray-400);
-}
-
-.dark {
-    /* Background */
-    --color-canvas: var(--gray-950);
-    --color-surface: var(--gray-900);
-    --color-elevated: var(--gray-800);
-
-    /* Text */
-    --color-main: var(--gray-50);
-    --color-sub: var(--gray-400);
-    --color-muted: var(--gray-500);
-    --color-inverse: var(--gray-950);
-    --color-error: var(--error-400);
-    --color-success: var(--success-400);
-
-    /* Border */
-    --color-outline: var(--gray-800);
-    --color-outline-strong: var(--gray-700);
-
-    /* Interactive (Buttons, Links, etc.) */
-    --color-action: var(--brand-500);
-    --color-action-hover: var(--brand-400);
-    --color-on-action: var(--gray-950);
-    --color-action-outline: var(--brand-500);
-    --color-action-outline-hover: var(--brand-400);
-
-    /* Interactive - Destructive */
-    --color-action-danger: var(--error-500);
-    --color-action-danger-hover: var(--error-400);
-    --color-on-action-danger: var(--gray-950);
-    --color-action-danger-outline: var(--error-500);
-    --color-action-danger-outline-hover: var(--error-400);
-
-    /* Field (Inputs, Textareas, etc.) */
-    --color-field: var(--gray-800);
-    --color-field-focus: var(--gray-900);
-    --color-field-outline: var(--gray-700);
-    --color-field-outline-focus: var(--brand-400);
-    --color-field-outline-error: var(--error-400);
-    --color-on-field: var(--gray-50);
-    --color-on-field-placeholder: var(--gray-500);
+    --color-field: var(--bg-field-primary);
+    --color-field-focus: var(--bg-field-primary-focus);
+    --color-field-outline: var(--border-field-primary);
+    --color-field-outline-focus: var(--border-field-primary-focus);
+    --color-field-outline-error: var(--border-field-primary-error);
+    --color-on-field: var(--text-field-primary);
+    --color-on-field-placeholder: var(--text-field-primary-placeholder);
 }

@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @import './design-tokens.css';
-/* @import './semantic-tokens.css'; -- 2-layer 구조로 전환, 필요시 복원 */
+@import './semantic-tokens.css';
 @import './theme.css';
 
 html,
