@@ -3,6 +3,34 @@
 import { useState } from "react";
 import { Button } from "@/src/components/ui";
 
+function PlusIcon() {
+  return (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+    </svg>
+  );
+}
+
+function TrashIcon() {
+  return (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+      />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  );
+}
+
 export default function DesignSystemPage() {
   const [isDark, setIsDark] = useState(false);
 
@@ -12,7 +40,7 @@ export default function DesignSystemPage() {
   };
 
   return (
-    <div className="min-h-screen bg-canvas p-8">
+    <div className="flex-1 bg-canvas p-8">
       <div className="mx-auto max-w-5xl">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
@@ -181,14 +209,115 @@ export default function DesignSystemPage() {
           </div>
         </section>
 
-        {/* Buttons Example */}
+        {/* Buttons Section */}
         <section className="mb-16">
-          <h2 className="mb-6 font-semibold text-2xl text-main">Interactive Examples</h2>
+          <h2 className="mb-6 font-semibold text-2xl text-main">Buttons</h2>
 
-          <div className="flex flex-wrap gap-4">
-            <Button size="sm" color="primary">
-              Primary Button
-            </Button>
+          {/* Variants */}
+          <div className="mb-8">
+            <h3 className="mb-4 font-medium text-lg text-sub">Variants</h3>
+            <div className="space-y-4 rounded-xl border border-outline bg-surface p-6">
+              {/* Primary */}
+              <div>
+                <p className="mb-3 text-sm text-muted">Primary</p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button variant="solid" color="primary">
+                    Solid
+                  </Button>
+                  <Button variant="outline" color="primary">
+                    Outline
+                  </Button>
+                  <Button variant="ghost" color="primary">
+                    Ghost
+                  </Button>
+                  <Button variant="link" color="primary" href="/">
+                    Link
+                  </Button>
+                </div>
+              </div>
+
+              {/* Danger */}
+              <div>
+                <p className="mb-3 text-sm text-muted">Danger</p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button variant="solid" color="danger">
+                    Solid
+                  </Button>
+                  <Button variant="outline" color="danger">
+                    Outline
+                  </Button>
+                  <Button variant="ghost" color="danger">
+                    Ghost
+                  </Button>
+                  <Button variant="link" color="danger" href="/">
+                    Link
+                  </Button>
+                </div>
+              </div>
+
+              {/* Neutral */}
+              <div>
+                <p className="mb-3 text-sm text-muted">Neutral</p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button variant="solid" color="neutral">
+                    Solid
+                  </Button>
+                  <Button variant="outline" color="neutral">
+                    Outline
+                  </Button>
+                  <Button variant="ghost" color="neutral">
+                    Ghost
+                  </Button>
+                  <Button variant="link" color="neutral" href="/">
+                    Link
+                  </Button>
+                </div>
+              </div>
+
+              {/* Icon */}
+              <div>
+                <p className="mb-3 text-sm text-muted">Icon</p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button variant="icon" color="primary">
+                    <PlusIcon />
+                  </Button>
+                  <Button variant="icon" color="danger">
+                    <TrashIcon />
+                  </Button>
+                  <Button variant="icon" color="neutral">
+                    <MenuIcon />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sizes */}
+          <div className="mb-8">
+            <h3 className="mb-4 font-medium text-lg text-sub">Sizes</h3>
+            <div className="flex flex-wrap items-center gap-3 rounded-xl border border-outline bg-surface p-6">
+              <Button size="sm">Small</Button>
+              <Button size="md">Medium</Button>
+              <Button size="lg">Large</Button>
+            </div>
+          </div>
+
+          {/* States */}
+          <div className="mb-8">
+            <h3 className="mb-4 font-medium text-lg text-sub">States</h3>
+            <div className="flex flex-wrap items-center gap-3 rounded-xl border border-outline bg-surface p-6">
+              <Button>Default</Button>
+              <Button disabled>Disabled</Button>
+              <Button isLoading>Loading</Button>
+            </div>
+          </div>
+
+          {/* Full Width */}
+          <div>
+            <h3 className="mb-4 font-medium text-lg text-sub">Full Width</h3>
+            <div className="rounded-xl border border-outline bg-surface p-6">
+              <Button fullWidth>Full Width Button</Button>
+            </div>
           </div>
         </section>
 
