@@ -44,6 +44,7 @@ type InputProps = Omit<InputVariants, "error"> &
 export function Input({ label, error, className, id, ref, ...props }: InputProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
+  const errorId = `${inputId}-error`;
 
   const styles = useMemo(() => inputVariants({ error: Boolean(error) }), [error]);
 
@@ -54,8 +55,19 @@ export function Input({ label, error, className, id, ref, ...props }: InputProps
           {label}
         </label>
       )}
-      <input ref={ref} id={inputId} className={styles.input({ className })} {...props} />
-      {error && <span className={styles.errorText()}>{error}</span>}
+      <input
+        ref={ref}
+        id={inputId}
+        className={styles.input({ className })}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        {...props}
+      />
+      {error && (
+        <span id={errorId} role="alert" className={styles.errorText()}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }

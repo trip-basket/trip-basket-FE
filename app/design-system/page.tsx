@@ -341,13 +341,13 @@ export default function DesignSystemPage() {
               <div>
                 <p className="mb-3 text-sm text-muted">Icon</p>
                 <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="icon" color="primary">
+                  <Button variant="icon" color="primary" aria-label="Add item">
                     <PlusIcon />
                   </Button>
-                  <Button variant="icon" color="danger">
+                  <Button variant="icon" color="danger" aria-label="Delete item">
                     <TrashIcon />
                   </Button>
-                  <Button variant="icon" color="neutral">
+                  <Button variant="icon" color="neutral" aria-label="Open menu">
                     <MenuIcon />
                   </Button>
                 </div>
