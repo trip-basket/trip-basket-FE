@@ -1,0 +1,134 @@
+/**
+* [Theme Alias Rule]
+* --color-[Role]: 짧고 직관적인 별칭
+* on- 접두사: 배경색과의 대비(Relationship)가 필요한 콘텐츠(텍스트/아이콘)에 사용
+*
+* [3-layer 구조]
+* design-tokens.css (primitives) → semantic-tokens.css (의미 + 다크모드) → theme.css (Tailwind 연결)
+*/
+
+@theme inline {
+    /* Fonts */
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+
+    --color-gray-50: var(--gray-50);
+    --color-gray-100: var(--gray-100);
+    --color-gray-200: var(--gray-200);
+    --color-gray-300: var(--gray-300);
+    --color-gray-400: var(--gray-400);
+    --color-gray-500: var(--gray-500);
+    --color-gray-600: var(--gray-600);
+    --color-gray-700: var(--gray-700);
+    --color-gray-800: var(--gray-800);
+    --color-gray-900: var(--gray-900);
+    --color-gray-950: var(--gray-950);
+
+    --color-brand-50: var(--brand-50);
+    --color-brand-100: var(--brand-100);
+    --color-brand-200: var(--brand-200);
+    --color-brand-300: var(--brand-300);
+    --color-brand-400: var(--brand-400);
+    --color-brand-500: var(--brand-500);
+    --color-brand-600: var(--brand-600);
+    --color-brand-700: var(--brand-700);
+    --color-brand-800: var(--brand-800);
+    --color-brand-900: var(--brand-900);
+    --color-brand-950: var(--brand-950);
+
+    --color-success-50: var(--success-50);
+    --color-success-400: var(--success-400);
+    --color-success-500: var(--success-500);
+    --color-success-600: var(--success-600);
+
+    --color-warning-50: var(--warning-50);
+    --color-warning-500: var(--warning-500);
+    --color-warning-600: var(--warning-600);
+
+    --color-error-50: var(--error-50);
+    --color-error-100: var(--error-100);
+    --color-error-400: var(--error-400);
+    --color-error-500: var(--error-500);
+    --color-error-600: var(--error-600);
+    --color-error-700: var(--error-700);
+
+    /* ============================================
+       Spacing
+       ============================================ */
+    --spacing-0: var(--space-0);
+    --spacing-1: var(--space-1);
+    --spacing-2: var(--space-2);
+    --spacing-3: var(--space-3);
+    --spacing-4: var(--space-4);
+    --spacing-5: var(--space-5);
+    --spacing-6: var(--space-6);
+    --spacing-8: var(--space-8);
+    --spacing-10: var(--space-10);
+    --spacing-12: var(--space-12);
+    --spacing-16: var(--space-16);
+
+    /* ============================================
+       Border Radius
+       ============================================ */
+    --radius-sm: var(--radius-sm);
+    --radius-md: var(--radius-md);
+    --radius-lg: var(--radius-lg);
+    --radius-xl: var(--radius-xl);
+    --radius-full: var(--radius-full);
+
+    /* ============================================
+       Font Sizes
+       ============================================ */
+    --font-size-xs: var(--text-xs);
+    --font-size-sm: var(--text-sm);
+    --font-size-base: var(--text-base);
+    --font-size-lg: var(--text-lg);
+    --font-size-xl: var(--text-xl);
+    --font-size-2xl: var(--text-2xl);
+    --font-size-3xl: var(--text-3xl);
+    --font-size-4xl: var(--text-4xl);
+
+    /* ============================================
+       Semantic Colors
+       ============================================ */
+
+    /* Background */
+    --color-canvas: var(--bg-primary);
+    --color-surface: var(--bg-secondary);
+    --color-elevated: var(--bg-tertiary);
+
+    /* Text */
+    --color-main: var(--text-primary);
+    --color-sub: var(--text-secondary);
+    --color-muted: var(--text-tertiary);
+    --color-inverse: var(--text-inverse);
+    --color-error: var(--text-error);
+    --color-success: var(--text-success);
+
+    /* Border */
+    --color-outline: var(--border-primary);
+    --color-outline-strong: var(--border-secondary);
+
+    /* Interactive (Buttons, Links, etc.) */
+    --color-action: var(--bg-interactive-primary);
+    --color-action-hover: var(--bg-interactive-primary-hover);
+    --color-on-action: var(--text-interactive-primary);
+    --color-action-outline: var(--border-interactive-primary);
+    --color-action-outline-hover: var(--border-interactive-primary-hover);
+
+    /* Interactive - Destructive */
+    --color-action-danger: var(--bg-interactive-destructive);
+    --color-action-danger-hover: var(--bg-interactive-destructive-hover);
+    --color-on-action-danger: var(--text-interactive-destructive);
+    --color-action-danger-outline: var(--border-interactive-destructive);
+    --color-action-danger-outline-hover: var(--border-interactive-destructive-hover);
+
+    /* Field (Inputs, Textareas, etc.) */
+    --color-field: var(--bg-field-primary);
+    --color-field-focus: var(--bg-field-primary-focus);
+    --color-field-outline: var(--border-field-primary);
+    --color-field-outline-focus: var(--border-field-primary-focus);
+    --color-field-outline-error: var(--border-field-primary-error);
+    --color-on-field: var(--text-field-primary);
+    --color-on-field-placeholder: var(--text-field-primary-placeholder);
+}

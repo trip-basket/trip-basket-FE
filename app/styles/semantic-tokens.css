@@ -1,0 +1,92 @@
+/**
+* [Design System Naming Rule]
+* --[Property]-[Context]-[Hierarchy]-[State]
+* 1. Property: bg, text, border 등 (기술적 구현 매체)
+* 2. Context: Interactive, Field 등 (맥락/범주, 기본 요소는 생략)
+* 3. Hierarchy: primary, secondary, tertiary (위계 단어 통일)
+* 4. State: hover, focus, error 등 (상태)
+*/
+
+:root {
+    /* Background */
+    --bg-primary: var(--gray-50);
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #ffffff;
+
+    /* Text */
+    --text-primary: var(--gray-900);
+    --text-secondary: var(--gray-600);
+    --text-tertiary: var(--gray-400);
+    --text-inverse: #ffffff;
+    --text-error: var(--error-500);
+    --text-success: var(--success-500);
+
+    /* Border */
+    --border-primary: var(--gray-200);
+    --border-secondary: var(--gray-300);
+
+    /* Interactive (Buttons, Links, etc.) */
+    --bg-interactive-primary: var(--brand-600);
+    --bg-interactive-primary-hover: var(--brand-700);
+    --text-interactive-primary: #ffffff;
+    --border-interactive-primary: var(--brand-600);
+    --border-interactive-primary-hover: var(--brand-700);
+
+    /* Interactive - Destructive */
+    --bg-interactive-destructive: var(--error-600);
+    --bg-interactive-destructive-hover: var(--error-700);
+    --text-interactive-destructive: #ffffff;
+    --border-interactive-destructive: var(--error-600);
+    --border-interactive-destructive-hover: var(--error-700);
+
+    /* Field (Inputs, Textareas, etc.) */
+    --bg-field-primary: var(--gray-100);
+    --bg-field-primary-focus: #ffffff;
+    --border-field-primary: var(--gray-300);
+    --border-field-primary-focus: var(--brand-500);
+    --border-field-primary-error: var(--error-500);
+    --text-field-primary: var(--gray-900);
+    --text-field-primary-placeholder: var(--gray-400);
+}
+
+.dark {
+    /* Background */
+    --bg-primary: var(--gray-950);
+    --bg-secondary: var(--gray-900);
+    --bg-tertiary: var(--gray-800);
+
+    /* Text */
+    --text-primary: var(--gray-50);
+    --text-secondary: var(--gray-400);
+    --text-tertiary: var(--gray-500);
+    --text-inverse: var(--gray-950);
+    --text-error: var(--error-400);
+    --text-success: var(--success-400);
+
+    /* Border */
+    --border-primary: var(--gray-800);
+    --border-secondary: var(--gray-700);
+
+    /* Interactive (Buttons, Links, etc.) */
+    --bg-interactive-primary: var(--brand-500);
+    --bg-interactive-primary-hover: var(--brand-400);
+    --text-interactive-primary: var(--gray-950);
+    --border-interactive-primary: var(--brand-500);
+    --border-interactive-primary-hover: var(--brand-400);
+
+    /* Interactive - Destructive */
+    --bg-interactive-destructive: var(--error-500);
+    --bg-interactive-destructive-hover: var(--error-400);
+    --text-interactive-destructive: var(--gray-950);
+    --border-interactive-destructive: var(--error-500);
+    --border-interactive-destructive-hover: var(--error-400);
+
+    /* Field (Inputs, Textareas, etc.) */
+    --bg-field-primary: var(--gray-800);
+    --bg-field-primary-focus: var(--gray-900);
+    --border-field-primary: var(--gray-700);
+    --border-field-primary-focus: var(--brand-400);
+    --border-field-primary-error: var(--error-400);
+    --text-field-primary: var(--gray-50);
+    --text-field-primary-placeholder: var(--gray-500);
+}

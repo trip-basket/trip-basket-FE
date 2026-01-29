@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@import './design-tokens.css';
+@import './semantic-tokens.css';
+@import './theme.css';
+
+html,
+body {
+   height: 100%;
+   margin: 0;
+   padding: 0;
+}
