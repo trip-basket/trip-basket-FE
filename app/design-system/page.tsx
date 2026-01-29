@@ -1,7 +1,22 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { Button, Text } from "@/src/components/ui";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button, ControlledInput, Input, Text } from "@/src/components/ui";
+
+const controlledSchema = z.object({
+  email: z.email("Invalid email address"),
+});
+
+const uncontrolledSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.email("Invalid email address"),
+});
+
+type ControlledFormValues = z.infer<typeof controlledSchema>;
+type UncontrolledFormValues = z.infer<typeof uncontrolledSchema>;
 
 function PlusIcon() {
   return (
@@ -33,6 +48,19 @@ function MenuIcon() {
 
 export default function DesignSystemPage() {
   const [isDark, setIsDark] = useState(false);
+  const { control } = useForm<ControlledFormValues>({
+    defaultValues: { email: "" },
+    mode: "onChange",
+    resolver: zodResolver(controlledSchema),
+  });
+
+  const {
+    register,
+    formState: { errors },
+  } = useForm<UncontrolledFormValues>({
+    mode: "onChange",
+    resolver: zodResolver(uncontrolledSchema),
+  });
 
   const toggleDarkMode = () => {
     setIsDark(!isDark);
@@ -352,6 +380,91 @@ export default function DesignSystemPage() {
             <h3 className="mb-4 font-medium text-lg text-sub">Full Width</h3>
             <div className="rounded-xl border border-outline bg-surface p-6">
               <Button fullWidth>Full Width Button</Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Inputs Section */}
+        <section className="mb-16">
+          <h2 className="mb-6 font-semibold text-2xl text-main">Inputs</h2>
+
+          {/* Basic */}
+          <div className="mb-8">
+            <h3 className="mb-4 font-medium text-lg text-sub">Basic</h3>
+            <div className="max-w-md space-y-4 rounded-xl border border-outline bg-surface p-6">
+              <Input placeholder="Placeholder text" />
+              <Input label="With Label" placeholder="Enter your name" />
+              <Input label="With Value" defaultValue="Hello World" />
+            </div>
+          </div>
+
+          {/* States */}
+          <div className="mb-8">
+            <h3 className="mb-4 font-medium text-lg text-sub">States</h3>
+            <div className="max-w-md space-y-4 rounded-xl border border-outline bg-surface p-6">
+              <Input label="Default" placeholder="Default state" />
+              <Input label="Disabled" placeholder="Disabled state" disabled />
+              <Input label="With Error" placeholder="Error state" error="This field is required" />
+            </div>
+          </div>
+
+          {/* Types */}
+          <div className="mb-8">
+            <h3 className="mb-4 font-medium text-lg text-sub">Types</h3>
+            <div className="max-w-md space-y-4 rounded-xl border border-outline bg-surface p-6">
+              <Input
+                label="Text"
+                type="text"
+                placeholder="Text input"
+                required
+                minLength={2}
+                maxLength={50}
+              />
+              <Input label="Email" type="email" placeholder="email@example.com" required />
+              <Input
+                label="Password"
+                type="password"
+                placeholder="Enter password"
+                required
+                minLength={8}
+              />
+              <Input label="Number" type="number" placeholder="0" required min={0} max={100} />
+            </div>
+          </div>
+
+          {/* Controlled */}
+          <div className="mb-8">
+            <h3 className="mb-4 font-medium text-lg text-sub">Controlled (react-hook-form)</h3>
+            <div className="max-w-md space-y-4 rounded-xl border border-outline bg-surface p-6">
+              <ControlledInput
+                control={control}
+                name="email"
+                label="Email"
+                type="email"
+                placeholder="email@example.com"
+              />
+            </div>
+          </div>
+
+          {/* Uncontrolled with Validation */}
+          <div>
+            <h3 className="mb-4 font-medium text-lg text-sub">
+              Uncontrolled with Validation (register)
+            </h3>
+            <div className="max-w-md space-y-4 rounded-xl border border-outline bg-surface p-6">
+              <Input
+                label="Name"
+                placeholder="Enter your name"
+                error={errors.name?.message}
+                {...register("name")}
+              />
+              <Input
+                label="Email"
+                type="email"
+                placeholder="email@example.com"
+                error={errors.email?.message}
+                {...register("email")}
+              />
             </div>
           </div>
         </section>
