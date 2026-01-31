@@ -8,8 +8,8 @@ export function RoomContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-1 flex-row">
-      <div className="flex basis-3/5 shrink-0 min-w-[500px] flex-col bg-green-500">
+    <div className="flex flex-1 min-h-0 flex-row p-2 gap-2 overflow-hidden">
+      <div className="flex basis-3/5 shrink-0 min-w-[500px] min-h-0 flex-col overflow-hidden">
         <Calendar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       </div>
 
@@ -19,7 +19,7 @@ export function RoomContent() {
         </div>
       )}
 
-      <div className="flex-1 min-w-[300px] p-2">
+      <div className="flex-1 min-w-[300px]">
         <Maps />
       </div>
     </div>
