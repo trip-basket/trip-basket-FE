@@ -3,17 +3,11 @@
 import { CalendarHeader, DayHeader, TimeColumn, TimeGrid } from "./components";
 import { DAY_COL_MIN_W, MOCK_DAYS, TIME_COL_W } from "./constants";
 
-export function Calendar({
-  isSidebarOpen,
-  setIsSidebarOpen,
-}: {
-  isSidebarOpen: boolean;
-  setIsSidebarOpen: (isSidebarOpen: boolean) => void;
-}) {
+export function Calendar() {
   const gridWidth = MOCK_DAYS.length * DAY_COL_MIN_W;
 
   return (
-    <div className="flex flex-1 min-h-0 flex-row bg-canvas p-2 gap-2">
+    <div className="flex flex-1 min-h-0 flex-row bg-canvas p-2 gap-2 rounded-l-xl">
       <div className="flex flex-1 flex-col overflow-hidden rounded-xl gap-2">
         <CalendarHeader />
 

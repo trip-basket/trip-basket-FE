@@ -9,7 +9,7 @@
 
 :root {
     /* Background */
-    --bg-primary: var(--gray-50);
+    --bg-primary: var(--gray-100);
     --bg-secondary: #ffffff;
     --bg-tertiary: #ffffff;
 
