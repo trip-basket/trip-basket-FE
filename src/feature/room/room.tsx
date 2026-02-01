@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/src/components/ui";
+import { Text } from "@/src/components/ui";
 import { Calendar } from "@/src/feature/calendar";
 import { Maps } from "@/src/feature/maps";
+import { DAY_COL_MIN_W, MOCK_EVENTS } from "../calendar/constants";
 
 export function RoomContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -15,15 +16,26 @@ export function RoomContent() {
       </div>
 
       {isSidebarOpen && (
-        <div className="w-[200px] shrink-0 bg-blue-500">
-          <p className="p-4">SIDE BAR</p>
+        <div className="flex flex-col shrink-0 py-grid-gap pl-grid-gap bg-canvas">
+          <div className="flex flex-col rounded-xl bg-surface p-grid-gap gap-grid-gap h-full">
+            {MOCK_EVENTS.map((event) => (
+              <div
+                key={event.id}
+                className="shrink-0 cursor-pointer rounded-md bg-canvas shadow-sm transition-shadow hover:shadow-md"
+                style={{ width: DAY_COL_MIN_W }}
+              >
+                <Text variant="body">{event.title}</Text>
+                <Text variant="small">{event.time}</Text>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
       <button
         type="button"
         onClick={() => setIsSidebarOpen((prev: boolean) => !prev)}
-        className={`flex items-center justify-center h-full bg-canvas pointer-cursor rounded-r-xl pr-[4px] ${isSidebarOpen ? "pl-[7px]" : ""}`}
+        className="flex items-center justify-center h-full bg-canvas pointer-cursor rounded-r-xl px-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

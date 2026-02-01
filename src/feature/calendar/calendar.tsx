@@ -7,8 +7,8 @@ export function Calendar() {
   const gridWidth = MOCK_DAYS.length * DAY_COL_MIN_W;
 
   return (
-    <div className="flex flex-1 min-h-0 flex-row bg-canvas p-2 gap-2 rounded-l-xl">
-      <div className="flex flex-1 flex-col overflow-hidden rounded-xl gap-2">
+    <div className="flex flex-1 min-h-0 flex-row bg-canvas py-grid-gap pl-grid-gap rounded-l-xl">
+      <div className="flex flex-1 flex-col overflow-hidden rounded-xl gap-grid-gap">
         <CalendarHeader />
 
         {/* ── 캘린더 (가로+세로 내부 스크롤) ── */}

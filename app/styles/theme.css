@@ -134,4 +134,7 @@
 
     /* Grid */
     --color-grid-line: color-mix(in srgb, var(--border-primary) 50%, transparent);
+
+    /* Spacing */
+    --spacing-grid-gap: var(--space-2);
 }
