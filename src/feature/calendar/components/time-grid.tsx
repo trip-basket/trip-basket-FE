@@ -3,6 +3,7 @@ import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS, MOCK_DAYS, MOCK_EVENTS } from "../co
 
 export function TimeGrid() {
   const gridHeight = HOURS.length * HOUR_HEIGHT;
+  const startHour = HOURS[0];
 
   return (
     <div className="relative flex" style={{ height: gridHeight }}>
@@ -11,7 +12,7 @@ export function TimeGrid() {
         <div
           key={`line-${hour}`}
           className="pointer-events-none absolute inset-x-0 border-b border-grid-line"
-          style={{ top: (hour - 7) * HOUR_HEIGHT }}
+          style={{ top: (hour - startHour) * HOUR_HEIGHT }}
         />
       ))}
 
@@ -27,7 +28,7 @@ export function TimeGrid() {
               key={event.id}
               className="absolute inset-x-0 cursor-pointer rounded-md rounded-tr-none bg-canvas p-2 shadow-sm transition-shadow hover:shadow-md"
               style={{
-                top: (event.startHour - 7) * HOUR_HEIGHT,
+                top: (event.startHour - startHour) * HOUR_HEIGHT,
                 height: event.duration * HOUR_HEIGHT - 10,
               }}
             >
