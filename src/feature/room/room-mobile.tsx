@@ -12,11 +12,10 @@ export function RoomMobile() {
   return (
     <>
       <div className="flex flex-1 min-h-0 flex-col p-grid-gap overflow-y-auto">
-        <div className="flex shrink-0 min-h-0 flex-col overflow-hidden">
+        <div className="flex shrink-0 flex-col bg-canvas rounded-xl p-grid-gap gap-grid-gap">
           <Calendar />
+          <BlockBucket />
         </div>
-
-        <BlockBucket direction="horizontal" />
       </div>
 
       {/* 지도 열기 버튼 (화면 하단 중앙 고정) */}
