@@ -1,10 +1,27 @@
 import { Text } from "@/src/components/ui";
 import { DAY_COL_MIN_W, MOCK_EVENTS } from "../constants";
 
-export function BlockBucket() {
+const LAYOUT = {
+  horizontal: {
+    outer: "flex flex-row shrink-0 py-grid-gap px-grid-gap bg-canvas",
+    inner: "flex flex-row rounded-xl bg-surface p-grid-gap gap-grid-gap h-full min-h-0 overflow-x-auto",
+  },
+  vertical: {
+    outer: "flex flex-col shrink-0 py-grid-gap pl-grid-gap bg-canvas",
+    inner: "flex flex-col rounded-xl bg-surface p-grid-gap gap-grid-gap h-full min-h-0 overflow-y-auto",
+  },
+} as const;
+
+interface BlockBucketProps {
+  direction?: keyof typeof LAYOUT;
+}
+
+export function BlockBucket({ direction = "vertical" }: BlockBucketProps) {
+  const styles = LAYOUT[direction];
+
   return (
-    <div className="flex flex-row lg:flex-col shrink-0 pt-grid-gap lg:py-grid-gap pb-grid-gap lg:pl-grid-gap bg-canvas px-grid-gap lg:px-0">
-      <div className="flex flex-row lg:flex-col rounded-xl bg-surface p-grid-gap gap-grid-gap h-full min-h-0 overflow-x-auto lg:overflow-x-hidden lg:overflow-y-auto">
+    <div className={styles.outer}>
+      <div className={styles.inner}>
         {MOCK_EVENTS.map((event) => (
           <div
             key={event.id}
