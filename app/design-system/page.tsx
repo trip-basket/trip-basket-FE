@@ -68,7 +68,7 @@ export default function DesignSystemPage() {
   };
 
   return (
-    <div className="flex-1 bg-canvas p-8">
+    <div className="flex-1 overflow-y-auto bg-canvas p-8">
       <div className="mx-auto max-w-5xl">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">

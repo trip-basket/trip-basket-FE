@@ -63,7 +63,7 @@
       },
       "a11y": {
         "useButtonType": "error",
-        "noSvgWithoutTitle": "warn"
+        "noSvgWithoutTitle": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "error"

@@ -131,4 +131,10 @@
     --color-field-outline-error: var(--border-field-primary-error);
     --color-on-field: var(--text-field-primary);
     --color-on-field-placeholder: var(--text-field-primary-placeholder);
+
+    /* Grid */
+    --color-grid-line: color-mix(in srgb, var(--border-primary) 50%, transparent);
+
+    /* Spacing */
+    --spacing-grid-gap: var(--space-2);
 }
