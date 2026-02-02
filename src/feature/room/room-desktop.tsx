@@ -10,7 +10,7 @@ export function RoomDesktop() {
 
   return (
     <div className="flex flex-1 min-h-0 flex-row p-grid-gap overflow-hidden">
-      <div className="flex basis-3/5 shrink-0 min-w-[500px] min-h-0 flex-col overflow-hidden">
+      <div className="flex basis-3/6 shrink-0 min-w-[500px] min-h-0 flex-col overflow-hidden">
         <Calendar />
       </div>
 
