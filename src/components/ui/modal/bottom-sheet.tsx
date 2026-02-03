@@ -1,33 +1,42 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useStore } from "zustand";
+import type { ModalStore } from "./modal-store";
 
-const SHEET_HEIGHT = 90; // vh
 const CLOSE_THRESHOLD = 0.4;
 
 interface BottomSheetProps {
-  isOpen: boolean;
-  onClose: () => void;
+  modalRef: ModalStore;
   children: React.ReactNode;
 }
 
-export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
+export function BottomSheet({ modalRef, children }: BottomSheetProps) {
+  const { isOpen, close } = useStore(modalRef);
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
 
-  // double RAF pattern
   useEffect(() => {
     if (isOpen) {
       setMounted(true);
+
+      // Prevent scrolling on the body when modal is open
+      document.body.style.overflow = "hidden";
+
+      // double RAF pattern
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setVisible(true));
       });
     } else {
       setVisible(false);
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   const onTransitionEnd = () => {
@@ -43,6 +52,7 @@ export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
       setIsDragging(true);
 
       const startY = e.clientY;
+      const sheetHeight = sheetRef.current?.offsetHeight ?? 0;
 
       const onMove = (ev: PointerEvent) => {
         const delta = ev.clientY - startY;
@@ -54,11 +64,10 @@ export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
         el.removeEventListener("pointerup", onUp);
         setIsDragging(false);
 
-        const sheetHeight = window.innerHeight * (SHEET_HEIGHT / 100);
         const delta = ev.clientY - startY;
 
         if (delta > sheetHeight * CLOSE_THRESHOLD) {
-          onClose();
+          close();
         }
         setDragOffset(0);
       };
@@ -66,7 +75,7 @@ export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
       el.addEventListener("pointermove", onMove);
       el.addEventListener("pointerup", onUp);
     },
-    [onClose],
+    [close],
   );
 
   if (!mounted) {
@@ -75,29 +84,24 @@ export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
 
   return (
     <div className="fixed inset-0 z-50">
-      {/* 백드롭 */}
       <div
         role="presentation"
         aria-hidden="true"
         className="absolute inset-0 bg-black/30 transition-opacity duration-300 ease-out"
         style={{ opacity: visible ? 1 : 0 }}
-        onClick={onClose}
+        onClick={close}
       />
 
-      {/* 시트 */}
       <div
         ref={sheetRef}
         onTransitionEnd={onTransitionEnd}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="bottom-sheet-title"
-        className={`absolute bottom-0 inset-x-0 bg-white rounded-t-2xl flex flex-col ${isDragging ? "" : "transition-transform duration-300 ease-out"}`}
+        className={`absolute bottom-0 inset-x-0 max-h-[90vh] bg-white rounded-t-2xl flex flex-col ${isDragging ? "" : "transition-transform duration-300 ease-out"}`}
         style={{
-          height: `${SHEET_HEIGHT}vh`,
-          transform: visible ? `translateY(${dragOffset}px)` : `translateY(100%)`,
+          transform: visible ? `translateY(${dragOffset}px)` : "translateY(100%)",
         }}
       >
-        {/* 드래그 핸들 */}
         <div
           onPointerDown={onPointerDown}
           className="shrink-0 flex justify-center py-3 cursor-grab active:cursor-grabbing touch-none"
@@ -105,7 +109,6 @@ export function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
           <div className="w-10 h-1 rounded-full bg-gray-300" />
         </div>
 
-        {/* 콘텐츠 */}
         <div className="flex-1 min-h-0">{children}</div>
       </div>
     </div>
