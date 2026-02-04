@@ -1,5 +1,6 @@
 import { Text } from "@/src/components/ui";
-import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS, MOCK_DAYS, MOCK_EVENTS } from "../constants";
+import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS, MOCK_BLOCKS, MOCK_DAYS } from "../constants";
+import { type Block, formatBlockTime } from "../types/block";
 
 export function TimeGrid() {
   const gridHeight = HOURS.length * HOUR_HEIGHT;
@@ -23,17 +24,17 @@ export function TimeGrid() {
           className="relative flex-1 border-l border-grid-line"
           style={{ minWidth: DAY_COL_MIN_W, height: gridHeight }}
         >
-          {MOCK_EVENTS.filter((e) => e.dayIndex === dayIndex).map((event) => (
+          {MOCK_BLOCKS.filter((e) => e.dayIndex === dayIndex).map((event: Block) => (
             <div
               key={event.id}
               className="absolute inset-x-0 cursor-pointer rounded-md rounded-tr-none bg-canvas p-2 shadow-sm transition-shadow hover:shadow-md"
               style={{
                 top: (event.startHour - startHour) * HOUR_HEIGHT,
-                height: event.duration * HOUR_HEIGHT - 10,
+                height: (event.endHour - event.startHour) * HOUR_HEIGHT - 10,
               }}
             >
               <Text variant="body">{event.title}</Text>
-              <Text variant="small">{event.time}</Text>
+              <Text variant="small">{formatBlockTime(event)}</Text>
             </div>
           ))}
         </div>
