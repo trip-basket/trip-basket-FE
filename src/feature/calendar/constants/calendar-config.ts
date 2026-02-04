@@ -12,6 +12,13 @@ export const MOCK_DAYS = [
   { dayOfWeek: "금", date: 20 },
   { dayOfWeek: "토", date: 21 },
   { dayOfWeek: "일", date: 22 },
+  { dayOfWeek: "월", date: 23 },
+  { dayOfWeek: "화", date: 24 },
+  { dayOfWeek: "수", date: 25 },
+  { dayOfWeek: "목", date: 26 },
+  { dayOfWeek: "금", date: 27 },
+  { dayOfWeek: "토", date: 28 },
+  { dayOfWeek: "일", date: 29 },
 ];
 
 export const MOCK_EVENTS = [

@@ -1,23 +1,29 @@
 "use client";
 
-import { useState } from "react";
 import { Calendar } from "@/src/feature/calendar";
-import { BlockBucket, SidebarToggle } from "@/src/feature/calendar/components";
+import { BlockBucket } from "@/src/feature/calendar/components";
 import { Maps } from "@/src/feature/maps";
+import { Resizer } from "./components";
+import { useResizer } from "./hooks";
 
 export function RoomDesktop() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { containerRef, ratio, onPointerDown } = useResizer();
 
   return (
-    <div className="flex flex-1 min-h-0 flex-row p-grid-gap overflow-hidden">
-      <div className="flex basis-3/6 shrink-0 min-w-[500px] min-h-0 flex-col overflow-hidden">
+    <div ref={containerRef} className="flex flex-1 p-grid-gap overflow-hidden">
+      {/* 왼쪽: 캘린더 + Bucket */}
+      <div
+        className="flex flex-col bg-canvas rounded-xl p-grid-gap gap-grid-gap min-w-0 overflow-hidden"
+        style={{ width: `${ratio * 100}%` }}
+      >
         <Calendar />
+        <BlockBucket />
       </div>
 
-      {isSidebarOpen && <BlockBucket />}
-      <SidebarToggle onClick={() => setIsSidebarOpen((prev) => !prev)} />
+      <Resizer onPointerDown={onPointerDown} />
 
-      <div className="min-h-0 flex-1 min-w-[300px] ml-2">
+      {/* 오른쪽: 지도 */}
+      <div className="flex-1 min-w-0">
         <Maps />
       </div>
     </div>
