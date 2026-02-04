@@ -100,14 +100,14 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
         onTransitionEnd={onTransitionEnd}
         role="dialog"
         aria-modal="true"
-        className={`absolute bottom-0 inset-x-0 max-h-[90vh] bg-white rounded-t-2xl flex flex-col ${isDragging ? "" : "transition-transform duration-300 ease-out"}`}
+        className={`absolute bottom-0 inset-x-0 bg-white rounded-t-2xl flex flex-col ${isDragging ? "" : "transition-transform duration-300 ease-out"}`}
         style={{
           transform: visible ? `translateY(${dragOffset}px)` : "translateY(100%)",
         }}
       >
         <div
           onPointerDown={onPointerDown}
-          className="shrink-0 flex justify-center py-3 cursor-grab active:cursor-grabbing touch-none"
+          className="shrink-0 flex justify-center max-h-screen py-3 cursor-grab active:cursor-grabbing touch-none"
         >
           <div className="w-10 h-1 rounded-full bg-gray-300" />
         </div>
