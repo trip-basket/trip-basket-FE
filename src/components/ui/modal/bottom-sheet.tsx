@@ -19,27 +19,19 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
   const [isDragging, setIsDragging] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
 
-  const prevOverflow = useRef<string>("");
-
   useEffect(() => {
     if (isOpen) {
       setMounted(true);
-
-      // Prevent scrolling on the body when modal is open
-      prevOverflow.current = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
 
       // double RAF pattern
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setVisible(true));
       });
-    } else {
-      setVisible(false);
-      document.body.style.overflow = prevOverflow.current;
+
+      return;
     }
-    return () => {
-      document.body.style.overflow = prevOverflow.current;
-    };
+
+    setVisible(false);
   }, [isOpen]);
 
   const onTransitionEnd = () => {
@@ -112,7 +104,7 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
           <div className="w-10 h-1 rounded-full bg-gray-300" />
         </div>
 
-        <div className="flex-1 min-h-0">{children}</div>
+        <div className="flex-1 min-h-0 overscroll-contain">{children}</div>
       </div>
     </div>
   );
