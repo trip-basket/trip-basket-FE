@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { createModalStore, type ModalStore } from "./modal-store";
 
 export function useModal() {
-  const storeRef = useRef<ModalStore>(null);
+  const storeRef = useRef<ModalStore | null>(null);
 
   if (storeRef.current === null) {
     storeRef.current = createModalStore();
