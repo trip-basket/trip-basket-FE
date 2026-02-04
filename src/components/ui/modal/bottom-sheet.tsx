@@ -19,11 +19,14 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
   const [isDragging, setIsDragging] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
 
+  const prevOverflow = useRef<string>("");
+
   useEffect(() => {
     if (isOpen) {
       setMounted(true);
 
       // Prevent scrolling on the body when modal is open
+      prevOverflow.current = document.body.style.overflow;
       document.body.style.overflow = "hidden";
 
       // double RAF pattern
@@ -32,10 +35,10 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
       });
     } else {
       setVisible(false);
-      document.body.style.overflow = "";
+      document.body.style.overflow = prevOverflow.current;
     }
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = prevOverflow.current;
     };
   }, [isOpen]);
 
