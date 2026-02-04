@@ -49,26 +49,34 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
       const startY = e.clientY;
       const sheetHeight = sheetRef.current?.offsetHeight ?? 0;
 
+      const onClear = () => {
+        el.removeEventListener("pointermove", onMove);
+        el.removeEventListener("pointerup", onUp);
+        el.removeEventListener("pointercancel", onCancelled);
+        setIsDragging(false);
+        setDragOffset(0);
+      };
+
       const onMove = (ev: PointerEvent) => {
         const delta = ev.clientY - startY;
         setDragOffset(Math.max(0, delta));
       };
 
       const onUp = (ev: PointerEvent) => {
-        el.removeEventListener("pointermove", onMove);
-        el.removeEventListener("pointerup", onUp);
-        setIsDragging(false);
+        onClear();
 
         const delta = ev.clientY - startY;
 
         if (delta > sheetHeight * CLOSE_THRESHOLD) {
           close();
         }
-        setDragOffset(0);
       };
+
+      const onCancelled = () => onClear();
 
       el.addEventListener("pointermove", onMove);
       el.addEventListener("pointerup", onUp);
+      el.addEventListener("pointercancel", onCancelled);
     },
     [close],
   );
