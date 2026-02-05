@@ -25,8 +25,8 @@ export const MOCK_DAYS = [
 
 export const MOCK_BLOCKS: Block[] = [
   { id: "1", title: "히드로 공항 노숙", dayIndex: 0, startHour: 7, endHour: 10 },
-  { id: "2", title: "히드로 공항 노숙", dayIndex: 1, startHour: 7, endHour: 10 },
-  { id: "3", title: "히드로 공항 노숙", dayIndex: 0, startHour: 9, endHour: 11 },
+  // { id: "2", title: "히드로 공항 노숙", dayIndex: 1, startHour: 7, endHour: 10 },
+  // { id: "3", title: "히드로 공항 노숙", dayIndex: 0, startHour: 9, endHour: 11 },
   { id: "4", title: "대영박물관", dayIndex: 3, startHour: 10, endHour: 13 },
   { id: "5", title: "런던아이", dayIndex: 4, startHour: 14, endHour: 16 },
   { id: "6", title: "타워브릿지", dayIndex: 5, startHour: 9, endHour: 11 },
