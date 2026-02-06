@@ -2,7 +2,7 @@
 
 import { BottomSheet, Button, useModal } from "@/src/components/ui";
 import { Calendar } from "@/src/feature/calendar";
-import { BlockBucket } from "@/src/feature/calendar/components";
+import { Bucket } from "@/src/feature/calendar/components";
 import { Maps } from "@/src/feature/maps";
 
 export function RoomMobile() {
@@ -13,7 +13,7 @@ export function RoomMobile() {
       <div className="flex flex-1 min-h-0 flex-col p-grid-gap overflow-y-auto">
         <div className="flex shrink-0 flex-col bg-canvas rounded-xl p-grid-gap gap-grid-gap">
           <Calendar />
-          <BlockBucket />
+          <Bucket />
         </div>
       </div>
 

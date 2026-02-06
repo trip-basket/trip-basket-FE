@@ -1,7 +1,7 @@
 "use client";
 
 import { Calendar } from "@/src/feature/calendar";
-import { BlockBucket } from "@/src/feature/calendar/components";
+import { Bucket } from "@/src/feature/calendar/components";
 import { Maps } from "@/src/feature/maps";
 import { Resizer } from "./components";
 import { useResizer } from "./hooks";
@@ -17,7 +17,7 @@ export function RoomDesktop() {
         style={{ width: `${ratio * 100}%` }}
       >
         <Calendar />
-        <BlockBucket />
+        <Bucket />
       </div>
 
       <Resizer onPointerDown={onPointerDown} />
