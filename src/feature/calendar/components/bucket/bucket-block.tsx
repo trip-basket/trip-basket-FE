@@ -10,7 +10,7 @@ interface BucketBlockProps {
 }
 
 export function BucketBlock({ place }: BucketBlockProps) {
-  const { isDragging, elementStart, position, handlers } = useBucketDrag(place);
+  const { isDragging, position, handlers } = useBucketDrag(place);
 
   return (
     <>
@@ -19,8 +19,6 @@ export function BucketBlock({ place }: BucketBlockProps) {
           className="shrink-0 rounded-md bg-canvas p-2 opacity-50 shadow-sm"
           style={{
             width: DAY_COL_MIN_W,
-            left: elementStart.x,
-            top: elementStart.y,
             height: BUCKET_BLOCK_HEIGHT,
           }}
         >
