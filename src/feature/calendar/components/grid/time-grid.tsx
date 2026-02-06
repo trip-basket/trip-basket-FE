@@ -1,9 +1,7 @@
 import { useCallback } from "react";
-import { Text } from "@/src/components/ui";
-import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS, MOCK_DAYS } from "../constants";
-import useCalendarBlockStore from "../stores/use-calendar-block-store";
-import type { CalendarBlock } from "../types";
-import { formatBlockTime, getBlockAbsolutePosition } from "../utils";
+import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS, MOCK_DAYS } from "../../constants";
+import useCalendarBlockStore from "../../stores/use-calendar-block-store";
+import { GridBlock } from "./grid-block";
 
 export function TimeGrid() {
   const { calendarBlocks, setGridRef } = useCalendarBlockStore();
@@ -18,7 +16,11 @@ export function TimeGrid() {
   );
 
   return (
-    <div ref={refCallback} className="relative flex" style={{ height: gridHeight }}>
+    <div
+      ref={refCallback}
+      className="relative flex"
+      style={{ height: gridHeight }}
+    >
       {/* 가로 구분선 */}
       {HOURS.map((hour) => (
         <div
@@ -42,23 +44,6 @@ export function TimeGrid() {
             ))}
         </div>
       ))}
-    </div>
-  );
-}
-
-function GridBlock({ block }: { block: CalendarBlock }) {
-  const { top, height } = getBlockAbsolutePosition(block);
-
-  return (
-    <div
-      className="absolute inset-x-0 cursor-pointer rounded-md rounded-tr-none bg-canvas p-2 shadow-sm transition-shadow hover:shadow-md"
-      style={{
-        top,
-        height,
-      }}
-    >
-      <Text variant="body">{block.title}</Text>
-      <Text variant="small">{formatBlockTime(block)}</Text>
     </div>
   );
 }
