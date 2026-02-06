@@ -1,16 +1,10 @@
-import { HOUR_HEIGHT, MOCK_DAYS } from "../../constants";
-
-const GRID_START_HOUR = 7;
+import { HOUR_HEIGHT, HOURS, MOCK_DAYS } from "../../constants";
 
 export function isInsideRect(x: number, y: number, rect: DOMRect): boolean {
   return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
 }
 
-export function getDropPosition(
-  gridRef: HTMLDivElement,
-  clientX: number,
-  clientY: number,
-) {
+export function getDropPosition(gridRef: HTMLDivElement, clientX: number, clientY: number) {
   const scrollContainer = gridRef.closest(".overflow-auto");
   const containerRect = scrollContainer?.getBoundingClientRect();
 
@@ -27,8 +21,10 @@ export function getDropPosition(
   const relativeX = clientX - gridRect.left;
   const relativeY = clientY - gridRect.top;
   const columnWidth = gridRect.width / MOCK_DAYS.length;
-  const dayIndex = Math.floor(relativeX / columnWidth);
-  const hour = Math.floor(relativeY / HOUR_HEIGHT) + GRID_START_HOUR;
+
+  const dayIndex = Math.min(Math.floor(relativeX / columnWidth), MOCK_DAYS.length - 1);
+
+  const hour = Math.min(Math.floor(relativeY / HOUR_HEIGHT) + HOURS[0], HOURS[HOURS.length - 1]);
 
   return { dayIndex, hour };
 }
