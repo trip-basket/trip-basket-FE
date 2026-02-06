@@ -10,8 +10,7 @@ interface BucketBlockProps {
 }
 
 export function BucketBlock({ place }: BucketBlockProps) {
-  const { isDragging, elementStart, position, handlers } =
-    useBucketDrag(place);
+  const { isDragging, elementStart, position, handlers } = useBucketDrag(place);
 
   return (
     <>
