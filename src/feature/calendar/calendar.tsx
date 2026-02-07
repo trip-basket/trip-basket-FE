@@ -1,10 +1,12 @@
 "use client";
 
 import { CalendarHeader, DayHeader, TimeColumn, TimeGrid } from "./components";
-import { DAY_COL_MIN_W, MOCK_DAYS, TIME_COL_W } from "./constants";
+import { DAY_COL_MIN_W, TIME_COL_W } from "./constants";
+import useCalendarBlockStore from "./stores/use-calendar-block-store";
 
 export function Calendar() {
-  const gridWidth = MOCK_DAYS.length * DAY_COL_MIN_W;
+  const days = useCalendarBlockStore((state) => state.days);
+  const gridWidth = days.length * DAY_COL_MIN_W;
 
   return (
     <div className="flex flex-1 min-h-0 flex-col gap-grid-gap">

@@ -1,20 +1,27 @@
 import { create } from "zustand";
-import { MOCK_PLACES } from "../constants";
-import { type CalendarBlock, DEFAULT_BLOCK_DURATION, type Place } from "../types";
+import { MOCK_CALENDAR_BLOCKS, MOCK_DAYS, MOCK_PLACES } from "../mocks";
+import { type CalendarBlock, type Day, DEFAULT_BLOCK_DURATION, type Place } from "../types";
+
+const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
 interface CalendarBlockStore {
+  days: Day[];
   bucketBlocks: Place[];
   calendarBlocks: CalendarBlock[];
   gridRef: HTMLDivElement | null;
+  setDays: (days: Day[]) => void;
   setGridRef: (ref: HTMLDivElement | null) => void;
   moveToCalendar: (place: Place, dayIndex: number, startHour: number) => void;
+  moveInCalendar: (blockId: string, dayIndex: number, startHour: number) => void;
   moveToBucket: (block: CalendarBlock) => void;
 }
 
 const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
-  bucketBlocks: MOCK_PLACES,
-  calendarBlocks: [],
+  days: useMockData ? MOCK_DAYS : [],
+  bucketBlocks: useMockData ? MOCK_PLACES : [],
+  calendarBlocks: useMockData ? MOCK_CALENDAR_BLOCKS : [],
   gridRef: null,
+  setDays: (days) => set({ days }),
   setGridRef: (ref) => set({ gridRef: ref }),
   moveToCalendar: (place, dayIndex, startHour) =>
     set((state) => ({
@@ -28,6 +35,19 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
           endHour: startHour + DEFAULT_BLOCK_DURATION,
         },
       ],
+    })),
+  moveInCalendar: (blockId, dayIndex, startHour) =>
+    set((state) => ({
+      calendarBlocks: state.calendarBlocks.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              dayIndex,
+              startHour,
+              endHour: startHour + (block.endHour - block.startHour),
+            }
+          : block,
+      ),
     })),
   moveToBucket: (block) =>
     set((state) => ({
