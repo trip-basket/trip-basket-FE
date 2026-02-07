@@ -1,3 +1,9 @@
+/** 날짜 정보 */
+export interface Day {
+  dayOfWeek: string;
+  date: number;
+}
+
 /** 장소 기본 정보 (Bucket용) */
 export interface Place {
   id: string;

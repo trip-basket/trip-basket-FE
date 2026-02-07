@@ -1,10 +1,10 @@
 import { useCallback } from "react";
-import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS, MOCK_DAYS } from "../../constants";
+import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS } from "../../constants";
 import useCalendarBlockStore from "../../stores/use-calendar-block-store";
 import { GridBlock } from "./grid-block";
 
 export function TimeGrid() {
-  const { calendarBlocks, setGridRef } = useCalendarBlockStore();
+  const { days, calendarBlocks, setGridRef } = useCalendarBlockStore();
   const gridHeight = HOURS.length * HOUR_HEIGHT;
   const gridStartHour = HOURS[0];
 
@@ -31,7 +31,7 @@ export function TimeGrid() {
       ))}
 
       {/* 날짜 컬럼 */}
-      {MOCK_DAYS.map((day, dayIndex) => (
+      {days.map((day, dayIndex) => (
         <div
           key={day.date}
           className="relative flex-1 border-l border-grid-line"
