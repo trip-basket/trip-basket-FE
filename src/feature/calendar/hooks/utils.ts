@@ -8,6 +8,10 @@ export function isInsideRect(x: number, y: number, rect: DOMRect): boolean {
 export function getDropPosition(gridRef: HTMLDivElement, clientX: number, clientY: number) {
   const days = useCalendarBlockStore.getState().days;
 
+  if (days.length === 0) {
+    return null;
+  }
+
   const scrollContainer = gridRef.closest(".overflow-auto");
   const containerRect = scrollContainer?.getBoundingClientRect();
 
