@@ -1,4 +1,4 @@
-import { HOUR_HEIGHT, HOURS, MOCK_DAYS } from "../../constants";
+import { HOUR_HEIGHT, HOURS, MOCK_DAYS } from "../constants";
 
 export function isInsideRect(x: number, y: number, rect: DOMRect): boolean {
   return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;

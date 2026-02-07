@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MOCK_PLACES } from "../constants";
+import { MOCK_CALENDAR_BLOCKS, MOCK_PLACES } from "../constants";
 import { type CalendarBlock, DEFAULT_BLOCK_DURATION, type Place } from "../types";
 
 interface CalendarBlockStore {
@@ -8,12 +8,13 @@ interface CalendarBlockStore {
   gridRef: HTMLDivElement | null;
   setGridRef: (ref: HTMLDivElement | null) => void;
   moveToCalendar: (place: Place, dayIndex: number, startHour: number) => void;
+  moveInCalendar: (blockId: string, dayIndex: number, startHour: number) => void;
   moveToBucket: (block: CalendarBlock) => void;
 }
 
 const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
   bucketBlocks: MOCK_PLACES,
-  calendarBlocks: [],
+  calendarBlocks: MOCK_CALENDAR_BLOCKS,
   gridRef: null,
   setGridRef: (ref) => set({ gridRef: ref }),
   moveToCalendar: (place, dayIndex, startHour) =>
@@ -28,6 +29,19 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
           endHour: startHour + DEFAULT_BLOCK_DURATION,
         },
       ],
+    })),
+  moveInCalendar: (blockId, dayIndex, startHour) =>
+    set((state) => ({
+      calendarBlocks: state.calendarBlocks.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              dayIndex,
+              startHour,
+              endHour: startHour + (block.endHour - block.startHour),
+            }
+          : block,
+      ),
     })),
   moveToBucket: (block) =>
     set((state) => ({

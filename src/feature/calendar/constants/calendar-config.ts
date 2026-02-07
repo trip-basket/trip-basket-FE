@@ -1,4 +1,4 @@
-import type { Place } from "../types";
+import type { CalendarBlock, Place } from "../types";
 
 export const HOUR_HEIGHT = 72;
 export const TIME_COL_W = 56;
@@ -28,4 +28,11 @@ export const MOCK_PLACES: Place[] = [
   { id: "2", title: "대영박물관" },
   { id: "3", title: "런던아이" },
   { id: "4", title: "타워브릿지" },
+];
+
+export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
+  { id: "5", title: "버킹엄 궁전", dayIndex: 0, startHour: 9, endHour: 11 },
+  { id: "6", title: "웨스트민스터 사원", dayIndex: 0, startHour: 13, endHour: 15 },
+  { id: "7", title: "빅벤", dayIndex: 1, startHour: 10, endHour: 11.5 },
+  { id: "8", title: "세인트 폴 대성당", dayIndex: 2, startHour: 14, endHour: 16 },
 ];

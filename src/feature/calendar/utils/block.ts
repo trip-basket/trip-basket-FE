@@ -6,7 +6,7 @@ export function getBlockAbsolutePosition(block: CalendarBlock) {
 
   return {
     top: (block.startHour - gridStartHour) * HOUR_HEIGHT,
-    height: getBlockDuration(block) * HOUR_HEIGHT - 10,
+    height: getBlockDuration(block) * HOUR_HEIGHT,
   };
 }
 
