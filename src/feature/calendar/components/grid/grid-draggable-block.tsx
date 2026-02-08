@@ -11,7 +11,6 @@ export interface GridDraggableBlockProps {
   isDragging: boolean;
   position: { x: number; y: number };
   dragHandlers: React.ComponentProps<"div">;
-  onResize: (startHour: number, endHour: number) => void;
 }
 
 export function GridDraggableBlock({
@@ -21,7 +20,6 @@ export function GridDraggableBlock({
   isDragging,
   position,
   dragHandlers,
-  onResize,
 }: GridDraggableBlockProps) {
   const {
     currentTop,
@@ -31,7 +29,6 @@ export function GridDraggableBlock({
     block,
     top,
     height,
-    onResize,
   });
 
   const resizeHandleHeight = 10;

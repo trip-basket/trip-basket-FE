@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HOUR_HEIGHT, HOURS } from "../../constants";
+import useCalendarBlockStore from "../../stores/use-calendar-block-store";
 import type { CalendarBlock } from "../../types";
 
 const snapToHalfHour = (hour: number) => Math.round(hour * 2) / 2;
@@ -8,11 +9,12 @@ interface UseGridBlockResizeParams {
   block: CalendarBlock;
   top: number;
   height: number;
-  onResize: (startHour: number, endHour: number) => void;
 }
 
-export function useGridBlockResize({ block, top, height, onResize }: UseGridBlockResizeParams) {
+export function useGridBlockResize({ block, top, height }: UseGridBlockResizeParams) {
   const gridStartHour = HOURS[0];
+  const gridEndHour = HOURS[HOURS.length - 1];
+  const { resizeBlock } = useCalendarBlockStore();
 
   const [resizeHandle, setResizeHandle] = useState<"top" | "bottom" | null>(null);
   const [isResizing, setIsResizing] = useState(false);
@@ -44,7 +46,10 @@ export function useGridBlockResize({ block, top, height, onResize }: UseGridBloc
     const deltaHour = deltaY / HOUR_HEIGHT;
 
     if (resizeHandle === "top") {
-      const newStartHour = snapToHalfHour(block.startHour + deltaHour);
+      const newStartHour = Math.max(
+        gridStartHour,
+        Math.min(block.endHour - 0.5, snapToHalfHour(block.startHour + deltaHour)),
+      );
       const snappedTop = (newStartHour - gridStartHour) * HOUR_HEIGHT;
       const snappedHeight = (block.endHour - newStartHour) * HOUR_HEIGHT;
       setCurrentTop(snappedTop);
@@ -52,7 +57,10 @@ export function useGridBlockResize({ block, top, height, onResize }: UseGridBloc
       return;
     }
 
-    const newEndHour = snapToHalfHour(block.endHour + deltaHour);
+    const newEndHour = Math.max(
+      block.startHour + 0.5,
+      Math.min(gridEndHour, snapToHalfHour(block.endHour + deltaHour)),
+    );
     const snappedHeight = (newEndHour - block.startHour) * HOUR_HEIGHT;
     setCurrentHeight(snappedHeight);
   };
@@ -67,12 +75,11 @@ export function useGridBlockResize({ block, top, height, onResize }: UseGridBloc
       setCurrentTop(top);
       setCurrentHeight(height);
       e.currentTarget.releasePointerCapture(e.pointerId);
-
       setIsResizing(false);
       return;
     }
 
-    onResize(newStartHour, newEndHour);
+    resizeBlock(block.id, newStartHour, newEndHour);
 
     e.currentTarget.releasePointerCapture(e.pointerId);
     setIsResizing(false);

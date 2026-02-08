@@ -1,5 +1,4 @@
 import { Text } from "@/src/components/ui";
-import useCalendarBlockStore from "../../stores/use-calendar-block-store";
 import type { CalendarBlock } from "../../types";
 import { formatBlockTime, getBlockAbsolutePosition } from "../../utils";
 import { GridDraggableBlock } from "./grid-draggable-block";
@@ -12,11 +11,6 @@ interface GridBlockProps {
 export function GridBlock({ block }: GridBlockProps) {
   const { top, height } = getBlockAbsolutePosition(block);
   const { isDragging, position, handlers } = useGridBlockDrag(block);
-  const { resizeBlock } = useCalendarBlockStore();
-
-  const onResize = (startHour: number, endHour: number) => {
-    resizeBlock(block.id, startHour, endHour);
-  };
 
   return (
     <>
@@ -28,7 +22,6 @@ export function GridBlock({ block }: GridBlockProps) {
         isDragging={isDragging}
         position={position}
         dragHandlers={handlers}
-        onResize={onResize}
       />
     </>
   );
