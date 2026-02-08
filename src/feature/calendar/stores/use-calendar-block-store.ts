@@ -14,6 +14,7 @@ interface CalendarBlockStore {
   moveToCalendar: (place: Place, dayIndex: number, startHour: number) => void;
   moveInCalendar: (blockId: string, dayIndex: number, startHour: number) => void;
   moveToBucket: (block: CalendarBlock) => void;
+  resizeBlock: (blockId: string, startHour: number, endHour: number) => void;
 }
 
 const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
@@ -53,6 +54,14 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
     set((state) => ({
       calendarBlocks: state.calendarBlocks.filter((b) => b.id !== block.id),
       bucketBlocks: [...state.bucketBlocks, { id: block.id, title: block.title }],
+    })),
+  resizeBlock: (blockId, startHour, endHour) =>
+    set((state) => ({
+      calendarBlocks: state.calendarBlocks.map((block) =>
+        block.id === blockId
+          ? { ...block, startHour, endHour }
+          : block,
+      ),
     })),
 }));
 
