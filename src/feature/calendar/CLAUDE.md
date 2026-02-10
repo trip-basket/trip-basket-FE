@@ -74,3 +74,4 @@ useBlockDrag (공유 훅)
 ## TODO
 
 - [ ] 높이가 긴 일정을 옮길 때 화면을 넘치는 문제 (hooks/utils.ts)
+- [ ] 일정이 넘칠 때 클램핑?
