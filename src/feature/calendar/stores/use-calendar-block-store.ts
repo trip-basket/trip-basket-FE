@@ -1,10 +1,6 @@
 import { create } from "zustand";
-import { HOURS } from "../constants";
 import { MOCK_CALENDAR_BLOCKS, MOCK_DAYS, MOCK_PLACES } from "../mocks";
 import { type CalendarBlock, type Day, DEFAULT_BLOCK_DURATION, type Place } from "../types";
-
-const GRID_START_HOUR = HOURS[0];
-const GRID_END_HOUR = HOURS[HOURS.length - 1];
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
@@ -29,24 +25,18 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
   setDays: (days) => set({ days }),
   setGridRef: (ref) => set({ gridRef: ref }),
   moveToCalendar: (place, dayIndex, startHour) =>
-    set((state) => {
-      const clampedStart = Math.max(
-        GRID_START_HOUR,
-        Math.min(startHour, GRID_END_HOUR - DEFAULT_BLOCK_DURATION),
-      );
-      return {
-        bucketBlocks: state.bucketBlocks.filter((b) => b.id !== place.id),
-        calendarBlocks: [
-          ...state.calendarBlocks,
-          {
-            ...place,
-            dayIndex,
-            startHour: clampedStart,
-            endHour: clampedStart + DEFAULT_BLOCK_DURATION,
-          },
-        ],
-      };
-    }),
+    set((state) => ({
+      bucketBlocks: state.bucketBlocks.filter((b) => b.id !== place.id),
+      calendarBlocks: [
+        ...state.calendarBlocks,
+        {
+          ...place,
+          dayIndex,
+          startHour,
+          endHour: startHour + DEFAULT_BLOCK_DURATION,
+        },
+      ],
+    })),
   moveInCalendar: (blockId, dayIndex, startHour) =>
     set((state) => ({
       calendarBlocks: state.calendarBlocks.map((block) => {
@@ -54,15 +44,11 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
           return block;
         }
         const duration = block.endHour - block.startHour;
-        const clampedStart = Math.max(
-          GRID_START_HOUR,
-          Math.min(startHour, GRID_END_HOUR - duration),
-        );
         return {
           ...block,
           dayIndex,
-          startHour: clampedStart,
-          endHour: clampedStart + duration,
+          startHour,
+          endHour: startHour + duration,
         };
       }),
     })),
