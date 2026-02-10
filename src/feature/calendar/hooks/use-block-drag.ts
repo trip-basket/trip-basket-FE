@@ -41,7 +41,10 @@ export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void) {
   };
 
   const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    const dropPosition = gridRef ? getDropPosition(gridRef, e.clientX, e.clientY) : null;
+    const grabOffsetY = mouseStart.y - elementStart.y;
+    const dropPosition = gridRef
+      ? getDropPosition(gridRef, e.clientX, e.clientY, grabOffsetY)
+      : null;
 
     if (!dropPosition) {
       onPointerCancel(e);
