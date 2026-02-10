@@ -38,7 +38,7 @@ function getHour(relativeY: number, duration: number): number {
   return Math.max(gridStartHour, Math.min(rawHour, gridEndHour - duration));
 }
 
-// TODO: 높이가 긴 일정을 옮길 때 화면을 넘쳐
+// TODO: 높이가 긴 일정을 옮길 때 화면을 넘치는 문제
 
 export function getDropPosition(
   gridRef: HTMLDivElement,
