@@ -7,7 +7,7 @@ interface Position {
   y: number;
 }
 
-export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void) {
+export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, duration?: number) {
   const { gridRef } = useCalendarBlockStore();
 
   const [isDragging, setIsDragging] = useState(false);
@@ -41,7 +41,10 @@ export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void) {
   };
 
   const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    const dropPosition = gridRef ? getDropPosition(gridRef, e.clientX, e.clientY) : null;
+    const grabOffsetY = mouseStart.y - elementStart.y;
+    const dropPosition = gridRef
+      ? getDropPosition(gridRef, e.clientX, e.clientY, grabOffsetY, duration)
+      : null;
 
     if (!dropPosition) {
       onPointerCancel(e);

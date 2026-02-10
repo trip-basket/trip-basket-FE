@@ -14,6 +14,7 @@ interface CalendarBlockStore {
   moveToCalendar: (place: Place, dayIndex: number, startHour: number) => void;
   moveInCalendar: (blockId: string, dayIndex: number, startHour: number) => void;
   moveToBucket: (block: CalendarBlock) => void;
+  resizeBlock: (blockId: string, startHour: number, endHour: number) => void;
 }
 
 const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
@@ -38,21 +39,29 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
     })),
   moveInCalendar: (blockId, dayIndex, startHour) =>
     set((state) => ({
-      calendarBlocks: state.calendarBlocks.map((block) =>
-        block.id === blockId
-          ? {
-              ...block,
-              dayIndex,
-              startHour,
-              endHour: startHour + (block.endHour - block.startHour),
-            }
-          : block,
-      ),
+      calendarBlocks: state.calendarBlocks.map((block) => {
+        if (block.id !== blockId) {
+          return block;
+        }
+        const duration = block.endHour - block.startHour;
+        return {
+          ...block,
+          dayIndex,
+          startHour,
+          endHour: startHour + duration,
+        };
+      }),
     })),
   moveToBucket: (block) =>
     set((state) => ({
       calendarBlocks: state.calendarBlocks.filter((b) => b.id !== block.id),
       bucketBlocks: [...state.bucketBlocks, { id: block.id, title: block.title }],
+    })),
+  resizeBlock: (blockId, startHour, endHour) =>
+    set((state) => ({
+      calendarBlocks: state.calendarBlocks.map((block) =>
+        block.id === blockId ? { ...block, startHour, endHour } : block,
+      ),
     })),
 }));
 

@@ -25,8 +25,8 @@ export const MOCK_PLACES: Place[] = [
 ];
 
 export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
-  { id: "5", title: "버킹엄 궁전", dayIndex: 0, startHour: 9, endHour: 11 },
-  { id: "6", title: "웨스트민스터 사원", dayIndex: 0, startHour: 13, endHour: 15 },
+  // { id: "5", title: "버킹엄 궁전", dayIndex: 0, startHour: 9, endHour: 11 },
+  // { id: "6", title: "웨스트민스터 사원", dayIndex: 0, startHour: 13, endHour: 15 },
   { id: "7", title: "빅벤", dayIndex: 1, startHour: 10, endHour: 11.5 },
-  { id: "8", title: "세인트 폴 대성당", dayIndex: 2, startHour: 14, endHour: 16 },
+  // { id: "8", title: "세인트 폴 대성당", dayIndex: 2, startHour: 14, endHour: 16 },
 ];
