@@ -1,76 +1,82 @@
 import { useState } from "react";
 import useCalendarBlockStore from "../stores/use-calendar-block-store";
+import { useAutoScroll } from "./use-auto-scroll";
 import { getDropPosition } from "./utils";
 
 interface Position {
-  x: number;
-  y: number;
+	x: number;
+	y: number;
 }
 
 export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, duration?: number) {
-  const { gridRef } = useCalendarBlockStore();
+	const { gridRef } = useCalendarBlockStore();
+	const { updateScroll, stopScroll } = useAutoScroll(gridRef);
 
-  const [isDragging, setIsDragging] = useState(false);
-  const [elementStart, setElementStart] = useState<Position>({ x: 0, y: 0 });
-  const [mouseStart, setMouseStart] = useState<Position>({ x: 0, y: 0 });
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+	const [isDragging, setIsDragging] = useState(false);
+	const [elementStart, setElementStart] = useState<Position>({ x: 0, y: 0 });
+	const [mouseStart, setMouseStart] = useState<Position>({ x: 0, y: 0 });
+	const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
 
-  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    e.currentTarget.setPointerCapture(e.pointerId);
+	const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+		e.currentTarget.setPointerCapture(e.pointerId);
 
-    const rect = e.currentTarget.getBoundingClientRect();
-    setElementStart({ x: rect.left, y: rect.top });
-    setMouseStart({ x: e.clientX, y: e.clientY });
-    setPosition({ x: rect.left, y: rect.top });
+		const rect = e.currentTarget.getBoundingClientRect();
+		setElementStart({ x: rect.left, y: rect.top });
+		setMouseStart({ x: e.clientX, y: e.clientY });
+		setPosition({ x: rect.left, y: rect.top });
 
-    setIsDragging(true);
-  };
+		setIsDragging(true);
+	};
 
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging) {
-      return;
-    }
+	const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+		if (!isDragging) {
+			return;
+		}
 
-    const deltaX = e.clientX - mouseStart.x;
-    const deltaY = e.clientY - mouseStart.y;
+		const deltaX = e.clientX - mouseStart.x;
+		const deltaY = e.clientY - mouseStart.y;
 
-    setPosition({
-      x: elementStart.x + deltaX,
-      y: elementStart.y + deltaY,
-    });
-  };
+		updateScroll(e.clientX, e.clientY);
 
-  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    const grabOffsetY = mouseStart.y - elementStart.y;
-    const dropPosition = gridRef
-      ? getDropPosition(gridRef, e.clientX, e.clientY, grabOffsetY, duration)
-      : null;
+		setPosition({
+			x: elementStart.x + deltaX,
+			y: elementStart.y + deltaY,
+		});
+	};
 
-    if (!dropPosition) {
-      onPointerCancel(e);
-      setPosition({ x: elementStart.x, y: elementStart.y });
-      return;
-    }
+	const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+		const grabOffsetY = mouseStart.y - elementStart.y;
+		const dropPosition = gridRef
+			? getDropPosition(gridRef, e.clientX, e.clientY, grabOffsetY, duration)
+			: null;
 
-    onDrop(dropPosition.dayIndex, dropPosition.hour);
+		if (!dropPosition) {
+			onPointerCancel(e);
+			setPosition({ x: elementStart.x, y: elementStart.y });
+			return;
+		}
 
-    setIsDragging(false);
-    e.currentTarget.releasePointerCapture(e.pointerId);
-  };
+		onDrop(dropPosition.dayIndex, dropPosition.hour);
 
-  const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
-    setIsDragging(false);
-    e.currentTarget.releasePointerCapture(e.pointerId);
-  };
+		setIsDragging(false);
+		e.currentTarget.releasePointerCapture(e.pointerId);
+		stopScroll();
+	};
 
-  return {
-    isDragging,
-    position,
-    handlers: {
-      onPointerDown,
-      onPointerMove,
-      onPointerUp,
-      onPointerCancel,
-    },
-  };
+	const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+		setIsDragging(false);
+		e.currentTarget.releasePointerCapture(e.pointerId);
+		stopScroll();
+	};
+
+	return {
+		isDragging,
+		position,
+		handlers: {
+			onPointerDown,
+			onPointerMove,
+			onPointerUp,
+			onPointerCancel,
+		},
+	};
 }
