@@ -16,11 +16,7 @@ export function TimeGrid() {
   );
 
   return (
-    <div
-      ref={refCallback}
-      className="relative flex"
-      style={{ height: gridHeight }}
-    >
+    <div ref={refCallback} className="relative flex" style={{ height: gridHeight }}>
       {/* 가로 구분선 */}
       {HOURS.map((hour) => (
         <div
