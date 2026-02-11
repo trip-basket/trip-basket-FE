@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { HOTZONE_SIZE, SCROLL_SPEED_X, SCROLL_SPEED_Y } from "../constants";
 import useCalendarBlockStore from "../stores/use-calendar-block-store";
 import { getDropPosition } from "./utils";
 
@@ -7,11 +8,7 @@ interface Position {
   y: number;
 }
 
-// TODO
-// - 범위 상수 명확하게 변경
-
 type ScrollDirection = -1 | 0 | 1;
-const SCROLL_SPEED = 20;
 
 export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, duration?: number) {
   const { gridRef } = useCalendarBlockStore();
@@ -37,8 +34,8 @@ export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, d
 
     const { left, top } = isHotzoneScroll.current.direction;
     isHotzoneScroll.current.calendarViewportRef.scrollBy({
-      left: SCROLL_SPEED * left,
-      top: SCROLL_SPEED * top,
+      left: SCROLL_SPEED_X * left,
+      top: SCROLL_SPEED_Y * top,
     });
 
     rafId.current = requestAnimationFrame(() => {
@@ -77,8 +74,8 @@ export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, d
 
         // x, y 좌표가 캘린더 안에 있는지 검사
         if (x > 0 && y > 0 && x < calendarViewportRect.width && y < calendarViewportRect.height) {
-          const left: ScrollDirection = x < 100 ? -1 : x > calendarViewportRect.width - 100 ? 1 : 0;
-          const top: ScrollDirection = y < 100 ? -1 : y > calendarViewportRect.height - 100 ? 1 : 0;
+          const left: ScrollDirection = x < HOTZONE_SIZE ? -1 : x > calendarViewportRect.width - HOTZONE_SIZE ? 1 : 0;
+          const top: ScrollDirection = y < HOTZONE_SIZE ? -1 : y > calendarViewportRect.height - HOTZONE_SIZE ? 1 : 0;
 
           isHotzoneScroll.current.direction = { left, top };
 
