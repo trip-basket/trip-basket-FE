@@ -7,9 +7,11 @@ interface Position {
   y: number;
 }
 
-// TOOD
+// TODO
 // - 범위 상수 명확하게 변경
-// - 대각 스크롤
+
+type ScrollDirection = -1 | 0 | 1;
+const SCROLL_SPEED = 20;
 
 export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, duration?: number) {
   const { gridRef } = useCalendarBlockStore();
@@ -22,10 +24,10 @@ export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, d
   const rafId = useRef<number | null>(null);
   const isHotzoneScroll = useRef<{
     calendarViewportRef: Element | null;
-    direction: "left" | "right" | "top" | "bottom" | null;
+    direction: { left: ScrollDirection; top: ScrollDirection };
   }>({
     calendarViewportRef: null,
-    direction: null,
+    direction: { left: 0, top: 0 },
   });
 
   const scrollLoop = useCallback(() => {
@@ -33,19 +35,10 @@ export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, d
       return;
     }
 
+    const { left, top } = isHotzoneScroll.current.direction;
     isHotzoneScroll.current.calendarViewportRef.scrollBy({
-      left:
-        isHotzoneScroll.current.direction === "left"
-          ? -20
-          : isHotzoneScroll.current.direction === "right"
-            ? 20
-            : 0,
-      top:
-        isHotzoneScroll.current.direction === "top"
-          ? -20
-          : isHotzoneScroll.current.direction === "bottom"
-            ? 20
-            : 0,
+      left: SCROLL_SPEED * left,
+      top: SCROLL_SPEED * top,
     });
 
     rafId.current = requestAnimationFrame(() => {
@@ -84,36 +77,22 @@ export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, d
 
         // x, y 좌표가 캘린더 안에 있는지 검사
         if (x > 0 && y > 0 && x < calendarViewportRect.width && y < calendarViewportRect.height) {
-          let scrollable = false;
-          // 왼쪽
-          if (x < 100) {
-            isHotzoneScroll.current.direction = "left";
-            scrollable = true;
-          }
+          const left: ScrollDirection = x < 100 ? -1 : x > calendarViewportRect.width - 100 ? 1 : 0;
+          const top: ScrollDirection = y < 100 ? -1 : y > calendarViewportRect.height - 100 ? 1 : 0;
 
-          // 오른쪽
-          if (x > calendarViewportRect.width - 100) {
-            isHotzoneScroll.current.direction = "right";
-            scrollable = true;
-          }
+          isHotzoneScroll.current.direction = { left, top };
 
-          // 아래쪽
-          if (y > calendarViewportRect.height - 100) {
-            isHotzoneScroll.current.direction = "bottom";
-            scrollable = true;
-          }
-
-          // 위쪽
-          if (y < 100) {
-            isHotzoneScroll.current.direction = "top";
-            scrollable = true;
-          }
-
-          if (!scrollable) {
-            isHotzoneScroll.current.direction = null;
+          if (left === 0 && top === 0) {
+            // hot zone 밖 — 루프 정지
+            if (rafId.current) {
+              cancelAnimationFrame(rafId.current);
+              rafId.current = null;
+            }
           } else if (!rafId.current) {
             scrollLoop();
           }
+        } else {
+          // 뷰포트 밖 — 마지막 방향으로 스크롤 유지
         }
       }
     }
