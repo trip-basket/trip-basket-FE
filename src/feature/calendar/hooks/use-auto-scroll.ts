@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   DAY_HEADER_H,
   HOTZONE_SIZE,
@@ -35,6 +35,14 @@ export function useAutoScroll(gridRef: HTMLDivElement | null) {
     viewport: null,
     direction: { left: 0, top: 0 },
   });
+
+  useEffect(() => {
+    return () => {
+      if (rafId.current) {
+        cancelAnimationFrame(rafId.current);
+      }
+    };
+  }, []);
 
   const scrollLoop = useCallback(() => {
     if (!scrollState.current.viewport) {
