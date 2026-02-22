@@ -1,23 +1,15 @@
 import { Text } from "@/src/components/ui";
 import type { Member } from "@/src/feature/room/types";
 import type { BlockTodo, CalendarBlock, Day } from "../../types";
-import { type BlockCategory, CATEGORY_COLORS, CATEGORY_LABELS } from "../../types";
+import { CATEGORY_COLORS, CATEGORY_LABELS } from "../../types";
 import { formatBlockTime } from "../../utils";
+import { CategoryIcon } from "./category-icon";
 import { MapSection } from "./map-section";
 import { OpeningHoursSection } from "./opening-hours-section";
 import { PropertyRow } from "./property-row";
 import { ReactionsProperty } from "./reactions-property";
 import { SectionHeader } from "./section-header";
 import { TodoSection } from "./todo-section";
-
-const CATEGORY_ICONS: Record<BlockCategory, string> = {
-  sightseeing: "museum",
-  food: "restaurant",
-  shopping: "shopping_bag",
-  transport: "directions_transit",
-  accommodation: "hotel",
-  activity: "hiking",
-};
 
 export function PanelContent({
   block,
@@ -36,7 +28,6 @@ export function PanelContent({
 }) {
   const categoryColor = block.category ? CATEGORY_COLORS[block.category] : "#6B7280";
   const categoryLabel = block.category ? CATEGORY_LABELS[block.category] : undefined;
-  const categoryIcon = block.category ? CATEGORY_ICONS[block.category] : "place";
   const reactionsCount = block.reactions?.length ?? 0;
   const lockedByMember = block.lockedBy ? members.find((m) => m.id === block.lockedBy) : undefined;
 
@@ -48,12 +39,7 @@ export function PanelContent({
           className="flex items-center justify-center w-10 h-10 rounded-lg mb-3"
           style={{ backgroundColor: `${categoryColor}15` }}
         >
-          <span
-            className="material-symbols-outlined"
-            style={{ fontSize: "22px", color: categoryColor }}
-          >
-            {categoryIcon}
-          </span>
+          <CategoryIcon category={block.category} color={categoryColor} />
         </div>
         <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-0.5">{block.title}</h1>
         {block.place && block.place.placeName !== block.title && (
@@ -63,7 +49,7 @@ export function PanelContent({
 
       {/* Properties table */}
       <div className="mb-6 space-y-0.5">
-        <PropertyRow icon="calendar_today" label="날짜">
+        <PropertyRow icon="calendarToday" label="날짜">
           <Text variant="small">
             {day ? `${day.date}일 (${day.dayOfWeek})` : ""} {formatBlockTime(block)}
           </Text>

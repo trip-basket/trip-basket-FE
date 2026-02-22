@@ -40,7 +40,7 @@ export function BlockDetailPanel({ blockId, onClose }: { blockId: string; onClos
         }}
       />
 
-      <div className="fixed right-0 top-0 bottom-0 w-[420px] bg-white z-50 shadow-2xl flex flex-col">
+      <div className="fixed right-0 top-0 bottom-0 w-[500px] bg-white z-50 shadow-2xl flex flex-col">
         <div className="flex items-center justify-end px-3 py-2 shrink-0">
           <button
             type="button"
