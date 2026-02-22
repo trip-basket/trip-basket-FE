@@ -26,7 +26,7 @@ export function PropertyRow({
   return (
     <div className="flex items-center min-h-[34px] group hover:bg-gray-50 rounded-sm -mx-1 px-1 transition-colors duration-100">
       <div className="flex items-center gap-1.5 w-28 shrink-0">
-        {path ? (
+        {path && (
           <svg
             width="16"
             height="16"
@@ -37,10 +37,6 @@ export function PropertyRow({
           >
             <path d={path} />
           </svg>
-        ) : (
-          <span className="material-symbols-outlined text-gray-400" style={{ fontSize: "16px" }}>
-            {icon}
-          </span>
         )}
         <Text variant="small" color="muted">
           {label}
