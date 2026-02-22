@@ -1,8 +1,3 @@
-export interface Day {
-  dayOfWeek: string;
-  date: number;
-}
-
 export type BlockCategory =
   | "sightseeing"
   | "food"

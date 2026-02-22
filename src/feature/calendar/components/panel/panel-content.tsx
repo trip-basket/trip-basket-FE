@@ -1,6 +1,6 @@
 import { Text } from "@/src/components/ui";
-import type { Member } from "@/src/feature/room/types";
-import type { BlockTodo, CalendarBlock, Day } from "../../types";
+import type { Day, Member } from "@/src/feature/room/types";
+import type { BlockTodo, CalendarBlock } from "../../types";
 import { CATEGORY_COLORS, CATEGORY_LABELS } from "../../types";
 import { formatBlockTime } from "../../utils";
 import { CategoryIcon } from "./category-icon";

@@ -1,3 +1,8 @@
+export interface Day {
+  dayOfWeek: string;
+  date: number;
+}
+
 export type MemberRole = "owner" | "editor" | "viewer";
 
 export interface Member {

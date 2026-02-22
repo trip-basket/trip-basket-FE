@@ -1,5 +1,4 @@
-import type { Day } from "@/src/feature/calendar/types";
-import type { Member, Room } from "../types";
+import type { Day, Member, Room } from "../types";
 
 export const MOCK_ROOM: Room = {
   id: "room-1",

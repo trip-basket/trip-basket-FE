@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import type { Day } from "@/src/feature/calendar/types";
 import { MOCK_DAYS, MOCK_MEMBERS, MOCK_ROOM } from "../mocks";
-import type { Member, Room } from "../types";
+import type { Day, Member, Room } from "../types";
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
