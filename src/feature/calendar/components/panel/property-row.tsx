@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Text } from "@/src/components/ui";
 
 const ICON_PATHS: Record<string, string> = {
@@ -19,7 +20,7 @@ export function PropertyRow({
 }: {
   icon: string;
   label: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const path = ICON_PATHS[icon];
 
