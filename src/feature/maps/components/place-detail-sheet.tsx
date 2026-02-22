@@ -33,11 +33,11 @@ export function PlaceDetailSheet({ place, onClose }: { place: PlaceDetail; onClo
         </div>
 
         {/* Rating */}
-        {place.rating != null && (
+        {place.rating !== undefined && (
           <div className="flex items-center gap-1 mb-3">
             <span className="text-yellow-500 text-sm">&#9733;</span>
             <span className="text-sm text-gray-700 font-medium">{place.rating}</span>
-            {place.reviewCount != null && (
+            {place.reviewCount !== undefined && (
               <span className="text-xs text-gray-400">({place.reviewCount.toLocaleString()})</span>
             )}
           </div>
