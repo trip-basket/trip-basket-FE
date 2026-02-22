@@ -97,7 +97,7 @@ export function GridDraggableBlock({
               <span className="text-[10px] text-gray-400">🔒 {lockedByMember.nickname}</span>
             )}
           </div>
-          {block.cost != null && block.cost > 0 && (
+          {block.cost !== null && block.cost !== undefined && block.cost > 0 && (
             <Text variant="caption" color="muted">
               {room?.currency ?? ""} {block.cost.toLocaleString()}
             </Text>

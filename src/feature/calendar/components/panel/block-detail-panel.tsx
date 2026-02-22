@@ -22,8 +22,12 @@ export function BlockDetailPanel({ blockId, onClose }: { blockId: string; onClos
   const todos = MOCK_BLOCK_TODOS.filter((t) => t.blockId === block.id);
   const reactionMembers = (block.reactions ?? [])
     .map((r) => members.find((m) => m.id === r.memberId))
-    .filter((m): m is Member => m != null);
+    .filter((m): m is Member => m !== undefined);
   const day = days[block.dayIndex];
+
+  if (!day) {
+    return null;
+  }
 
   return (
     <>
