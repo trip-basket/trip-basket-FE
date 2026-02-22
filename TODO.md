@@ -7,4 +7,5 @@
 
 ## ui
 - [ ] Text 컴포넌트와 i18n 연동
+- [ ] (calendar-header) toLocaleString에 locale 명시 (hydration mismatch 방지) — i18n 도입 시 함께 처리
 - [ ] 모바일 뷰에서 맵을 바텀시트로 변경
