@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Button } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import type { Member } from "@/src/feature/room/types";
@@ -12,6 +13,18 @@ export function BlockDetailPanel({ blockId, onClose }: { blockId: string; onClos
   const members = useRoomStore((s) => s.members);
   const days = useRoomStore((s) => s.days);
   const calendarBlocks = useCalendarBlockStore((s) => s.calendarBlocks);
+
+  useEffect(() => {
+    const handleClose = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleClose);
+
+    return () => document.removeEventListener("keydown", handleClose);
+  }, [onClose]);
 
   const block = calendarBlocks.find((b) => b.id === blockId);
 
@@ -31,18 +44,9 @@ export function BlockDetailPanel({ blockId, onClose }: { blockId: string; onClos
 
   return (
     <>
-      {/* biome-ignore lint/a11y/useSemanticElements: backdrop overlay */}
-      <div
-        role="button"
-        tabIndex={-1}
-        className="fixed inset-0 bg-black/30 z-40"
-        onClick={onClose}
-        onKeyDown={(e) => {
-          if (e.key === "Escape") {
-            onClose();
-          }
-        }}
-      />
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: backdrop overlay */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: global escape handles keyboard */}
+      <div className="fixed inset-0 bg-black/30 z-40" onClick={onClose} />
 
       <div className="fixed right-0 top-0 bottom-0 w-[500px] bg-white z-50 shadow-2xl flex flex-col">
         <div className="flex items-center justify-end px-3 py-2 shrink-0">
