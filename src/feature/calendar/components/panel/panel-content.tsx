@@ -71,7 +71,7 @@ export function PanelContent({
 
         <PropertyRow icon="payments" label="비용">
           <Text variant="small">
-            {block.cost != null ? `${currency} ${block.cost.toLocaleString()}` : "미정"}
+            {block.cost !== undefined ? `${currency} ${block.cost.toLocaleString()}` : "미정"}
           </Text>
         </PropertyRow>
 
