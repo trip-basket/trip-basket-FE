@@ -21,7 +21,6 @@ export function CalendarHeader() {
   const totalCost = [...calendarBlocks, ...bucketBlocks].reduce((sum, b) => sum + (b.cost ?? 0), 0);
 
   if (!room) {
-    window.location.href = "/";
     return null;
   }
 

@@ -69,7 +69,7 @@ export function BucketDraggableBlock({
               )}
             </div>
           )}
-          {place.cost != null && place.cost > 0 && (
+          {place.cost !== undefined && place.cost > 0 && (
             <Text variant="caption" color="muted" className="ml-auto">
               {room?.currency ?? ""} {place.cost.toLocaleString()}
             </Text>
