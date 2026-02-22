@@ -1,11 +1,11 @@
 "use client";
 
+import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { CalendarHeader, DayHeader, TimeColumn, TimeGrid } from "./components";
 import { DAY_COL_MIN_W, TIME_COL_W } from "./constants";
-import useCalendarBlockStore from "./stores/use-calendar-block-store";
 
 export function Calendar() {
-  const days = useCalendarBlockStore((state) => state.days);
+  const days = useRoomStore((s) => s.days);
   const gridWidth = days.length * DAY_COL_MIN_W;
 
   return (

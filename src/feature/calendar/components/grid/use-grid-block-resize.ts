@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HOUR_HEIGHT, HOURS } from "../../constants";
 import useCalendarBlockStore from "../../stores/use-calendar-block-store";
 import type { CalendarBlock } from "../../types";
@@ -20,19 +20,16 @@ export function useGridBlockResize({ block, top, height }: UseGridBlockResizePar
   const [isResizing, setIsResizing] = useState(false);
 
   const [startY, setStartY] = useState(0);
-  const [currentTop, setCurrentTop] = useState(top);
-  const [currentHeight, setCurrentHeight] = useState(height);
-
-  useEffect(() => {
-    setCurrentTop(top);
-    setCurrentHeight(height);
-  }, [top, height]);
+  const [resizeTop, setResizeTop] = useState(0);
+  const [resizeHeight, setResizeHeight] = useState(0);
 
   const onPointerDown = (handle: "top" | "bottom") => (e: React.PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
 
     setResizeHandle(handle);
     setStartY(e.clientY);
+    setResizeTop(top);
+    setResizeHeight(height);
     e.currentTarget.setPointerCapture(e.pointerId);
     setIsResizing(true);
   };
@@ -50,10 +47,8 @@ export function useGridBlockResize({ block, top, height }: UseGridBlockResizePar
         gridStartHour,
         Math.min(block.endHour - 0.5, snapToHalfHour(block.startHour + deltaHour)),
       );
-      const snappedTop = (newStartHour - gridStartHour) * HOUR_HEIGHT;
-      const snappedHeight = (block.endHour - newStartHour) * HOUR_HEIGHT;
-      setCurrentTop(snappedTop);
-      setCurrentHeight(snappedHeight);
+      setResizeTop((newStartHour - gridStartHour) * HOUR_HEIGHT);
+      setResizeHeight((block.endHour - newStartHour) * HOUR_HEIGHT);
       return;
     }
 
@@ -61,33 +56,26 @@ export function useGridBlockResize({ block, top, height }: UseGridBlockResizePar
       block.startHour + 0.5,
       Math.min(gridEndHour, snapToHalfHour(block.endHour + deltaHour)),
     );
-    const snappedHeight = (newEndHour - block.startHour) * HOUR_HEIGHT;
-    setCurrentHeight(snappedHeight);
+    setResizeHeight((newEndHour - block.startHour) * HOUR_HEIGHT);
   };
 
   const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
 
-    const newStartHour = currentTop / HOUR_HEIGHT + gridStartHour;
-    const newEndHour = newStartHour + currentHeight / HOUR_HEIGHT;
+    const newStartHour = resizeTop / HOUR_HEIGHT + gridStartHour;
+    const newEndHour = newStartHour + resizeHeight / HOUR_HEIGHT;
 
-    if (newEndHour <= newStartHour) {
-      setCurrentTop(top);
-      setCurrentHeight(height);
-      e.currentTarget.releasePointerCapture(e.pointerId);
-      setIsResizing(false);
-      return;
+    if (newEndHour > newStartHour) {
+      resizeBlock(block.id, newStartHour, newEndHour);
     }
-
-    resizeBlock(block.id, newStartHour, newEndHour);
 
     e.currentTarget.releasePointerCapture(e.pointerId);
     setIsResizing(false);
   };
 
   return {
-    currentTop,
-    currentHeight,
+    currentTop: isResizing ? resizeTop : top,
+    currentHeight: isResizing ? resizeHeight : height,
     handlers: {
       onPointerDown,
       onPointerMove,

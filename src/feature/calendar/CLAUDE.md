@@ -33,7 +33,7 @@ CalendarBlock  ──리사이즈→ resizeBlock    ──→ CalendarBlock (시
 
 - `Place` — 장소 기본 정보 (id, title). Bucket에 표시
 - `CalendarBlock extends Place` — 캘린더에 배치된 블록 (dayIndex, startHour, endHour 추가)
-- `Day` — 날짜 정보 (dayOfWeek, date)
+- `Day` — 날짜 정보 (dayOfWeek, date). `room/types`에 정의됨
 - 시각은 숫자로 표현: 7 = 07:00, 9.5 = 09:30
 
 ## 드래그 아키텍처

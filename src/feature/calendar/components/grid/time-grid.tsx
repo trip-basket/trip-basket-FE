@@ -1,10 +1,12 @@
 import { useCallback } from "react";
+import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS } from "../../constants";
 import useCalendarBlockStore from "../../stores/use-calendar-block-store";
 import { GridBlock } from "./grid-block";
 
 export function TimeGrid() {
-  const { days, calendarBlocks, setGridRef } = useCalendarBlockStore();
+  const days = useRoomStore((s) => s.days);
+  const { calendarBlocks, setGridRef } = useCalendarBlockStore();
   const gridHeight = HOURS.length * HOUR_HEIGHT;
   const gridStartHour = HOURS[0];
 

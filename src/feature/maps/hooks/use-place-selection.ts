@@ -1,30 +1,45 @@
 import { type MapMouseEvent, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useCallback, useState } from "react";
-import type { Position } from "../types";
+import type { PlaceDetail } from "@/src/feature/calendar/types";
 
 export function usePlaceSelection() {
   const map = useMap();
   const placesLib = useMapsLibrary("places");
-
-  const [position, setPosition] = useState<Position | null>(null);
-  const [placeId, setPlaceId] = useState<string | null>(null);
+  const [placeDetail, setPlaceDetail] = useState<PlaceDetail | null>(null);
 
   const selectPlace = useCallback(
     async (place: google.maps.places.Place) => {
-      await place.fetchFields({ fields: ["location", "id"] });
+      await place.fetchFields({
+        fields: [
+          "id",
+          "location",
+          "displayName",
+          "formattedAddress",
+          "rating",
+          "userRatingCount",
+          "regularOpeningHours",
+        ],
+      });
 
       if (!place.location || !place.id || !map) {
         return;
       }
 
-      const newPos = {
-        lat: place.location.lat(),
-        lng: place.location.lng(),
-      };
+      const lat = place.location.lat();
+      const lng = place.location.lng();
 
-      setPosition(newPos);
-      setPlaceId(place.id);
-      map.panTo(newPos);
+      setPlaceDetail({
+        placeId: place.id,
+        placeName: place.displayName ?? "",
+        formattedAddress: place.formattedAddress ?? "",
+        lat,
+        lng,
+        rating: place.rating ?? undefined,
+        reviewCount: place.userRatingCount ?? undefined,
+        openingHours: place.regularOpeningHours?.weekdayDescriptions ?? undefined,
+      });
+
+      map.panTo({ lat, lng });
     },
     [map],
   );
@@ -43,5 +58,11 @@ export function usePlaceSelection() {
     [placesLib, selectPlace],
   );
 
-  return { position, placeId, placesLib, selectPlace, handleMapClick };
+  const clearSelection = useCallback(() => {
+    setPlaceDetail(null);
+  }, []);
+
+  const position = placeDetail ? { lat: placeDetail.lat, lng: placeDetail.lng } : null;
+
+  return { position, placeDetail, placesLib, selectPlace, handleMapClick, clearSelection };
 }

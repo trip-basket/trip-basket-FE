@@ -1,23 +1,67 @@
-/** 날짜 정보 */
-export interface Day {
-  dayOfWeek: string;
-  date: number;
+export type BlockCategory =
+  | "sightseeing"
+  | "food"
+  | "shopping"
+  | "transport"
+  | "accommodation"
+  | "activity";
+
+export const CATEGORY_COLORS: Record<BlockCategory, string> = {
+  sightseeing: "#3B82F6",
+  food: "#F59E0B",
+  shopping: "#EC4899",
+  transport: "#6366F1",
+  accommodation: "#10B981",
+  activity: "#F97316",
+};
+
+export const CATEGORY_LABELS: Record<BlockCategory, string> = {
+  sightseeing: "관광",
+  food: "음식",
+  shopping: "쇼핑",
+  transport: "교통",
+  accommodation: "숙소",
+  activity: "액티비티",
+};
+
+export interface PlaceDetail {
+  placeId: string;
+  placeName: string;
+  formattedAddress: string;
+  lat: number;
+  lng: number;
+  rating?: number;
+  reviewCount?: number;
+  openingHours?: string[];
 }
 
-/** 장소 기본 정보 (Bucket용) */
+export interface Reaction {
+  memberId: string;
+}
+
+export interface BlockTodo {
+  id: string;
+  blockId: string;
+  text: string;
+  completed: boolean;
+}
+
 export interface Place {
   id: string;
   title: string;
+  category?: BlockCategory;
+  cost?: number;
+  addedBy?: string;
+  lockedBy?: string;
+  place?: PlaceDetail;
 }
 
-/** 캘린더에 배치된 블록 (시간 정보 포함) */
 export interface CalendarBlock extends Place {
   dayIndex: number;
-  /** 시작 시각 (7 = 07:00, 9.5 = 09:30) */
   startHour: number;
-  /** 종료 시각 (10 = 10:00, 11.5 = 11:30) */
   endHour: number;
+  reactions?: Reaction[];
+  memo?: string;
 }
 
-/** 기본 블록 duration (시간 단위) */
 export const DEFAULT_BLOCK_DURATION = 1;

@@ -1,82 +1,122 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useCalendarBlockStore from "../stores/use-calendar-block-store";
 import { useAutoScroll } from "./use-auto-scroll";
 import { getDropPosition } from "./utils";
 
+const DRAG_THRESHOLD = 5;
+
 interface Position {
-	x: number;
-	y: number;
+  x: number;
+  y: number;
 }
 
-export function useBlockDrag(onDrop: (dayIndex: number, hour: number) => void, duration?: number) {
-	const { gridRef } = useCalendarBlockStore();
-	const { updateScroll, stopScroll } = useAutoScroll(gridRef);
+interface PointerState {
+  isDown: boolean;
+  hasDragged: boolean;
+  mouseStart: Position;
+  elementStart: Position;
+}
 
-	const [isDragging, setIsDragging] = useState(false);
-	const [elementStart, setElementStart] = useState<Position>({ x: 0, y: 0 });
-	const [mouseStart, setMouseStart] = useState<Position>({ x: 0, y: 0 });
-	const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+export function useBlockDrag(
+  onDrop: (dayIndex: number, hour: number) => void,
+  duration?: number,
+  onClick?: () => void,
+) {
+  const { gridRef } = useCalendarBlockStore();
+  const { updateScroll, stopScroll } = useAutoScroll(gridRef);
 
-	const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-		e.currentTarget.setPointerCapture(e.pointerId);
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const stateRef = useRef<PointerState>({
+    isDown: false,
+    hasDragged: false,
+    mouseStart: { x: 0, y: 0 },
+    elementStart: { x: 0, y: 0 },
+  });
 
-		const rect = e.currentTarget.getBoundingClientRect();
-		setElementStart({ x: rect.left, y: rect.top });
-		setMouseStart({ x: e.clientX, y: e.clientY });
-		setPosition({ x: rect.left, y: rect.top });
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.setPointerCapture(e.pointerId);
 
-		setIsDragging(true);
-	};
+    const rect = e.currentTarget.getBoundingClientRect();
+    stateRef.current = {
+      isDown: true,
+      hasDragged: false,
+      mouseStart: { x: e.clientX, y: e.clientY },
+      elementStart: { x: rect.left, y: rect.top },
+    };
+    setPosition({ x: rect.left, y: rect.top });
+  };
 
-	const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-		if (!isDragging) {
-			return;
-		}
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const s = stateRef.current;
+    if (!s.isDown) {
+      return;
+    }
 
-		const deltaX = e.clientX - mouseStart.x;
-		const deltaY = e.clientY - mouseStart.y;
+    const deltaX = e.clientX - s.mouseStart.x;
+    const deltaY = e.clientY - s.mouseStart.y;
 
-		updateScroll(e.clientX, e.clientY);
+    if (!s.hasDragged) {
+      if (Math.abs(deltaX) + Math.abs(deltaY) < DRAG_THRESHOLD) {
+        return;
+      }
+      s.hasDragged = true;
+      setIsDragging(true);
+    }
 
-		setPosition({
-			x: elementStart.x + deltaX,
-			y: elementStart.y + deltaY,
-		});
-	};
+    updateScroll(e.clientX, e.clientY);
+    setPosition({
+      x: s.elementStart.x + deltaX,
+      y: s.elementStart.y + deltaY,
+    });
+  };
 
-	const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-		const grabOffsetY = mouseStart.y - elementStart.y;
-		const dropPosition = gridRef
-			? getDropPosition(gridRef, e.clientX, e.clientY, grabOffsetY, duration)
-			: null;
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const s = stateRef.current;
 
-		if (!dropPosition) {
-			onPointerCancel(e);
-			setPosition({ x: elementStart.x, y: elementStart.y });
-			return;
-		}
+    if (!s.hasDragged) {
+      s.isDown = false;
+      e.currentTarget.releasePointerCapture(e.pointerId);
+      onClick?.();
+      return;
+    }
 
-		onDrop(dropPosition.dayIndex, dropPosition.hour);
+    const grabOffsetY = s.mouseStart.y - s.elementStart.y;
+    const dropPosition = gridRef
+      ? getDropPosition(gridRef, e.clientX, e.clientY, grabOffsetY, duration)
+      : null;
 
-		setIsDragging(false);
-		e.currentTarget.releasePointerCapture(e.pointerId);
-		stopScroll();
-	};
+    if (!dropPosition) {
+      onPointerCancel(e);
+      setPosition({ x: s.elementStart.x, y: s.elementStart.y });
+      return;
+    }
 
-	const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
-		setIsDragging(false);
-		e.currentTarget.releasePointerCapture(e.pointerId);
-		stopScroll();
-	};
+    onDrop(dropPosition.dayIndex, dropPosition.hour);
 
-	return {
-		isDragging,
-		position,
-		handlers: {
-			onPointerDown,
-			onPointerMove,
-			onPointerUp,
-			onPointerCancel,
-		},
-	};
+    setIsDragging(false);
+    s.isDown = false;
+    s.hasDragged = false;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    stopScroll();
+  };
+
+  const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    setIsDragging(false);
+    stateRef.current.isDown = false;
+    stateRef.current.hasDragged = false;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    stopScroll();
+  };
+
+  return {
+    isDragging,
+    position,
+    handlers: {
+      onPointerDown,
+      onPointerMove,
+      onPointerUp,
+      onPointerCancel,
+    },
+  };
 }

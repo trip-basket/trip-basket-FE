@@ -1,5 +1,5 @@
+import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS } from "../constants";
-import useCalendarBlockStore from "../stores/use-calendar-block-store";
 import { DEFAULT_BLOCK_DURATION } from "../types";
 
 function isInsideRect(x: number, y: number, rect: DOMRect): boolean {
@@ -47,7 +47,7 @@ export function getDropPosition(
   grabOffsetY = 0,
   duration = DEFAULT_BLOCK_DURATION,
 ) {
-  const days = useCalendarBlockStore.getState().days;
+  const days = useRoomStore.getState().days;
 
   if (days.length === 0) {
     return null;
