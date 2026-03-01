@@ -12,6 +12,10 @@ export function TimeGrid() {
 
   const refCallback = useCallback(
     (node: HTMLDivElement | null) => {
+      // Mobile/Desktop 둘 다 마운트되므로, hidden 상태의 ref는 무시
+      if (node && node.offsetParent === null) {
+        return;
+      }
       setGridRef(node);
     },
     [setGridRef],
