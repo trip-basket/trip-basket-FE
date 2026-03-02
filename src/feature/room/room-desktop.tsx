@@ -3,7 +3,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Calendar } from "@/src/feature/calendar";
-import { BlockDetailPanel, Bucket } from "@/src/feature/calendar/components";
+import { BlockDetailPanel, Bucket, CalendarHeader } from "@/src/feature/calendar/components";
 import useCalendarBlockStore from "@/src/feature/calendar/stores/use-calendar-block-store";
 import { Maps } from "@/src/feature/maps";
 import { Resizer } from "./components";
@@ -15,20 +15,23 @@ export function RoomDesktop() {
   const setSelectedBlockId = useCalendarBlockStore((s) => s.setSelectedBlockId);
 
   return (
-    <div ref={containerRef} className="flex flex-1 p-grid-gap overflow-hidden">
-      {/* 왼쪽: 캘린더 + Bucket */}
+    <div ref={containerRef} className="flex flex-1 p-grid-gap gap-grid-gap overflow-hidden">
+      {/* 왼쪽: 헤더 + 캘린더 + Bucket */}
       <div
-        className="flex flex-col bg-canvas rounded-xl p-grid-gap gap-grid-gap min-w-0 overflow-hidden"
+        className="flex flex-col gap-grid-gap min-w-0 overflow-hidden"
         style={{ width: `${ratio * 100}%` }}
       >
-        <Calendar />
-        <Bucket />
+        <CalendarHeader />
+        <div className="flex flex-1 min-h-0 flex-col bg-canvas rounded-xl p-grid-gap gap-grid-gap overflow-hidden">
+          <Calendar />
+          <Bucket />
+        </div>
       </div>
 
       <Resizer onPointerDown={onPointerDown} />
 
       {/* 오른쪽: 지도 */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 rounded-xl overflow-hidden">
         <Maps />
       </div>
 
