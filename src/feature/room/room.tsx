@@ -7,7 +7,6 @@ import { RoomMobile } from "./room-mobile";
 export function RoomContent() {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
-  // SSR + hydration: 화면 크기 모름 → 둘 다 렌더 + CSS 숨김
   if (isDesktop === null) {
     return (
       <>
