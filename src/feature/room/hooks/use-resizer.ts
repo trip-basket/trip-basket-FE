@@ -6,7 +6,7 @@ interface UseResizerOptions {
   initial?: number;
 }
 
-export function useResizer({ min = 0.25, max = 0.75, initial = 0.5 }: UseResizerOptions = {}) {
+export function useResizer({ min = 0.25, max = 0.75, initial = 0.7 }: UseResizerOptions = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [ratio, setRatio] = useState(initial);
 

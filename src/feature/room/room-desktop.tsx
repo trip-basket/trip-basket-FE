@@ -22,7 +22,7 @@ export function RoomDesktop() {
         style={{ width: `${ratio * 100}%` }}
       >
         <CalendarHeader />
-        <div className="flex flex-1 min-h-0 flex-col bg-canvas rounded-xl p-grid-gap gap-grid-gap overflow-hidden">
+        <div className="flex flex-1 min-h-0 flex-col bg-canvas border border-white/20 rounded-xl p-grid-gap gap-grid-gap overflow-hidden">
           <Calendar />
           <Bucket />
         </div>

@@ -11,7 +11,7 @@ export function RoomMobile() {
   return (
     <>
       <div className="flex flex-1 min-h-0 flex-col p-grid-gap">
-        <div className="flex flex-1 min-h-0 flex-col bg-canvas rounded-xl p-grid-gap gap-grid-gap">
+        <div className="flex flex-1 min-h-0 flex-col bg-canvas border border-white/20 rounded-xl p-grid-gap gap-grid-gap">
           <Calendar />
           <Bucket />
         </div>
