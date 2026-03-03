@@ -5,7 +5,7 @@ export default async function PlanPage({ params }: { params: Promise<{ roomId: s
 
   return (
     <div className="flex flex-1 min-h-0 flex-col lg:flex-row bg-green-50">
-      <nav className="h-[50px] lg:h-auto lg:w-[50px] flex-shrink-0"></nav>
+      <div className="hidden lg:block lg:h-auto lg:w-[50px] flex-shrink-0" aria-hidden="true" />
       <RoomContent />
     </div>
   );
