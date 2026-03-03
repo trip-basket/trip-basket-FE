@@ -12,7 +12,7 @@ const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
 function formatDateRange(start: string, end: string) {
   const s = new Date(start);
   const e = new Date(end);
-  const days = Math.round((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24));
+  const days = Math.floor((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24)) + 1;
   return `${dateFormatter.format(s)} – ${dateFormatter.format(e)} · ${days}일`;
 }
 
@@ -32,7 +32,7 @@ export function CalendarHeader() {
     <header className="flex rounded-lg bg-canvas px-4 py-2 shrink-0">
       <div className="flex flex-1 items-center justify-between min-w-0">
         {/* 왼쪽: 여행 정보 (클릭 → 편집 팝오버) */}
-        <div className="flex flex-col min-w-0 mb-1">
+        <div className="group flex flex-col min-w-0 mb-1">
           <Text
             variant="h4"
             color="sub"

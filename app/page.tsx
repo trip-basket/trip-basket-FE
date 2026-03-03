@@ -2,11 +2,13 @@
 
 import { Button } from "@/src/components/ui/button";
 
-const GOOGLE_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorization/google`;
-
 export default function LoginPage() {
   const handleGoogleLogin = () => {
-    window.location.href = GOOGLE_LOGIN_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiUrl) {
+      return;
+    }
+    window.location.href = `${apiUrl}/oauth2/authorization/google`;
   };
 
   return (
