@@ -1,4 +1,4 @@
-export const HOUR_HEIGHT = 72;
+export const HOUR_HEIGHT = 72 + 20;
 export const TIME_COL_W = 56;
 export const DAY_COL_MIN_W = 180;
 
