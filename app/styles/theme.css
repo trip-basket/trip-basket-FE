@@ -94,6 +94,7 @@
 
     /* Background */
     --color-canvas: var(--bg-primary);
+    --color-inset: var(--bg-inset);
     --color-surface: var(--bg-secondary);
     --color-elevated: var(--bg-tertiary);
 

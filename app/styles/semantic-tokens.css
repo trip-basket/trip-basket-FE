@@ -9,8 +9,9 @@
 
 :root {
     /* Background */
-    --bg-primary: #EDEDF2;
-    --bg-secondary: #F8F8FC;
+    --bg-primary: #EDEDEE;
+    --bg-inset: #F2F2F3;
+    --bg-secondary: #F8F8F9;
     --bg-tertiary: #ffffff;
 
     /* Text */
@@ -52,6 +53,7 @@
 .dark {
     /* Background */
     --bg-primary: var(--gray-950);
+    --bg-inset: var(--gray-925, #0d0d0f);
     --bg-secondary: var(--gray-900);
     --bg-tertiary: var(--gray-800);
 
