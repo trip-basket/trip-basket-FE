@@ -17,6 +17,7 @@
     /* Text */
     --text-primary: var(--gray-900);
     --text-secondary: var(--gray-600);
+    --text-soft: var(--gray-500);
     --text-tertiary: var(--gray-400);
     --text-inverse: #ffffff;
     --text-error: var(--error-500);
@@ -60,6 +61,7 @@
     /* Text */
     --text-primary: var(--gray-50);
     --text-secondary: var(--gray-400);
+    --text-soft: var(--gray-450, #9CA3AF);
     --text-tertiary: var(--gray-500);
     --text-inverse: var(--gray-950);
     --text-error: var(--error-400);

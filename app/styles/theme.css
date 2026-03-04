@@ -101,6 +101,7 @@
     /* Text */
     --color-main: var(--text-primary);
     --color-sub: var(--text-secondary);
+    --color-soft: var(--text-soft);
     --color-muted: var(--text-tertiary);
     --color-inverse: var(--text-inverse);
     --color-error: var(--text-error);

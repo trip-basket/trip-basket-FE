@@ -89,6 +89,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     endHour: 11,
     category: "sightseeing",
     cost: 39000,
+    addedBy: "m1",
     reactions: [{ memberId: "m2" }],
     place: {
       placeId: "ChIJtV5bzSAFdkgRpwLZFPWrJgo",
@@ -118,6 +119,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     endHour: 13.5,
     category: "food",
     cost: 33000,
+    addedBy: "m2",
     reactions: [{ memberId: "m1" }, { memberId: "m3" }],
     memo: "유명한 스트리트 푸드 마켓. Fish & Chips, 라클렛 추천.",
     place: {
@@ -148,6 +150,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     endHour: 11.5,
     category: "sightseeing",
     cost: 0,
+    addedBy: "m3",
     reactions: [{ memberId: "m1" }, { memberId: "m2" }, { memberId: "m3" }],
     memo: "엘리자베스 타워 내부 투어는 사전 예약 필수. 영국 시민/거주자만 가능.",
     place: {
@@ -170,6 +173,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     endHour: 16,
     category: "shopping",
     cost: 0,
+    addedBy: "m1",
     lockedBy: "m3",
     place: {
       placeId: "ChIJ_-o3bIoEdkgR8GH7thWkMBo",
@@ -199,6 +203,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     endHour: 12.5,
     category: "transport",
     cost: 112000,
+    addedBy: "m2",
     reactions: [],
     place: {
       placeId: "ChIJQabCBVMbdkgR5WmIdBmTFbA",

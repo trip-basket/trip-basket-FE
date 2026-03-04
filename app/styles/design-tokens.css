@@ -44,29 +44,37 @@
   --error-600: #dc2626;
   --error-700: #b91c1c;
 
-  /* Block Colors (Calendar) */
-  --block-rose-base: #FFE4E8;
-  --block-rose-accent: #E8456B;
+  /* Block Colors (Calendar) — bright pastel */
+  --block-rose-base: #FBDCE5;
+  --block-rose-tint: #F2C5D0;
+  --block-rose-accent: #D4607A;
 
-  --block-peach-base: #FFEDDB;
-  --block-peach-accent: #E8863A;
+  --block-peach-base: #F5E6CE;
+  --block-peach-tint: #EDD4AF;
+  --block-peach-accent: #C09358;
 
-  --block-lemon-base: #FFF7CC;
-  --block-lemon-accent: #C9A020;
+  --block-lemon-base: #F5EFCE;
+  --block-lemon-tint: #ECE3AD;
+  --block-lemon-accent: #B8A040;
 
-  --block-mint-base: #DBF5E4;
-  --block-mint-accent: #36A85C;
+  --block-mint-base: #D5EDD8;
+  --block-mint-tint: #BFE0C5;
+  --block-mint-accent: #5E9E6B;
 
-  --block-sky-base: #DBF0FF;
-  --block-sky-accent: #3B96E0;
+  --block-sky-base: #D6E9F8;
+  --block-sky-tint: #BDD8EC;
+  --block-sky-accent: #5B8FBD;
 
-  --block-lavender-base: #E7E0FF;
-  --block-lavender-accent: #7055CC;
+  --block-lavender-base: #D8CCEF;
+  --block-lavender-tint: #C9B8E2;
+  --block-lavender-accent: #8267BA;
 
-  --block-grape-base: #F5E0FF;
-  --block-grape-accent: #A84FBD;
+  --block-grape-base: #EECEF8;
+  --block-grape-tint: #E0B8EC;
+  --block-grape-accent: #A060B0;
 
-  --block-slate-base: #E8EAED;
+  --block-slate-base: #E5E6EA;
+  --block-slate-tint: #CDD0D5;
   --block-slate-accent: #6B7280;
 
   /* ----------------------------------------

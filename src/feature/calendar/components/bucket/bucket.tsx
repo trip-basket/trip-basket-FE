@@ -10,7 +10,7 @@ export function Bucket() {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="flex shrink-0 rounded-lg bg-canvas">
+    <div className="flex shrink-0 rounded-lg bg-elevated">
       {isOpen && (
         <div className="flex shrink-0 flex-col items-start justify-center gap-3 rounded-l-lg bg-inset p-grid-gap">
           <div className="flex flex-col gap-1">
