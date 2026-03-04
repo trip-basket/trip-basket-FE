@@ -29,7 +29,7 @@ export function CalendarHeader() {
   }
 
   return (
-    <header className="flex rounded-lg bg-canvas border border-white/20 px-4 py-2 shrink-0">
+    <header className="flex rounded-lg bg-elevated px-4 py-2 shrink-0">
       <div className="flex flex-1 items-center justify-between min-w-0">
         {/* 왼쪽: 여행 정보 (클릭 → 편집 팝오버) */}
         <div className="group flex flex-col min-w-0 mb-1">
@@ -55,7 +55,7 @@ export function CalendarHeader() {
               {members.map((member) => (
                 <div
                   key={member.id}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-canvas bg-gray-200 overflow-hidden"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-surface bg-gray-200 overflow-hidden"
                   title={member.nickname}
                 >
                   {member.profileImageUrl ? (

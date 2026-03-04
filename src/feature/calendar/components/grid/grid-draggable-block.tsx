@@ -2,7 +2,7 @@ import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W } from "../../constants";
 import type { CalendarBlock } from "../../types";
-import { CATEGORY_COLORS } from "../../types";
+import { BLOCK_COLORS } from "../../types";
 import { formatBlockTime, type OverlapLayout } from "../../utils";
 import { useGridBlockResize } from "./use-grid-block-resize";
 
@@ -36,12 +36,12 @@ export function GridDraggableBlock({
   });
 
   const resizeHandleHeight = 10;
-  const categoryColor = block.category ? CATEGORY_COLORS[block.category] : undefined;
+  const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
   const isLocked = !!block.lockedBy;
 
   return (
     <div
-      className="cursor-pointer touch-none rounded-md bg-canvas shadow-sm transition-shadow hover:shadow-md overflow-hidden"
+      className="cursor-pointer touch-none rounded-md shadow-sm transition-shadow hover:shadow-md overflow-hidden"
       style={{
         position: isDragging ? "fixed" : "absolute",
         inset: isDragging ? undefined : "0",
@@ -53,12 +53,13 @@ export function GridDraggableBlock({
         cursor: isDragging ? "grabbing" : "grab",
         userSelect: isDragging ? "none" : undefined,
         opacity: isLocked ? 0.55 : 1,
+        backgroundColor: blockColor.base,
       }}
       {...dragHandlers}
     >
       <div
         className="absolute inset-x-0 top-0 cursor-ns-resize"
-        style={{ height: resizeHandleHeight, backgroundColor: categoryColor }}
+        style={{ height: resizeHandleHeight, backgroundColor: blockColor.accent }}
         onPointerDown={resizeHandlers.onPointerDown("top")}
         onPointerMove={resizeHandlers.onPointerMove}
         onPointerUp={resizeHandlers.onPointerUp}
@@ -66,7 +67,7 @@ export function GridDraggableBlock({
       <BlockContent block={block} resizeHandleHeight={resizeHandleHeight} />
       <div
         className="absolute inset-x-0 bottom-0 cursor-ns-resize"
-        style={{ height: resizeHandleHeight, backgroundColor: categoryColor }}
+        style={{ height: resizeHandleHeight, backgroundColor: blockColor.accent }}
         onPointerDown={resizeHandlers.onPointerDown("bottom")}
         onPointerMove={resizeHandlers.onPointerMove}
         onPointerUp={resizeHandlers.onPointerUp}

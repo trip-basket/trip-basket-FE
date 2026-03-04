@@ -132,6 +132,24 @@
     --color-on-field: var(--text-field-primary);
     --color-on-field-placeholder: var(--text-field-primary-placeholder);
 
+    /* Block Colors */
+    --color-block-rose-base: var(--block-rose-base);
+    --color-block-rose-accent: var(--block-rose-accent);
+    --color-block-peach-base: var(--block-peach-base);
+    --color-block-peach-accent: var(--block-peach-accent);
+    --color-block-lemon-base: var(--block-lemon-base);
+    --color-block-lemon-accent: var(--block-lemon-accent);
+    --color-block-mint-base: var(--block-mint-base);
+    --color-block-mint-accent: var(--block-mint-accent);
+    --color-block-sky-base: var(--block-sky-base);
+    --color-block-sky-accent: var(--block-sky-accent);
+    --color-block-lavender-base: var(--block-lavender-base);
+    --color-block-lavender-accent: var(--block-lavender-accent);
+    --color-block-grape-base: var(--block-grape-base);
+    --color-block-grape-accent: var(--block-grape-accent);
+    --color-block-slate-base: var(--block-slate-base);
+    --color-block-slate-accent: var(--block-slate-accent);
+
     /* Grid */
     --color-grid-line: color-mix(in srgb, var(--border-primary) 50%, transparent);
 

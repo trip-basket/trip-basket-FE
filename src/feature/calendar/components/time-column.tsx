@@ -5,7 +5,7 @@ import { formatHour } from "../utils";
 export function TimeColumn({ headerHeight }: { headerHeight: number }) {
   return (
     <div
-      className="sticky left-0 z-40 shrink-0 bg-brand-100"
+      className="sticky left-0 z-40 shrink-0 bg-elevated"
       style={{ width: TIME_COL_W, paddingTop: headerHeight - 9 }}
     >
       {HOURS.map((hour) => (

@@ -10,7 +10,7 @@ export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
   const calendarBlocks = useCalendarBlockStore((s) => s.calendarBlocks);
 
   return (
-    <div ref={ref} className="sticky top-0 z-20 flex bg-surface border-b border-grid-line">
+    <div ref={ref} className="sticky top-0 z-20 flex bg-elevated border-b border-grid-line">
       {days.map((day, index) => {
         const dayCost = calendarBlocks
           .filter((b) => b.dayIndex === index)

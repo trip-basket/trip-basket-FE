@@ -1,6 +1,7 @@
 import { Text } from "@/src/components/ui";
 import { DAY_COL_MIN_W } from "../../constants";
 import type { Place } from "../../types";
+import { BLOCK_COLORS } from "../../types";
 import { BucketDraggableBlock } from "./bucket-draggable-block";
 import { useBucketDrag } from "./use-bucket-drag";
 
@@ -23,12 +24,14 @@ export function BucketBlock({ place }: { place: Place }) {
 }
 
 function BucketGhostBlock({ place }: { place: Place }) {
+  const blockColor = BLOCK_COLORS[place.colorIndex % BLOCK_COLORS.length];
   return (
     <div
-      className="shrink-0 rounded-md bg-canvas p-2 opacity-50 shadow-sm"
+      className="shrink-0 rounded-md p-2 opacity-50 shadow-sm"
       style={{
         width: DAY_COL_MIN_W,
         height: BUCKET_BLOCK_HEIGHT,
+        backgroundColor: blockColor.base,
       }}
     >
       <Text variant="body">{place.title}</Text>

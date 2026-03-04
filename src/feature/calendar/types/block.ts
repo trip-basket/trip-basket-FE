@@ -6,14 +6,21 @@ export type BlockCategory =
   | "accommodation"
   | "activity";
 
-export const CATEGORY_COLORS: Record<BlockCategory, string> = {
-  sightseeing: "#3B82F6",
-  food: "#F59E0B",
-  shopping: "#EC4899",
-  transport: "#6366F1",
-  accommodation: "#10B981",
-  activity: "#F97316",
-};
+export interface BlockColor {
+  base: string;
+  accent: string;
+}
+
+export const BLOCK_COLORS: BlockColor[] = [
+  { base: "var(--block-rose-base)", accent: "var(--block-rose-accent)" },
+  { base: "var(--block-peach-base)", accent: "var(--block-peach-accent)" },
+  { base: "var(--block-lemon-base)", accent: "var(--block-lemon-accent)" },
+  { base: "var(--block-mint-base)", accent: "var(--block-mint-accent)" },
+  { base: "var(--block-sky-base)", accent: "var(--block-sky-accent)" },
+  { base: "var(--block-lavender-base)", accent: "var(--block-lavender-accent)" },
+  { base: "var(--block-grape-base)", accent: "var(--block-grape-accent)" },
+  { base: "var(--block-slate-base)", accent: "var(--block-slate-accent)" },
+];
 
 export const CATEGORY_LABELS: Record<BlockCategory, string> = {
   sightseeing: "관광",
@@ -49,6 +56,7 @@ export interface BlockTodo {
 export interface Place {
   id: string;
   title: string;
+  colorIndex: number;
   category?: BlockCategory;
   cost?: number;
   addedBy?: string;

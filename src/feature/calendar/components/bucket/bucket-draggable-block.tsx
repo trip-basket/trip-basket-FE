@@ -2,7 +2,7 @@ import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W } from "../../constants";
 import type { Place } from "../../types";
-import { CATEGORY_LABELS } from "../../types";
+import { BLOCK_COLORS, CATEGORY_LABELS } from "../../types";
 
 const BUCKET_BLOCK_HEIGHT = 100;
 
@@ -23,10 +23,11 @@ export function BucketDraggableBlock({
   const members = useRoomStore((s) => s.members);
   const addedByMember = place.addedBy ? members.find((m) => m.id === place.addedBy) : undefined;
   const isLocked = !!place.lockedBy;
+  const blockColor = BLOCK_COLORS[place.colorIndex % BLOCK_COLORS.length];
 
   return (
     <div
-      className="shrink-0 cursor-pointer touch-none rounded-md bg-canvas p-2 shadow-sm transition-shadow hover:shadow-md"
+      className="shrink-0 cursor-pointer touch-none rounded-md p-2 shadow-sm transition-shadow hover:shadow-md"
       style={{
         position: isDragging ? "fixed" : "static",
         width: DAY_COL_MIN_W,
@@ -37,6 +38,7 @@ export function BucketDraggableBlock({
         cursor: isDragging ? "grabbing" : "grab",
         userSelect: isDragging ? "none" : undefined,
         opacity: isLocked ? 0.55 : 1,
+        backgroundColor: blockColor.base,
       }}
       {...handlers}
     >

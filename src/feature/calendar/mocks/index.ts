@@ -4,6 +4,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "1",
     title: "히드로 공항",
+    colorIndex: 0,
     category: "transport",
     cost: 15000,
     addedBy: "m1",
@@ -18,6 +19,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "2",
     title: "대영박물관",
+    colorIndex: 1,
     category: "sightseeing",
     cost: 0,
     addedBy: "m2",
@@ -43,6 +45,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "3",
     title: "런던아이",
+    colorIndex: 2,
     category: "sightseeing",
     cost: 42000,
     addedBy: "m3",
@@ -59,6 +62,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "4",
     title: "타워브릿지",
+    colorIndex: 3,
     category: "sightseeing",
     cost: 16000,
     addedBy: "m1",
@@ -79,6 +83,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "5",
     title: "버킹엄 궁전",
+    colorIndex: 4,
     dayIndex: 0,
     startHour: 9,
     endHour: 11,
@@ -107,6 +112,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "6",
     title: "Borough Market 점심",
+    colorIndex: 5,
     dayIndex: 0,
     startHour: 12,
     endHour: 13.5,
@@ -136,6 +142,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "7",
     title: "빅벤",
+    colorIndex: 6,
     dayIndex: 1,
     startHour: 10,
     endHour: 11.5,
@@ -157,6 +164,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "8",
     title: "해로즈 백화점",
+    colorIndex: 7,
     dayIndex: 2,
     startHour: 14,
     endHour: 16,
@@ -185,6 +193,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "9",
     title: "킹스크로스 → 에딘버러",
+    colorIndex: 0,
     dayIndex: 3,
     startHour: 8,
     endHour: 12.5,

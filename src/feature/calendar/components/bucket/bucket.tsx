@@ -7,7 +7,7 @@ export function Bucket() {
   const isBucketEmpty = bucketBlocks.length === 0;
 
   return (
-    <div className="flex shrink-0 gap-grid-gap overflow-x-auto rounded-xl bg-surface p-grid-gap">
+    <div className="flex shrink-0 gap-grid-gap overflow-x-auto rounded-xl bg-elevated p-grid-gap">
       {bucketBlocks.map((place) => (
         <BucketBlock key={place.id} place={place} />
       ))}

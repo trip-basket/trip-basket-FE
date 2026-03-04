@@ -9,8 +9,8 @@
 
 :root {
     /* Background */
-    --bg-primary: rgba(255, 255, 255, 0.6);
-    --bg-secondary: #ffffff;
+    --bg-primary: #EDEDF2;
+    --bg-secondary: #F8F8FC;
     --bg-tertiary: #ffffff;
 
     /* Text */

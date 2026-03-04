@@ -1,7 +1,7 @@
 import { Text } from "@/src/components/ui";
 import type { Day, Member } from "@/src/feature/room/types";
 import type { BlockTodo, CalendarBlock } from "../../types";
-import { CATEGORY_COLORS, CATEGORY_LABELS } from "../../types";
+import { BLOCK_COLORS, CATEGORY_LABELS } from "../../types";
 import { formatBlockTime } from "../../utils";
 import { CategoryIcon } from "./category-icon";
 import { MapSection } from "./map-section";
@@ -26,7 +26,8 @@ export function PanelContent({
   members: Member[];
   currency: string;
 }) {
-  const categoryColor = block.category ? CATEGORY_COLORS[block.category] : "#6B7280";
+  const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
+  const categoryColor = blockColor.accent;
   const categoryLabel = block.category ? CATEGORY_LABELS[block.category] : undefined;
   const reactionsCount = block.reactions?.length ?? 0;
   const lockedByMember = block.lockedBy ? members.find((m) => m.id === block.lockedBy) : undefined;

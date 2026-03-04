@@ -44,6 +44,31 @@
   --error-600: #dc2626;
   --error-700: #b91c1c;
 
+  /* Block Colors (Calendar) */
+  --block-rose-base: #FFE4E8;
+  --block-rose-accent: #E8456B;
+
+  --block-peach-base: #FFEDDB;
+  --block-peach-accent: #E8863A;
+
+  --block-lemon-base: #FFF7CC;
+  --block-lemon-accent: #C9A020;
+
+  --block-mint-base: #DBF5E4;
+  --block-mint-accent: #36A85C;
+
+  --block-sky-base: #DBF0FF;
+  --block-sky-accent: #3B96E0;
+
+  --block-lavender-base: #E7E0FF;
+  --block-lavender-accent: #7055CC;
+
+  --block-grape-base: #F5E0FF;
+  --block-grape-accent: #A84FBD;
+
+  --block-slate-base: #E8EAED;
+  --block-slate-accent: #6B7280;
+
   /* ----------------------------------------
      Typography Primitives
      ---------------------------------------- */
