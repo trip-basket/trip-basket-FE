@@ -1,14 +1,15 @@
 import { Text } from "@/src/components/ui";
 import type { CalendarBlock } from "../../types";
-import { formatBlockTime, getBlockAbsolutePosition } from "../../utils";
+import { formatBlockTime, getBlockAbsolutePosition, type OverlapLayout } from "../../utils";
 import { GridDraggableBlock } from "./grid-draggable-block";
 import { useGridBlockDrag } from "./use-grid-block-drag";
 
 interface GridBlockProps {
   block: CalendarBlock;
+  overlapLayout?: OverlapLayout;
 }
 
-export function GridBlock({ block }: GridBlockProps) {
+export function GridBlock({ block, overlapLayout }: GridBlockProps) {
   const { top, height } = getBlockAbsolutePosition(block);
   const { isDragging, position, handlers } = useGridBlockDrag(block);
 
@@ -22,6 +23,7 @@ export function GridBlock({ block }: GridBlockProps) {
         isDragging={isDragging}
         position={position}
         dragHandlers={handlers}
+        overlapLayout={overlapLayout}
       />
     </>
   );
