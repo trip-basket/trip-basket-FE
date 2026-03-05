@@ -4,6 +4,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "1",
     title: "히드로 공항",
+    colorIndex: 0,
     category: "transport",
     cost: 15000,
     addedBy: "m1",
@@ -18,6 +19,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "2",
     title: "대영박물관",
+    colorIndex: 1,
     category: "sightseeing",
     cost: 0,
     addedBy: "m2",
@@ -43,6 +45,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "3",
     title: "런던아이",
+    colorIndex: 2,
     category: "sightseeing",
     cost: 42000,
     addedBy: "m3",
@@ -59,6 +62,7 @@ export const MOCK_PLACES: Place[] = [
   {
     id: "4",
     title: "타워브릿지",
+    colorIndex: 3,
     category: "sightseeing",
     cost: 16000,
     addedBy: "m1",
@@ -79,11 +83,13 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "5",
     title: "버킹엄 궁전",
+    colorIndex: 4,
     dayIndex: 0,
     startHour: 9,
     endHour: 11,
     category: "sightseeing",
     cost: 39000,
+    addedBy: "m1",
     reactions: [{ memberId: "m2" }],
     place: {
       placeId: "ChIJtV5bzSAFdkgRpwLZFPWrJgo",
@@ -107,11 +113,13 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "6",
     title: "Borough Market 점심",
+    colorIndex: 5,
     dayIndex: 0,
     startHour: 12,
     endHour: 13.5,
     category: "food",
     cost: 33000,
+    addedBy: "m2",
     reactions: [{ memberId: "m1" }, { memberId: "m3" }],
     memo: "유명한 스트리트 푸드 마켓. Fish & Chips, 라클렛 추천.",
     place: {
@@ -136,11 +144,13 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "7",
     title: "빅벤",
+    colorIndex: 6,
     dayIndex: 1,
     startHour: 10,
     endHour: 11.5,
     category: "sightseeing",
     cost: 0,
+    addedBy: "m3",
     reactions: [{ memberId: "m1" }, { memberId: "m2" }, { memberId: "m3" }],
     memo: "엘리자베스 타워 내부 투어는 사전 예약 필수. 영국 시민/거주자만 가능.",
     place: {
@@ -157,11 +167,13 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "8",
     title: "해로즈 백화점",
+    colorIndex: 7,
     dayIndex: 2,
     startHour: 14,
     endHour: 16,
     category: "shopping",
     cost: 0,
+    addedBy: "m1",
     lockedBy: "m3",
     place: {
       placeId: "ChIJ_-o3bIoEdkgR8GH7thWkMBo",
@@ -185,11 +197,13 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
   {
     id: "9",
     title: "킹스크로스 → 에딘버러",
+    colorIndex: 0,
     dayIndex: 3,
     startHour: 8,
     endHour: 12.5,
     category: "transport",
     cost: 112000,
+    addedBy: "m2",
     reactions: [],
     place: {
       placeId: "ChIJQabCBVMbdkgR5WmIdBmTFbA",

@@ -9,13 +9,14 @@
 
 :root {
     /* Background */
-    --bg-primary: rgba(255, 255, 255, 0.6);
-    --bg-secondary: #ffffff;
+    --bg-primary: #ffffff;
+    --bg-inset: rgba(0, 0, 0, 0.03);
     --bg-tertiary: #ffffff;
 
     /* Text */
     --text-primary: var(--gray-900);
     --text-secondary: var(--gray-600);
+    --text-soft: var(--gray-500);
     --text-tertiary: var(--gray-400);
     --text-inverse: #ffffff;
     --text-error: var(--error-500);
@@ -25,9 +26,16 @@
     --border-primary: var(--gray-200);
     --border-secondary: var(--gray-300);
 
+    /* Accent (Primary emphasis — TimeColumn, Bucket info 등 강조 영역) */
+    --bg-accent: var(--brand-500);
+    --bg-accent-subtle: var(--brand-50);
+    --text-on-accent: #ffffff;
+    --text-accent: var(--brand-700);
+    --border-accent: var(--brand-200);
+
     /* Interactive (Buttons, Links, etc.) */
-    --bg-interactive-primary: var(--brand-600);
-    --bg-interactive-primary-hover: var(--brand-700);
+    --bg-interactive-primary: var(--brand-500);
+    --bg-interactive-primary-hover: var(--brand-600);
     --text-interactive-primary: #ffffff;
     --border-interactive-primary: var(--brand-600);
     --border-interactive-primary-hover: var(--brand-700);
@@ -52,12 +60,13 @@
 .dark {
     /* Background */
     --bg-primary: var(--gray-950);
-    --bg-secondary: var(--gray-900);
+    --bg-inset: rgba(255, 255, 255, 0.05);
     --bg-tertiary: var(--gray-800);
 
     /* Text */
     --text-primary: var(--gray-50);
     --text-secondary: var(--gray-400);
+    --text-soft: var(--gray-450, #9CA3AF);
     --text-tertiary: var(--gray-500);
     --text-inverse: var(--gray-950);
     --text-error: var(--error-400);
@@ -67,9 +76,16 @@
     --border-primary: var(--gray-800);
     --border-secondary: var(--gray-700);
 
+    /* Accent */
+    --bg-accent: var(--brand-400);
+    --bg-accent-subtle: var(--brand-950);
+    --text-on-accent: var(--gray-950);
+    --text-accent: var(--brand-300);
+    --border-accent: var(--brand-800);
+
     /* Interactive (Buttons, Links, etc.) */
-    --bg-interactive-primary: var(--brand-500);
-    --bg-interactive-primary-hover: var(--brand-400);
+    --bg-interactive-primary: var(--brand-400);
+    --bg-interactive-primary-hover: var(--brand-300);
     --text-interactive-primary: var(--gray-950);
     --border-interactive-primary: var(--brand-500);
     --border-interactive-primary-hover: var(--brand-400);

@@ -94,12 +94,20 @@
 
     /* Background */
     --color-canvas: var(--bg-primary);
-    --color-surface: var(--bg-secondary);
+    --color-inset: var(--bg-inset);
     --color-elevated: var(--bg-tertiary);
+
+    /* Accent */
+    --color-accent: var(--bg-accent);
+    --color-accent-subtle: var(--bg-accent-subtle);
+    --color-on-accent: var(--text-on-accent);
+    --color-accent-text: var(--text-accent);
+    --color-accent-outline: var(--border-accent);
 
     /* Text */
     --color-main: var(--text-primary);
     --color-sub: var(--text-secondary);
+    --color-soft: var(--text-soft);
     --color-muted: var(--text-tertiary);
     --color-inverse: var(--text-inverse);
     --color-error: var(--text-error);
@@ -131,6 +139,24 @@
     --color-field-outline-error: var(--border-field-primary-error);
     --color-on-field: var(--text-field-primary);
     --color-on-field-placeholder: var(--text-field-primary-placeholder);
+
+    /* Block Colors */
+    --color-block-red-base: var(--block-red-base);
+    --color-block-red-accent: var(--block-red-accent);
+    --color-block-orange-base: var(--block-orange-base);
+    --color-block-orange-accent: var(--block-orange-accent);
+    --color-block-yellow-base: var(--block-yellow-base);
+    --color-block-yellow-accent: var(--block-yellow-accent);
+    --color-block-mint-base: var(--block-mint-base);
+    --color-block-mint-accent: var(--block-mint-accent);
+    --color-block-teal-base: var(--block-teal-base);
+    --color-block-teal-accent: var(--block-teal-accent);
+    --color-block-lavender-base: var(--block-lavender-base);
+    --color-block-lavender-accent: var(--block-lavender-accent);
+    --color-block-grape-base: var(--block-grape-base);
+    --color-block-grape-accent: var(--block-grape-accent);
+    --color-block-slate-base: var(--block-slate-base);
+    --color-block-slate-accent: var(--block-slate-accent);
 
     /* Grid */
     --color-grid-line: color-mix(in srgb, var(--border-primary) 50%, transparent);

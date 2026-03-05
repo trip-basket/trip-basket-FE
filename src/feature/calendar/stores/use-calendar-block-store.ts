@@ -60,6 +60,7 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
         {
           id: block.id,
           title: block.title,
+          colorIndex: block.colorIndex,
           category: block.category,
           cost: block.cost,
           addedBy: block.addedBy,

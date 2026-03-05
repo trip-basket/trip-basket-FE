@@ -29,69 +29,75 @@ export function CalendarHeader() {
   }
 
   return (
-    <header className="flex rounded-lg bg-canvas border border-white/20 px-4 py-2 shrink-0">
-      <div className="flex flex-1 items-center justify-between min-w-0">
-        {/* 왼쪽: 여행 정보 (클릭 → 편집 팝오버) */}
-        <div className="group flex flex-col min-w-0 mb-1">
-          <Text
-            variant="h4"
-            className="truncate cursor-pointer"
-          >
-            {room.name}
-          </Text>
-          <Text
-            variant="caption"
-            color="muted"
-            className="transition-colors group-hover:text-sub cursor-pointer"
-          >
+    <header className="flex items-center justify-between shrink-0">
+      {/* 왼쪽: 여행 제목 + 날짜 */}
+      <div className="flex items-center gap-3 min-w-0">
+        <Text variant="h3" className="truncate">
+          {room.name}
+        </Text>
+      </div>
+
+      {/* 오른쪽: 비용 + 멤버 + 초대 */}
+      <div className="flex items-center gap-2 shrink-0 ml-4">
+        <button type="button" className="chip-inset chip-inset--strong shrink-0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect
+              x="3"
+              y="4"
+              width="18"
+              height="18"
+              rx="2"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M3 10h18M8 2v4M16 2v4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+          <Text variant="caption" className="text-inherit">
             {formatDateRange(room.tripStartDate, room.tripEndDate)}
           </Text>
-        </div>
-
-        {/* 오른쪽: 비용 + 멤버 + 초대 */}
-        <div className="flex flex-col items-end gap-0.5 shrink-0 ml-4">
-          <div className="flex items-center gap-1.5">
-            <div className="flex -space-x-1.5">
-              {members.map((member) => (
-                <div
-                  key={member.id}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-canvas bg-gray-200 overflow-hidden"
-                  title={member.nickname}
-                >
-                  {member.profileImageUrl ? (
-                    // biome-ignore lint/performance/noImgElement: mock 아바타 (프로토타입)
-                    <img
-                      src={member.profileImageUrl}
-                      alt={member.nickname}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <span className="text-[11px] font-semibold text-gray-500">
-                      {member.nickname.charAt(0)}
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-            <button
-              type="button"
-              className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-dashed border-gray-300 text-gray-400 transition-colors hover:border-gray-400 hover:text-gray-500 cursor-pointer"
-              aria-label="멤버 초대"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path
-                  d="M7 1v12M1 7h12"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
-          </div>
-          <Text variant="caption" color="muted" className="tabular-nums cursor-pointer">
+        </button>
+        <button type="button" className="chip-inset chip-inset--strong tabular-nums">
+          <Text variant="caption" className="text-inherit tabular-nums">
             {room.currency} {totalCost.toLocaleString()}
           </Text>
-        </div>
+        </button>
+        <button type="button" className="chip-inset chip-inset--strong gap-1.5">
+          <div className="flex -space-x-1.5">
+            {members.map((member) => (
+              <div
+                key={member.id}
+                className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-gray-200 overflow-hidden"
+                title={member.nickname}
+              >
+                {member.profileImageUrl ? (
+                  // biome-ignore lint/performance/noImgElement: mock 아바타 (프로토타입)
+                  <img
+                    src={member.profileImageUrl}
+                    alt={member.nickname}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="text-[10px] font-semibold text-gray-500">
+                    {member.nickname.charAt(0)}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path
+              d="M7 1v12M1 7h12"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
       </div>
     </header>
   );

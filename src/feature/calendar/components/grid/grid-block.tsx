@@ -1,5 +1,6 @@
 import { Text } from "@/src/components/ui";
 import type { CalendarBlock } from "../../types";
+import { BLOCK_COLORS } from "../../types";
 import { formatBlockTime, getBlockAbsolutePosition, type OverlapLayout } from "../../utils";
 import { GridDraggableBlock } from "./grid-draggable-block";
 import { useGridBlockDrag } from "./use-grid-block-drag";
@@ -36,10 +37,11 @@ interface GridGhostBlockProps {
 }
 
 function GridGhostBlock({ block, top, height }: GridGhostBlockProps) {
+  const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
   return (
     <div
-      className="absolute inset-x-0 rounded-md rounded-tr-none bg-canvas p-2 opacity-50 shadow-sm"
-      style={{ top, height }}
+      className="absolute inset-x-0 rounded-md rounded-tr-none p-2 opacity-50 shadow-sm"
+      style={{ top, height, backgroundColor: blockColor.base }}
     >
       <Text variant="body">{block.title}</Text>
       <Text variant="small">{formatBlockTime(block)}</Text>

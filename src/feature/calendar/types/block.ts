@@ -6,14 +6,22 @@ export type BlockCategory =
   | "accommodation"
   | "activity";
 
-export const CATEGORY_COLORS: Record<BlockCategory, string> = {
-  sightseeing: "#3B82F6",
-  food: "#F59E0B",
-  shopping: "#EC4899",
-  transport: "#6366F1",
-  accommodation: "#10B981",
-  activity: "#F97316",
-};
+export interface BlockColor {
+  base: string;
+  tint: string;
+  accent: string;
+}
+
+export const BLOCK_COLORS: BlockColor[] = [
+  { base: "var(--block-red-base)", tint: "var(--block-red-tint)", accent: "var(--block-red-accent)" },
+  { base: "var(--block-orange-base)", tint: "var(--block-orange-tint)", accent: "var(--block-orange-accent)" },
+  { base: "var(--block-yellow-base)", tint: "var(--block-yellow-tint)", accent: "var(--block-yellow-accent)" },
+  { base: "var(--block-mint-base)", tint: "var(--block-mint-tint)", accent: "var(--block-mint-accent)" },
+  { base: "var(--block-teal-base)", tint: "var(--block-teal-tint)", accent: "var(--block-teal-accent)" },
+  { base: "var(--block-lavender-base)", tint: "var(--block-lavender-tint)", accent: "var(--block-lavender-accent)" },
+  { base: "var(--block-grape-base)", tint: "var(--block-grape-tint)", accent: "var(--block-grape-accent)" },
+  { base: "var(--block-slate-base)", tint: "var(--block-slate-tint)", accent: "var(--block-slate-accent)" },
+];
 
 export const CATEGORY_LABELS: Record<BlockCategory, string> = {
   sightseeing: "관광",
@@ -49,6 +57,7 @@ export interface BlockTodo {
 export interface Place {
   id: string;
   title: string;
+  colorIndex: number;
   category?: BlockCategory;
   cost?: number;
   addedBy?: string;

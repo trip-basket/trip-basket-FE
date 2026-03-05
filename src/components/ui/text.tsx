@@ -17,6 +17,7 @@ export const textVariants = tv({
     color: {
       main: "text-main",
       sub: "text-sub",
+      soft: "text-soft",
       muted: "text-muted",
       inverse: "text-inverse",
       error: "text-error",

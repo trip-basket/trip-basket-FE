@@ -22,7 +22,7 @@ export function RoomDesktop() {
         style={{ width: `${ratio * 100}%` }}
       >
         <CalendarHeader />
-        <div className="flex flex-1 min-h-0 flex-col bg-canvas border border-white/20 rounded-xl p-grid-gap gap-grid-gap overflow-hidden">
+        <div className="flex flex-1 min-h-0 flex-col bg-inset border border-black/4 rounded-xl p-grid-gap gap-grid-gap overflow-hidden">
           <Calendar />
           <Bucket />
         </div>
@@ -31,7 +31,7 @@ export function RoomDesktop() {
       <Resizer onPointerDown={onPointerDown} />
 
       {/* 오른쪽: 지도 */}
-      <div className="flex-1 min-w-0 rounded-xl overflow-hidden">
+      <div className="flex-1 min-w-0 rounded-xl overflow-hidden bg-inset border border-black/4 p-grid-gap">
         <Maps />
       </div>
 
