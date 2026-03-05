@@ -95,8 +95,14 @@
     /* Background */
     --color-canvas: var(--bg-primary);
     --color-inset: var(--bg-inset);
-    --color-surface: var(--bg-secondary);
     --color-elevated: var(--bg-tertiary);
+
+    /* Accent */
+    --color-accent: var(--bg-accent);
+    --color-accent-subtle: var(--bg-accent-subtle);
+    --color-on-accent: var(--text-on-accent);
+    --color-accent-text: var(--text-accent);
+    --color-accent-outline: var(--border-accent);
 
     /* Text */
     --color-main: var(--text-primary);
@@ -135,16 +141,16 @@
     --color-on-field-placeholder: var(--text-field-primary-placeholder);
 
     /* Block Colors */
-    --color-block-rose-base: var(--block-rose-base);
-    --color-block-rose-accent: var(--block-rose-accent);
-    --color-block-peach-base: var(--block-peach-base);
-    --color-block-peach-accent: var(--block-peach-accent);
-    --color-block-lemon-base: var(--block-lemon-base);
-    --color-block-lemon-accent: var(--block-lemon-accent);
+    --color-block-red-base: var(--block-red-base);
+    --color-block-red-accent: var(--block-red-accent);
+    --color-block-orange-base: var(--block-orange-base);
+    --color-block-orange-accent: var(--block-orange-accent);
+    --color-block-yellow-base: var(--block-yellow-base);
+    --color-block-yellow-accent: var(--block-yellow-accent);
     --color-block-mint-base: var(--block-mint-base);
     --color-block-mint-accent: var(--block-mint-accent);
-    --color-block-sky-base: var(--block-sky-base);
-    --color-block-sky-accent: var(--block-sky-accent);
+    --color-block-teal-base: var(--block-teal-base);
+    --color-block-teal-accent: var(--block-teal-accent);
     --color-block-lavender-base: var(--block-lavender-base);
     --color-block-lavender-accent: var(--block-lavender-accent);
     --color-block-grape-base: var(--block-grape-base);

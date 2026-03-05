@@ -10,3 +10,30 @@ body {
    margin: 0;
    padding: 0;
 }
+
+/* Inset chip — 회색 배경 버튼, hover 시 primary 컬러 전환 */
+.chip-inset {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 2rem; /* h-8, Button sm과 동일 */
+  padding: 0 0.625rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms, color 150ms;
+}
+.chip-inset:hover {
+  background: var(--bg-accent-subtle);
+  border-color: var(--border-accent);
+  color: var(--text-accent);
+}
+
+/* Strong variant — hover 시 accent 배경 + 흰색 텍스트 */
+.chip-inset--strong:hover {
+  background: var(--bg-accent);
+  border-color: var(--bg-accent);
+  color: var(--text-on-accent);
+}

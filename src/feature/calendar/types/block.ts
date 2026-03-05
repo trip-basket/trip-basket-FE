@@ -13,11 +13,11 @@ export interface BlockColor {
 }
 
 export const BLOCK_COLORS: BlockColor[] = [
-  { base: "var(--block-rose-base)", tint: "var(--block-rose-tint)", accent: "var(--block-rose-accent)" },
-  { base: "var(--block-peach-base)", tint: "var(--block-peach-tint)", accent: "var(--block-peach-accent)" },
-  { base: "var(--block-lemon-base)", tint: "var(--block-lemon-tint)", accent: "var(--block-lemon-accent)" },
+  { base: "var(--block-red-base)", tint: "var(--block-red-tint)", accent: "var(--block-red-accent)" },
+  { base: "var(--block-orange-base)", tint: "var(--block-orange-tint)", accent: "var(--block-orange-accent)" },
+  { base: "var(--block-yellow-base)", tint: "var(--block-yellow-tint)", accent: "var(--block-yellow-accent)" },
   { base: "var(--block-mint-base)", tint: "var(--block-mint-tint)", accent: "var(--block-mint-accent)" },
-  { base: "var(--block-sky-base)", tint: "var(--block-sky-tint)", accent: "var(--block-sky-accent)" },
+  { base: "var(--block-teal-base)", tint: "var(--block-teal-tint)", accent: "var(--block-teal-accent)" },
   { base: "var(--block-lavender-base)", tint: "var(--block-lavender-tint)", accent: "var(--block-lavender-accent)" },
   { base: "var(--block-grape-base)", tint: "var(--block-grape-tint)", accent: "var(--block-grape-accent)" },
   { base: "var(--block-slate-base)", tint: "var(--block-slate-tint)", accent: "var(--block-slate-accent)" },

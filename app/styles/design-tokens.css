@@ -12,18 +12,18 @@
   --gray-900: #111827;
   --gray-950: #030712;
 
-  /* Brand (Blue) */
-  --brand-50: #eff6ff;
-  --brand-100: #dbeafe;
-  --brand-200: #bfdbfe;
-  --brand-300: #93c5fd;
-  --brand-400: #60a5fa;
-  --brand-500: #3b82f6;
-  --brand-600: #2563eb;
-  --brand-700: #1d4ed8;
-  --brand-800: #1e40af;
-  --brand-900: #1e3a8a;
-  --brand-950: #172554;
+  /* Brand (Green — #41916A 기준) */
+  --brand-50: #f2f9f5;
+  --brand-100: #d8ede2;
+  --brand-200: #b3dcc5;
+  --brand-300: #86c8a5;
+  --brand-400: #5fb388;
+  --brand-500: #41916a;
+  --brand-600: #377a5a;
+  --brand-700: #2d644a;
+  --brand-800: #244f3b;
+  --brand-900: #1c3e2f;
+  --brand-950: #112720;
 
   /* Success (Green) */
   --success-50: #f0fdf4;
@@ -44,38 +44,38 @@
   --error-600: #dc2626;
   --error-700: #b91c1c;
 
-  /* Block Colors (Calendar) — bright pastel */
-  --block-rose-base: #FBDCE5;
-  --block-rose-tint: #F2C5D0;
-  --block-rose-accent: #D4607A;
+  /* Block Colors (Calendar) — near-white base, vivid accent */
+  --block-red-base: #FFF5F5;
+  --block-red-tint: #FEE2E2;
+  --block-red-accent: #DC2626;
 
-  --block-peach-base: #F5E6CE;
-  --block-peach-tint: #EDD4AF;
-  --block-peach-accent: #C09358;
+  --block-orange-base: #FFF8F0;
+  --block-orange-tint: #FFEDD5;
+  --block-orange-accent: #EA580C;
 
-  --block-lemon-base: #F5EFCE;
-  --block-lemon-tint: #ECE3AD;
-  --block-lemon-accent: #B8A040;
+  --block-yellow-base: #FFFCE8;
+  --block-yellow-tint: #FEF9C3;
+  --block-yellow-accent: #EAB308;
 
-  --block-mint-base: #D5EDD8;
-  --block-mint-tint: #BFE0C5;
-  --block-mint-accent: #5E9E6B;
+  --block-mint-base: #F0FDF2;
+  --block-mint-tint: #DCFCE0;
+  --block-mint-accent: #16A34A;
 
-  --block-sky-base: #D6E9F8;
-  --block-sky-tint: #BDD8EC;
-  --block-sky-accent: #5B8FBD;
+  --block-teal-base: #F0FDFA;
+  --block-teal-tint: #CCFBF1;
+  --block-teal-accent: #0D9488;
 
-  --block-lavender-base: #D8CCEF;
-  --block-lavender-tint: #C9B8E2;
-  --block-lavender-accent: #8267BA;
+  --block-lavender-base: #F5F0FF;
+  --block-lavender-tint: #E8DEFF;
+  --block-lavender-accent: #7C3AED;
 
-  --block-grape-base: #EECEF8;
-  --block-grape-tint: #E0B8EC;
-  --block-grape-accent: #A060B0;
+  --block-grape-base: #FDF2F8;
+  --block-grape-tint: #FCE7F3;
+  --block-grape-accent: #C026D3;
 
-  --block-slate-base: #E5E6EA;
-  --block-slate-tint: #CDD0D5;
-  --block-slate-accent: #6B7280;
+  --block-slate-base: #F3F4F6;
+  --block-slate-tint: #E2E4E8;
+  --block-slate-accent: #475569;
 
   /* ----------------------------------------
      Typography Primitives

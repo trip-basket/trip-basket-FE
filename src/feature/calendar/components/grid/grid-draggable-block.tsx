@@ -36,7 +36,7 @@ export function GridDraggableBlock({
     height,
   });
 
-  const resizeHandleHeight = 8;
+  const resizeHandleHeight = 5;
   const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
   const isLocked = !!block.lockedBy;
 
