@@ -31,7 +31,7 @@ export function RoomDesktop() {
       <Resizer onPointerDown={onPointerDown} />
 
       {/* 오른쪽: 지도 */}
-      <div className="flex-1 min-w-0 rounded-xl overflow-hidden">
+      <div className="flex-1 min-w-0 rounded-xl overflow-hidden bg-inset border border-black/4 p-grid-gap">
         <Maps />
       </div>
 
