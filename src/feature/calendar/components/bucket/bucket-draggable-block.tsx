@@ -36,6 +36,7 @@ export function BucketDraggableBlock({
         zIndex: isDragging ? 9999 : undefined,
         cursor: isDragging ? "grabbing" : "grab",
         userSelect: isDragging ? "none" : undefined,
+        pointerEvents: isDragging ? "none" : undefined,
         opacity: isLocked ? 0.55 : 1,
         backgroundColor: blockColor.base,
         boxShadow: isDragging ? "0 8px 24px rgba(0,0,0,0.15)" : undefined,
