@@ -53,7 +53,6 @@ export function MapsContent() {
         style={{
           width: "100%",
           height: "100%",
-          borderRadius: "10px",
           position: "absolute",
           overflow: "hidden",
         }}

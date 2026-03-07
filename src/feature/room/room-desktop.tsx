@@ -18,10 +18,19 @@ export function RoomDesktop() {
         <Maps />
       </div>
 
-      {/* 캘린더: 왼쪽 65%, 부양감 */}
-      <div className="relative z-10 flex h-full flex-col gap-grid-gap p-3" style={{ width: "65%" }}>
+      {/* 캘린더: 왼쪽 65%, 지도 위에 부양 */}
+      <div
+        className="relative z-10 flex h-full flex-col gap-grid-gap py-3 pl-3"
+        style={{ width: "65%" }}
+      >
         <CalendarHeader />
-        <div className="relative flex flex-1 min-h-0 flex-col rounded-2xl bg-white shadow-xl overflow-hidden">
+        <div
+          className="relative flex flex-1 min-h-0 flex-col rounded-2xl bg-white overflow-hidden"
+          style={{
+            boxShadow:
+              "4px 0 24px rgba(0, 0, 0, 0.08), 8px 0 48px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.04)",
+          }}
+        >
           <Calendar />
           <Bucket />
         </div>

@@ -20,11 +20,15 @@ export function Bucket() {
   return (
     <section
       aria-label="담은 장소 목록"
-      className="absolute bottom-0 left-0 right-0 z-50 flex flex-col rounded-t-2xl border-t border-black/5"
+      className="absolute z-50 flex flex-col rounded-xl"
       style={{
+        bottom: 8,
+        left: 8,
+        right: 8,
         height: isExpanded ? "45%" : TITLE_BAR_HEIGHT,
         backgroundColor: "var(--bg-floating)",
-        boxShadow: "var(--shadow-floating)",
+        boxShadow:
+          "0 -1px 0 rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
         transition: `height 250ms ${EXPAND_EASING}`,
         overflow: "hidden",
       }}
