@@ -63,9 +63,15 @@ export function BucketDraggableBlock({
                   >
                     {m.profileImageUrl ? (
                       // biome-ignore lint/performance/noImgElement: mock 아바타 (프로토타입)
-                      <img src={m.profileImageUrl} alt={m.nickname} className="h-full w-full object-cover" />
+                      <img
+                        src={m.profileImageUrl}
+                        alt={m.nickname}
+                        className="h-full w-full object-cover"
+                      />
                     ) : (
-                      <span className="text-[8px] font-semibold text-gray-500">{m.nickname.charAt(0)}</span>
+                      <span className="text-[8px] font-semibold text-gray-500">
+                        {m.nickname.charAt(0)}
+                      </span>
                     )}
                   </div>
                 ))}
@@ -74,9 +80,7 @@ export function BucketDraggableBlock({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            {place.lockedBy && (
-              <span className="text-[10px] text-soft">🔒</span>
-            )}
+            {place.lockedBy && <span className="text-[10px] text-soft">🔒</span>}
           </div>
           {place.cost !== undefined && place.cost > 0 && (
             <button

@@ -36,7 +36,11 @@ export function usePlaceSelection() {
         lng,
         rating: place.rating ?? undefined,
         reviewCount: place.userRatingCount ?? undefined,
-        openingHours: place.regularOpeningHours?.weekdayDescriptions ?? undefined,
+        openingHours: place.regularOpeningHours?.periods?.map((p) => ({
+          day: p.open?.day ?? 0,
+          open: `${String(p.open?.hour ?? 0).padStart(2, "0")}:${String(p.open?.minute ?? 0).padStart(2, "0")}`,
+          close: `${String(p.close?.hour ?? 0).padStart(2, "0")}:${String(p.close?.minute ?? 0).padStart(2, "0")}`,
+        })),
       });
 
       map.panTo({ lat, lng });

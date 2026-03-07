@@ -20,10 +20,7 @@ export function Bucket() {
               장소들을 캘린더로 드래그 해보세요
             </Text>
           </div>
-          <button
-            type="button"
-            className="chip-inset"
-          >
+          <button type="button" className="chip-inset">
             <svg width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path
                 d="M2 4h12M2 8h8M2 12h4"
@@ -68,7 +65,9 @@ export function Bucket() {
             <Text variant="h4" weight="bold">
               가고 싶은 장소를 미리 담아두세요
             </Text>
-            <Text variant="body" color="muted">지도에서 버튼을 눌러 추가할 수 있어요</Text>
+            <Text variant="body" color="muted">
+              지도에서 버튼을 눌러 추가할 수 있어요
+            </Text>
           </div>
         )}
       </div>
