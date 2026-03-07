@@ -13,13 +13,13 @@ export function RoomDesktop() {
 
   return (
     <div className="relative flex-1 overflow-hidden">
-      {/* 지도: 오른쪽 절반 배경 캔버스 */}
-      <div className="absolute top-0 right-0 bottom-0 w-1/2">
+      {/* 지도: 오른쪽 35% 배경 캔버스 */}
+      <div className="absolute top-0 right-0 bottom-0" style={{ width: "35%" }}>
         <Maps />
       </div>
 
-      {/* 캘린더: 왼쪽 절반, 부양감 */}
-      <div className="relative z-10 flex h-full w-1/2 flex-col gap-grid-gap p-3">
+      {/* 캘린더: 왼쪽 65%, 부양감 */}
+      <div className="relative z-10 flex h-full flex-col gap-grid-gap p-3" style={{ width: "65%" }}>
         <CalendarHeader />
         <div className="relative flex flex-1 min-h-0 flex-col rounded-2xl bg-white shadow-xl overflow-hidden">
           <Calendar />
