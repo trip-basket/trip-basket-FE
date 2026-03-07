@@ -1,76 +1,78 @@
+"use client";
+
 import { useState } from "react";
 import { Text } from "@/src/components/ui";
 import useCalendarBlockStore from "../../stores/use-calendar-block-store";
 import { BucketBlock } from "./bucket-block";
 
+const COLLAPSED_HEIGHT = 120;
+
 export function Bucket() {
   const { bucketBlocks } = useCalendarBlockStore();
   const isBucketEmpty = bucketBlocks.length === 0;
-  const [isOpen, setIsOpen] = useState(true);
+
+  const [isPinned, setIsPinned] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const isExpanded = isPinned || isHovered;
 
   return (
-    <div className="flex shrink-0 rounded-lg overflow-hidden bg-elevated border border-outline">
-      {isOpen && (
-        <div className="flex shrink-0 flex-col items-start justify-center gap-3 border-r border-outline p-grid-gap">
-          <div className="flex flex-col gap-1">
-            <Text variant="caption" weight="semibold">
-              담은 장소 {bucketBlocks.length}개
-            </Text>
-            <Text variant="caption" color="muted">
-              장소들을 캘린더로 드래그 해보세요
-            </Text>
-          </div>
-          <button type="button" className="chip-inset">
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path
-                d="M2 4h12M2 8h8M2 12h4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-            정렬
-          </button>
-        </div>
-      )}
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex shrink-0 items-center justify-center border-r border-outline px-1 cursor-pointer transition-colors hover:bg-accent-subtle"
-        aria-label={isOpen ? "정보 패널 접기" : "정보 패널 펼치기"}
-      >
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 16 16"
-          fill="none"
-          aria-hidden="true"
-          className={`text-muted transition-transform ${isOpen ? "" : "rotate-180"}`}
+    <section
+      aria-label="담은 장소 목록"
+      className="absolute bottom-0 left-0 right-0 z-20 flex flex-col border-t border-black/5 rounded-t-xl"
+      style={{
+        maxHeight: isExpanded ? "40%" : COLLAPSED_HEIGHT,
+        backgroundColor: "var(--bg-floating)",
+        boxShadow: "var(--shadow-floating)",
+        transition: "max-height 200ms ease-out",
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* 타이틀바 */}
+      <div className="flex shrink-0 items-center justify-between px-4 py-2.5">
+        <Text variant="caption" weight="semibold">
+          담은 장소 {bucketBlocks.length}개
+        </Text>
+        <button
+          type="button"
+          onClick={() => setIsPinned(!isPinned)}
+          className="flex items-center justify-center w-7 h-7 rounded-md transition-colors hover:bg-black/5"
+          aria-label={isPinned ? "버킷 고정 해제" : "버킷 고정"}
+          style={{ color: isPinned ? "var(--bg-accent)" : "var(--text-tertiary)" }}
         >
-          <path
-            d="M10 4l-4 4 4 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
-      <div className="flex flex-1 gap-grid-gap overflow-x-auto p-grid-gap">
-        {bucketBlocks.map((place) => (
-          <BucketBlock key={place.id} place={place} />
-        ))}
-        {isBucketEmpty && (
-          <div className="flex flex-1 flex-col items-center justify-center">
-            <Text variant="h4" weight="bold">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M9.5 1.5L14.5 6.5L10 11L8 13L3 8L5 6L9.5 1.5Z"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill={isPinned ? "currentColor" : "none"}
+            />
+            <path d="M1 15L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      {/* 아이템 리스트 */}
+      <div className="flex-1 min-h-0 overflow-y-auto px-3 pb-3">
+        {isBucketEmpty ? (
+          <div className="flex flex-col items-center justify-center py-4">
+            <Text variant="body" weight="semibold">
               가고 싶은 장소를 미리 담아두세요
             </Text>
-            <Text variant="body" color="muted">
+            <Text variant="caption" color="muted">
               지도에서 버튼을 눌러 추가할 수 있어요
             </Text>
           </div>
+        ) : (
+          <div className="flex flex-col gap-1">
+            {bucketBlocks.map((place) => (
+              <BucketBlock key={place.id} place={place} />
+            ))}
+          </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }

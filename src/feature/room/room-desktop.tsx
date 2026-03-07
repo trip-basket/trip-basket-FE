@@ -6,33 +6,25 @@ import { Calendar } from "@/src/feature/calendar";
 import { BlockDetailPanel, Bucket, CalendarHeader } from "@/src/feature/calendar/components";
 import useCalendarBlockStore from "@/src/feature/calendar/stores/use-calendar-block-store";
 import { Maps } from "@/src/feature/maps";
-import { Resizer } from "./components";
-import { useResizer } from "./hooks";
 
 export function RoomDesktop() {
-  const { containerRef, ratio, onPointerDown } = useResizer();
   const selectedBlockId = useCalendarBlockStore((s) => s.selectedBlockId);
   const setSelectedBlockId = useCalendarBlockStore((s) => s.setSelectedBlockId);
 
   return (
-    <div ref={containerRef} className="flex flex-1 p-grid-gap gap-grid-gap overflow-hidden">
-      {/* 왼쪽: 헤더 + 캘린더 + Bucket */}
-      <div
-        className="flex flex-col gap-grid-gap min-w-0 overflow-hidden"
-        style={{ width: `${ratio * 100}%` }}
-      >
+    <div className="relative flex-1 overflow-hidden">
+      {/* 지도: 오른쪽 절반 배경 캔버스 */}
+      <div className="absolute top-0 right-0 bottom-0 w-1/2">
+        <Maps />
+      </div>
+
+      {/* 캘린더: 왼쪽 절반, 부양감 */}
+      <div className="relative z-10 flex h-full w-1/2 flex-col gap-grid-gap p-3">
         <CalendarHeader />
-        <div className="flex flex-1 min-h-0 flex-col bg-inset border border-black/4 rounded-xl p-grid-gap gap-grid-gap overflow-hidden">
+        <div className="relative flex flex-1 min-h-0 flex-col rounded-2xl bg-white shadow-xl overflow-hidden">
           <Calendar />
           <Bucket />
         </div>
-      </div>
-
-      <Resizer onPointerDown={onPointerDown} />
-
-      {/* 오른쪽: 지도 */}
-      <div className="flex-1 min-w-0 rounded-xl overflow-hidden bg-inset border border-black/4 p-grid-gap">
-        <Maps />
       </div>
 
       {/* 블록 상세 사이드 패널 */}

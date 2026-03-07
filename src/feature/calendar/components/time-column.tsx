@@ -2,6 +2,8 @@ import { Text } from "@/src/components/ui";
 import { HOUR_HEIGHT, HOURS, TIME_COL_W } from "../constants";
 import { formatHour } from "../utils";
 
+const BUCKET_PADDING_HEIGHT = 160;
+
 export function TimeColumn({ headerHeight }: { headerHeight: number }) {
   return (
     <div
@@ -15,6 +17,8 @@ export function TimeColumn({ headerHeight }: { headerHeight: number }) {
           </Text>
         </div>
       ))}
+      {/* 버킷 오버레이 확장 시 스크롤 가능하도록 패딩 영역 */}
+      <div className="bg-accent" style={{ height: BUCKET_PADDING_HEIGHT }} />
     </div>
   );
 }

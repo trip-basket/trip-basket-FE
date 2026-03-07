@@ -12,16 +12,13 @@ export function Calendar() {
   const [headerRef, { height: headerHeight }] = useMeasure();
 
   return (
-    <div className="flex flex-1 min-h-0 flex-col gap-grid-gap">
-      {/* ── 캘린더 (가로+세로 내부 스크롤) ── */}
-      <div className="flex-1 overflow-auto rounded-xl bg-elevated border border-outline">
-        <div className="flex" style={{ minWidth: TIME_COL_W + gridWidth }}>
-          <TimeColumn headerHeight={headerHeight} />
+    <div className="flex-1 min-h-0 overflow-auto">
+      <div className="flex" style={{ minWidth: TIME_COL_W + gridWidth }}>
+        <TimeColumn headerHeight={headerHeight} />
 
-          <div className="flex-1">
-            <DayHeader ref={headerRef} />
-            <TimeGrid />
-          </div>
+        <div className="flex-1">
+          <DayHeader ref={headerRef} />
+          <TimeGrid />
         </div>
       </div>
     </div>
