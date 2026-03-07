@@ -7,7 +7,7 @@ const BUCKET_PADDING_HEIGHT = 160;
 export function TimeColumn({ headerHeight }: { headerHeight: number }) {
   return (
     <div
-      className="sticky left-0 z-40 shrink-0 bg-white"
+      className="sticky left-0 z-40 shrink-0 bg-white border-r border-black/6"
       style={{ width: TIME_COL_W, paddingTop: headerHeight - 9 }}
     >
       {HOURS.map((hour) => (
