@@ -12,7 +12,12 @@ export function useBucketDrag(place: Place) {
   });
 
   useEffect(() => {
-    setIsBucketDragging(result.isDragging);
+    if (result.isDragging) {
+      setIsBucketDragging(true);
+    }
+    return () => {
+      setIsBucketDragging(false);
+    };
   }, [result.isDragging, setIsBucketDragging]);
 
   return result;
