@@ -10,12 +10,13 @@ const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 const TITLE_BAR_HEIGHT = 44;
 
 export function Bucket() {
-  const { bucketBlocks } = useCalendarBlockStore();
+  const bucketBlocks = useCalendarBlockStore((s) => s.bucketBlocks);
+  const isBucketDragging = useCalendarBlockStore((s) => s.isBucketDragging);
   const isBucketEmpty = bucketBlocks.length === 0;
 
   const [isPinned, setIsPinned] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const isExpanded = isPinned || isHovered;
+  const isExpanded = (isPinned || isHovered) && !isBucketDragging;
 
   return (
     <section
