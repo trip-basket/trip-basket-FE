@@ -29,7 +29,7 @@ export function RoomDesktop() {
         <div className="px-4 pt-3 pb-2">
           <CalendarHeader />
         </div>
-        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
+        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden mx-4 mb-4 rounded-xl bg-inset border border-black/4">
           <Calendar />
           <Bucket />
         </div>
