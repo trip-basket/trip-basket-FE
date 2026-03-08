@@ -4,7 +4,7 @@ import { type CalendarBlock, DEFAULT_BLOCK_DURATION, type Place } from "../types
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
-interface CalendarBlockStore {
+interface BlockStore {
   bucketBlocks: Place[];
   calendarBlocks: CalendarBlock[];
   gridRef: HTMLDivElement | null;
@@ -19,7 +19,7 @@ interface CalendarBlockStore {
   resizeBlock: (blockId: string, startHour: number, endHour: number) => void;
 }
 
-const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
+const useBlockStore = create<BlockStore>((set) => ({
   bucketBlocks: useMockData ? MOCK_PLACES : [],
   calendarBlocks: useMockData ? MOCK_CALENDAR_BLOCKS : [],
   gridRef: null,
@@ -81,4 +81,4 @@ const useCalendarBlockStore = create<CalendarBlockStore>((set) => ({
     })),
 }));
 
-export default useCalendarBlockStore;
+export default useBlockStore;

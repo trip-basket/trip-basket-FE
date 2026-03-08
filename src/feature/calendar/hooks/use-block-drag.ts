@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import useCalendarBlockStore from "../stores/use-calendar-block-store";
+import useBlockStore from "../stores/use-block-store";
 import { useAutoScroll } from "./use-auto-scroll";
 import { getDropPosition } from "./utils";
 
@@ -22,7 +22,7 @@ export function useBlockDrag(
   duration?: number,
   onClick?: () => void,
 ) {
-  const { gridRef } = useCalendarBlockStore();
+  const { gridRef } = useBlockStore();
   const { updateScroll, stopScroll } = useAutoScroll(gridRef);
 
   const [isDragging, setIsDragging] = useState(false);

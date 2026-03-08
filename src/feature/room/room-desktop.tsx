@@ -4,12 +4,12 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Calendar } from "@/src/feature/calendar";
 import { BlockDetailPanel, Bucket, CalendarHeader } from "@/src/feature/calendar/components";
-import useCalendarBlockStore from "@/src/feature/calendar/stores/use-calendar-block-store";
+import useBlockStore from "@/src/feature/calendar/stores/use-block-store";
 import { Maps } from "@/src/feature/maps";
 
 export function RoomDesktop() {
-  const selectedBlockId = useCalendarBlockStore((s) => s.selectedBlockId);
-  const setSelectedBlockId = useCalendarBlockStore((s) => s.setSelectedBlockId);
+  const selectedBlockId = useBlockStore((s) => s.selectedBlockId);
+  const setSelectedBlockId = useBlockStore((s) => s.setSelectedBlockId);
 
   return (
     <div className="relative flex-1 overflow-hidden">

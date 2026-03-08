@@ -1,31 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Text } from "@/src/components/ui";
-import useCalendarBlockStore from "../../stores/use-calendar-block-store";
+import useBlockStore from "../../stores/use-block-store";
 import { BucketBlock } from "./bucket-block";
 
-// ease-out-quart (Interaction Design: 강한 감속, modal/sheet 패턴)
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
-const TITLE_BAR_HEIGHT = 44;
+export const TITLE_BAR_HEIGHT = 44;
+export const BUCKET_INSET = 8;
 
 export function Bucket() {
-  const bucketBlocks = useCalendarBlockStore((s) => s.bucketBlocks);
-  const isBucketDragging = useCalendarBlockStore((s) => s.isBucketDragging);
+  const bucketBlocks = useBlockStore((s) => s.bucketBlocks);
+  const isBucketDragging = useBlockStore((s) => s.isBucketDragging);
   const isBucketEmpty = bucketBlocks.length === 0;
 
   const [isPinned, setIsPinned] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const isExpanded = (isPinned || isHovered) && !isBucketDragging;
 
+  useEffect(() => {
+    if (!isBucketDragging) {
+      setIsHovered(false);
+    }
+  }, [isBucketDragging]);
+
   return (
     <section
       aria-label="담은 장소 목록"
       className="absolute z-50 flex flex-col rounded-xl"
       style={{
-        bottom: 8,
-        left: 8,
-        right: 8,
+        bottom: BUCKET_INSET,
+        left: BUCKET_INSET,
+        right: BUCKET_INSET,
         height: isExpanded ? "45%" : TITLE_BAR_HEIGHT,
         backgroundColor: "var(--bg-floating)",
         boxShadow:
