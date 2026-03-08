@@ -2,7 +2,7 @@
 
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import useCalendarBlockStore from "../stores/use-calendar-block-store";
+import useBlockStore from "../stores/use-block-store";
 
 const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
   month: "long",
@@ -19,8 +19,8 @@ function formatDateRange(start: string, end: string) {
 export function CalendarHeader() {
   const room = useRoomStore((s) => s.room);
   const members = useRoomStore((s) => s.members);
-  const calendarBlocks = useCalendarBlockStore((s) => s.calendarBlocks);
-  const bucketBlocks = useCalendarBlockStore((s) => s.bucketBlocks);
+  const calendarBlocks = useBlockStore((s) => s.calendarBlocks);
+  const bucketBlocks = useBlockStore((s) => s.bucketBlocks);
 
   const totalCost = [...calendarBlocks, ...bucketBlocks].reduce((sum, b) => sum + (b.cost ?? 0), 0);
 

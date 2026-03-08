@@ -21,13 +21,12 @@ export function BucketDraggableBlock({
   handlers,
 }: BucketDraggableBlockProps) {
   const room = useRoomStore((s) => s.room);
-  const members = useRoomStore((s) => s.members);
   const isLocked = !!place.lockedBy;
   const blockColor = BLOCK_COLORS[place.colorIndex % BLOCK_COLORS.length];
 
   return (
     <div
-      className="shrink-0 cursor-pointer touch-none rounded-md p-2 shadow-sm transition-shadow hover:shadow-md"
+      className="shrink-0 cursor-pointer touch-none rounded-xl p-3 transition-shadow hover:shadow-md"
       style={{
         position: isDragging ? "fixed" : "static",
         width: DAY_COL_MIN_W,
@@ -39,6 +38,7 @@ export function BucketDraggableBlock({
         userSelect: isDragging ? "none" : undefined,
         opacity: isLocked ? 0.55 : 1,
         backgroundColor: blockColor.base,
+        boxShadow: isDragging ? "0 8px 24px rgba(0,0,0,0.15)" : undefined,
       }}
       {...handlers}
     >
@@ -50,48 +50,18 @@ export function BucketDraggableBlock({
             </Text>
             <CategoryIcon category={place.category} color={blockColor.accent} size={16} />
           </div>
-          {/* 상세 정보 변경했던 사람들 */}
-          {place.addedBy && (
-            <div className="flex -space-x-1 mt-1">
-              {members
-                .filter((m) => m.id === place.addedBy)
-                .map((m) => (
-                  <div
-                    key={m.id}
-                    className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-200 overflow-hidden"
-                    title={m.nickname}
-                  >
-                    {m.profileImageUrl ? (
-                      // biome-ignore lint/performance/noImgElement: mock 아바타 (프로토타입)
-                      <img
-                        src={m.profileImageUrl}
-                        alt={m.nickname}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <span className="text-[8px] font-semibold text-gray-500">
-                        {m.nickname.charAt(0)}
-                      </span>
-                    )}
-                  </div>
-                ))}
-            </div>
-          )}
+          {place.lockedBy && <span className="text-[10px] text-soft">🔒</span>}
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            {place.lockedBy && <span className="text-[10px] text-soft">🔒</span>}
-          </div>
-          {place.cost !== undefined && place.cost > 0 && (
-            <button
-              type="button"
-              className="ml-auto rounded-md px-1.5 py-0.5 text-xs tabular-nums cursor-pointer transition-opacity hover:opacity-70"
+        {place.cost !== undefined && place.cost > 0 && (
+          <div className="flex justify-end">
+            <span
+              className="rounded-lg px-1.5 py-0.5 text-xs tabular-nums"
               style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
             >
               {room?.currency ?? ""} {place.cost.toLocaleString()}
-            </button>
-          )}
-        </div>
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

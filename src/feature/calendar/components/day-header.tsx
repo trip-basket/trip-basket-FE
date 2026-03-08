@@ -2,12 +2,12 @@ import type { Ref } from "react";
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W } from "../constants";
-import useCalendarBlockStore from "../stores/use-calendar-block-store";
+import useBlockStore from "../stores/use-block-store";
 
 export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
   const days = useRoomStore((s) => s.days);
   const room = useRoomStore((s) => s.room);
-  const calendarBlocks = useCalendarBlockStore((s) => s.calendarBlocks);
+  const calendarBlocks = useBlockStore((s) => s.calendarBlocks);
 
   return (
     <div ref={ref} className="sticky top-0 z-20 flex bg-elevated border-b border-grid-line">

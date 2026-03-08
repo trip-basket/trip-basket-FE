@@ -20,8 +20,8 @@ body {
     height: 2rem; /* h-8, Button sm과 동일 */
     padding: 0 0.625rem;
     border-radius: 0.5rem;
-    background: rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
     color: var(--text-secondary);
     cursor: pointer;
     transition: background 150ms, border-color 150ms, color 150ms;

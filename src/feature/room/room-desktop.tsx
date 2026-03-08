@@ -4,35 +4,35 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Calendar } from "@/src/feature/calendar";
 import { BlockDetailPanel, Bucket, CalendarHeader } from "@/src/feature/calendar/components";
-import useCalendarBlockStore from "@/src/feature/calendar/stores/use-calendar-block-store";
+import useBlockStore from "@/src/feature/calendar/stores/use-block-store";
 import { Maps } from "@/src/feature/maps";
-import { Resizer } from "./components";
-import { useResizer } from "./hooks";
 
 export function RoomDesktop() {
-  const { containerRef, ratio, onPointerDown } = useResizer();
-  const selectedBlockId = useCalendarBlockStore((s) => s.selectedBlockId);
-  const setSelectedBlockId = useCalendarBlockStore((s) => s.setSelectedBlockId);
+  const selectedBlockId = useBlockStore((s) => s.selectedBlockId);
+  const setSelectedBlockId = useBlockStore((s) => s.setSelectedBlockId);
 
   return (
-    <div ref={containerRef} className="flex flex-1 p-grid-gap gap-grid-gap overflow-hidden">
-      {/* 왼쪽: 헤더 + 캘린더 + Bucket */}
+    <div className="relative flex-1 overflow-hidden">
+      {/* 지도: 오른쪽 35% 배경 캔버스 */}
+      <div className="absolute top-0 right-0 bottom-0" style={{ width: "35%" }}>
+        <Maps />
+      </div>
+
+      {/* 캘린더 패널: 왼쪽 65%, 지도 위에 부양 */}
       <div
-        className="flex flex-col gap-grid-gap min-w-0 overflow-hidden"
-        style={{ width: `${ratio * 100}%` }}
+        className="relative z-10 flex h-full flex-col bg-inset"
+        style={{
+          width: "65%",
+          boxShadow: "4px 0 32px rgba(0, 0, 0, 0.10), 12px 0 64px rgba(0, 0, 0, 0.06)",
+        }}
       >
-        <CalendarHeader />
-        <div className="flex flex-1 min-h-0 flex-col bg-inset border border-black/4 rounded-xl p-grid-gap gap-grid-gap overflow-hidden">
+        <div className="px-4 pt-3 pb-2">
+          <CalendarHeader />
+        </div>
+        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden mx-4 mb-4 rounded-xl bg-white border border-black/4">
           <Calendar />
           <Bucket />
         </div>
-      </div>
-
-      <Resizer onPointerDown={onPointerDown} />
-
-      {/* 오른쪽: 지도 */}
-      <div className="flex-1 min-w-0 rounded-xl overflow-hidden bg-inset border border-black/4 p-grid-gap">
-        <Maps />
       </div>
 
       {/* 블록 상세 사이드 패널 */}

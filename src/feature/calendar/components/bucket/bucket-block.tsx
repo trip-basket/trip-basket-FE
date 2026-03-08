@@ -27,7 +27,7 @@ function BucketGhostBlock({ place }: { place: Place }) {
   const blockColor = BLOCK_COLORS[place.colorIndex % BLOCK_COLORS.length];
   return (
     <div
-      className="shrink-0 rounded-md p-2 opacity-50 shadow-sm"
+      className="shrink-0 rounded-xl p-3 opacity-30"
       style={{
         width: DAY_COL_MIN_W,
         height: BUCKET_BLOCK_HEIGHT,

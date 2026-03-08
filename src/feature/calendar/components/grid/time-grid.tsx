@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS } from "../../constants";
-import useCalendarBlockStore from "../../stores/use-calendar-block-store";
+import useBlockStore from "../../stores/use-block-store";
 import type { CalendarBlock } from "../../types";
 import { computeOverlapLayout } from "../../utils";
 import { GridBlock } from "./grid-block";
@@ -11,7 +11,7 @@ const gridStartHour = HOURS[0];
 
 export function TimeGrid() {
   const days = useRoomStore((s) => s.days);
-  const { calendarBlocks, setGridRef } = useCalendarBlockStore();
+  const { calendarBlocks, setGridRef } = useBlockStore();
 
   return (
     <TimeGridWrapper setGridRef={setGridRef}>
@@ -55,7 +55,7 @@ function HourLines() {
         <div
           key={`line-${hour}`}
           className="pointer-events-none absolute inset-x-0 border-b border-grid-line"
-          style={{ top: (hour - gridStartHour) * HOUR_HEIGHT }}
+          style={{ top: (hour - gridStartHour + 1) * HOUR_HEIGHT }}
         />
       ))}
     </>

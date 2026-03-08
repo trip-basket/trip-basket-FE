@@ -1,1 +1,1 @@
-export * from "./use-calendar-block-store";
+export * from "./use-block-store";
