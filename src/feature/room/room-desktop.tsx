@@ -25,17 +25,16 @@ export function RoomDesktop() {
 
       {/* 캘린더 패널: 왼쪽 65%, 지도 위에 부양 */}
       <div
-        className="relative z-10 flex h-full flex-col"
+        className="relative z-10 flex h-full flex-col bg-neutral-100"
         style={{
           width: "65%",
-          backgroundColor: "var(--brand-500)",
           boxShadow: "4px 0 32px rgba(0, 0, 0, 0.10), 12px 0 64px rgba(0, 0, 0, 0.06)",
         }}
       >
         <div className="px-3 py-2">
           <CalendarHeader />
         </div>
-        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden rounded-t-xl bg-white border border-black/6">
+        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden rounded-xl bg-white border border-black/6 mx-2 mb-2">
           <CalendarMetaBar />
           <Calendar />
           <Bucket />

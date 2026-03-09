@@ -16,6 +16,7 @@ export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
         const dayCost = calendarBlocks
           .filter((b) => b.dayIndex === index)
           .reduce((sum, b) => sum + (b.cost ?? 0), 0);
+
         return (
           <div
             key={day.date}

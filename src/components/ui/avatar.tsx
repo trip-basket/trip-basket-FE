@@ -18,7 +18,7 @@ export function Avatar({
 }: AvatarProps) {
   const presenceStyle = showPresence
     ? {
-        border: member.isOnline ? "2px solid #34D399" : "2px solid var(--gray-200)",
+        border: member.isOnline ? "2px solid #6EE7B7" : "2px solid var(--gray-200)",
         opacity: member.isOnline ? 1 : 0.5,
       }
     : undefined;
