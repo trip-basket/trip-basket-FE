@@ -36,13 +36,14 @@ export function GridDraggableBlock({
     height,
   });
 
-  const resizeHandleHeight = 5;
+  const resizeHandleHeight = 6;
+  const resizeHandleInset = 4;
   const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
   const isLocked = !!block.lockedBy;
 
   return (
     <div
-      className="cursor-pointer touch-none rounded-md shadow-sm transition-shadow hover:shadow-md overflow-hidden"
+      className="cursor-pointer touch-none rounded-xl transition-shadow overflow-hidden"
       style={{
         position: isDragging ? "fixed" : "absolute",
         inset: isDragging ? undefined : "0",
@@ -55,20 +56,25 @@ export function GridDraggableBlock({
         userSelect: isDragging ? "none" : undefined,
         opacity: isLocked ? 0.55 : 1,
         backgroundColor: blockColor.base,
+        boxShadow: isDragging
+          ? "0 8px 24px rgba(0,0,0,0.15)"
+          : `0 2px 10px color-mix(in srgb, ${blockColor.accent} 20%, transparent), inset 0 0 0 1px ${blockColor.tint}`,
       }}
       {...dragHandlers}
     >
+      {/* 상단 리사이저 — 떠 있는 핸들 */}
       <div
-        className="absolute inset-x-0 top-0 cursor-ns-resize"
-        style={{ height: resizeHandleHeight, backgroundColor: blockColor.accent }}
+        className="absolute z-10 cursor-ns-resize rounded-full left-2 right-2"
+        style={{ top: resizeHandleInset, height: resizeHandleHeight, backgroundColor: blockColor.tint }}
         onPointerDown={resizeHandlers.onPointerDown("top")}
         onPointerMove={resizeHandlers.onPointerMove}
         onPointerUp={resizeHandlers.onPointerUp}
       />
-      <BlockContent block={block} blockColor={blockColor} resizeHandleHeight={resizeHandleHeight} />
+      <BlockContent block={block} blockColor={blockColor} resizeHandleOffset={resizeHandleHeight + resizeHandleInset} />
+      {/* 하단 리사이저 — 떠 있는 핸들 */}
       <div
-        className="absolute inset-x-0 bottom-0 cursor-ns-resize"
-        style={{ height: resizeHandleHeight, backgroundColor: blockColor.accent }}
+        className="absolute z-10 cursor-ns-resize rounded-full left-2 right-2"
+        style={{ bottom: resizeHandleInset, height: resizeHandleHeight, backgroundColor: blockColor.tint }}
         onPointerDown={resizeHandlers.onPointerDown("bottom")}
         onPointerMove={resizeHandlers.onPointerMove}
         onPointerUp={resizeHandlers.onPointerUp}
@@ -80,11 +86,11 @@ export function GridDraggableBlock({
 function BlockContent({
   block,
   blockColor,
-  resizeHandleHeight,
+  resizeHandleOffset,
 }: {
   block: CalendarBlock;
   blockColor: BlockColor;
-  resizeHandleHeight: number;
+  resizeHandleOffset: number;
 }) {
   const room = useRoomStore((s) => s.room);
   const members = useRoomStore((s) => s.members);
@@ -95,8 +101,8 @@ function BlockContent({
     <div
       className="flex flex-col justify-between h-full px-2"
       style={{
-        paddingTop: resizeHandleHeight,
-        paddingBottom: resizeHandleHeight,
+        paddingTop: resizeHandleOffset + 2,
+        paddingBottom: resizeHandleOffset + 2,
       }}
     >
       <div className="pt-1">

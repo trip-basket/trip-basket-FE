@@ -40,7 +40,7 @@ function GridGhostBlock({ block, top, height }: GridGhostBlockProps) {
   const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
   return (
     <div
-      className="absolute inset-x-0 rounded-md rounded-tr-none p-2 opacity-50 shadow-sm"
+      className="absolute inset-x-0 rounded-xl p-2 opacity-50"
       style={{ top, height, backgroundColor: blockColor.base }}
     >
       <Text variant="body">{block.title}</Text>
