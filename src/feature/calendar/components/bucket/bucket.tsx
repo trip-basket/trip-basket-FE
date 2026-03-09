@@ -1,13 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Text } from "@/src/components/ui";
+import { DAY_COL_MIN_W } from "../../constants";
 import useBlockStore from "../../stores/use-block-store";
 import { BucketBlock } from "./bucket-block";
 
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 export const TITLE_BAR_HEIGHT = 44;
 export const BUCKET_INSET = 8;
+const BLOCK_HEIGHT = 100;
+const GAP = 8;
+const PADDING = 8;
+
+const EMPTY_HEIGHT = TITLE_BAR_HEIGHT + PADDING + BLOCK_HEIGHT + PADDING;
+
+function calcColsPerRow(containerWidth: number): number {
+  const availableWidth = containerWidth - PADDING * 2;
+  return Math.max(1, Math.floor((availableWidth + GAP) / (DAY_COL_MIN_W + GAP)));
+}
+
+function calcExpandedHeight(containerWidth: number, blockCount: number): number {
+  if (blockCount === 0) {
+    return EMPTY_HEIGHT;
+  }
+  const colsPerRow = calcColsPerRow(containerWidth);
+  const rows = Math.ceil(blockCount / colsPerRow);
+  return TITLE_BAR_HEIGHT + PADDING + rows * BLOCK_HEIGHT + (rows - 1) * GAP + PADDING;
+}
 
 export function Bucket() {
   const bucketBlocks = useBlockStore((s) => s.bucketBlocks);
@@ -18,22 +38,48 @@ export function Bucket() {
   const [isHovered, setIsHovered] = useState(false);
   const isExpanded = (isPinned || isHovered) && !isBucketDragging;
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  const measureWidth = useCallback((node: HTMLElement | null) => {
+    if (node) {
+      sectionRef.current = node;
+      setContainerWidth(node.offsetWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) {
+      return;
+    }
+    const ro = new ResizeObserver(([entry]) => {
+      setContainerWidth(entry.contentRect.width);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     if (!isBucketDragging) {
       setIsHovered(false);
     }
   }, [isBucketDragging]);
 
+  const expandedHeight = calcExpandedHeight(containerWidth, bucketBlocks.length);
+  const colsPerRow = calcColsPerRow(containerWidth);
+
   return (
     <section
+      ref={measureWidth}
       aria-label="담은 장소 목록"
       className="absolute z-50 flex flex-col rounded-xl"
       style={{
         bottom: BUCKET_INSET,
         left: BUCKET_INSET,
         right: BUCKET_INSET,
-        height: isExpanded ? "45%" : TITLE_BAR_HEIGHT,
-        backgroundColor: "var(--bg-floating)",
+        height: isExpanded ? expandedHeight : TITLE_BAR_HEIGHT,
+        backgroundColor: "var(--bg-primary)",
         boxShadow:
           "0 -1px 0 rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
         transition: `height 250ms ${EXPAND_EASING}`,
@@ -55,7 +101,7 @@ export function Bucket() {
             viewBox="0 0 12 12"
             fill="none"
             aria-hidden="true"
-            className="text-tertiary"
+            className="text-muted"
             style={{
               transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
               transition: `transform 250ms ${EXPAND_EASING}`,
@@ -80,7 +126,7 @@ export function Bucket() {
           style={{
             width: 28,
             height: 28,
-            color: isPinned ? "var(--bg-accent)" : "var(--text-tertiary)",
+            color: isPinned ? "var(--text-primary)" : "var(--text-tertiary)",
           }}
           aria-label={isPinned ? "버킷 고정 해제" : "버킷 고정"}
         >
@@ -99,18 +145,21 @@ export function Bucket() {
       </div>
 
       {/* 블록 그리드 — 기존 카드 형태 유지 */}
-      <div className="flex-1 min-h-0 overflow-y-auto px-4 pb-4">
+      <div className="flex-1 min-h-0 overflow-y-auto p-2">
         {isBucketEmpty ? (
-          <div className="flex flex-col items-center justify-center py-8">
-            <Text variant="body" weight="semibold">
-              가고 싶은 장소를 미리 담아두세요
-            </Text>
-            <Text variant="caption" color="muted">
-              지도에서 버튼을 눌러 추가할 수 있어요
+          <div className="flex h-full flex-col items-center justify-center gap-1">
+            <Text variant="caption" weight="semibold" color="sub">
+              지도에서 장소를 골라 저장해보세요
             </Text>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-3">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${colsPerRow}, ${DAY_COL_MIN_W}px)`,
+              gap: GAP,
+            }}
+          >
             {bucketBlocks.map((place) => (
               <BucketBlock key={place.id} place={place} />
             ))}
