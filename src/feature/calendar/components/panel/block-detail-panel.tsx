@@ -57,7 +57,7 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
         todos={todos}
         reactionMembers={reactionMembers}
         members={members}
-        currency={room?.currency ?? ""}
+        currency={room?.currency}
       />
 
       <div className="shrink-0 px-10 py-4 border-t border-gray-100 bg-white">

@@ -15,7 +15,7 @@ export interface BlockColor {
 export interface OpeningHour {
   day: number;
   open: string;
-  close: string;
+  close: string | null;
 }
 
 export interface PlaceDetail {

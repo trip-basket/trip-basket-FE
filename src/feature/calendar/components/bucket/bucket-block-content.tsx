@@ -27,7 +27,7 @@ export function BucketBlockContent({
             className="rounded-lg px-1.5 py-0.5 text-xs tabular-nums"
             style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
           >
-            {formatCurrency(place.cost, room?.currency ?? "")}
+            {formatCurrency(place.cost, room?.currency)}
           </span>
         </div>
       )}

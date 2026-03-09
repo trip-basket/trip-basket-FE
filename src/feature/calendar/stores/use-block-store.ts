@@ -61,7 +61,7 @@ const useBlockStore = create<BlockStore>((set) => ({
       const { dayIndex, startHour, endHour, reactions, memo, ...place } = block;
       return {
         calendarBlocks: state.calendarBlocks.filter((b) => b.id !== block.id),
-        bucketBlocks: [...state.bucketBlocks, place],
+        bucketBlocks: [...state.bucketBlocks.filter((b) => b.id !== place.id), place],
       };
     }),
   resizeBlock: (blockId, startHour, endHour) =>

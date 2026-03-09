@@ -24,7 +24,7 @@ export function PanelContent({
   todos: BlockTodo[];
   reactionMembers: Member[];
   members: Member[];
-  currency: string;
+  currency?: string;
 }) {
   const blockColor = getBlockColor(block.colorIndex);
   const categoryColor = blockColor.accent;

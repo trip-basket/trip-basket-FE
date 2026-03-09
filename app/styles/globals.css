@@ -6,25 +6,25 @@
 
 /* 나눔스퀘어라운드 — https://noonnu.cc/font_page/38 */
 @font-face {
-  font-family: 'NanumSquareRound';
+  font-family: NanumSquareRound;
   src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundL.woff2') format('woff2');
   font-weight: 300;
   font-display: swap;
 }
 @font-face {
-  font-family: 'NanumSquareRound';
+  font-family: NanumSquareRound;
   src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
-  font-family: 'NanumSquareRound';
+  font-family: NanumSquareRound;
   src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundB.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
 }
 @font-face {
-  font-family: 'NanumSquareRound';
+  font-family: NanumSquareRound;
   src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundEB.woff2') format('woff2');
   font-weight: 800;
   font-display: swap;

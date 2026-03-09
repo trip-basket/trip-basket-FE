@@ -80,7 +80,7 @@ export function GridBlockContent({
             className="rounded-md px-1.5 py-0.5 text-xs tabular-nums cursor-pointer transition-opacity hover:opacity-70"
             style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
           >
-            {formatCurrency(block.cost, room?.currency ?? "")}
+            {formatCurrency(block.cost, room?.currency)}
           </button>
         )}
       </div>

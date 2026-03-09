@@ -5,7 +5,7 @@ import { SectionHeader } from "./section-header";
 export function MapSection({ block }: { block: CalendarBlock }) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  if (!block.placeDetail || !apiKey) {
+  if (!block.placeDetail) {
     return null;
   }
 
@@ -15,21 +15,23 @@ export function MapSection({ block }: { block: CalendarBlock }) {
   return (
     <div className="mb-6">
       <SectionHeader icon="map" label="위치" />
-      <div className="rounded-xl overflow-hidden border border-gray-100 h-[160px]">
-        <APIProvider apiKey={apiKey}>
-          <GoogleMap
-            defaultCenter={center}
-            defaultZoom={15}
-            disableDefaultUI={true}
-            zoomControl={false}
-            gestureHandling="none"
-            clickableIcons={false}
-            style={{ width: "100%", height: "100%" }}
-          >
-            <Marker position={center} />
-          </GoogleMap>
-        </APIProvider>
-      </div>
+      {apiKey && (
+        <div className="rounded-xl overflow-hidden border border-gray-100 h-[160px]">
+          <APIProvider apiKey={apiKey}>
+            <GoogleMap
+              defaultCenter={center}
+              defaultZoom={15}
+              disableDefaultUI={true}
+              zoomControl={false}
+              gestureHandling="none"
+              clickableIcons={false}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <Marker position={center} />
+            </GoogleMap>
+          </APIProvider>
+        </div>
+      )}
       <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{place.formattedAddress}</p>
       {place.rating != null && (
         <div className="flex items-center gap-1 mt-1">

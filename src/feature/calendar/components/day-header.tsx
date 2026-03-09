@@ -29,7 +29,7 @@ export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
             </Text>
             {dayCost > 0 && (
               <Text variant="caption" color="muted">
-                {formatCurrency(dayCost, room?.currency ?? "")}
+                {formatCurrency(dayCost, room?.currency)}
               </Text>
             )}
           </div>

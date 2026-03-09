@@ -9,22 +9,17 @@ export function usePlaceSelection() {
 
   const selectPlace = useCallback(
     async (place: google.maps.places.Place) => {
-      try {
-        await place.fetchFields({
-          fields: [
-            "id",
-            "location",
-            "displayName",
-            "formattedAddress",
-            "rating",
-            "userRatingCount",
-            "regularOpeningHours",
-          ],
-        });
-      } catch (error) {
-        console.error("Failed to fetch place details:", error);
-        return;
-      }
+      await place.fetchFields({
+        fields: [
+          "id",
+          "location",
+          "displayName",
+          "formattedAddress",
+          "rating",
+          "userRatingCount",
+          "regularOpeningHours",
+        ],
+      });
 
       if (!place.location || !place.id || !map) {
         return;
@@ -44,7 +39,9 @@ export function usePlaceSelection() {
         openingHours: place.regularOpeningHours?.periods?.map((p) => ({
           day: p.open?.day ?? 0,
           open: `${String(p.open?.hour ?? 0).padStart(2, "0")}:${String(p.open?.minute ?? 0).padStart(2, "0")}`,
-          close: `${String(p.close?.hour ?? 0).padStart(2, "0")}:${String(p.close?.minute ?? 0).padStart(2, "0")}`,
+          close: p.close
+            ? `${String(p.close.hour ?? 0).padStart(2, "0")}:${String(p.close.minute ?? 0).padStart(2, "0")}`
+            : null,
         })),
       });
 
@@ -64,8 +61,9 @@ export function usePlaceSelection() {
       const place = new placesLib.Place({ id: clickedPlaceId });
       try {
         await selectPlace(place);
-      } catch (error) {
-        console.error("Failed to select place:", error);
+      } catch (_) {
+        // selectPlace 내부에서 fetch 실패 시 에러가 전파됨
+        // 현재는 조용히 무시 — 추후 토스트 등으로 사용자 알림 추가
       }
     },
     [placesLib, selectPlace],

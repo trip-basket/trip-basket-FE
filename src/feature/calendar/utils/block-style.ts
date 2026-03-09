@@ -2,7 +2,8 @@ import { BLOCK_COLORS } from "../constants";
 import type { BlockColor } from "../types";
 
 export function getBlockColor(colorIndex: number): BlockColor {
-  return BLOCK_COLORS[colorIndex % BLOCK_COLORS.length];
+  const len = BLOCK_COLORS.length;
+  return BLOCK_COLORS[((colorIndex % len) + len) % len];
 }
 
 export function getBlockShadow(isDragging: boolean, blockColor: BlockColor): string {
@@ -12,6 +13,9 @@ export function getBlockShadow(isDragging: boolean, blockColor: BlockColor): str
   return `0 2px 10px color-mix(in srgb, ${blockColor.accent} 20%, transparent), inset 0 0 0 1px ${blockColor.tint}`;
 }
 
-export function formatCurrency(cost: number, currency: string): string {
+export function formatCurrency(cost: number, currency?: string): string {
+  if (!currency) {
+    return cost.toLocaleString();
+  }
   return `${currency} ${cost.toLocaleString()}`;
 }

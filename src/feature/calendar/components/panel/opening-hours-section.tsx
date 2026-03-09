@@ -5,6 +5,9 @@ const DAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
 
 function formatOpeningHour(hour: OpeningHour): string {
   const day = DAY_LABELS[hour.day] ?? `${hour.day}`;
+  if (!hour.close) {
+    return `${day}: 24시간 영업`;
+  }
   return `${day}: ${hour.open} – ${hour.close}`;
 }
 
