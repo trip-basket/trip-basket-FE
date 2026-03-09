@@ -12,18 +12,18 @@
   --gray-900: #111827;
   --gray-950: #030712;
 
-  /* Brand (Green — #41916A 기준) */
-  --brand-50: #f2f9f5;
-  --brand-100: #d8ede2;
-  --brand-200: #b3dcc5;
-  --brand-300: #86c8a5;
-  --brand-400: #5fb388;
-  --brand-500: #41916a;
-  --brand-600: #377a5a;
-  --brand-700: #2d644a;
-  --brand-800: #244f3b;
-  --brand-900: #1c3e2f;
-  --brand-950: #112720;
+  /* Brand (Blue — #3B82F6 기준) */
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-300: #93c5fd;
+  --brand-400: #60a5fa;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+  --brand-800: #1e40af;
+  --brand-900: #1e3a8a;
+  --brand-950: #172554;
 
   /* Success (Green) */
   --success-50: #f0fdf4;
@@ -44,37 +44,37 @@
   --error-600: #dc2626;
   --error-700: #b91c1c;
 
-  /* Block Colors (Calendar) — near-white base, vivid accent */
-  --block-red-base: #FFF5F5;
-  --block-red-tint: #FEE2E2;
-  --block-red-accent: #DC2626;
+  /* Block Colors (Calendar) — blue brand 기준 harmonized palette */
+  --block-sky-base: #E0F2FE;
+  --block-sky-tint: #BAE6FD;
+  --block-sky-accent: #0284C7;
 
-  --block-orange-base: #FFF8F0;
-  --block-orange-tint: #FFEDD5;
-  --block-orange-accent: #EA580C;
+  --block-indigo-base: #E0E7FF;
+  --block-indigo-tint: #C7D2FE;
+  --block-indigo-accent: #4F46E5;
 
-  --block-yellow-base: #FFFCE8;
-  --block-yellow-tint: #FEF9C3;
-  --block-yellow-accent: #EAB308;
+  --block-violet-base: #EDE9FE;
+  --block-violet-tint: #DDD6FE;
+  --block-violet-accent: #7C3AED;
 
-  --block-mint-base: #F0FDF2;
-  --block-mint-tint: #DCFCE0;
-  --block-mint-accent: #16A34A;
+  --block-rose-base: #FFE4E6;
+  --block-rose-tint: #FECDD3;
+  --block-rose-accent: #E11D48;
 
-  --block-teal-base: #F0FDFA;
-  --block-teal-tint: #CCFBF1;
+  --block-teal-base: #CCFBF1;
+  --block-teal-tint: #99F6E4;
   --block-teal-accent: #0D9488;
 
-  --block-lavender-base: #F5F0FF;
-  --block-lavender-tint: #E8DEFF;
-  --block-lavender-accent: #7C3AED;
+  --block-amber-base: #FEF3C7;
+  --block-amber-tint: #FDE68A;
+  --block-amber-accent: #D97706;
 
-  --block-grape-base: #FDF2F8;
-  --block-grape-tint: #FCE7F3;
-  --block-grape-accent: #C026D3;
+  --block-fuchsia-base: #FAE8FF;
+  --block-fuchsia-tint: #F5D0FE;
+  --block-fuchsia-accent: #C026D3;
 
-  --block-slate-base: #F3F4F6;
-  --block-slate-tint: #E2E4E8;
+  --block-slate-base: #F1F5F9;
+  --block-slate-tint: #CBD5E1;
   --block-slate-accent: #475569;
 
   /* ----------------------------------------
