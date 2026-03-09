@@ -1,11 +1,9 @@
 import { Text } from "@/src/components/ui";
-import { DAY_COL_MIN_W } from "../../constants";
+import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
 import type { Place } from "../../types";
-import { BLOCK_COLORS } from "../../types";
+import { getBlockColor } from "../../utils";
 import { BucketDraggableBlock } from "./bucket-draggable-block";
 import { useBucketDrag } from "./use-bucket-drag";
-
-const BUCKET_BLOCK_HEIGHT = 100;
 
 export function BucketBlock({ place }: { place: Place }) {
   const { isDragging, position, handlers } = useBucketDrag(place);
@@ -24,7 +22,7 @@ export function BucketBlock({ place }: { place: Place }) {
 }
 
 function BucketGhostBlock({ place }: { place: Place }) {
-  const blockColor = BLOCK_COLORS[place.colorIndex % BLOCK_COLORS.length];
+  const blockColor = getBlockColor(place.colorIndex);
   return (
     <div
       className="shrink-0 rounded-xl p-3 opacity-30"

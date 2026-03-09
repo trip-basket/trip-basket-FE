@@ -1,4 +1,4 @@
-import { Text } from "@/src/components/ui";
+import { Avatar, Text } from "@/src/components/ui";
 import type { Member } from "@/src/feature/room/types";
 import { PropertyRow } from "./property-row";
 
@@ -14,24 +14,7 @@ export function ReactionsProperty({
       <div className="flex items-center gap-1.5">
         <div className="flex -space-x-1">
           {members.slice(0, 5).map((member) => (
-            <div
-              key={member.id}
-              className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 border border-white overflow-hidden"
-              title={member.nickname}
-            >
-              {member.profileImageUrl ? (
-                // biome-ignore lint/performance/noImgElement: mock 아바타 (프로토타입)
-                <img
-                  src={member.profileImageUrl}
-                  alt={member.nickname}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <span className="text-[10px] font-semibold text-gray-500">
-                  {member.nickname.charAt(0)}
-                </span>
-              )}
-            </div>
+            <Avatar key={member.id} member={member} size={20} />
           ))}
         </div>
         {reactionsCount > 0 && (

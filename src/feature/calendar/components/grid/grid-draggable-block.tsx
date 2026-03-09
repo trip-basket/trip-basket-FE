@@ -1,9 +1,14 @@
-import { Text } from "@/src/components/ui";
+import { Avatar, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W } from "../../constants";
 import type { BlockColor, CalendarBlock } from "../../types";
-import { BLOCK_COLORS } from "../../types";
-import { formatBlockTime, type OverlapLayout } from "../../utils";
+import {
+  formatBlockTime,
+  formatCurrency,
+  getBlockColor,
+  getBlockShadow,
+  type OverlapLayout,
+} from "../../utils";
 import { CategoryIcon } from "../panel/category-icon";
 import { useGridBlockResize } from "./use-grid-block-resize";
 
@@ -38,7 +43,7 @@ export function GridDraggableBlock({
 
   const resizeHandleHeight = 6;
   const resizeHandleInset = 4;
-  const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
+  const blockColor = getBlockColor(block.colorIndex);
   const isLocked = !!block.lockedBy;
 
   return (
@@ -56,25 +61,35 @@ export function GridDraggableBlock({
         userSelect: isDragging ? "none" : undefined,
         opacity: isLocked ? 0.55 : 1,
         backgroundColor: blockColor.base,
-        boxShadow: isDragging
-          ? "0 8px 24px rgba(0,0,0,0.15)"
-          : `0 2px 10px color-mix(in srgb, ${blockColor.accent} 20%, transparent), inset 0 0 0 1px ${blockColor.tint}`,
+        boxShadow: getBlockShadow(isDragging, blockColor),
       }}
       {...dragHandlers}
     >
       {/* 상단 리사이저 — 떠 있는 핸들 */}
       <div
         className="absolute z-10 cursor-ns-resize rounded-full left-2 right-2"
-        style={{ top: resizeHandleInset, height: resizeHandleHeight, backgroundColor: blockColor.tint }}
+        style={{
+          top: resizeHandleInset,
+          height: resizeHandleHeight,
+          backgroundColor: blockColor.tint,
+        }}
         onPointerDown={resizeHandlers.onPointerDown("top")}
         onPointerMove={resizeHandlers.onPointerMove}
         onPointerUp={resizeHandlers.onPointerUp}
       />
-      <BlockContent block={block} blockColor={blockColor} resizeHandleOffset={resizeHandleHeight + resizeHandleInset} />
+      <BlockContent
+        block={block}
+        blockColor={blockColor}
+        resizeHandleOffset={resizeHandleHeight + resizeHandleInset}
+      />
       {/* 하단 리사이저 — 떠 있는 핸들 */}
       <div
         className="absolute z-10 cursor-ns-resize rounded-full left-2 right-2"
-        style={{ bottom: resizeHandleInset, height: resizeHandleHeight, backgroundColor: blockColor.tint }}
+        style={{
+          bottom: resizeHandleInset,
+          height: resizeHandleHeight,
+          backgroundColor: blockColor.tint,
+        }}
         onPointerDown={resizeHandlers.onPointerDown("bottom")}
         onPointerMove={resizeHandlers.onPointerMove}
         onPointerUp={resizeHandlers.onPointerUp}
@@ -127,24 +142,7 @@ function BlockContent({
             {members
               .filter((m) => m.id === block.addedBy)
               .map((m) => (
-                <div
-                  key={m.id}
-                  className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-200 overflow-hidden"
-                  title={m.nickname}
-                >
-                  {m.profileImageUrl ? (
-                    // biome-ignore lint/performance/noImgElement: mock 아바타 (프로토타입)
-                    <img
-                      src={m.profileImageUrl}
-                      alt={m.nickname}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <span className="text-[8px] font-semibold text-gray-500">
-                      {m.nickname.charAt(0)}
-                    </span>
-                  )}
-                </div>
+                <Avatar key={m.id} member={m} size={16} border="" />
               ))}
           </div>
         )}
@@ -177,7 +175,7 @@ function BlockContent({
             className="rounded-md px-1.5 py-0.5 text-xs tabular-nums cursor-pointer transition-opacity hover:opacity-70"
             style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
           >
-            {room?.currency ?? ""} {block.cost.toLocaleString()}
+            {formatCurrency(block.cost, room?.currency ?? "")}
           </button>
         )}
       </div>

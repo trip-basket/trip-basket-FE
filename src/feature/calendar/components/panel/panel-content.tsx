@@ -1,8 +1,8 @@
 import { Text } from "@/src/components/ui";
 import type { Day, Member } from "@/src/feature/room/types";
+import { CATEGORY_LABELS } from "../../constants";
 import type { BlockTodo, CalendarBlock } from "../../types";
-import { BLOCK_COLORS, CATEGORY_LABELS } from "../../types";
-import { formatBlockTime } from "../../utils";
+import { formatBlockTime, formatCurrency, getBlockColor } from "../../utils";
 import { CategoryIcon } from "./category-icon";
 import { MapSection } from "./map-section";
 import { OpeningHoursSection } from "./opening-hours-section";
@@ -26,7 +26,7 @@ export function PanelContent({
   members: Member[];
   currency: string;
 }) {
-  const blockColor = BLOCK_COLORS[block.colorIndex % BLOCK_COLORS.length];
+  const blockColor = getBlockColor(block.colorIndex);
   const categoryColor = blockColor.accent;
   const categoryLabel = block.category ? CATEGORY_LABELS[block.category] : undefined;
   const reactionsCount = block.reactions?.length ?? 0;
@@ -43,8 +43,8 @@ export function PanelContent({
           <CategoryIcon category={block.category} color={categoryColor} />
         </div>
         <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-0.5">{block.title}</h1>
-        {block.place && block.place.placeName !== block.title && (
-          <p className="text-sm text-gray-400">{block.place.placeName}</p>
+        {block.placeDetail && block.placeDetail.placeName !== block.title && (
+          <p className="text-sm text-gray-400">{block.placeDetail.placeName}</p>
         )}
       </div>
 
@@ -72,7 +72,7 @@ export function PanelContent({
 
         <PropertyRow icon="payments" label="비용">
           <Text variant="small">
-            {block.cost !== undefined ? `${currency} ${block.cost.toLocaleString()}` : "미정"}
+            {block.cost !== undefined ? formatCurrency(block.cost, currency) : "미정"}
           </Text>
         </PropertyRow>
 
@@ -91,8 +91,8 @@ export function PanelContent({
 
       <MapSection block={block} />
 
-      {block.place?.openingHours && block.place.openingHours.length > 0 && (
-        <OpeningHoursSection hours={block.place.openingHours} />
+      {block.placeDetail?.openingHours && block.placeDetail.openingHours.length > 0 && (
+        <OpeningHoursSection hours={block.placeDetail.openingHours} />
       )}
 
       {block.memo && (

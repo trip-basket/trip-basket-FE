@@ -3,6 +3,7 @@ import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W } from "../constants";
 import useBlockStore from "../stores/use-block-store";
+import { formatCurrency } from "../utils";
 
 export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
   const days = useRoomStore((s) => s.days);
@@ -22,10 +23,12 @@ export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
             style={{ minWidth: DAY_COL_MIN_W }}
           >
             <Text variant="body">{day.dayOfWeek}</Text>
-            <Text variant="h2" weight="extrabold">{day.date}</Text>
+            <Text variant="h2" weight="extrabold">
+              {day.date}
+            </Text>
             {dayCost > 0 && (
               <Text variant="caption" color="muted">
-                {room?.currency ?? ""} {dayCost.toLocaleString()}
+                {formatCurrency(dayCost, room?.currency ?? "")}
               </Text>
             )}
           </div>

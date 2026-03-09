@@ -8,7 +8,7 @@ export const MOCK_PLACES: Place[] = [
     category: "transport",
     cost: 15000,
     addedBy: "m1",
-    place: {
+    placeDetail: {
       placeId: "ChIJe4UM3bdQdkgR1pHOovah5Kw",
       placeName: "Heathrow Airport",
       formattedAddress: "Longford TW6, UK",
@@ -23,7 +23,7 @@ export const MOCK_PLACES: Place[] = [
     category: "sightseeing",
     cost: 0,
     addedBy: "m2",
-    place: {
+    placeDetail: {
       placeId: "ChIJB9OTMDIbdkgRp0JWbQGZsS8",
       placeName: "The British Museum",
       formattedAddress: "Great Russell St, London WC1B 3DG",
@@ -52,7 +52,7 @@ export const MOCK_PLACES: Place[] = [
     cost: 16000,
     addedBy: "m1",
     lockedBy: "m2",
-    place: {
+    placeDetail: {
       placeId: "ChIJARB5k7kEdkgRcOCKB2g3uSM",
       placeName: "Tower Bridge",
       formattedAddress: "Tower Bridge Rd, London SE1 2UP",
@@ -118,7 +118,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     cost: 39000,
     addedBy: "m1",
     reactions: [{ memberId: "m2" }],
-    place: {
+    placeDetail: {
       placeId: "ChIJtV5bzSAFdkgRpwLZFPWrJgo",
       placeName: "Buckingham Palace",
       formattedAddress: "London SW1A 1AA",
@@ -151,7 +151,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     addedBy: "m2",
     reactions: [{ memberId: "m1" }, { memberId: "m3" }],
     memo: "유명한 스트리트 푸드 마켓. Fish & Chips, 라클렛 추천.",
-    place: {
+    placeDetail: {
       placeId: "ChIJA_0nSIcEdkgR1ntGaAuQEAo",
       placeName: "Borough Market",
       formattedAddress: "8 Southwark St, London SE1 1TL",
@@ -181,7 +181,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     category: "sightseeing",
     cost: 42000,
     addedBy: "m3",
-    place: {
+    placeDetail: {
       placeId: "ChIJc2nSALkEdkgRkuoJJBfzkUI",
       placeName: "London Eye",
       formattedAddress: "Riverside Building, County Hall, London SE1 7PB",
@@ -204,7 +204,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     cost: 0,
     addedBy: "m1",
     lockedBy: "m3",
-    place: {
+    placeDetail: {
       placeId: "ChIJ_-o3bIoEdkgR8GH7thWkMBo",
       placeName: "Harrods",
       formattedAddress: "87-135 Brompton Rd, London SW1X 7XL",
@@ -235,7 +235,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     category: "transport",
     cost: 112000,
     addedBy: "m2",
-    place: {
+    placeDetail: {
       placeId: "ChIJQabCBVMbdkgR5WmIdBmTFbA",
       placeName: "King's Cross Station",
       formattedAddress: "Euston Rd, London N1 9AL",
@@ -255,7 +255,7 @@ export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
     addedBy: "m3",
     reactions: [{ memberId: "m1" }, { memberId: "m2" }, { memberId: "m3" }],
     memo: "엘리자베스 타워 내부 투어는 사전 예약 필수. 영국 시민/거주자만 가능.",
-    place: {
+    placeDetail: {
       placeId: "ChIJmb5GBMkEdkgRIM_OfMkVNHk",
       placeName: "Big Ben",
       formattedAddress: "London SW1A 0AA",

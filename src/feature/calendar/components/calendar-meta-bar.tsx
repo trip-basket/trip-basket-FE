@@ -1,9 +1,9 @@
 "use client";
 
-import { Text } from "@/src/components/ui";
+import { Avatar, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import type { Member } from "@/src/feature/room/types";
 import useBlockStore from "../stores/use-block-store";
+import { formatCurrency } from "../utils";
 
 const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
   month: "long",
@@ -15,36 +15,6 @@ function formatDateRange(start: string, end: string) {
   const e = new Date(end);
   const days = Math.floor((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24)) + 1;
   return `${dateFormatter.format(s)} – ${dateFormatter.format(e)} · ${days}일`;
-}
-
-function MemberAvatar({ member }: { member: Member }) {
-  return (
-    <div
-      className="flex items-center justify-center rounded-full overflow-hidden"
-      style={{
-        width: 28,
-        height: 28,
-        border: member.isOnline ? "2px solid #34D399" : "2px solid var(--gray-200)",
-        opacity: member.isOnline ? 1 : 0.5,
-      }}
-      title={member.nickname}
-    >
-      {member.profileImageUrl ? (
-        // biome-ignore lint/performance/noImgElement: mock 아바타 (프로토타입)
-        <img
-          src={member.profileImageUrl}
-          alt={member.nickname}
-          className="h-full w-full object-cover"
-        />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center bg-gray-200">
-          <span className="text-[10px] font-semibold text-gray-500">
-            {member.nickname.charAt(0)}
-          </span>
-        </div>
-      )}
-    </div>
-  );
 }
 
 export function CalendarMetaBar() {
@@ -86,14 +56,14 @@ export function CalendarMetaBar() {
         </button>
         <button type="button" className="chip-inset chip-inset--strong tabular-nums">
           <Text variant="caption" className="text-inherit tabular-nums">
-            {room.currency} {totalCost.toLocaleString()}
+            {formatCurrency(totalCost, room.currency)}
           </Text>
         </button>
       </div>
       <div className="flex items-center gap-1.5">
         <div className="flex -space-x-1">
           {members.map((member) => (
-            <MemberAvatar key={member.id} member={member} />
+            <Avatar key={member.id} member={member} size={28} showPresence />
           ))}
         </div>
         <button

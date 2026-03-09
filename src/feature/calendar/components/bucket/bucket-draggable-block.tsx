@@ -1,11 +1,9 @@
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import { DAY_COL_MIN_W } from "../../constants";
+import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
 import type { Place } from "../../types";
-import { BLOCK_COLORS } from "../../types";
+import { formatCurrency, getBlockColor, getBlockShadow } from "../../utils";
 import { CategoryIcon } from "../panel/category-icon";
-
-const BUCKET_BLOCK_HEIGHT = 100;
 
 export interface BucketDraggableBlockProps {
   place: Place;
@@ -22,7 +20,7 @@ export function BucketDraggableBlock({
 }: BucketDraggableBlockProps) {
   const room = useRoomStore((s) => s.room);
   const isLocked = !!place.lockedBy;
-  const blockColor = BLOCK_COLORS[place.colorIndex % BLOCK_COLORS.length];
+  const blockColor = getBlockColor(place.colorIndex);
 
   return (
     <div
@@ -38,9 +36,7 @@ export function BucketDraggableBlock({
         userSelect: isDragging ? "none" : undefined,
         opacity: isLocked ? 0.55 : 1,
         backgroundColor: blockColor.base,
-        boxShadow: isDragging
-          ? "0 8px 24px rgba(0,0,0,0.15)"
-          : `0 2px 10px color-mix(in srgb, ${blockColor.accent} 20%, transparent), inset 0 0 0 1px ${blockColor.tint}`,
+        boxShadow: getBlockShadow(isDragging, blockColor),
       }}
       {...handlers}
     >
@@ -60,7 +56,7 @@ export function BucketDraggableBlock({
               className="rounded-lg px-1.5 py-0.5 text-xs tabular-nums"
               style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
             >
-              {room?.currency ?? ""} {place.cost.toLocaleString()}
+              {formatCurrency(place.cost, room?.currency ?? "")}
             </span>
           </div>
         )}
