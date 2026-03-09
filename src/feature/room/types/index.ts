@@ -10,6 +10,7 @@ export interface Member {
   nickname: string;
   profileImageUrl?: string;
   role: MemberRole;
+  isOnline?: boolean;
 }
 
 export interface Room {

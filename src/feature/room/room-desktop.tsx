@@ -3,7 +3,12 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Calendar } from "@/src/feature/calendar";
-import { BlockDetailPanel, Bucket, CalendarHeader } from "@/src/feature/calendar/components";
+import {
+  BlockDetailPanel,
+  Bucket,
+  CalendarHeader,
+  CalendarMetaBar,
+} from "@/src/feature/calendar/components";
 import useBlockStore from "@/src/feature/calendar/stores/use-block-store";
 import { Maps } from "@/src/feature/maps";
 
@@ -20,16 +25,18 @@ export function RoomDesktop() {
 
       {/* 캘린더 패널: 왼쪽 65%, 지도 위에 부양 */}
       <div
-        className="relative z-10 flex h-full flex-col bg-inset"
+        className="relative z-10 flex h-full flex-col"
         style={{
           width: "65%",
+          backgroundColor: "var(--brand-500)",
           boxShadow: "4px 0 32px rgba(0, 0, 0, 0.10), 12px 0 64px rgba(0, 0, 0, 0.06)",
         }}
       >
-        <div className="px-4 pt-3 pb-2">
+        <div className="px-3 py-2">
           <CalendarHeader />
         </div>
-        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden mx-4 mb-4 rounded-xl bg-white border border-black/4">
+        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden rounded-t-xl bg-white border border-black/6">
+          <CalendarMetaBar />
           <Calendar />
           <Bucket />
         </div>
