@@ -1,19 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import useMeasure from "react-use-measure";
 import { Text } from "@/src/components/ui";
-import { DAY_COL_MIN_W } from "../../constants";
+import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
 import useBlockStore from "../../stores/use-block-store";
 import { BucketBlock } from "./bucket-block";
 
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 export const TITLE_BAR_HEIGHT = 44;
 export const BUCKET_INSET = 8;
-const BLOCK_HEIGHT = 100;
 const GAP = 8;
 const PADDING = 8;
 
-const EMPTY_HEIGHT = TITLE_BAR_HEIGHT + PADDING + BLOCK_HEIGHT + PADDING;
+const EMPTY_HEIGHT = TITLE_BAR_HEIGHT + PADDING + BUCKET_BLOCK_HEIGHT + PADDING;
 
 function calcColsPerRow(containerWidth: number): number {
   const availableWidth = containerWidth - PADDING * 2;
@@ -26,7 +26,7 @@ function calcExpandedHeight(containerWidth: number, blockCount: number): number 
   }
   const colsPerRow = calcColsPerRow(containerWidth);
   const rows = Math.ceil(blockCount / colsPerRow);
-  return TITLE_BAR_HEIGHT + PADDING + rows * BLOCK_HEIGHT + (rows - 1) * GAP + PADDING;
+  return TITLE_BAR_HEIGHT + PADDING + rows * BUCKET_BLOCK_HEIGHT + (rows - 1) * GAP + PADDING;
 }
 
 export function Bucket() {
@@ -38,27 +38,7 @@ export function Bucket() {
   const [isHovered, setIsHovered] = useState(false);
   const isExpanded = (isPinned || isHovered) && !isBucketDragging;
 
-  const sectionRef = useRef<HTMLElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
-
-  const measureWidth = useCallback((node: HTMLElement | null) => {
-    if (node) {
-      sectionRef.current = node;
-      setContainerWidth(node.offsetWidth);
-    }
-  }, []);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) {
-      return;
-    }
-    const ro = new ResizeObserver(([entry]) => {
-      setContainerWidth(entry.contentRect.width);
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+  const [measureRef, { width: containerWidth }] = useMeasure();
 
   useEffect(() => {
     if (!isBucketDragging) {
@@ -71,7 +51,7 @@ export function Bucket() {
 
   return (
     <section
-      ref={measureWidth}
+      ref={measureRef}
       aria-label="담은 장소 목록"
       className="absolute z-50 flex flex-col rounded-xl"
       style={{
@@ -94,7 +74,6 @@ export function Bucket() {
         style={{ height: TITLE_BAR_HEIGHT }}
       >
         <div className="flex items-center gap-2">
-          {/* 확장 인디케이터 */}
           <svg
             width="12"
             height="12"
@@ -144,7 +123,7 @@ export function Bucket() {
         </button>
       </div>
 
-      {/* 블록 그리드 — 기존 카드 형태 유지 */}
+      {/* 블록 그리드 */}
       <div className="flex-1 min-h-0 overflow-y-auto p-2">
         {isBucketEmpty ? (
           <div className="flex h-full flex-col items-center justify-center gap-1">
