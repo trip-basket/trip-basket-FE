@@ -24,7 +24,8 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.06);
     color: var(--text-secondary);
     cursor: pointer;
-    transition: background 150ms, border-color 150ms, color 150ms;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: background 150ms, border-color 150ms, color 150ms, box-shadow 150ms;
   }
   .chip-inset:hover {
     background: var(--bg-accent-subtle);

@@ -29,6 +29,7 @@ export const textVariants = tv({
       medium: "font-medium",
       semibold: "font-semibold",
       bold: "font-bold",
+      extrabold: "font-extrabold",
     },
     align: {
       left: "text-left",

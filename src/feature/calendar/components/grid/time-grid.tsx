@@ -42,7 +42,16 @@ function TimeGridWrapper({
   );
 
   return (
-    <div ref={refCallback} className="relative flex" style={{ height: gridHeight }}>
+    <div
+      ref={refCallback}
+      className="relative flex"
+      style={{
+        height: gridHeight,
+        backgroundColor: "rgba(0, 0, 0, 0.015)",
+        backgroundImage: "radial-gradient(circle, rgba(0, 0, 0, 0.07) 1.25px, transparent 1.25px)",
+        backgroundSize: `${HOUR_HEIGHT / 2}px ${HOUR_HEIGHT / 2}px`,
+      }}
+    >
       {children}
     </div>
   );
