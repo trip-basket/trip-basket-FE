@@ -1,9 +1,7 @@
-import { Text } from "@/src/components/ui";
-import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
 import type { Place } from "../../types";
-import { formatCurrency, getBlockColor, getBlockShadow } from "../../utils";
-import { CategoryIcon } from "../panel/category-icon";
+import { getBlockColor, getBlockShadow } from "../../utils";
+import { BucketBlockContent } from "./bucket-block-content";
 
 export interface BucketDraggableBlockProps {
   place: Place;
@@ -18,7 +16,6 @@ export function BucketDraggableBlock({
   position,
   handlers,
 }: BucketDraggableBlockProps) {
-  const room = useRoomStore((s) => s.room);
   const isLocked = !!place.lockedBy;
   const blockColor = getBlockColor(place.colorIndex);
 
@@ -40,27 +37,7 @@ export function BucketDraggableBlock({
       }}
       {...handlers}
     >
-      <div className="flex flex-col justify-between h-full">
-        <div>
-          <div className="flex items-baseline justify-between gap-1">
-            <Text variant="body" weight="semibold" className="truncate">
-              {place.title}
-            </Text>
-            <CategoryIcon category={place.category} color={blockColor.accent} size={16} />
-          </div>
-          {place.lockedBy && <span className="text-[10px] text-soft">🔒</span>}
-        </div>
-        {place.cost !== undefined && place.cost > 0 && (
-          <div className="flex justify-end">
-            <span
-              className="rounded-lg px-1.5 py-0.5 text-xs tabular-nums"
-              style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
-            >
-              {formatCurrency(place.cost, room?.currency ?? "")}
-            </span>
-          </div>
-        )}
-      </div>
+      <BucketBlockContent place={place} blockColor={blockColor} />
     </div>
   );
 }

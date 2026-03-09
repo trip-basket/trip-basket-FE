@@ -3,7 +3,7 @@
 import useMeasure from "react-use-measure";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DayHeader, TimeColumn, TimeGrid } from "./components";
-import { BUCKET_INSET, TITLE_BAR_HEIGHT } from "./components/bucket/bucket";
+import { BUCKET_INSET, TITLE_BAR_HEIGHT } from "./components/bucket/use-bucket-expand";
 import { DAY_COL_MIN_W, TIME_COL_W } from "./constants";
 
 export function Calendar() {
