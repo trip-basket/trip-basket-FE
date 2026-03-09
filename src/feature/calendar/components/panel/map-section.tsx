@@ -5,11 +5,11 @@ import { SectionHeader } from "./section-header";
 export function MapSection({ block }: { block: CalendarBlock }) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  if (!block.place || !apiKey) {
+  if (!block.placeDetail || !apiKey) {
     return null;
   }
 
-  const { place } = block;
+  const place = block.placeDetail;
   const center = { lat: place.lat, lng: place.lng };
 
   return (
@@ -31,11 +31,11 @@ export function MapSection({ block }: { block: CalendarBlock }) {
         </APIProvider>
       </div>
       <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{place.formattedAddress}</p>
-      {place.rating !== null && (
+      {place.rating != null && (
         <div className="flex items-center gap-1 mt-1">
           <span className="text-yellow-500 text-xs">&#9733;</span>
           <span className="text-xs text-gray-600 font-medium">{place.rating}</span>
-          {place.reviewCount !== null && (
+          {place.reviewCount != null && (
             <span className="text-xs text-gray-400">({place.reviewCount?.toLocaleString()})</span>
           )}
         </div>

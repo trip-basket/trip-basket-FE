@@ -9,17 +9,22 @@ export function usePlaceSelection() {
 
   const selectPlace = useCallback(
     async (place: google.maps.places.Place) => {
-      await place.fetchFields({
-        fields: [
-          "id",
-          "location",
-          "displayName",
-          "formattedAddress",
-          "rating",
-          "userRatingCount",
-          "regularOpeningHours",
-        ],
-      });
+      try {
+        await place.fetchFields({
+          fields: [
+            "id",
+            "location",
+            "displayName",
+            "formattedAddress",
+            "rating",
+            "userRatingCount",
+            "regularOpeningHours",
+          ],
+        });
+      } catch (error) {
+        console.error("Failed to fetch place details:", error);
+        return;
+      }
 
       if (!place.location || !place.id || !map) {
         return;
@@ -57,7 +62,11 @@ export function usePlaceSelection() {
 
       e.stop();
       const place = new placesLib.Place({ id: clickedPlaceId });
-      await selectPlace(place);
+      try {
+        await selectPlace(place);
+      } catch (error) {
+        console.error("Failed to select place:", error);
+      }
     },
     [placesLib, selectPlace],
   );

@@ -57,22 +57,13 @@ const useBlockStore = create<BlockStore>((set) => ({
       }),
     })),
   moveToBucket: (block) =>
-    set((state) => ({
-      calendarBlocks: state.calendarBlocks.filter((b) => b.id !== block.id),
-      bucketBlocks: [
-        ...state.bucketBlocks,
-        {
-          id: block.id,
-          title: block.title,
-          colorIndex: block.colorIndex,
-          category: block.category,
-          cost: block.cost,
-          addedBy: block.addedBy,
-          lockedBy: block.lockedBy,
-          place: block.place,
-        },
-      ],
-    })),
+    set((state) => {
+      const { dayIndex, startHour, endHour, reactions, memo, ...place } = block;
+      return {
+        calendarBlocks: state.calendarBlocks.filter((b) => b.id !== block.id),
+        bucketBlocks: [...state.bucketBlocks, place],
+      };
+    }),
   resizeBlock: (blockId, startHour, endHour) =>
     set((state) => ({
       calendarBlocks: state.calendarBlocks.map((block) =>
