@@ -62,6 +62,7 @@ export function usePlaceSelection() {
       try {
         await selectPlace(place);
       } catch (_) {
+        setPlaceDetail(null);
         // selectPlace 내부에서 fetch 실패 시 에러가 전파됨
         // 현재는 조용히 무시 — 추후 토스트 등으로 사용자 알림 추가
       }
