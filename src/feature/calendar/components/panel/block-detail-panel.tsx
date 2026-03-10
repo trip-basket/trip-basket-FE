@@ -5,30 +5,27 @@ import { Button } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import type { Member } from "@/src/feature/room/types";
 import { MOCK_BLOCK_TODOS } from "../../mocks";
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 import { PanelContent } from "./panel-content";
 
 export function BlockDetailPanel({ blockId }: { blockId: string }) {
   const room = useRoomStore((s) => s.room);
   const members = useRoomStore((s) => s.members);
-  const days = useRoomStore((s) => s.days);
-  const calendarBlocks = useBlockStore((s) => s.calendarBlocks);
+  const findBlock = useCalendarStore((s) => s.findBlock);
+  const tripDays = useCalendarStore((s) => s.tripDays);
 
-  const block = calendarBlocks.find((b) => b.id === blockId);
+  const result = findBlock(blockId);
 
-  if (!block) {
+  if (!result) {
     return null;
   }
 
+  const { block, dayIndex } = result;
+  const day = tripDays[dayIndex];
   const todos = MOCK_BLOCK_TODOS.filter((t) => t.blockId === block.id);
   const reactionMembers = (block.reactions ?? [])
     .map((r) => members.find((m) => m.id === r.memberId))
     .filter((m): m is Member => m !== undefined);
-  const day = days[block.dayIndex];
-
-  if (!day) {
-    return null;
-  }
 
   return (
     <>

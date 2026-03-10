@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 
 const GAP = 8;
 const PADDING = 8;
@@ -24,8 +24,8 @@ function calcExpandedHeight(containerWidth: number, blockCount: number): number 
 }
 
 export function useBucketExpand() {
-  const blockCount = useBlockStore((s) => s.bucketBlocks.length);
-  const isBucketDragging = useBlockStore((s) => s.isBucketDragging);
+  const blockCount = useCalendarStore((s) => s.bucketBlocks.length);
+  const isBucketDragging = useCalendarStore((s) => s.isBucketDragging);
 
   const [isPinned, setIsPinned] = useState(false);
   const [isHovered, setIsHovered] = useState(false);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HOUR_HEIGHT, HOURS } from "../../constants";
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 import type { CalendarBlock } from "../../types";
 
 const snapToHalfHour = (hour: number) => Math.round(hour * 2) / 2;
@@ -14,7 +14,7 @@ interface UseGridBlockResizeParams {
 export function useGridBlockResize({ block, top, height }: UseGridBlockResizeParams) {
   const gridStartHour = HOURS[0];
   const gridEndHour = HOURS[HOURS.length - 1];
-  const { resizeBlock } = useBlockStore();
+  const { resizeBlock } = useCalendarStore();
 
   const [resizeHandle, setResizeHandle] = useState<"top" | "bottom" | null>(null);
   const [isResizing, setIsResizing] = useState(false);

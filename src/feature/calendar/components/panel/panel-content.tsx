@@ -1,7 +1,7 @@
 import { Text } from "@/src/components/ui";
-import type { Day, Member } from "@/src/feature/room/types";
+import type { Member } from "@/src/feature/room/types";
 import { CATEGORY_LABELS } from "../../constants";
-import type { BlockTodo, CalendarBlock } from "../../types";
+import type { BlockTodo, CalendarBlock, TripDay } from "../../types";
 import { formatBlockTime, formatCurrency, getBlockColor } from "../../utils";
 import { CategoryIcon } from "./category-icon";
 import { MapSection } from "./map-section";
@@ -20,7 +20,7 @@ export function PanelContent({
   currency,
 }: {
   block: CalendarBlock;
-  day: Day | undefined;
+  day: TripDay | undefined;
   todos: BlockTodo[];
   reactionMembers: Member[];
   members: Member[];
@@ -52,7 +52,7 @@ export function PanelContent({
       <div className="mb-6 space-y-0.5">
         <PropertyRow icon="calendarToday" label="날짜">
           <Text variant="small">
-            {day ? `${day.date}일 (${day.dayOfWeek})` : ""} {formatBlockTime(block)}
+            {day ? `${day.dateNum}일 (${day.dayOfWeek})` : ""} {formatBlockTime(block)}
           </Text>
         </PropertyRow>
 

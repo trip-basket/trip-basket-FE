@@ -9,12 +9,12 @@ import {
   CalendarHeader,
   CalendarMetaBar,
 } from "@/src/feature/calendar/components";
-import useBlockStore from "@/src/feature/calendar/stores/use-block-store";
+import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import { Maps } from "@/src/feature/maps";
 
 export function RoomDesktop() {
-  const selectedBlockId = useBlockStore((s) => s.selectedBlockId);
-  const setSelectedBlockId = useBlockStore((s) => s.setSelectedBlockId);
+  const selectedBlockId = useCalendarStore((s) => s.selectedBlockId);
+  const setSelectedBlockId = useCalendarStore((s) => s.setSelectedBlockId);
 
   return (
     <div className="relative flex-1 overflow-hidden">

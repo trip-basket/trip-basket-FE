@@ -54,11 +54,17 @@ export interface Place {
 }
 
 export interface CalendarBlock extends Place {
-  dayIndex: number;
   startHour: number;
   endHour: number;
   reactions?: Reaction[];
   memo?: string;
+}
+
+export interface TripDay {
+  date: string;
+  dayOfWeek: string;
+  dateNum: number;
+  blocks: CalendarBlock[];
 }
 
 export const DEFAULT_BLOCK_DURATION = 1;

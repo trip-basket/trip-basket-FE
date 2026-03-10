@@ -1,14 +1,14 @@
 "use client";
 
 import useMeasure from "react-use-measure";
-import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DayHeader, TimeColumn, TimeGrid } from "./components";
 import { BUCKET_INSET, TITLE_BAR_HEIGHT } from "./components/bucket/use-bucket-expand";
 import { DAY_COL_MIN_W, TIME_COL_W } from "./constants";
+import useCalendarStore from "./stores/use-calendar-store";
 
 export function Calendar() {
-  const days = useRoomStore((s) => s.days);
-  const gridWidth = days.length * DAY_COL_MIN_W;
+  const tripDays = useCalendarStore((s) => s.tripDays);
+  const gridWidth = tripDays.length * DAY_COL_MIN_W;
 
   const [headerRef, { height: headerHeight }] = useMeasure();
 

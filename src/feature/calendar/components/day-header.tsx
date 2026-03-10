@@ -2,20 +2,17 @@ import type { Ref } from "react";
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W } from "../constants";
-import useBlockStore from "../stores/use-block-store";
+import useCalendarStore from "../stores/use-calendar-store";
 import { formatCurrency } from "../utils";
 
 export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
-  const days = useRoomStore((s) => s.days);
+  const tripDays = useCalendarStore((s) => s.tripDays);
   const room = useRoomStore((s) => s.room);
-  const calendarBlocks = useBlockStore((s) => s.calendarBlocks);
 
   return (
     <div ref={ref} className="sticky top-0 z-20 flex bg-elevated border-b border-grid-line">
-      {days.map((day, index) => {
-        const dayCost = calendarBlocks
-          .filter((b) => b.dayIndex === index)
-          .reduce((sum, b) => sum + (b.cost ?? 0), 0);
+      {tripDays.map((day) => {
+        const dayCost = day.blocks.reduce((sum, b) => sum + (b.cost ?? 0), 0);
 
         return (
           <div
@@ -25,7 +22,7 @@ export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
           >
             <Text variant="body">{day.dayOfWeek}</Text>
             <Text variant="h2" weight="extrabold">
-              {day.date}
+              {day.dateNum}
             </Text>
             {dayCost > 0 && (
               <Text variant="caption" color="muted">

@@ -1,6 +1,6 @@
 "use client";
 
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 import { BucketGrid } from "./bucket-grid";
 import { BucketTitleBar } from "./bucket-title-bar";
 import { BUCKET_INSET, TITLE_BAR_HEIGHT, useBucketExpand } from "./use-bucket-expand";
@@ -8,7 +8,7 @@ import { BUCKET_INSET, TITLE_BAR_HEIGHT, useBucketExpand } from "./use-bucket-ex
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 
 export function Bucket() {
-  const bucketBlocks = useBlockStore((s) => s.bucketBlocks);
+  const bucketBlocks = useCalendarStore((s) => s.bucketBlocks);
   const {
     isExpanded,
     isPinned,

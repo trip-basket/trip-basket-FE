@@ -5,13 +5,7 @@ import { BucketBlock } from "./bucket-block";
 
 const GAP = 8;
 
-export function BucketGrid({
-  blocks,
-  colsPerRow,
-}: {
-  blocks: Place[];
-  colsPerRow: number;
-}) {
+export function BucketGrid({ blocks, colsPerRow }: { blocks: Place[]; colsPerRow: number }) {
   if (blocks.length === 0) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-1">

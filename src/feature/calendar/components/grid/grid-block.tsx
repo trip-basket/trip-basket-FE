@@ -29,7 +29,15 @@ export function GridBlock({ block, overlapLayout }: GridBlockProps) {
   );
 }
 
-function GridGhostBlock({ block, top, height }: { block: CalendarBlock; top: number; height: number }) {
+function GridGhostBlock({
+  block,
+  top,
+  height,
+}: {
+  block: CalendarBlock;
+  top: number;
+  height: number;
+}) {
   const blockColor = getBlockColor(block.colorIndex);
   return (
     <div

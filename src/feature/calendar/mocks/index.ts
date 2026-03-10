@@ -1,5 +1,7 @@
 import type { BlockTodo, CalendarBlock, Place } from "../types";
 
+type MockBlock = CalendarBlock & { dayIndex: number };
+
 export const MOCK_PLACES: Place[] = [
   {
     id: "1",
@@ -106,7 +108,7 @@ export const MOCK_PLACES: Place[] = [
   },
 ];
 
-export const MOCK_CALENDAR_BLOCKS: CalendarBlock[] = [
+export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
   {
     id: "5",
     title: "버킹엄 궁전",

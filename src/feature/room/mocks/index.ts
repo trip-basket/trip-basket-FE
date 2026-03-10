@@ -1,4 +1,4 @@
-import type { Day, Member, Room } from "../types";
+import type { Member, Room } from "../types";
 
 export const MOCK_ROOM: Room = {
   id: "room-1",
@@ -27,21 +27,4 @@ export const MOCK_MEMBERS: Member[] = [
     isOnline: false,
   },
   { id: "m4", nickname: "민준", role: "viewer", isOnline: false },
-];
-
-export const MOCK_DAYS: Day[] = [
-  { dayOfWeek: "월", date: 16 },
-  { dayOfWeek: "화", date: 17 },
-  { dayOfWeek: "수", date: 18 },
-  { dayOfWeek: "목", date: 19 },
-  { dayOfWeek: "금", date: 20 },
-  { dayOfWeek: "토", date: 21 },
-  { dayOfWeek: "일", date: 22 },
-  { dayOfWeek: "월", date: 23 },
-  { dayOfWeek: "화", date: 24 },
-  { dayOfWeek: "수", date: 25 },
-  { dayOfWeek: "목", date: 26 },
-  { dayOfWeek: "금", date: 27 },
-  { dayOfWeek: "토", date: 28 },
-  { dayOfWeek: "일", date: 29 },
 ];
