@@ -5,14 +5,14 @@ import { Button } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import type { Member } from "@/src/feature/room/types";
 import { MOCK_BLOCK_TODOS } from "../../mocks";
-import useCalendarBlockStore from "../../stores/use-calendar-block-store";
+import useBlockStore from "../../stores/use-block-store";
 import { PanelContent } from "./panel-content";
 
 export function BlockDetailPanel({ blockId }: { blockId: string }) {
   const room = useRoomStore((s) => s.room);
   const members = useRoomStore((s) => s.members);
   const days = useRoomStore((s) => s.days);
-  const calendarBlocks = useCalendarBlockStore((s) => s.calendarBlocks);
+  const calendarBlocks = useBlockStore((s) => s.calendarBlocks);
 
   const block = calendarBlocks.find((b) => b.id === blockId);
 
@@ -57,7 +57,7 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
         todos={todos}
         reactionMembers={reactionMembers}
         members={members}
-        currency={room?.currency ?? ""}
+        currency={room?.currency}
       />
 
       <div className="shrink-0 px-10 py-4 border-t border-gray-100 bg-white">

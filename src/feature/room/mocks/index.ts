@@ -11,20 +11,22 @@ export const MOCK_ROOM: Room = {
 };
 
 export const MOCK_MEMBERS: Member[] = [
-  { id: "m1", nickname: "태웅", role: "owner" },
+  { id: "m1", nickname: "태웅", role: "owner", isOnline: true },
   {
     id: "m2",
     nickname: "지민",
     profileImageUrl: "https://i.pravatar.cc/40?u=m2",
     role: "editor",
+    isOnline: true,
   },
   {
     id: "m3",
     nickname: "수현",
     profileImageUrl: "https://i.pravatar.cc/40?u=m3",
     role: "editor",
+    isOnline: false,
   },
-  { id: "m4", nickname: "민준", role: "viewer" },
+  { id: "m4", nickname: "민준", role: "viewer", isOnline: false },
 ];
 
 export const MOCK_DAYS: Day[] = [

@@ -47,6 +47,10 @@
     --border-interactive-destructive: var(--error-600);
     --border-interactive-destructive-hover: var(--error-700);
 
+    /* Floating (Glassmorphism without blur — overlays, floating panels) */
+    --bg-floating: rgba(255, 255, 255, 0.95);
+    --shadow-floating: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+
     /* Field (Inputs, Textareas, etc.) */
     --bg-field-primary: var(--gray-100);
     --bg-field-primary-focus: #ffffff;
@@ -96,6 +100,10 @@
     --text-interactive-destructive: var(--gray-950);
     --border-interactive-destructive: var(--error-500);
     --border-interactive-destructive-hover: var(--error-400);
+
+    /* Floating */
+    --bg-floating: rgba(30, 30, 30, 0.95);
+    --shadow-floating: 0 8px 32px rgba(0, 0, 0, 0.24), 0 2px 8px rgba(0, 0, 0, 0.12);
 
     /* Field (Inputs, Textareas, etc.) */
     --bg-field-primary: var(--gray-800);

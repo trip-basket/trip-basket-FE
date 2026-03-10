@@ -47,7 +47,7 @@ export function PlaceDetailSheet({ place, onClose }: { place: PlaceDetail; onClo
         {place.openingHours && place.openingHours.length > 0 && (
           <div className="mb-3">
             <p className="text-xs text-gray-500">
-              {place.openingHours[0]}
+              {place.openingHours[0].open} – {place.openingHours[0].close}
               {place.openingHours.length > 1 && (
                 <span className="text-gray-400"> 외 {place.openingHours.length - 1}일</span>
               )}

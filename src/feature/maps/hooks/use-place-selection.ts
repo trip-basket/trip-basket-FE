@@ -36,7 +36,13 @@ export function usePlaceSelection() {
         lng,
         rating: place.rating ?? undefined,
         reviewCount: place.userRatingCount ?? undefined,
-        openingHours: place.regularOpeningHours?.weekdayDescriptions ?? undefined,
+        openingHours: place.regularOpeningHours?.periods?.map((p) => ({
+          day: p.open?.day ?? 0,
+          open: `${String(p.open?.hour ?? 0).padStart(2, "0")}:${String(p.open?.minute ?? 0).padStart(2, "0")}`,
+          close: p.close
+            ? `${String(p.close.hour ?? 0).padStart(2, "0")}:${String(p.close.minute ?? 0).padStart(2, "0")}`
+            : null,
+        })),
       });
 
       map.panTo({ lat, lng });
@@ -53,7 +59,13 @@ export function usePlaceSelection() {
 
       e.stop();
       const place = new placesLib.Place({ id: clickedPlaceId });
-      await selectPlace(place);
+      try {
+        await selectPlace(place);
+      } catch (_) {
+        setPlaceDetail(null);
+        // selectPlace 내부에서 fetch 실패 시 에러가 전파됨
+        // 현재는 조용히 무시 — 추후 토스트 등으로 사용자 알림 추가
+      }
     },
     [placesLib, selectPlace],
   );

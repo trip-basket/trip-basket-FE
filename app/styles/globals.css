@@ -4,6 +4,32 @@
 @import './semantic-tokens.css';
 @import './theme.css';
 
+/* 나눔스퀘어라운드 — https://noonnu.cc/font_page/38 */
+@font-face {
+  font-family: NanumSquareRound;
+  src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundL.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: NanumSquareRound;
+  src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: NanumSquareRound;
+  src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundB.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: NanumSquareRound;
+  src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundEB.woff2') format('woff2');
+  font-weight: 800;
+  font-display: swap;
+}
+
 html,
 body {
    height: 100%;
@@ -12,28 +38,31 @@ body {
 }
 
 /* Inset chip — 회색 배경 버튼, hover 시 primary 컬러 전환 */
-.chip-inset {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  height: 2rem; /* h-8, Button sm과 동일 */
-  padding: 0 0.625rem;
-  border-radius: 0.5rem;
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: background 150ms, border-color 150ms, color 150ms;
-}
-.chip-inset:hover {
-  background: var(--bg-accent-subtle);
-  border-color: var(--border-accent);
-  color: var(--text-accent);
-}
+@layer components {
+  .chip-inset {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 2rem; /* h-8, Button sm과 동일 */
+    padding: 0 0.625rem;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: var(--text-secondary);
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: background 150ms, border-color 150ms, color 150ms, box-shadow 150ms;
+  }
+  .chip-inset:hover {
+    background: var(--bg-accent-subtle);
+    border-color: var(--border-accent);
+    color: var(--text-accent);
+  }
 
-/* Strong variant — hover 시 accent 배경 + 흰색 텍스트 */
-.chip-inset--strong:hover {
-  background: var(--bg-accent);
-  border-color: var(--bg-accent);
-  color: var(--text-on-accent);
+  /* Strong variant — hover 시 accent 배경 + 흰색 텍스트 */
+  .chip-inset--strong:hover {
+    background: var(--bg-accent);
+    border-color: var(--bg-accent);
+    color: var(--text-on-accent);
+  }
 }

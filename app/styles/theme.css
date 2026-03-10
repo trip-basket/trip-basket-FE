@@ -9,8 +9,7 @@
 
 @theme inline {
     /* Fonts */
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+    --font-sans: 'NanumSquareRound', system-ui, sans-serif;
 
     --color-gray-50: var(--gray-50);
     --color-gray-100: var(--gray-100);
@@ -141,20 +140,20 @@
     --color-on-field-placeholder: var(--text-field-primary-placeholder);
 
     /* Block Colors */
-    --color-block-red-base: var(--block-red-base);
-    --color-block-red-accent: var(--block-red-accent);
-    --color-block-orange-base: var(--block-orange-base);
-    --color-block-orange-accent: var(--block-orange-accent);
-    --color-block-yellow-base: var(--block-yellow-base);
-    --color-block-yellow-accent: var(--block-yellow-accent);
-    --color-block-mint-base: var(--block-mint-base);
-    --color-block-mint-accent: var(--block-mint-accent);
+    --color-block-sky-base: var(--block-sky-base);
+    --color-block-sky-accent: var(--block-sky-accent);
+    --color-block-indigo-base: var(--block-indigo-base);
+    --color-block-indigo-accent: var(--block-indigo-accent);
+    --color-block-violet-base: var(--block-violet-base);
+    --color-block-violet-accent: var(--block-violet-accent);
+    --color-block-rose-base: var(--block-rose-base);
+    --color-block-rose-accent: var(--block-rose-accent);
     --color-block-teal-base: var(--block-teal-base);
     --color-block-teal-accent: var(--block-teal-accent);
-    --color-block-lavender-base: var(--block-lavender-base);
-    --color-block-lavender-accent: var(--block-lavender-accent);
-    --color-block-grape-base: var(--block-grape-base);
-    --color-block-grape-accent: var(--block-grape-accent);
+    --color-block-amber-base: var(--block-amber-base);
+    --color-block-amber-accent: var(--block-amber-accent);
+    --color-block-fuchsia-base: var(--block-fuchsia-base);
+    --color-block-fuchsia-accent: var(--block-fuchsia-accent);
     --color-block-slate-base: var(--block-slate-base);
     --color-block-slate-accent: var(--block-slate-accent);
 
