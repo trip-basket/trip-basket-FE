@@ -3,7 +3,7 @@
 import { useState } from "react";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import useCalendarStore from "../stores/use-calendar-store";
-import { DateRangePickerModal } from "./date-range-picker-modal";
+import { DateRangePickerModal } from "./date-picker";
 import { CostChip, DateChip, MemberList } from "./meta";
 
 export function CalendarMetaBar() {
