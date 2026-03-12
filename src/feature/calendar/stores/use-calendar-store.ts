@@ -32,7 +32,7 @@ function generateTripDays(startDate: string, endDate: string): TripDay[] {
 }
 
 function buildMockTripDays(): TripDay[] {
-  const days = generateTripDays("2026-02-16", "2026-03-01");
+  const days = generateTripDays("2026-02-21", "2026-03-01");
   for (const block of MOCK_CALENDAR_BLOCKS) {
     const { dayIndex, ...rest } = block;
     if (days[dayIndex]) {
@@ -56,6 +56,8 @@ interface CalendarStore {
   moveInCalendar: (blockId: string, dayIndex: number, startHour: number) => void;
   resizeBlock: (blockId: string, startHour: number, endHour: number) => void;
   findBlock: (blockId: string) => { block: CalendarBlock; dayIndex: number } | null;
+  addDayBefore: () => void;
+  addDayAfter: () => void;
 }
 
 const useCalendarStore = create<CalendarStore>((set, get) => ({
@@ -135,6 +137,38 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       }
     }
     return null;
+  },
+
+  addDayBefore: () => {
+    const { tripDays } = get();
+    if (tripDays.length === 0) {
+      return;
+    }
+    const prev = new Date(`${tripDays[0].date}T00:00:00`);
+    prev.setDate(prev.getDate() - 1);
+    const newDay: TripDay = {
+      date: formatLocalDate(prev),
+      dayOfWeek: DAY_OF_WEEK_LABELS[prev.getDay()],
+      dateNum: prev.getDate(),
+      blocks: [],
+    };
+    set({ tripDays: [newDay, ...tripDays] });
+  },
+
+  addDayAfter: () => {
+    const { tripDays } = get();
+    if (tripDays.length === 0) {
+      return;
+    }
+    const next = new Date(`${tripDays[tripDays.length - 1].date}T00:00:00`);
+    next.setDate(next.getDate() + 1);
+    const newDay: TripDay = {
+      date: formatLocalDate(next),
+      dayOfWeek: DAY_OF_WEEK_LABELS[next.getDay()],
+      dateNum: next.getDate(),
+      blocks: [],
+    };
+    set({ tripDays: [...tripDays, newDay] });
   },
 }));
 

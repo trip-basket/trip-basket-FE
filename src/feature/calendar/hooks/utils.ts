@@ -1,4 +1,4 @@
-import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS } from "../constants";
+import { HOUR_HEIGHT, HOURS } from "../constants";
 import useCalendarStore from "../stores/use-calendar-store";
 import { DEFAULT_BLOCK_DURATION } from "../types";
 
@@ -27,8 +27,9 @@ function getGridRectIfDroppable(
   return gridRect;
 }
 
-function getDayIndex(relativeX: number, dayCount: number): number {
-  return Math.min(Math.floor(relativeX / DAY_COL_MIN_W), dayCount - 1);
+function getDayIndex(relativeX: number, dayCount: number, gridWidth: number): number {
+  const colWidth = gridWidth / dayCount;
+  return Math.min(Math.floor(relativeX / colWidth), dayCount - 1);
 }
 
 function getHour(relativeY: number, duration: number): number {
@@ -63,7 +64,7 @@ export function getDropPosition(
   const relativeY = clientY - gridRect.top - grabOffsetY;
 
   return {
-    dayIndex: getDayIndex(relativeX, tripDays.length),
+    dayIndex: getDayIndex(relativeX, tripDays.length, gridRect.width),
     hour: getHour(relativeY, duration),
   };
 }

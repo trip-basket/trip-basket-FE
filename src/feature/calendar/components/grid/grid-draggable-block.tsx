@@ -1,4 +1,3 @@
-import { DAY_COL_MIN_W } from "../../constants";
 import type { CalendarBlock } from "../../types";
 import { getBlockColor, getBlockShadow, type OverlapLayout } from "../../utils";
 import { GridBlockContent } from "./grid-block-content";
@@ -10,6 +9,7 @@ export interface GridDraggableBlockProps {
   height: number;
   isDragging: boolean;
   position: { x: number; y: number };
+  dragWidth: number;
   dragHandlers: React.ComponentProps<"div">;
   overlapLayout?: OverlapLayout;
 }
@@ -20,6 +20,7 @@ export function GridDraggableBlock({
   height,
   isDragging,
   position,
+  dragWidth,
   dragHandlers,
   overlapLayout,
 }: GridDraggableBlockProps) {
@@ -43,10 +44,10 @@ export function GridDraggableBlock({
       className="cursor-pointer touch-none rounded-xl transition-shadow overflow-hidden"
       style={{
         position: isDragging ? "fixed" : "absolute",
-        inset: isDragging ? undefined : "0",
         top: isDragging ? position.y : currentTop,
-        left: isDragging ? position.x : undefined,
-        width: isDragging ? DAY_COL_MIN_W : (overlapLayout?.width ?? DAY_COL_MIN_W),
+        left: isDragging ? position.x : 0,
+        right: isDragging ? undefined : (overlapLayout?.rightInset ?? 0),
+        width: isDragging ? dragWidth : undefined,
         height: currentHeight,
         zIndex: isDragging ? 9999 : (overlapLayout?.zIndex ?? undefined),
         cursor: isDragging ? "grabbing" : "grab",
