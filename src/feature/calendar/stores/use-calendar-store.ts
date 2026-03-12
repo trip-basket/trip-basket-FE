@@ -58,6 +58,7 @@ interface CalendarStore {
   findBlock: (blockId: string) => { block: CalendarBlock; dayIndex: number } | null;
   addDayBefore: () => void;
   addDayAfter: () => void;
+  updateDateRange: (startDate: string, endDate: string) => void;
 }
 
 const useCalendarStore = create<CalendarStore>((set, get) => ({
@@ -169,6 +170,25 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       blocks: [],
     };
     set({ tripDays: [...tripDays, newDay] });
+  },
+
+  updateDateRange: (startDate, endDate) => {
+    const { tripDays } = get();
+    const newDays = generateTripDays(startDate, endDate);
+
+    const blocksByDate = new Map<string, CalendarBlock[]>();
+    for (const day of tripDays) {
+      if (day.blocks.length > 0) {
+        blocksByDate.set(day.date, day.blocks);
+      }
+    }
+
+    const updatedDays = newDays.map((day) => ({
+      ...day,
+      blocks: blocksByDate.get(day.date) ?? [],
+    }));
+
+    set({ tripDays: updatedDays });
   },
 }));
 

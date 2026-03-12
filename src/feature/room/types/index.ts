@@ -11,8 +11,6 @@ export interface Member {
 export interface Room {
   id: string;
   name: string;
-  tripStartDate: string;
-  tripEndDate: string;
   currency: string;
   budget?: number;
   inviteCode: string;

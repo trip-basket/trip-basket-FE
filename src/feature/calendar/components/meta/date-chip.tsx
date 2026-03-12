@@ -12,9 +12,17 @@ function formatDateRange(start: string, end: string) {
   return `${dateFormatter.format(s)} – ${dateFormatter.format(e)} · ${days}일`;
 }
 
-export function DateChip({ startDate, endDate }: { startDate: string; endDate: string }) {
+export function DateChip({
+  startDate,
+  endDate,
+  onClick,
+}: {
+  startDate: string;
+  endDate: string;
+  onClick?: () => void;
+}) {
   return (
-    <button type="button" className="chip-inset chip-inset--strong shrink-0">
+    <button type="button" className="chip-inset chip-inset--strong shrink-0" onClick={onClick}>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
         <path

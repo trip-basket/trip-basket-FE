@@ -3,8 +3,6 @@ import type { Member, Room } from "../types";
 export const MOCK_ROOM: Room = {
   id: "room-1",
   name: "런던 여행 2026",
-  tripStartDate: "2026-02-16",
-  tripEndDate: "2026-03-01",
   currency: "\u20A9",
   budget: 3000000,
   inviteCode: "LONDON26",
