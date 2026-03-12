@@ -1,0 +1,81 @@
+"use client";
+
+import * as Dialog from "@radix-ui/react-dialog";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/style.css";
+import { ko } from "react-day-picker/locale";
+import { calendarClassNames, rdpStyleOverrides } from "./constants";
+import { NavChevron } from "./nav-chevron";
+import { PickerFooter } from "./picker-footer";
+import { PickerHeader } from "./picker-header";
+import { useDateRange } from "./use-date-range";
+import { usePickerLayout } from "./use-picker-layout";
+
+/**
+ * Render a modal date-range picker with a localized calendar, header, and footer.
+ *
+ * @param open - Whether the modal is currently open
+ * @param onOpenChange - Callback invoked when the modal open state changes
+ * @returns The date-range picker modal React element
+ */
+export function DateRangePickerModal({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { numberOfMonths, modalWidth } = usePickerLayout();
+  const {
+    range,
+    showWarning,
+    blocksToDelete,
+    isRangeComplete,
+    defaultMonth,
+    handleConfirm,
+    handleRangeSelect,
+  } = useDateRange(open, onOpenChange);
+
+  // biome-ignore lint/style/useNamingConvention: rdp API requires PascalCase component keys
+  const calendarComponents = { Chevron: NavChevron };
+
+  return (
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/30 z-40" />
+        <Dialog.Content
+          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-2xl flex flex-col"
+          style={{
+            width: modalWidth,
+            boxShadow: "0 24px 80px rgba(0, 0, 0, 0.16), 0 8px 24px rgba(0, 0, 0, 0.08)",
+            overscrollBehavior: "contain",
+          }}
+          aria-describedby={undefined}
+        >
+          <PickerHeader range={range} />
+
+          <div className="px-6 py-4 text-sm">
+            <DayPicker
+              mode="range"
+              selected={range}
+              onSelect={handleRangeSelect}
+              locale={ko}
+              numberOfMonths={numberOfMonths}
+              defaultMonth={defaultMonth}
+              classNames={calendarClassNames}
+              components={calendarComponents}
+              style={rdpStyleOverrides}
+            />
+          </div>
+
+          <PickerFooter
+            showWarning={showWarning}
+            blocksToDelete={blocksToDelete}
+            isRangeComplete={isRangeComplete}
+            onConfirm={handleConfirm}
+          />
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import useBlockStore from "../stores/use-block-store";
+import useCalendarStore from "../stores/use-calendar-store";
 import { useAutoScroll } from "./use-auto-scroll";
 import { getDropPosition } from "./utils";
 
@@ -15,23 +15,38 @@ interface PointerState {
   hasDragged: boolean;
   mouseStart: Position;
   elementStart: Position;
+  elementWidth: number;
 }
 
+/**
+ * Provides drag state and pointer event handlers for dragging a calendar block and completing a drop.
+ *
+ * @param onDrop - Callback invoked with `(dayIndex, hour)` when a block is successfully dropped onto the calendar grid
+ * @param duration - Optional block duration (in the same units the calendar uses) used to compute the drop hour
+ * @param onClick - Optional callback invoked when a pointer down/up sequence does not become a drag
+ * @returns An object containing:
+ *  - `isDragging`: `true` while a drag is active,
+ *  - `position`: current top-left coordinates of the dragged element,
+ *  - `dragWidth`: width to use for the visual drag representation,
+ *  - `handlers`: an object with pointer event handlers `{ onPointerDown, onPointerMove, onPointerUp, onPointerCancel }`
+ */
 export function useBlockDrag(
   onDrop: (dayIndex: number, hour: number) => void,
   duration?: number,
   onClick?: () => void,
 ) {
-  const { gridRef } = useBlockStore();
+  const { gridRef } = useCalendarStore();
   const { updateScroll, stopScroll } = useAutoScroll(gridRef);
 
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [dragWidth, setDragWidth] = useState(0);
   const stateRef = useRef<PointerState>({
     isDown: false,
     hasDragged: false,
     mouseStart: { x: 0, y: 0 },
     elementStart: { x: 0, y: 0 },
+    elementWidth: 0,
   });
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -43,6 +58,7 @@ export function useBlockDrag(
       hasDragged: false,
       mouseStart: { x: e.clientX, y: e.clientY },
       elementStart: { x: rect.left, y: rect.top },
+      elementWidth: rect.width,
     };
     setPosition({ x: rect.left, y: rect.top });
   };
@@ -62,6 +78,7 @@ export function useBlockDrag(
       }
       s.hasDragged = true;
       setIsDragging(true);
+      setDragWidth(s.elementWidth);
     }
 
     updateScroll(e.clientX, e.clientY);
@@ -112,6 +129,7 @@ export function useBlockDrag(
   return {
     isDragging,
     position,
+    dragWidth,
     handlers: {
       onPointerDown,
       onPointerMove,

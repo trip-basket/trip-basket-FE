@@ -2,6 +2,8 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { useEffect, useRef } from "react";
+import useMeasure from "react-use-measure";
 import { Calendar } from "@/src/feature/calendar";
 import {
   BlockDetailPanel,
@@ -9,25 +11,48 @@ import {
   CalendarHeader,
   CalendarMetaBar,
 } from "@/src/feature/calendar/components";
-import useBlockStore from "@/src/feature/calendar/stores/use-block-store";
+import { ADD_COL_W, DAY_COL_MIN_W, TIME_COL_W } from "@/src/feature/calendar/constants";
+import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import { Maps } from "@/src/feature/maps";
 
+/**
+ * Renders the room desktop layout: a responsive two-pane view with a calendar panel on the left and a maps panel filling the right.
+ *
+ * The calendar panel's width adapts to the container size and the number of trip days. When a calendar block is selected, a right-side block detail dialog opens and closes by clearing the selected block.
+ *
+ * @returns The rendered RoomDesktop React element.
+ */
 export function RoomDesktop() {
-  const selectedBlockId = useBlockStore((s) => s.selectedBlockId);
-  const setSelectedBlockId = useBlockStore((s) => s.setSelectedBlockId);
+  const selectedBlockId = useCalendarStore((s) => s.selectedBlockId);
+  const setSelectedBlockId = useCalendarStore((s) => s.setSelectedBlockId);
+  const tripDays = useCalendarStore((s) => s.tripDays);
+
+  const [containerRef, { width: containerWidth }] = useMeasure();
+  const hasMountedRef = useRef(false);
+
+  useEffect(() => {
+    if (containerWidth > 0) {
+      hasMountedRef.current = true;
+    }
+  }, [containerWidth]);
+
+  const contentMinWidth = TIME_COL_W + tripDays.length * DAY_COL_MIN_W + 2 * ADD_COL_W;
+  const calendarWidth = containerWidth > 0
+    ? Math.max(containerWidth * 0.5, Math.min(contentMinWidth, containerWidth * 0.65))
+    : containerWidth * 0.65;
 
   return (
-    <div className="relative flex-1 overflow-hidden">
-      {/* 지도: 오른쪽 35% 배경 캔버스 */}
-      <div className="absolute top-0 right-0 bottom-0" style={{ width: "35%" }}>
+    <div ref={containerRef} className="relative flex-1 overflow-hidden">
+      {/* 지도: 캘린더 오른쪽 나머지 영역 */}
+      <div className="absolute top-0 right-0 bottom-0" style={{ width: containerWidth - calendarWidth }}>
         <Maps />
       </div>
 
-      {/* 캘린더 패널: 왼쪽 65%, 지도 위에 부양 */}
+      {/* 캘린더 패널: 콘텐츠에 맞춰 동적 너비 */}
       <div
-        className="relative z-10 flex h-full flex-col bg-neutral-100"
+        className={`relative z-10 flex h-full flex-col bg-neutral-100${hasMountedRef.current ? " transition-[width] duration-300 ease-out" : ""}`}
         style={{
-          width: "65%",
+          width: calendarWidth,
           boxShadow: "4px 0 32px rgba(0, 0, 0, 0.10), 12px 0 64px rgba(0, 0, 0, 0.06)",
         }}
       >

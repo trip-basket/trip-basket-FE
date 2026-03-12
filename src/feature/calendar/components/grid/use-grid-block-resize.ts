@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HOUR_HEIGHT, HOURS } from "../../constants";
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 import type { CalendarBlock } from "../../types";
 
 const snapToHalfHour = (hour: number) => Math.round(hour * 2) / 2;
@@ -11,10 +11,21 @@ interface UseGridBlockResizeParams {
   height: number;
 }
 
+/**
+ * Provides resizing state and pointer event handlers for a calendar grid block.
+ *
+ * @param block - The CalendarBlock being resized (contains id, startHour, endHour, etc.).
+ * @param top - The block's current top offset in pixels within the grid.
+ * @param height - The block's current height in pixels within the grid.
+ * @returns An object with:
+ *  - `currentTop`: the active top offset in pixels (updated while resizing, otherwise `top`);
+ *  - `currentHeight`: the active height in pixels (updated while resizing, otherwise `height`);
+ *  - `handlers`: pointer event handlers `{ onPointerDown, onPointerMove, onPointerUp }` to control resizing.
+ */
 export function useGridBlockResize({ block, top, height }: UseGridBlockResizeParams) {
   const gridStartHour = HOURS[0];
   const gridEndHour = HOURS[HOURS.length - 1];
-  const { resizeBlock } = useBlockStore();
+  const { resizeBlock } = useCalendarStore();
 
   const [resizeHandle, setResizeHandle] = useState<"top" | "bottom" | null>(null);
   const [isResizing, setIsResizing] = useState(false);

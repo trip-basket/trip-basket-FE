@@ -1,7 +1,7 @@
 import { Text } from "@/src/components/ui";
-import type { Day, Member } from "@/src/feature/room/types";
+import type { Member } from "@/src/feature/room/types";
 import { CATEGORY_LABELS } from "../../constants";
-import type { BlockTodo, CalendarBlock } from "../../types";
+import type { BlockTodo, CalendarBlock, TripDay } from "../../types";
 import { formatBlockTime, formatCurrency, getBlockColor } from "../../utils";
 import { CategoryIcon } from "./category-icon";
 import { MapSection } from "./map-section";
@@ -11,6 +11,17 @@ import { ReactionsProperty } from "./reactions-property";
 import { SectionHeader } from "./section-header";
 import { TodoSection } from "./todo-section";
 
+/**
+ * Render a detailed panel for a calendar block showing title, date/time, category, cost, reactions, lock owner, map, opening hours, memo, and todos.
+ *
+ * @param block - The CalendarBlock to display.
+ * @param day - The TripDay containing the block's date information; may be undefined.
+ * @param todos - List of BlockTodo items related to the block.
+ * @param reactionMembers - Members who reacted to the block.
+ * @param members - All trip members; used to resolve the member who locked the block.
+ * @param currency - Optional currency code used to format cost values.
+ * @returns The JSX element rendering the block's detailed panel.
+ */
 export function PanelContent({
   block,
   day,
@@ -20,7 +31,7 @@ export function PanelContent({
   currency,
 }: {
   block: CalendarBlock;
-  day: Day | undefined;
+  day: TripDay | undefined;
   todos: BlockTodo[];
   reactionMembers: Member[];
   members: Member[];
@@ -52,7 +63,7 @@ export function PanelContent({
       <div className="mb-6 space-y-0.5">
         <PropertyRow icon="calendarToday" label="날짜">
           <Text variant="small">
-            {day ? `${day.date}일 (${day.dayOfWeek})` : ""} {formatBlockTime(block)}
+            {day ? `${day.dateNum}일 (${day.dayOfWeek})` : ""} {formatBlockTime(block)}
           </Text>
         </PropertyRow>
 

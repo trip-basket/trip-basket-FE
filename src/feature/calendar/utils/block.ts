@@ -3,14 +3,21 @@ import type { CalendarBlock } from "../types";
 
 export interface OverlapLayout {
   zIndex: number;
-  width: number;
+  rightInset: number;
 }
 
 const OVERLAP_WIDTH_STEP = 15;
 
+/**
+ * Compute horizontal stacking metadata for calendar blocks that overlap in time.
+ *
+ * Partitions the provided blocks into groups of mutually overlapping intervals and assigns layout metadata only for blocks that are part of an overlapping group.
+ *
+ * @param blocks - Array of calendar blocks (expected to have `id`, `startHour`, and `endHour`) to analyze for temporal overlap
+ * @returns A map from block `id` to `OverlapLayout`. Each entry's `zIndex` is the stacking order within its overlapping group (1-based), and `rightInset` is the horizontal offset in pixels to apply per overlap step. Blocks that do not overlap any other block are not included in the map.
+ */
 export function computeOverlapLayout(
   blocks: CalendarBlock[],
-  baseWidth: number,
 ): Map<string, OverlapLayout> {
   const layout = new Map<string, OverlapLayout>();
   if (blocks.length <= 1) {
@@ -43,7 +50,7 @@ export function computeOverlapLayout(
     for (let i = 0; i < group.length; i++) {
       layout.set(group[i].id, {
         zIndex: i + 1,
-        width: baseWidth - i * OVERLAP_WIDTH_STEP,
+        rightInset: i * OVERLAP_WIDTH_STEP,
       });
     }
   }

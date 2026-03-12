@@ -1,14 +1,23 @@
 "use client";
 
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 import { BucketGrid } from "./bucket-grid";
 import { BucketTitleBar } from "./bucket-title-bar";
 import { BUCKET_INSET, TITLE_BAR_HEIGHT, useBucketExpand } from "./use-bucket-expand";
 
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 
+/**
+ * Renders the floating bucket panel that displays saved place blocks with a title bar and grid.
+ *
+ * The panel is anchored near the bottom of the viewport, adjusts its height when expanded,
+ * exposes pin and hover interactions, and contains a title bar showing the block count and
+ * a scrollable grid of blocks.
+ *
+ * @returns A JSX element representing the floating bucket panel containing the title bar and block grid.
+ */
 export function Bucket() {
-  const bucketBlocks = useBlockStore((s) => s.bucketBlocks);
+  const bucketBlocks = useCalendarStore((s) => s.bucketBlocks);
   const {
     isExpanded,
     isPinned,

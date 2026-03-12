@@ -4,10 +4,20 @@ import type { BlockColor, Place } from "../../types";
 import { formatCurrency } from "../../utils";
 import { CategoryIcon } from "../panel/category-icon";
 
+/**
+ * Render the content for a bucket block: title, category icon, optional lock indicator, and an optional cost badge.
+ *
+ * @param place - The place to render; uses `place.title`, `place.category`, `place.lockedBy`, and `place.cost`.
+ * @param blockColor - Color tokens used for the category icon accent and the cost badge (tint for background, accent for text).
+ * @returns A JSX element containing the place title, category icon, a lock indicator when `place.lockedBy` is set, and a right-aligned, formatted cost badge when `place.cost` is greater than zero (formatted with the current room currency).
+ */
 export function BucketBlockContent({
   place,
   blockColor,
-}: { place: Place; blockColor: BlockColor }) {
+}: {
+  place: Place;
+  blockColor: BlockColor;
+}) {
   const room = useRoomStore((s) => s.room);
 
   return (

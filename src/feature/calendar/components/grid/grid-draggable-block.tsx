@@ -1,4 +1,3 @@
-import { DAY_COL_MIN_W } from "../../constants";
 import type { CalendarBlock } from "../../types";
 import { getBlockColor, getBlockShadow, type OverlapLayout } from "../../utils";
 import { GridBlockContent } from "./grid-block-content";
@@ -10,16 +9,30 @@ export interface GridDraggableBlockProps {
   height: number;
   isDragging: boolean;
   position: { x: number; y: number };
+  dragWidth: number;
   dragHandlers: React.ComponentProps<"div">;
   overlapLayout?: OverlapLayout;
 }
 
+/**
+ * Render a calendar grid block that supports pointer-based vertical resizing and drag positioning.
+ *
+ * @param block - Calendar block data to display.
+ * @param top - Initial top offset (in pixels) for the block when not dragging.
+ * @param height - Initial height (in pixels) for the block when not dragging.
+ * @param position - Current drag position `{ x, y }`; used to position the block while dragging.
+ * @param dragWidth - Width (in pixels) to apply to the block while it is being dragged.
+ * @param dragHandlers - DOM event handlers to enable dragging on the block container.
+ * @param overlapLayout - Optional layout hints for overlapping blocks (e.g., `rightInset` and `zIndex`).
+ * @returns A JSX element representing the draggable, resizable calendar block.
+ */
 export function GridDraggableBlock({
   block,
   top,
   height,
   isDragging,
   position,
+  dragWidth,
   dragHandlers,
   overlapLayout,
 }: GridDraggableBlockProps) {
@@ -43,10 +56,10 @@ export function GridDraggableBlock({
       className="cursor-pointer touch-none rounded-xl transition-shadow overflow-hidden"
       style={{
         position: isDragging ? "fixed" : "absolute",
-        inset: isDragging ? undefined : "0",
         top: isDragging ? position.y : currentTop,
-        left: isDragging ? position.x : undefined,
-        width: isDragging ? DAY_COL_MIN_W : (overlapLayout?.width ?? DAY_COL_MIN_W),
+        left: isDragging ? position.x : 0,
+        right: isDragging ? undefined : (overlapLayout?.rightInset ?? 0),
+        width: isDragging ? dragWidth : undefined,
         height: currentHeight,
         zIndex: isDragging ? 9999 : (overlapLayout?.zIndex ?? undefined),
         cursor: isDragging ? "grabbing" : "grab",
