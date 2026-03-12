@@ -9,7 +9,7 @@
 | 데이터 | 설명 |
 |--------|------|
 | room.name | 여행 이름 (수정 가능) |
-| room.tripStartDate ~ tripEndDate | 여행 기간 |
+| calendarStore.tripDays (첫/마지막 date) | 여행 기간 |
 | room.currency | 통화 단위 |
 | members[].profileImageUrl | 참여자 아바타 (최대 5 + "+N") |
 | 총 비용 합산 | 전체 블록 cost 합계 |
