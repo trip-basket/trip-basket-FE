@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import useCalendarStore from "../../stores/use-calendar-store";
-import { formatLocalDate } from "./utils";
+import { formatLocalDate } from "../../utils";
 
 export function useDateRange(open: boolean, onOpenChange: (open: boolean) => void) {
   const tripDays = useCalendarStore((s) => s.tripDays);

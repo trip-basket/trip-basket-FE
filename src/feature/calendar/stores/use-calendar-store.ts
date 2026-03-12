@@ -1,17 +1,11 @@
 import { create } from "zustand";
 import { MOCK_CALENDAR_BLOCKS, MOCK_PLACES } from "../mocks";
 import { type CalendarBlock, DEFAULT_BLOCK_DURATION, type Place, type TripDay } from "../types";
+import { formatLocalDate } from "../utils";
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
 const DAY_OF_WEEK_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
-
-function formatLocalDate(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
 
 function generateTripDays(startDate: string, endDate: string): TripDay[] {
   const days: TripDay[] = [];
