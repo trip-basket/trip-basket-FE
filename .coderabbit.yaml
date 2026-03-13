@@ -9,12 +9,14 @@ tone_instructions: >
   3. 사소한 스타일 지적은 하지 마세요.
 
 reviews:
-  profile: "chill"              
-  request_changes_workflow: false 
-  
-  high_level_summary: true      
-  changed_files_summary: true 
-  sequence_diagrams: true  
+  profile: "chill"
+  request_changes_workflow: false
+  auto_fix: false
+  chat_fixes: false
+
+  high_level_summary: true
+  changed_files_summary: true
+  sequence_diagrams: true
   poem: false
 
   auto_review:
