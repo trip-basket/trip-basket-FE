@@ -12,10 +12,12 @@ export function PickerFooter({
   isRangeComplete: boolean;
   onConfirm: () => void;
 }) {
+  const hasBlocksToDelete = showWarning && blocksToDelete > 0;
+
   return (
     <div className="flex items-center justify-between px-6 pb-5 pt-2">
       <div className="flex-1 min-w-0">
-        {showWarning && blocksToDelete > 0 && (
+        {hasBlocksToDelete && (
           <div className="flex items-center gap-2" style={{ color: "var(--warning-600)" }}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path
@@ -49,12 +51,12 @@ export function PickerFooter({
         </Dialog.Close>
         <Button
           size="sm"
-          color={showWarning && blocksToDelete > 0 ? "danger" : "primary"}
+          color={hasBlocksToDelete ? "danger" : "primary"}
           disabled={!isRangeComplete}
           onClick={onConfirm}
           className="cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:outline-none"
         >
-          {showWarning && blocksToDelete > 0 ? "삭제하고 변경" : "확인"}
+          {hasBlocksToDelete ? "삭제하고 변경" : "확인"}
         </Button>
       </div>
     </div>

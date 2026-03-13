@@ -13,7 +13,7 @@ export function AddDateHeaderCell({
       onClick={onClick}
       className={`group flex shrink-0 items-center justify-center p-1.5${position === "right" ? " border-l border-grid-line" : ""} cursor-pointer`}
       style={{ width: ADD_COL_W }}
-      aria-label="날짜 추가"
+      aria-label={position === "left" ? "이전 날짜 추가" : "다음 날짜 추가"}
     >
       <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-gray-200 group-hover:border-gray-300 group-hover:bg-black/[0.02] transition-colors">
         <svg
