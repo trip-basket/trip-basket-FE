@@ -1,25 +1,27 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import type { Place } from "../../types";
+import type { BucketBlock } from "../../types";
 import useCalendarStore from "../use-calendar-store";
 
 function resetStore() {
   useCalendarStore.setState(useCalendarStore.getInitialState());
 }
 
-const mockPlace: Place = {
+const mockBlock: BucketBlock = {
   id: "p1",
-  title: "테스트 장소",
-  colorIndex: 0,
-  category: "sightseeing",
+  status: "bucket",
+  name: "테스트 장소",
+  color: "sky",
   cost: 10000,
+  place: { placeId: null, placeName: null, lat: 0, lng: 0, category: "sightseeing" },
 };
 
-const mockPlace2: Place = {
+const mockBlock2: BucketBlock = {
   id: "p2",
-  title: "테스트 장소 2",
-  colorIndex: 1,
-  category: "food",
+  status: "bucket",
+  name: "테스트 장소 2",
+  color: "indigo",
   cost: 20000,
+  place: { placeId: null, placeName: null, lat: 0, lng: 0, category: "food" },
 };
 
 describe("useCalendarStore", () => {
@@ -77,12 +79,12 @@ describe("useCalendarStore", () => {
 
   describe("moveToCalendar", () => {
     it("bucket에서 블록을 제거하고 지정된 날짜에 블록을 추가한다", () => {
-      useCalendarStore.setState({ bucketBlocks: [mockPlace] });
+      useCalendarStore.setState({ bucketBlocks: [mockBlock] });
       const { setDates } = useCalendarStore.getState();
       setDates("2026-02-16", "2026-02-18");
 
       const { moveToCalendar } = useCalendarStore.getState();
-      moveToCalendar(mockPlace, 0, 9);
+      moveToCalendar(mockBlock, 0, 9);
 
       const { tripDays, bucketBlocks } = useCalendarStore.getState();
       expect(bucketBlocks).toHaveLength(0);
@@ -93,12 +95,12 @@ describe("useCalendarStore", () => {
     });
 
     it("다른 날짜의 블록에 영향을 주지 않는다", () => {
-      useCalendarStore.setState({ bucketBlocks: [mockPlace] });
+      useCalendarStore.setState({ bucketBlocks: [mockBlock] });
       const { setDates } = useCalendarStore.getState();
       setDates("2026-02-16", "2026-02-18");
 
       const { moveToCalendar } = useCalendarStore.getState();
-      moveToCalendar(mockPlace, 1, 14);
+      moveToCalendar(mockBlock, 1, 14);
 
       const { tripDays } = useCalendarStore.getState();
       expect(tripDays[0].blocks).toHaveLength(0);
@@ -119,7 +121,7 @@ describe("useCalendarStore", () => {
           i === 0
             ? {
                 ...day,
-                blocks: [{ ...mockPlace, startHour: 9, endHour: 11 }],
+                blocks: [{ ...mockBlock, status: "scheduled" as const, startHour: 9, endHour: 11 }],
               }
             : day,
         ),
@@ -142,7 +144,7 @@ describe("useCalendarStore", () => {
           i === 0
             ? {
                 ...day,
-                blocks: [{ ...mockPlace, startHour: 9, endHour: 11 }],
+                blocks: [{ ...mockBlock, status: "scheduled" as const, startHour: 9, endHour: 11 }],
               }
             : day,
         ),
@@ -170,7 +172,7 @@ describe("useCalendarStore", () => {
           i === 0
             ? {
                 ...day,
-                blocks: [{ ...mockPlace, startHour: 9, endHour: 11 }],
+                blocks: [{ ...mockBlock, status: "scheduled" as const, startHour: 9, endHour: 11 }],
               }
             : day,
         ),
@@ -196,7 +198,7 @@ describe("useCalendarStore", () => {
           i === 1
             ? {
                 ...day,
-                blocks: [{ ...mockPlace, startHour: 9, endHour: 11 }],
+                blocks: [{ ...mockBlock, status: "scheduled" as const, startHour: 9, endHour: 11 }],
               }
             : day,
         ),
@@ -224,15 +226,15 @@ describe("useCalendarStore", () => {
   describe("여러 블록 시나리오", () => {
     it("같은 날짜에 여러 블록을 배치할 수 있다", () => {
       useCalendarStore.setState({
-        bucketBlocks: [mockPlace, mockPlace2],
+        bucketBlocks: [mockBlock, mockBlock2],
       });
       const { setDates } = useCalendarStore.getState();
       setDates("2026-02-16", "2026-02-18");
 
       const store1 = useCalendarStore.getState();
-      store1.moveToCalendar(mockPlace, 0, 9);
+      store1.moveToCalendar(mockBlock, 0, 9);
       const store2 = useCalendarStore.getState();
-      store2.moveToCalendar(mockPlace2, 0, 14);
+      store2.moveToCalendar(mockBlock2, 0, 14);
 
       const { tripDays, bucketBlocks } = useCalendarStore.getState();
       expect(bucketBlocks).toHaveLength(0);
@@ -248,8 +250,8 @@ describe("useCalendarStore", () => {
             return {
               ...day,
               blocks: [
-                { ...mockPlace, startHour: 9, endHour: 11 },
-                { ...mockPlace2, startHour: 14, endHour: 16 },
+                { ...mockBlock, status: "scheduled" as const, startHour: 9, endHour: 11 },
+                { ...mockBlock2, status: "scheduled" as const, startHour: 14, endHour: 16 },
               ],
             };
           }
@@ -261,10 +263,10 @@ describe("useCalendarStore", () => {
       moveInCalendar("p1", 2, 10);
 
       const { tripDays } = useCalendarStore.getState();
-      // mockPlace2는 day 0에 그대로
+      // mockBlock2는 day 0에 그대로
       expect(tripDays[0].blocks).toHaveLength(1);
       expect(tripDays[0].blocks[0].id).toBe("p2");
-      // mockPlace는 day 2로 이동
+      // mockBlock는 day 2로 이동
       expect(tripDays[2].blocks).toHaveLength(1);
       expect(tripDays[2].blocks[0].id).toBe("p1");
     });

@@ -1,23 +1,23 @@
 import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
-import type { Place } from "../../types";
+import type { BucketBlock } from "../../types";
 import { getBlockColor, getBlockShadow } from "../../utils";
 import { BucketBlockContent } from "./bucket-block-content";
 
 export interface BucketDraggableBlockProps {
-  place: Place;
+  block: BucketBlock;
   isDragging: boolean;
   position: { x: number; y: number };
   handlers: React.ComponentProps<"div">;
 }
 
 export function BucketDraggableBlock({
-  place,
+  block,
   isDragging,
   position,
   handlers,
 }: BucketDraggableBlockProps) {
-  const isLocked = !!place.lockedBy;
-  const blockColor = getBlockColor(place.colorIndex);
+  const isLocked = !!block.lockedBy;
+  const blockColor = getBlockColor(block.color);
 
   return (
     <div
@@ -37,7 +37,7 @@ export function BucketDraggableBlock({
       }}
       {...handlers}
     >
-      <BucketBlockContent place={place} blockColor={blockColor} />
+      <BucketBlockContent block={block} blockColor={blockColor} />
     </div>
   );
 }

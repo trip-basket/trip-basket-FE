@@ -1,11 +1,11 @@
-import type { CalendarBlock } from "../../types";
+import type { ScheduledBlock } from "../../types";
 import { getBlockAbsolutePosition, getBlockColor, type OverlapLayout } from "../../utils";
 import { GridBlockContent } from "./grid-block-content";
 import { GridDraggableBlock } from "./grid-draggable-block";
 import { useGridBlockDrag } from "./use-grid-block-drag";
 
 interface GridBlockProps {
-  block: CalendarBlock;
+  block: ScheduledBlock;
   overlapLayout?: OverlapLayout;
 }
 
@@ -35,11 +35,11 @@ function GridGhostBlock({
   top,
   height,
 }: {
-  block: CalendarBlock;
+  block: ScheduledBlock;
   top: number;
   height: number;
 }) {
-  const blockColor = getBlockColor(block.colorIndex);
+  const blockColor = getBlockColor(block.color);
   return (
     <div
       className="absolute inset-x-0 rounded-xl opacity-50 overflow-hidden"

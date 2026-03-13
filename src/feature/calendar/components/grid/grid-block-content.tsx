@@ -1,6 +1,6 @@
 import { Avatar, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import type { BlockColor, CalendarBlock } from "../../types";
+import type { BlockColorPalette, ScheduledBlock } from "../../types";
 import { formatBlockTime, formatCurrency } from "../../utils";
 import { CategoryIcon } from "../panel/category-icon";
 
@@ -9,8 +9,8 @@ export function GridBlockContent({
   blockColor,
   resizeHandleOffset = 0,
 }: {
-  block: CalendarBlock;
-  blockColor: BlockColor;
+  block: ScheduledBlock;
+  blockColor: BlockColorPalette;
   resizeHandleOffset?: number;
 }) {
   const room = useRoomStore((s) => s.room);
@@ -29,9 +29,9 @@ export function GridBlockContent({
       <div className="pt-1">
         <div className="flex items-baseline justify-between gap-1">
           <Text variant="body" weight="semibold">
-            {block.title}
+            {block.name}
           </Text>
-          <CategoryIcon category={block.category} color={blockColor.accent} size={16} />
+          <CategoryIcon category={block.place.category} color={blockColor.accent} size={16} />
         </div>
         <div className="flex items-center gap-1 text-sub">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">

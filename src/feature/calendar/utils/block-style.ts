@@ -1,12 +1,11 @@
 import { BLOCK_COLORS } from "../constants";
-import type { BlockColor } from "../types";
+import type { BlockColorName, BlockColorPalette } from "../types";
 
-export function getBlockColor(colorIndex: number): BlockColor {
-  const len = BLOCK_COLORS.length;
-  return BLOCK_COLORS[((colorIndex % len) + len) % len];
+export function getBlockColor(color: BlockColorName): BlockColorPalette {
+  return BLOCK_COLORS[color];
 }
 
-export function getBlockShadow(isDragging: boolean, blockColor: BlockColor): string {
+export function getBlockShadow(isDragging: boolean, blockColor: BlockColorPalette): string {
   if (isDragging) {
     return "0 8px 24px rgba(0,0,0,0.15)";
   }

@@ -1,7 +1,7 @@
 import { Text } from "@/src/components/ui";
 import type { Member } from "@/src/feature/room/types";
 import { CATEGORY_LABELS } from "../../constants";
-import type { BlockTodo, CalendarBlock, TripDay } from "../../types";
+import type { BlockTodo, ScheduledBlock, TripDay } from "../../types";
 import { formatBlockTime, formatCurrency, getBlockColor } from "../../utils";
 import { CategoryIcon } from "./category-icon";
 import { MapSection } from "./map-section";
@@ -19,16 +19,16 @@ export function PanelContent({
   members,
   currency,
 }: {
-  block: CalendarBlock;
+  block: ScheduledBlock;
   day: TripDay | undefined;
   todos: BlockTodo[];
   reactionMembers: Member[];
   members: Member[];
   currency?: string;
 }) {
-  const blockColor = getBlockColor(block.colorIndex);
+  const blockColor = getBlockColor(block.color);
   const categoryColor = blockColor.accent;
-  const categoryLabel = block.category ? CATEGORY_LABELS[block.category] : undefined;
+  const categoryLabel = block.place.category ? CATEGORY_LABELS[block.place.category] : undefined;
   const reactionsCount = block.reactions?.length ?? 0;
   const lockedByMember = block.lockedBy ? members.find((m) => m.id === block.lockedBy) : undefined;
 
@@ -40,11 +40,11 @@ export function PanelContent({
           className="flex items-center justify-center w-10 h-10 rounded-lg mb-3"
           style={{ backgroundColor: `${categoryColor}15` }}
         >
-          <CategoryIcon category={block.category} color={categoryColor} />
+          <CategoryIcon category={block.place.category} color={categoryColor} />
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-0.5">{block.title}</h1>
-        {block.placeDetail && block.placeDetail.placeName !== block.title && (
-          <p className="text-sm text-gray-400">{block.placeDetail.placeName}</p>
+        <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-0.5">{block.name}</h1>
+        {block.place.placeName && block.place.placeName !== block.name && (
+          <p className="text-sm text-gray-400">{block.place.placeName}</p>
         )}
       </div>
 
@@ -91,8 +91,8 @@ export function PanelContent({
 
       <MapSection block={block} />
 
-      {block.placeDetail?.openingHours && block.placeDetail.openingHours.length > 0 && (
-        <OpeningHoursSection hours={block.placeDetail.openingHours} />
+      {block.place.openingHours && block.place.openingHours.length > 0 && (
+        <OpeningHoursSection hours={block.place.openingHours} />
       )}
 
       {block.memo && (

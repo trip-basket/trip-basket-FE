@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS } from "../../constants";
 import useCalendarStore from "../../stores/use-calendar-store";
-import type { CalendarBlock } from "../../types";
+import type { ScheduledBlock } from "../../types";
 import { computeOverlapLayout } from "../../utils";
 import { AddDateGridColumn } from "../add-date-column";
 import { GridBlock } from "./grid-block";
@@ -74,7 +74,7 @@ function HourLines() {
   );
 }
 
-function DayColumn({ blocks }: { blocks: CalendarBlock[] }) {
+function DayColumn({ blocks }: { blocks: ScheduledBlock[] }) {
   const overlapMap = useMemo(() => computeOverlapLayout(blocks), [blocks]);
 
   return (

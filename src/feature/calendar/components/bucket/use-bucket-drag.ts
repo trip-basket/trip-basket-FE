@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import { useBlockDrag } from "../../hooks";
 import useCalendarStore from "../../stores/use-calendar-store";
-import type { Place } from "../../types";
+import type { BucketBlock } from "../../types";
 
-export function useBucketDrag(place: Place) {
+export function useBucketDrag(block: BucketBlock) {
   const moveToCalendar = useCalendarStore((s) => s.moveToCalendar);
   const setIsBucketDragging = useCalendarStore((s) => s.setIsBucketDragging);
   const wasDraggingRef = useRef(false);
 
   const result = useBlockDrag((dayIndex, hour) => {
-    moveToCalendar(place, dayIndex, hour);
+    moveToCalendar(block, dayIndex, hour);
   });
 
   useEffect(() => {

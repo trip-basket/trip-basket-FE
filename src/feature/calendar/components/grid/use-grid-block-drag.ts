@@ -1,8 +1,8 @@
 import { useBlockDrag } from "../../hooks";
 import useCalendarStore from "../../stores/use-calendar-store";
-import type { CalendarBlock } from "../../types";
+import type { ScheduledBlock } from "../../types";
 
-export function useGridBlockDrag(block: CalendarBlock) {
+export function useGridBlockDrag(block: ScheduledBlock) {
   const moveInCalendar = useCalendarStore((s) => s.moveInCalendar);
   const setSelectedBlockId = useCalendarStore((s) => s.setSelectedBlockId);
 

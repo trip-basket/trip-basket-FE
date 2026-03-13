@@ -30,14 +30,18 @@ export function RoomDesktop() {
   }, [containerWidth]);
 
   const contentMinWidth = TIME_COL_W + tripDays.length * DAY_COL_MIN_W + 2 * ADD_COL_W;
-  const calendarWidth = containerWidth > 0
-    ? Math.max(containerWidth * 0.5, Math.min(contentMinWidth, containerWidth * 0.65))
-    : containerWidth * 0.65;
+  const calendarWidth =
+    containerWidth > 0
+      ? Math.max(containerWidth * 0.5, Math.min(contentMinWidth, containerWidth * 0.65))
+      : containerWidth * 0.65;
 
   return (
     <div ref={containerRef} className="relative flex-1 overflow-hidden">
       {/* 지도: 캘린더 오른쪽 나머지 영역 */}
-      <div className="absolute top-0 right-0 bottom-0" style={{ width: containerWidth - calendarWidth }}>
+      <div
+        className="absolute top-0 right-0 bottom-0"
+        style={{ width: containerWidth - calendarWidth }}
+      >
         <Maps />
       </div>
 

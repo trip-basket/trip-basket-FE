@@ -1,9 +1,9 @@
 "use client";
 
 import { Button, Text } from "@/src/components/ui";
-import type { PlaceDetail } from "@/src/feature/calendar/types";
+import type { Place } from "@/src/types";
 
-export function PlaceDetailSheet({ place, onClose }: { place: PlaceDetail; onClose: () => void }) {
+export function PlaceDetailSheet({ place, onClose }: { place: Place; onClose: () => void }) {
   return (
     <div className="absolute bottom-4 left-4 right-4 z-20 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
       <div className="p-4">

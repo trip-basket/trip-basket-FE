@@ -1,38 +1,28 @@
-export type BlockCategory =
-  | "sightseeing"
-  | "food"
-  | "shopping"
-  | "transport"
-  | "accommodation"
-  | "activity";
+export type { OpeningHour, Place, PlaceCategory } from "@/src/types";
 
-export interface BlockColor {
+import type { Place } from "@/src/types";
+
+export type BlockStatus = "bucket" | "scheduled";
+
+export type BlockColorName =
+  | "sky"
+  | "indigo"
+  | "violet"
+  | "rose"
+  | "teal"
+  | "amber"
+  | "fuchsia"
+  | "slate";
+
+export interface BlockColorPalette {
   base: string;
   tint: string;
   accent: string;
 }
 
-export interface OpeningHour {
-  day: number;
-  open: string;
-  close: string | null;
-}
-
-export interface PlaceDetail {
-  placeId: string;
-  placeName: string;
-  formattedAddress: string;
-  lat: number;
-  lng: number;
-  rating?: number;
-  reviewCount?: number;
-  openingHours?: OpeningHour[];
-  priceLevel?: number;
-  photoUrl?: string;
-}
-
 export interface Reaction {
   memberId: string;
+  type?: string;
 }
 
 export interface BlockTodo {
@@ -42,29 +32,37 @@ export interface BlockTodo {
   completed: boolean;
 }
 
-export interface Place {
+interface BlockBase {
   id: string;
-  title: string;
-  colorIndex: number;
-  category?: BlockCategory;
+  place: Place;
+  name: string;
+  color: BlockColorName;
   cost?: number;
+  memo?: string;
   addedBy?: string;
+  addedAt?: string;
   lockedBy?: string;
-  placeDetail?: PlaceDetail;
+  reactions?: Reaction[];
+  todos?: BlockTodo[];
 }
 
-export interface CalendarBlock extends Place {
+export interface BucketBlock extends BlockBase {
+  status: "bucket";
+}
+
+export interface ScheduledBlock extends BlockBase {
+  status: "scheduled";
   startHour: number;
   endHour: number;
-  reactions?: Reaction[];
-  memo?: string;
 }
+
+export type Block = BucketBlock | ScheduledBlock;
 
 export interface TripDay {
   date: string;
   dayOfWeek: string;
   dateNum: number;
-  blocks: CalendarBlock[];
+  blocks: ScheduledBlock[];
 }
 
 export const DEFAULT_BLOCK_DURATION = 1;
