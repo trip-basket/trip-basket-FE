@@ -1,9 +1,10 @@
 import { useBlockDrag } from "../../hooks";
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 import type { CalendarBlock } from "../../types";
 
 export function useGridBlockDrag(block: CalendarBlock) {
-  const { moveInCalendar, setSelectedBlockId } = useBlockStore();
+  const moveInCalendar = useCalendarStore((s) => s.moveInCalendar);
+  const setSelectedBlockId = useCalendarStore((s) => s.setSelectedBlockId);
 
   const duration = block.endHour - block.startHour;
 

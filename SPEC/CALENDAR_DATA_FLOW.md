@@ -12,7 +12,7 @@ members: Member[]        ← 참여자 목록 (id, nickname, profileImageUrl, ro
 days: Day[]              ← 여행 기간의 날짜 배열 (dayOfWeek, date)
 ```
 
-- `days`는 room의 tripStartDate ~ tripEndDate에서 파생되는 데이터
+- `tripDays`는 calendar store가 직접 관리하는 날짜 배열 (Room에서 분리됨)
 - CalendarBlock의 `dayIndex`는 이 `days` 배열의 인덱스를 참조
 - `addedBy`, `lockedBy`, `reactions[].memberId` → `members`에서 ID로 조회
 

@@ -7,7 +7,10 @@ import { CategoryIcon } from "../panel/category-icon";
 export function BucketBlockContent({
   place,
   blockColor,
-}: { place: Place; blockColor: BlockColor }) {
+}: {
+  place: Place;
+  blockColor: BlockColor;
+}) {
   const room = useRoomStore((s) => s.room);
 
   return (

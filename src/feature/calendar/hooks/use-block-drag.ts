@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import useBlockStore from "../stores/use-block-store";
+import useCalendarStore from "../stores/use-calendar-store";
 import { useAutoScroll } from "./use-auto-scroll";
 import { getDropPosition } from "./utils";
 
@@ -15,6 +15,7 @@ interface PointerState {
   hasDragged: boolean;
   mouseStart: Position;
   elementStart: Position;
+  elementWidth: number;
 }
 
 export function useBlockDrag(
@@ -22,16 +23,18 @@ export function useBlockDrag(
   duration?: number,
   onClick?: () => void,
 ) {
-  const { gridRef } = useBlockStore();
+  const { gridRef } = useCalendarStore();
   const { updateScroll, stopScroll } = useAutoScroll(gridRef);
 
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [dragWidth, setDragWidth] = useState(0);
   const stateRef = useRef<PointerState>({
     isDown: false,
     hasDragged: false,
     mouseStart: { x: 0, y: 0 },
     elementStart: { x: 0, y: 0 },
+    elementWidth: 0,
   });
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -43,6 +46,7 @@ export function useBlockDrag(
       hasDragged: false,
       mouseStart: { x: e.clientX, y: e.clientY },
       elementStart: { x: rect.left, y: rect.top },
+      elementWidth: rect.width,
     };
     setPosition({ x: rect.left, y: rect.top });
   };
@@ -62,6 +66,7 @@ export function useBlockDrag(
       }
       s.hasDragged = true;
       setIsDragging(true);
+      setDragWidth(s.elementWidth);
     }
 
     updateScroll(e.clientX, e.clientY);
@@ -112,6 +117,7 @@ export function useBlockDrag(
   return {
     isDragging,
     position,
+    dragWidth,
     handlers: {
       onPointerDown,
       onPointerMove,

@@ -3,14 +3,13 @@ import type { CalendarBlock } from "../types";
 
 export interface OverlapLayout {
   zIndex: number;
-  width: number;
+  rightInset: number;
 }
 
 const OVERLAP_WIDTH_STEP = 15;
 
 export function computeOverlapLayout(
   blocks: CalendarBlock[],
-  baseWidth: number,
 ): Map<string, OverlapLayout> {
   const layout = new Map<string, OverlapLayout>();
   if (blocks.length <= 1) {
@@ -43,7 +42,7 @@ export function computeOverlapLayout(
     for (let i = 0; i < group.length; i++) {
       layout.set(group[i].id, {
         zIndex: i + 1,
-        width: baseWidth - i * OVERLAP_WIDTH_STEP,
+        rightInset: i * OVERLAP_WIDTH_STEP,
       });
     }
   }

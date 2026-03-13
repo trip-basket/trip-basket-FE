@@ -11,7 +11,7 @@ interface GridBlockProps {
 
 export function GridBlock({ block, overlapLayout }: GridBlockProps) {
   const { top, height } = getBlockAbsolutePosition(block);
-  const { isDragging, position, handlers } = useGridBlockDrag(block);
+  const { isDragging, position, dragWidth, handlers } = useGridBlockDrag(block);
 
   return (
     <>
@@ -22,6 +22,7 @@ export function GridBlock({ block, overlapLayout }: GridBlockProps) {
         height={height}
         isDragging={isDragging}
         position={position}
+        dragWidth={dragWidth}
         dragHandlers={handlers}
         overlapLayout={overlapLayout}
       />
@@ -29,7 +30,15 @@ export function GridBlock({ block, overlapLayout }: GridBlockProps) {
   );
 }
 
-function GridGhostBlock({ block, top, height }: { block: CalendarBlock; top: number; height: number }) {
+function GridGhostBlock({
+  block,
+  top,
+  height,
+}: {
+  block: CalendarBlock;
+  top: number;
+  height: number;
+}) {
   const blockColor = getBlockColor(block.colorIndex);
   return (
     <div

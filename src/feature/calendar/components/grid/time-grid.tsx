@@ -1,29 +1,41 @@
 import { useCallback, useMemo } from "react";
-import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W, HOUR_HEIGHT, HOURS } from "../../constants";
-import useBlockStore from "../../stores/use-block-store";
+import useCalendarStore from "../../stores/use-calendar-store";
 import type { CalendarBlock } from "../../types";
 import { computeOverlapLayout } from "../../utils";
+import { AddDateGridColumn } from "../add-date-column";
 import { GridBlock } from "./grid-block";
 
 const gridHeight = HOURS.length * HOUR_HEIGHT;
 const gridStartHour = HOURS[0];
 
 export function TimeGrid() {
-  const days = useRoomStore((s) => s.days);
-  const { calendarBlocks, setGridRef } = useBlockStore();
+  const tripDays = useCalendarStore((s) => s.tripDays);
+  const setGridRef = useCalendarStore((s) => s.setGridRef);
 
   return (
-    <TimeGridWrapper setGridRef={setGridRef}>
+    <div
+      className="relative flex"
+      style={{
+        height: gridHeight,
+        backgroundColor: "rgba(0, 0, 0, 0.015)",
+        backgroundImage: "radial-gradient(circle, rgba(0, 0, 0, 0.07) 1.3px, transparent 1.3px)",
+        backgroundSize: `${HOUR_HEIGHT / 2}px ${HOUR_HEIGHT / 2}px`,
+      }}
+    >
       <HourLines />
-      {days.map((day, dayIndex) => (
-        <DayColumn key={day.date} blocks={calendarBlocks.filter((b) => b.dayIndex === dayIndex)} />
-      ))}
-    </TimeGridWrapper>
+      <AddDateGridColumn position="left" />
+      <GridArea setGridRef={setGridRef}>
+        {tripDays.map((day) => (
+          <DayColumn key={day.date} blocks={day.blocks} />
+        ))}
+      </GridArea>
+      <AddDateGridColumn position="right" />
+    </div>
   );
 }
 
-function TimeGridWrapper({
+function GridArea({
   children,
   setGridRef,
 }: {
@@ -42,16 +54,7 @@ function TimeGridWrapper({
   );
 
   return (
-    <div
-      ref={refCallback}
-      className="relative flex"
-      style={{
-        height: gridHeight,
-        backgroundColor: "rgba(0, 0, 0, 0.015)",
-        backgroundImage: "radial-gradient(circle, rgba(0, 0, 0, 0.07) 1.25px, transparent 1.25px)",
-        backgroundSize: `${HOUR_HEIGHT / 2}px ${HOUR_HEIGHT / 2}px`,
-      }}
-    >
+    <div ref={refCallback} className="flex flex-1">
       {children}
     </div>
   );
@@ -72,7 +75,7 @@ function HourLines() {
 }
 
 function DayColumn({ blocks }: { blocks: CalendarBlock[] }) {
-  const overlapMap = useMemo(() => computeOverlapLayout(blocks, DAY_COL_MIN_W), [blocks]);
+  const overlapMap = useMemo(() => computeOverlapLayout(blocks), [blocks]);
 
   return (
     <div
