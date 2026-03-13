@@ -11,8 +11,12 @@ tone_instructions: >
 reviews:
   profile: "chill"
   request_changes_workflow: false
-  auto_fix: false
-  chat_fixes: false
+
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
 
   high_level_summary: true
   changed_files_summary: true
