@@ -20,12 +20,12 @@ export function TimePopover({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="overflow-y-auto py-1.5" style={{ maxHeight: 250 }}>
+      <div className="overflow-y-auto p-1.5" style={{ maxHeight: 250 }}>
         {HOURS.map((hour) => (
           <button
             key={hour}
             type="button"
-            className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+            className="w-full text-left px-3 py-1.5 text-sm text-gray-500 rounded-lg border border-transparent hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-colors cursor-pointer"
             onClick={() => onSelect(hour)}
           >
             {formatHour(hour)}

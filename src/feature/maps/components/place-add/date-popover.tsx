@@ -90,17 +90,11 @@ export function DatePopoverContent({
         className="bg-white rounded-xl shadow-xl border border-gray-100 min-w-[180px] overflow-hidden"
         style={{ maxHeight: 300 }}
       >
-        <div className="overflow-y-auto py-1.5" style={{ maxHeight: 300 }}>
-          <div className="px-3 py-1.5">
-            <span className="text-[11px] font-medium text-gray-400 uppercase tracking-wide">
-              날짜 선택
-            </span>
-          </div>
-
+        <div className="overflow-y-auto p-1.5" style={{ maxHeight: 300 }}>
           {/* 이전 날짜 추가 */}
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer"
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-400 rounded-lg border border-transparent hover:border-gray-200 hover:bg-gray-50 hover:text-gray-600 transition-colors cursor-pointer"
             onClick={addDayBefore}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -119,10 +113,10 @@ export function DatePopoverContent({
               key={day.date}
               ref={(el) => setItemRef(index, el)}
               type="button"
-              className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors cursor-pointer ${
+              className={`group w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg border transition-colors cursor-pointer ${
                 hoveredDayIndex === index
-                  ? "bg-gray-50 text-gray-900"
-                  : "text-gray-700 hover:bg-gray-50"
+                  ? "border-gray-200 bg-gray-50 text-gray-900"
+                  : "border-transparent text-gray-700 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900"
               }`}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
@@ -130,14 +124,16 @@ export function DatePopoverContent({
             >
               <span className="w-1.5 h-1.5 rounded-full bg-current opacity-40" />
               <span className="font-medium">{day.dateNum}일</span>
-              <span className="text-gray-400">({day.dayOfWeek})</span>
+              <span className="text-gray-400 group-hover:text-gray-500 transition-colors">
+                ({day.dayOfWeek})
+              </span>
             </button>
           ))}
 
           {/* 다음 날짜 추가 */}
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer"
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-400 rounded-lg border border-transparent hover:border-gray-200 hover:bg-gray-50 hover:text-gray-600 transition-colors cursor-pointer"
             onClick={addDayAfter}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
