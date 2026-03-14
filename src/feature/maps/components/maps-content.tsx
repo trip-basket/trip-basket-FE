@@ -8,13 +8,13 @@ import { useRef } from "react";
 import { DEFAULT_CENTER } from "../constants";
 import { usePlaceSelection } from "../hooks";
 import { usePlaceAutocomplete } from "../hooks/use-place-autocomplete";
-import { PlaceDetailSheet } from "./place-detail-sheet";
+import { PlaceDetailSheet } from "./place-detail";
 
 export function MapsContent() {
   const status = useApiLoadingStatus();
   const autocompleteContainerRef = useRef<HTMLDivElement>(null);
 
-  const { position, placeDetail, placesLib, selectPlace, handleMapClick, clearSelection } =
+  const { position, place, placesLib, selectPlace, handleMapClick, clearSelection } =
     usePlaceSelection();
 
   usePlaceAutocomplete(autocompleteContainerRef, placesLib, selectPlace);
@@ -59,7 +59,7 @@ export function MapsContent() {
       >
         <Marker position={position || DEFAULT_CENTER} />
       </GoogleMap>
-      {placeDetail && <PlaceDetailSheet place={placeDetail} onClose={clearSelection} />}
+      {place && <PlaceDetailSheet place={place} onClose={clearSelection} />}
     </>
   );
 }

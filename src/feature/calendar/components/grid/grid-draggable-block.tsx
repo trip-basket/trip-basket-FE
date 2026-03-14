@@ -1,10 +1,10 @@
-import type { CalendarBlock } from "../../types";
+import type { ScheduledBlock } from "../../types";
 import { getBlockColor, getBlockShadow, type OverlapLayout } from "../../utils";
 import { GridBlockContent } from "./grid-block-content";
 import { useGridBlockResize } from "./use-grid-block-resize";
 
 export interface GridDraggableBlockProps {
-  block: CalendarBlock;
+  block: ScheduledBlock;
   top: number;
   height: number;
   isDragging: boolean;
@@ -36,7 +36,7 @@ export function GridDraggableBlock({
 
   const resizeHandleHeight = 6;
   const resizeHandleInset = 4;
-  const blockColor = getBlockColor(block.colorIndex);
+  const blockColor = getBlockColor(block.color);
   const isLocked = !!block.lockedBy;
 
   return (

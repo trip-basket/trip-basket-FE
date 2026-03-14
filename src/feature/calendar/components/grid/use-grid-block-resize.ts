@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { HOUR_HEIGHT, HOURS } from "../../constants";
 import useCalendarStore from "../../stores/use-calendar-store";
-import type { CalendarBlock } from "../../types";
+import type { ScheduledBlock } from "../../types";
 
 const snapToHalfHour = (hour: number) => Math.round(hour * 2) / 2;
 
 interface UseGridBlockResizeParams {
-  block: CalendarBlock;
+  block: ScheduledBlock;
   top: number;
   height: number;
 }

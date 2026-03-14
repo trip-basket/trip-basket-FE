@@ -1,18 +1,18 @@
 import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
-import type { Place } from "../../types";
+import type { BucketBlock as BucketBlockType } from "../../types";
 import { getBlockColor } from "../../utils";
 import { BucketBlockContent } from "./bucket-block-content";
 import { BucketDraggableBlock } from "./bucket-draggable-block";
 import { useBucketDrag } from "./use-bucket-drag";
 
-export function BucketBlock({ place }: { place: Place }) {
-  const { isDragging, position, handlers } = useBucketDrag(place);
+export function BucketBlock({ block }: { block: BucketBlockType }) {
+  const { isDragging, position, handlers } = useBucketDrag(block);
 
   return (
     <>
-      {isDragging && <BucketGhostBlock place={place} />}
+      {isDragging && <BucketGhostBlock block={block} />}
       <BucketDraggableBlock
-        place={place}
+        block={block}
         isDragging={isDragging}
         position={position}
         handlers={handlers}
@@ -21,8 +21,8 @@ export function BucketBlock({ place }: { place: Place }) {
   );
 }
 
-function BucketGhostBlock({ place }: { place: Place }) {
-  const blockColor = getBlockColor(place.colorIndex);
+function BucketGhostBlock({ block }: { block: BucketBlockType }) {
+  const blockColor = getBlockColor(block.color);
 
   return (
     <div
@@ -33,7 +33,7 @@ function BucketGhostBlock({ place }: { place: Place }) {
         backgroundColor: blockColor.base,
       }}
     >
-      <BucketBlockContent place={place} blockColor={blockColor} />
+      <BucketBlockContent block={block} blockColor={blockColor} />
     </div>
   );
 }

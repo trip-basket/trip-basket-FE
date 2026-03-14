@@ -1,11 +1,17 @@
 import { Text } from "@/src/components/ui";
 import { DAY_COL_MIN_W } from "../../constants";
-import type { Place } from "../../types";
+import type { BucketBlock as BucketBlockType } from "../../types";
 import { BucketBlock } from "./bucket-block";
 
 const GAP = 8;
 
-export function BucketGrid({ blocks, colsPerRow }: { blocks: Place[]; colsPerRow: number }) {
+export function BucketGrid({
+  blocks,
+  colsPerRow,
+}: {
+  blocks: BucketBlockType[];
+  colsPerRow: number;
+}) {
   if (blocks.length === 0) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-1">
@@ -24,8 +30,8 @@ export function BucketGrid({ blocks, colsPerRow }: { blocks: Place[]; colsPerRow
         gap: GAP,
       }}
     >
-      {blocks.map((place) => (
-        <BucketBlock key={place.id} place={place} />
+      {blocks.map((block) => (
+        <BucketBlock key={block.id} block={block} />
       ))}
     </div>
   );

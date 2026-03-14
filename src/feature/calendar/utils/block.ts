@@ -1,5 +1,5 @@
 import { HOUR_HEIGHT, HOURS } from "../constants";
-import type { CalendarBlock } from "../types";
+import type { ScheduledBlock } from "../types";
 
 export interface OverlapLayout {
   zIndex: number;
@@ -8,17 +8,15 @@ export interface OverlapLayout {
 
 const OVERLAP_WIDTH_STEP = 15;
 
-export function computeOverlapLayout(
-  blocks: CalendarBlock[],
-): Map<string, OverlapLayout> {
+export function computeOverlapLayout(blocks: ScheduledBlock[]): Map<string, OverlapLayout> {
   const layout = new Map<string, OverlapLayout>();
   if (blocks.length <= 1) {
     return layout;
   }
 
   const sorted = [...blocks].sort((a, b) => a.startHour - b.startHour);
-  const groups: CalendarBlock[][] = [];
-  let currentGroup: CalendarBlock[] = [sorted[0]];
+  const groups: ScheduledBlock[][] = [];
+  let currentGroup: ScheduledBlock[] = [sorted[0]];
   let maxEnd = sorted[0].endHour;
 
   for (let i = 1; i < sorted.length; i++) {
@@ -50,7 +48,7 @@ export function computeOverlapLayout(
   return layout;
 }
 
-export function getBlockAbsolutePosition(block: CalendarBlock) {
+export function getBlockAbsolutePosition(block: ScheduledBlock) {
   const gridStartHour = HOURS[0];
 
   return {
@@ -59,11 +57,11 @@ export function getBlockAbsolutePosition(block: CalendarBlock) {
   };
 }
 
-export function getBlockDuration(block: CalendarBlock): number {
+export function getBlockDuration(block: ScheduledBlock): number {
   return block.endHour - block.startHour;
 }
 
-export function formatBlockTime(block: CalendarBlock): string {
+export function formatBlockTime(block: ScheduledBlock): string {
   return `${formatTime(block.startHour)} – ${formatTime(block.endHour)}`;
 }
 

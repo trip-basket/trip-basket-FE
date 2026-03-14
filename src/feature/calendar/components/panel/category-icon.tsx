@@ -1,6 +1,6 @@
-import type { BlockCategory } from "../../types";
+import type { PlaceCategory } from "@/src/feature/calendar/types";
 
-const CATEGORY_PATHS: Record<BlockCategory, string> = {
+const CATEGORY_PATHS: Record<PlaceCategory, string> = {
   sightseeing: "M22 11V9L12 2 2 9v2h2v9H2v2h20v-2h-2v-9h2zm-6 9h-4v-5h4v5z",
   food: "M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z",
   shopping:
@@ -21,7 +21,7 @@ export function CategoryIcon({
   color,
   size = 22,
 }: {
-  category?: BlockCategory;
+  category?: PlaceCategory;
   color: string;
   size?: number;
 }) {

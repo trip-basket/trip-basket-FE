@@ -1,7 +1,25 @@
 import { create } from "zustand";
-import { MOCK_CALENDAR_BLOCKS, MOCK_PLACES } from "../mocks";
-import { type CalendarBlock, DEFAULT_BLOCK_DURATION, type Place, type TripDay } from "../types";
+import type { Place, PlaceCategory } from "@/src/types";
+import { MOCK_BUCKET_BLOCKS, MOCK_CALENDAR_BLOCKS } from "../mocks";
+import {
+  type BlockColorName,
+  type BucketBlock,
+  DEFAULT_BLOCK_DURATION,
+  type ScheduledBlock,
+  type TripDay,
+} from "../types";
 import { formatLocalDate } from "../utils";
+
+const DEFAULT_BLOCK_COLOR: BlockColorName = "slate";
+
+const CATEGORY_COLOR: Record<PlaceCategory, BlockColorName> = {
+  sightseeing: "sky",
+  food: "amber",
+  shopping: "violet",
+  transport: "indigo",
+  accommodation: "teal",
+  activity: "rose",
+};
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
@@ -38,7 +56,7 @@ function buildMockTripDays(): TripDay[] {
 
 interface CalendarStore {
   tripDays: TripDay[];
-  bucketBlocks: Place[];
+  bucketBlocks: BucketBlock[];
   gridRef: HTMLDivElement | null;
   selectedBlockId: string | null;
   isBucketDragging: boolean;
@@ -46,10 +64,12 @@ interface CalendarStore {
   setGridRef: (ref: HTMLDivElement | null) => void;
   setSelectedBlockId: (id: string | null) => void;
   setIsBucketDragging: (v: boolean) => void;
-  moveToCalendar: (place: Place, dayIndex: number, startHour: number) => void;
-  moveInCalendar: (blockId: string, dayIndex: number, startHour: number) => void;
+  moveToCalendar: (block: BucketBlock, date: string, startHour: number) => void;
+  moveInCalendar: (blockId: string, date: string, startHour: number) => void;
   resizeBlock: (blockId: string, startHour: number, endHour: number) => void;
-  findBlock: (blockId: string) => { block: CalendarBlock; dayIndex: number } | null;
+  findBlock: (blockId: string) => { block: ScheduledBlock; date: string } | null;
+  addToBucket: (place: Place) => void;
+  addToCalendar: (place: Place, date: string, startHour: number) => void;
   addDayBefore: () => void;
   addDayAfter: () => void;
   updateDateRange: (startDate: string, endDate: string) => void;
@@ -57,7 +77,7 @@ interface CalendarStore {
 
 const useCalendarStore = create<CalendarStore>((set, get) => ({
   tripDays: useMockData ? buildMockTripDays() : [],
-  bucketBlocks: useMockData ? MOCK_PLACES : [],
+  bucketBlocks: useMockData ? MOCK_BUCKET_BLOCKS : [],
   gridRef: null,
   selectedBlockId: null,
   isBucketDragging: false,
@@ -68,17 +88,18 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   setSelectedBlockId: (id) => set({ selectedBlockId: id }),
   setIsBucketDragging: (v) => set({ isBucketDragging: v }),
 
-  moveToCalendar: (place, dayIndex, startHour) =>
+  moveToCalendar: (block, date, startHour) =>
     set((state) => ({
-      bucketBlocks: state.bucketBlocks.filter((b) => b.id !== place.id),
-      tripDays: state.tripDays.map((day, i) =>
-        i === dayIndex
+      bucketBlocks: state.bucketBlocks.filter((b) => b.id !== block.id),
+      tripDays: state.tripDays.map((day) =>
+        day.date === date
           ? {
               ...day,
               blocks: [
                 ...day.blocks,
                 {
-                  ...place,
+                  ...block,
+                  status: "scheduled" as const,
                   startHour,
                   endHour: startHour + DEFAULT_BLOCK_DURATION,
                 },
@@ -88,7 +109,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       ),
     })),
 
-  moveInCalendar: (blockId, toDayIndex, startHour) => {
+  moveInCalendar: (blockId, toDate, startHour) => {
     const found = get().findBlock(blockId);
     if (!found) {
       return;
@@ -96,16 +117,16 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
 
     const { block: movingBlock } = found;
     const duration = movingBlock.endHour - movingBlock.startHour;
-    const movedBlock: CalendarBlock = {
+    const movedBlock: ScheduledBlock = {
       ...movingBlock,
       startHour,
       endHour: startHour + duration,
     };
 
     set((state) => ({
-      tripDays: state.tripDays.map((day, i) => {
+      tripDays: state.tripDays.map((day) => {
         const filtered = day.blocks.filter((b) => b.id !== blockId);
-        if (i === toDayIndex) {
+        if (day.date === toDate) {
           return { ...day, blocks: [...filtered, movedBlock] };
         }
         return filtered.length !== day.blocks.length ? { ...day, blocks: filtered } : day;
@@ -125,13 +146,46 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
 
   findBlock: (blockId) => {
     const { tripDays } = get();
-    for (let i = 0; i < tripDays.length; i++) {
-      const block = tripDays[i].blocks.find((b) => b.id === blockId);
+    for (const day of tripDays) {
+      const block = day.blocks.find((b) => b.id === blockId);
       if (block) {
-        return { block, dayIndex: i };
+        return { block, date: day.date };
       }
     }
     return null;
+  },
+
+  addToBucket: (place) => {
+    const color = place.category ? CATEGORY_COLOR[place.category] : DEFAULT_BLOCK_COLOR;
+
+    const newBlock: BucketBlock = {
+      id: crypto.randomUUID(),
+      place,
+      name: place.placeName ?? "",
+      color,
+      status: "bucket",
+    };
+    set({ bucketBlocks: [...get().bucketBlocks, newBlock] });
+  },
+
+  addToCalendar: (place, date, startHour) => {
+    const color = place.category ? CATEGORY_COLOR[place.category] : DEFAULT_BLOCK_COLOR;
+
+    const newBlock: ScheduledBlock = {
+      id: crypto.randomUUID(),
+      place,
+      name: place.placeName ?? "",
+      color,
+      status: "scheduled",
+      startHour,
+      endHour: startHour + DEFAULT_BLOCK_DURATION,
+    };
+
+    set({
+      tripDays: get().tripDays.map((day) =>
+        day.date === date ? { ...day, blocks: [...day.blocks, newBlock] } : day,
+      ),
+    });
   },
 
   addDayBefore: () => {
@@ -170,7 +224,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     const { tripDays } = get();
     const newDays = generateTripDays(startDate, endDate);
 
-    const blocksByDate = new Map<string, CalendarBlock[]>();
+    const blocksByDate = new Map<string, ScheduledBlock[]>();
     for (const day of tripDays) {
       if (day.blocks.length > 0) {
         blocksByDate.set(day.date, day.blocks);

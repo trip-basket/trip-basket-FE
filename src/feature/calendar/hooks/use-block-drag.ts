@@ -19,7 +19,7 @@ interface PointerState {
 }
 
 export function useBlockDrag(
-  onDrop: (dayIndex: number, hour: number) => void,
+  onDrop: (date: string, hour: number) => void,
   duration?: number,
   onClick?: () => void,
 ) {
@@ -97,7 +97,7 @@ export function useBlockDrag(
       return;
     }
 
-    onDrop(dropPosition.dayIndex, dropPosition.hour);
+    onDrop(dropPosition.date, dropPosition.hour);
 
     setIsDragging(false);
     s.isDown = false;

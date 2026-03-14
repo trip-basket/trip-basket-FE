@@ -1,15 +1,15 @@
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import type { BlockColor, Place } from "../../types";
+import type { BlockColorPalette, BucketBlock } from "../../types";
 import { formatCurrency } from "../../utils";
 import { CategoryIcon } from "../panel/category-icon";
 
 export function BucketBlockContent({
-  place,
+  block,
   blockColor,
 }: {
-  place: Place;
-  blockColor: BlockColor;
+  block: BucketBlock;
+  blockColor: BlockColorPalette;
 }) {
   const room = useRoomStore((s) => s.room);
 
@@ -18,19 +18,19 @@ export function BucketBlockContent({
       <div>
         <div className="flex items-baseline justify-between gap-1">
           <Text variant="body" weight="semibold" className="truncate">
-            {place.title}
+            {block.name}
           </Text>
-          <CategoryIcon category={place.category} color={blockColor.accent} size={16} />
+          <CategoryIcon category={block.place.category} color={blockColor.accent} size={16} />
         </div>
-        {place.lockedBy && <span className="text-[10px] text-soft">🔒</span>}
+        {block.lockedBy && <span className="text-[10px] text-soft">🔒</span>}
       </div>
-      {place.cost !== undefined && place.cost > 0 && (
+      {block.cost !== undefined && block.cost > 0 && (
         <div className="flex justify-end">
           <span
             className="rounded-lg px-1.5 py-0.5 text-xs tabular-nums"
             style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
           >
-            {formatCurrency(place.cost, room?.currency)}
+            {formatCurrency(block.cost, room?.currency)}
           </span>
         </div>
       )}

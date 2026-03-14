@@ -1,15 +1,10 @@
 import { APIProvider, Map as GoogleMap, Marker } from "@vis.gl/react-google-maps";
-import type { CalendarBlock } from "../../types";
+import type { ScheduledBlock } from "../../types";
 import { SectionHeader } from "./section-header";
 
-export function MapSection({ block }: { block: CalendarBlock }) {
+export function MapSection({ block }: { block: ScheduledBlock }) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
-  if (!block.placeDetail) {
-    return null;
-  }
-
-  const place = block.placeDetail;
+  const { place } = block;
   const center = { lat: place.lat, lng: place.lng };
 
   return (
@@ -32,7 +27,9 @@ export function MapSection({ block }: { block: CalendarBlock }) {
           </APIProvider>
         </div>
       )}
-      <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{place.formattedAddress}</p>
+      {place.formattedAddress && (
+        <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{place.formattedAddress}</p>
+      )}
       {place.rating != null && (
         <div className="flex items-center gap-1 mt-1">
           <span className="text-yellow-500 text-xs">&#9733;</span>
