@@ -1,12 +1,13 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import useMeasure from "react-use-measure";
 
-export function useTimePopoverLayout(
-  hoveredDayIndex: number | null,
-  setHoveredDayIndex: (index: number | null) => void,
-) {
+export function useTimePopoverLayout() {
+  const [hoveredDay, setHoveredDay] = useState<{
+    index: number;
+    date: string;
+  } | null>(null);
   const [timeStyle, setTimeStyle] = useState<{ top?: number; bottom?: number }>({});
-  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [dateListRef, { height: dateListH }] = useMeasure();
   const [timeRef, { height: timeH }] = useMeasure();
   const itemRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
@@ -21,7 +22,7 @@ export function useTimePopoverLayout(
   }, []);
 
   useLayoutEffect(() => {
-    if (hoveredDayIndex === null || dateListH === 0 || timeH === 0) {
+    if (hoveredDay === null || dateListH === 0 || timeH === 0) {
       return;
     }
 
@@ -34,9 +35,9 @@ export function useTimePopoverLayout(
       const maxTop = dateListH - timeH;
       setTimeStyle({ top: Math.max(0, Math.min(idealTop, maxTop)) });
     }
-  }, [hoveredDayIndex, dateListH, timeH]);
+  }, [hoveredDay, dateListH, timeH]);
 
-  const handleMouseEnter = (dayIndex: number) => {
+  const handleMouseEnter = (dayIndex: number, date: string) => {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
@@ -51,12 +52,12 @@ export function useTimePopoverLayout(
       }
     }
 
-    setHoveredDayIndex(dayIndex);
+    setHoveredDay({ index: dayIndex, date });
   };
 
   const handleMouseLeave = () => {
     hoverTimeoutRef.current = setTimeout(() => {
-      setHoveredDayIndex(null);
+      setHoveredDay(null);
     }, 150);
   };
 
@@ -67,6 +68,8 @@ export function useTimePopoverLayout(
   };
 
   return {
+    hoveredDayIndex: hoveredDay?.index ?? null,
+    hoveredDate: hoveredDay?.date ?? null,
     dateListRef,
     timeRef,
     timeStyle,

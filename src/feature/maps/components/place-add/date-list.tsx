@@ -12,7 +12,7 @@ export function DateList({
 }: {
   hoveredDayIndex: number | null;
   setItemRef: (index: number, el: HTMLButtonElement | null) => void;
-  onMouseEnter: (dayIndex: number) => void;
+  onMouseEnter: (dayIndex: number, date: string) => void;
   onMouseLeave: () => void;
   onSelect: (date: string, startHour: number) => void;
 }) {
@@ -26,7 +26,7 @@ export function DateList({
           ref={(el) => setItemRef(index, el)}
           day={day}
           isHovered={hoveredDayIndex === index}
-          onMouseEnter={() => onMouseEnter(index)}
+          onMouseEnter={() => onMouseEnter(index, day.date)}
           onMouseLeave={onMouseLeave}
           onClick={() => onSelect(day.date, 9)}
         />

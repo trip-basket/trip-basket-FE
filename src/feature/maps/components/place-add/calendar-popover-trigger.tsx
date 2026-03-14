@@ -20,12 +20,21 @@ export function CalendarPopoverTrigger({ place }: { place: Place }) {
   );
 
   return (
-    <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Popover.Root
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!hasTripDays && open) {
+          return;
+        }
+        setIsOpen(open);
+      }}
+    >
       <Popover.Trigger asChild>
         <button
           type="button"
-          className="flex items-center justify-center w-9 bg-action text-on-action hover:bg-action-hover transition-colors cursor-pointer"
-          aria-label="날짜 선택"
+          disabled={!hasTripDays}
+          className="flex items-center justify-center w-9 bg-action text-on-action transition-colors cursor-pointer hover:bg-action-hover disabled:cursor-not-allowed disabled:opacity-50"
+          aria-label={hasTripDays ? "날짜 선택" : "여행 날짜를 먼저 추가해 주세요"}
         >
           <svg
             width="12"

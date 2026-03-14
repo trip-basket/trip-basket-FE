@@ -35,7 +35,7 @@ export function OpeningHoursExpanded({
                 <span
                   className={`text-xs ${isToday ? "font-medium text-gray-900" : "text-gray-600"}`}
                 >
-                  {DAY_NAME[dayIndex]}: {entry ? formatRange(entry) : "Closed"}
+                  {DAY_NAME[dayIndex]}: {entry ? formatRange(entry) : "휴무"}
                 </span>
               </div>
             );
@@ -47,7 +47,7 @@ export function OpeningHoursExpanded({
         className="text-xs text-blue-500 hover:text-blue-600 transition-colors cursor-pointer ml-[22px]"
         onClick={onCollapse}
       >
-        Hide times
+        영업시간 접기
       </button>
     </div>
   );

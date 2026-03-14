@@ -43,7 +43,7 @@ export function OpeningHoursCollapsed({
           className="text-xs text-blue-500 hover:text-blue-600 transition-colors cursor-pointer ml-1"
           onClick={onExpand}
         >
-          Show times
+          영업시간 보기
         </button>
       </div>
     </div>

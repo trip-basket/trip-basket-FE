@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { AddDayButton } from "./add-day-button";
 import { DateList } from "./date-list";
 import { TimePopoverPanel } from "./time-popover-panel";
@@ -11,9 +10,9 @@ export function DatePopoverContent({
 }: {
   onSelect: (date: string, startHour: number) => void;
 }) {
-  const [hoveredDayIndex, setHoveredDayIndex] = useState<number | null>(null);
-
   const {
+    hoveredDayIndex,
+    hoveredDate,
     dateListRef,
     timeRef,
     timeStyle,
@@ -21,7 +20,7 @@ export function DatePopoverContent({
     handleMouseEnter,
     handleMouseLeave,
     handleTimeHoverEnter,
-  } = useTimePopoverLayout(hoveredDayIndex, setHoveredDayIndex);
+  } = useTimePopoverLayout();
 
   return (
     <div ref={dateListRef} data-date-list className="relative">
@@ -44,7 +43,7 @@ export function DatePopoverContent({
         </div>
       </div>
       <TimePopoverPanel
-        hoveredDayIndex={hoveredDayIndex}
+        hoveredDate={hoveredDate}
         timeRef={timeRef}
         timeStyle={timeStyle}
         onSelect={onSelect}

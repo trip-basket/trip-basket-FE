@@ -1,4 +1,4 @@
-import type { PlaceCategory } from "../../types";
+import type { PlaceCategory } from "@/src/feature/calendar/types";
 
 const CATEGORY_PATHS: Record<PlaceCategory, string> = {
   sightseeing: "M22 11V9L12 2 2 9v2h2v9H2v2h20v-2h-2v-9h2zm-6 9h-4v-5h4v5z",

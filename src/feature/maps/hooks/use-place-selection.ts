@@ -85,7 +85,7 @@ export function usePlaceSelection() {
             ? `${String(p.close.hour ?? 0).padStart(2, "0")}:${String(p.close.minute ?? 0).padStart(2, "0")}`
             : null,
         })),
-        priceLevel: gPlace.priceLevel ?? undefined,
+        priceLevel: gPlace.priceLevel as number | undefined,
         photoUrl: MOCK_PHOTO_URL,
       });
 
