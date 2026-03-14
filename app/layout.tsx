@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className="flex h-full flex-col overflow-hidden antialiased"
+        className="flex h-full flex-col antialiased"
         style={{ fontFamily: "'NanumSquareRound', system-ui, sans-serif" }}
       >
         {children}
