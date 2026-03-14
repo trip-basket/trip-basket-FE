@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { Text } from "@/src/components/ui";
 import type { Place, PlaceCategory } from "@/src/types";
+import { PlaceAddButton } from "../place-add";
 import { OpeningHoursSection } from "./opening-hours-section";
-import { PlaceAddButton } from "./place-add-button";
 
 const CATEGORY_LABEL: Record<PlaceCategory, string> = {
   sightseeing: "관광",

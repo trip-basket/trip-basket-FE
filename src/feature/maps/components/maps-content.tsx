@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { DEFAULT_CENTER } from "../constants";
 import { usePlaceSelection } from "../hooks";
 import { usePlaceAutocomplete } from "../hooks/use-place-autocomplete";
-import { PlaceDetailSheet } from "./place-detail-sheet";
+import { PlaceDetailSheet } from "./place-detail";
 
 export function MapsContent() {
   const status = useApiLoadingStatus();
