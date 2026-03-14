@@ -20,8 +20,12 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
     return null;
   }
 
-  const { block, dayIndex } = result;
-  const day = tripDays[dayIndex];
+  const { block, date } = result;
+  const day = tripDays.find((d) => d.date === date);
+
+  if (!day) {
+    return null;
+  }
   const todos = MOCK_BLOCK_TODOS.filter((t) => t.blockId === block.id);
   const reactionMembers = (block.reactions ?? [])
     .map((r) => members.find((m) => m.id === r.memberId))

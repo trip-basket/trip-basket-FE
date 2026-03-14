@@ -8,8 +8,8 @@ export function useBucketDrag(block: BucketBlock) {
   const setIsBucketDragging = useCalendarStore((s) => s.setIsBucketDragging);
   const wasDraggingRef = useRef(false);
 
-  const result = useBlockDrag((dayIndex, hour) => {
-    moveToCalendar(block, dayIndex, hour);
+  const result = useBlockDrag((date, hour) => {
+    moveToCalendar(block, date, hour);
   });
 
   useEffect(() => {

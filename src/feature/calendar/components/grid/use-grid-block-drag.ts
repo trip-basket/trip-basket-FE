@@ -9,8 +9,8 @@ export function useGridBlockDrag(block: ScheduledBlock) {
   const duration = block.endHour - block.startHour;
 
   return useBlockDrag(
-    (dayIndex, hour) => {
-      moveInCalendar(block.id, dayIndex, hour);
+    (date, hour) => {
+      moveInCalendar(block.id, date, hour);
     },
     duration,
     () => {

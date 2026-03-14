@@ -63,8 +63,10 @@ export function getDropPosition(
   const relativeX = clientX - gridRect.left;
   const relativeY = clientY - gridRect.top - grabOffsetY;
 
+  const dayIndex = getDayIndex(relativeX, tripDays.length, gridRect.width);
+
   return {
-    dayIndex: getDayIndex(relativeX, tripDays.length, gridRect.width),
+    date: tripDays[dayIndex].date,
     hour: getHour(relativeY, duration),
   };
 }

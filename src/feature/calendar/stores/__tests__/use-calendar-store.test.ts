@@ -84,7 +84,7 @@ describe("useCalendarStore", () => {
       setDates("2026-02-16", "2026-02-18");
 
       const { moveToCalendar } = useCalendarStore.getState();
-      moveToCalendar(mockBlock, 0, 9);
+      moveToCalendar(mockBlock, "2026-02-16", 9);
 
       const { tripDays, bucketBlocks } = useCalendarStore.getState();
       expect(bucketBlocks).toHaveLength(0);
@@ -100,7 +100,7 @@ describe("useCalendarStore", () => {
       setDates("2026-02-16", "2026-02-18");
 
       const { moveToCalendar } = useCalendarStore.getState();
-      moveToCalendar(mockBlock, 1, 14);
+      moveToCalendar(mockBlock, "2026-02-17", 14);
 
       const { tripDays } = useCalendarStore.getState();
       expect(tripDays[0].blocks).toHaveLength(0);
@@ -115,7 +115,7 @@ describe("useCalendarStore", () => {
     it("같은 날짜 내에서 시간을 변경한다", () => {
       const { setDates } = useCalendarStore.getState();
       setDates("2026-02-16", "2026-02-18");
-      // dayIndex 0에 블록 배치
+      // 2026-02-16에 블록 배치
       useCalendarStore.setState((state) => ({
         tripDays: state.tripDays.map((day, i) =>
           i === 0
@@ -128,7 +128,7 @@ describe("useCalendarStore", () => {
       }));
 
       const { moveInCalendar } = useCalendarStore.getState();
-      moveInCalendar("p1", 0, 14);
+      moveInCalendar("p1", "2026-02-16", 14);
 
       const { tripDays } = useCalendarStore.getState();
       expect(tripDays[0].blocks).toHaveLength(1);
@@ -151,7 +151,7 @@ describe("useCalendarStore", () => {
       }));
 
       const { moveInCalendar } = useCalendarStore.getState();
-      moveInCalendar("p1", 2, 10);
+      moveInCalendar("p1", "2026-02-18", 10);
 
       const { tripDays } = useCalendarStore.getState();
       expect(tripDays[0].blocks).toHaveLength(0);
@@ -190,7 +190,7 @@ describe("useCalendarStore", () => {
   // ─── 헬퍼: 블록 검색 ───
 
   describe("findBlock", () => {
-    it("blockId로 블록과 dayIndex를 찾는다", () => {
+    it("blockId로 블록과 date를 찾는다", () => {
       const { setDates } = useCalendarStore.getState();
       setDates("2026-02-16", "2026-02-18");
       useCalendarStore.setState((state) => ({
@@ -209,7 +209,7 @@ describe("useCalendarStore", () => {
 
       expect(result).not.toBeNull();
       expect(result?.block.id).toBe("p1");
-      expect(result?.dayIndex).toBe(1);
+      expect(result?.date).toBe("2026-02-17");
     });
 
     it("존재하지 않는 blockId는 null을 반환한다", () => {
@@ -232,9 +232,9 @@ describe("useCalendarStore", () => {
       setDates("2026-02-16", "2026-02-18");
 
       const store1 = useCalendarStore.getState();
-      store1.moveToCalendar(mockBlock, 0, 9);
+      store1.moveToCalendar(mockBlock, "2026-02-16", 9);
       const store2 = useCalendarStore.getState();
-      store2.moveToCalendar(mockBlock2, 0, 14);
+      store2.moveToCalendar(mockBlock2, "2026-02-16", 14);
 
       const { tripDays, bucketBlocks } = useCalendarStore.getState();
       expect(bucketBlocks).toHaveLength(0);
@@ -260,7 +260,7 @@ describe("useCalendarStore", () => {
       }));
 
       const { moveInCalendar } = useCalendarStore.getState();
-      moveInCalendar("p1", 2, 10);
+      moveInCalendar("p1", "2026-02-18", 10);
 
       const { tripDays } = useCalendarStore.getState();
       // mockBlock2는 day 0에 그대로
