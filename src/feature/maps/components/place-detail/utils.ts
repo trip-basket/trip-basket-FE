@@ -1,4 +1,20 @@
-import type { OpeningHour } from "@/src/types";
+import type { OpeningHour, PlaceCategory } from "@/src/types";
+
+export const CATEGORY_LABEL: Record<PlaceCategory, string> = {
+  sightseeing: "관광",
+  food: "음식",
+  shopping: "쇼핑",
+  transport: "교통",
+  accommodation: "숙소",
+  activity: "액티비티",
+};
+
+export const PRICE_LABEL: Record<number, string> = {
+  1: "₩",
+  2: "₩₩",
+  3: "₩₩₩",
+  4: "₩₩₩₩",
+};
 
 export const DAY_ABBR = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 export const DAY_NAME = [

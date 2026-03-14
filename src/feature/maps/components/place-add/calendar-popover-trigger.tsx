@@ -8,7 +8,7 @@ import { DatePopoverContent } from "./date-popover";
 
 export function CalendarPopoverTrigger({ place }: { place: Place }) {
   const [isOpen, setIsOpen] = useState(false);
-  const tripDays = useCalendarStore((s) => s.tripDays);
+  const hasTripDays = useCalendarStore((s) => s.tripDays.length > 0);
   const addToCalendar = useCalendarStore((s) => s.addToCalendar);
 
   const handleSelect = useCallback(
@@ -46,7 +46,7 @@ export function CalendarPopoverTrigger({ place }: { place: Place }) {
         </button>
       </Popover.Trigger>
 
-      {tripDays.length > 0 && (
+      {hasTripDays && (
         <Popover.Portal>
           <Popover.Content
             side="top"
@@ -55,7 +55,7 @@ export function CalendarPopoverTrigger({ place }: { place: Place }) {
             collisionPadding={16}
             className="z-50 animate-in fade-in-0 zoom-in-95"
           >
-            <DatePopoverContent tripDays={tripDays} onSelect={handleSelect} />
+            <DatePopoverContent onSelect={handleSelect} />
           </Popover.Content>
         </Popover.Portal>
       )}

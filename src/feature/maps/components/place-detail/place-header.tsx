@@ -1,0 +1,48 @@
+import { Text } from "@/src/components/ui";
+import type { PlaceCategory } from "@/src/types";
+import { CATEGORY_LABEL } from "./utils";
+
+export function PlaceHeader({
+  name,
+  address,
+  category,
+  onClose,
+}: {
+  name: string | null;
+  address?: string;
+  category?: PlaceCategory;
+  onClose: () => void;
+}) {
+  return (
+    <div className="flex items-start justify-between mb-2">
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <Text variant="h3" className="truncate">
+            {name}
+          </Text>
+          {category && (
+            <span className="shrink-0 text-[11px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">
+              {CATEGORY_LABEL[category]}
+            </span>
+          )}
+        </div>
+        {address && <p className="text-xs text-gray-400 mt-0.5">{address}</p>}
+      </div>
+      <button
+        type="button"
+        onClick={onClose}
+        className="flex items-center justify-center h-7 w-7 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-150 shrink-0 ml-2"
+        aria-label="닫기"
+      >
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path
+            d="M1 1L13 13M13 1L1 13"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+}
