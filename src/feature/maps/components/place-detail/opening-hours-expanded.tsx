@@ -2,7 +2,7 @@
 
 import type { OpeningHour } from "@/src/types";
 import { ClockIcon } from "./clock-icon";
-import { DAY_ABBR, DAY_NAME, formatRange, getTodayIndex } from "./opening-hours-utils";
+import { DAY_ABBR, DAY_NAME, formatRange, getTodayIndex } from "./utils";
 
 export function OpeningHoursExpanded({
   hours,
