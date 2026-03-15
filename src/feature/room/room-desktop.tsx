@@ -14,6 +14,7 @@ import {
 import { ADD_COL_W, DAY_COL_MIN_W, TIME_COL_W } from "@/src/feature/calendar/constants";
 import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import { Maps } from "@/src/feature/maps";
+import { AnimatedGradientBorder } from "./components/animated-gradient-border";
 
 export function RoomDesktop() {
   const selectedBlockId = useCalendarStore((s) => s.selectedBlockId);
@@ -56,10 +57,13 @@ export function RoomDesktop() {
         <div className="px-3 py-2">
           <CalendarHeader />
         </div>
-        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden rounded-xl bg-white border border-black/6 mx-2 mb-2">
-          <CalendarMetaBar />
-          <Calendar />
-          <Bucket />
+        <div className="relative flex flex-1 min-h-0 flex-col mx-2 mb-2 rounded-xl">
+          <AnimatedGradientBorder />
+          <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden rounded-[11px] bg-white">
+            <CalendarMetaBar />
+            <Calendar />
+            <Bucket />
+          </div>
         </div>
       </div>
 
