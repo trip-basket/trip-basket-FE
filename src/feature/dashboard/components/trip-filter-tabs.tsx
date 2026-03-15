@@ -39,9 +39,9 @@ export function TripFilterTabs({ rooms }: { rooms: Room[] }) {
             key={tab.key}
             type="button"
             onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+            className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
               activeTab === tab.key
-                ? "bg-white text-gray-900 shadow-sm"
+                ? "bg-white text-brand-600 shadow-sm"
                 : "text-gray-500 hover:text-gray-700"
             }`}
           >

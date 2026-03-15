@@ -37,7 +37,7 @@ export const MOCK_ROOMS: Room[] = [
     tripEndDate: "2026-03-23",
     currency: "KRW",
     inviteCode: "JJU2026",
-    coverImageUrl: "https://images.unsplash.com/photo-1579169825555-4504c8795c42?w=800&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
     memberCount: 4,
     placeCount: 15,
     createdAt: "2026-01-15T10:00:00Z",

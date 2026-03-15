@@ -48,7 +48,7 @@ export function TripCard({ room }: { room: Room }) {
   return (
     <Link
       href={`/plan/${room.id}`}
-      className="group relative flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+      className="group relative flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-200/60 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
     >
       {/* Cover Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
