@@ -10,7 +10,7 @@ export function DashboardHeader() {
       <div className="flex items-center gap-3">
         <button
           type="button"
-          className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors"
+          className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors cursor-pointer"
           aria-label="초대 코드 입력"
         >
           <svg
@@ -29,9 +29,13 @@ export function DashboardHeader() {
             <line x1="15" y1="12" x2="3" y2="12" />
           </svg>
         </button>
-        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white text-sm font-bold shadow-sm">
+        <button
+          type="button"
+          className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white text-sm font-bold shadow-sm cursor-pointer"
+          aria-label="프로필"
+        >
           T
-        </div>
+        </button>
       </div>
     </header>
   );

@@ -2,7 +2,7 @@ export function CreateTripCard() {
   return (
     <button
       type="button"
-      className="group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 hover:border-brand-300 bg-gray-50/50 hover:bg-brand-50/50 transition-all duration-300 cursor-pointer aspect-[4/3]"
+      className="group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 hover:border-brand-300 bg-gray-50/50 hover:bg-brand-50/50 transition-all duration-300 cursor-pointer h-full"
     >
       <div className="flex flex-col items-center gap-3">
         <div className="w-12 h-12 rounded-full bg-white border border-gray-200 group-hover:border-brand-300 group-hover:bg-brand-50 flex items-center justify-center transition-all duration-300 shadow-sm">
