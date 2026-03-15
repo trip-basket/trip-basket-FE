@@ -62,8 +62,8 @@ export function AnimatedGradientBorder() {
       >
         <animate
           attributeName="stroke-dashoffset"
-          values="0;-45"
-          dur="6s"
+          values="0;-15"
+          dur="2s"
           repeatCount="indefinite"
         />
       </rect>
