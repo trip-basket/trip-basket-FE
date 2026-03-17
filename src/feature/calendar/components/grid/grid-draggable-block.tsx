@@ -45,8 +45,8 @@ export function GridDraggableBlock({
       style={{
         position: isDragging ? "fixed" : "absolute",
         top: isDragging ? position.y : currentTop,
-        left: isDragging ? position.x : 0,
-        right: isDragging ? undefined : (overlapLayout?.rightInset ?? 0),
+        left: isDragging ? position.x : (overlapLayout?.leftInset ?? 0),
+        right: 0,
         width: isDragging ? dragWidth : undefined,
         height: currentHeight,
         zIndex: isDragging ? 9999 : (overlapLayout?.zIndex ?? undefined),
