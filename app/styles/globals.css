@@ -67,3 +67,7 @@ body {
   }
 }
 
+.pac-container {
+  border-radius: 10rem;
+  background-color: red;
+}
