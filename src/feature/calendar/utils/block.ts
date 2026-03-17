@@ -3,7 +3,7 @@ import type { ScheduledBlock } from "../types";
 
 export interface OverlapLayout {
   zIndex: number;
-  rightInset: number;
+  leftInset: number;
 }
 
 const OVERLAP_WIDTH_STEP = 15;
@@ -40,7 +40,7 @@ export function computeOverlapLayout(blocks: ScheduledBlock[]): Map<string, Over
     for (let i = 0; i < group.length; i++) {
       layout.set(group[i].id, {
         zIndex: i + 1,
-        rightInset: i * OVERLAP_WIDTH_STEP,
+        leftInset: i * OVERLAP_WIDTH_STEP,
       });
     }
   }
