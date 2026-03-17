@@ -41,10 +41,23 @@ function toPlaceCategory(primaryType?: string): PlaceCategory | undefined {
   return GOOGLE_TYPE_TO_CATEGORY.get(primaryType);
 }
 
+type PlaceSelection =
+  | { status: "idle" }
+  | { status: "pinned"; place: Place }
+  | { status: "detail"; place: Place };
+
 export function usePlaceSelection() {
   const map = useMap();
   const placesLib = useMapsLibrary("places");
-  const [place, setPlace] = useState<Place | null>(null);
+  const [selection, setSelection] = useState<PlaceSelection>({ status: "idle" });
+
+  const place = selection.status !== "idle" ? selection.place : null;
+  const isDetailOpen = selection.status === "detail";
+  const position = place ? { lat: place.lat, lng: place.lng } : null;
+
+  const clearSelection = useCallback(() => {
+    setSelection({ status: "idle" });
+  }, []);
 
   const selectPlace = useCallback(
     async (gPlace: google.maps.places.Place) => {
@@ -69,7 +82,7 @@ export function usePlaceSelection() {
       const lat = gPlace.location.lat();
       const lng = gPlace.location.lng();
 
-      setPlace({
+      const newPlace: Place = {
         placeId: gPlace.id,
         placeName: gPlace.displayName ?? "",
         lat,
@@ -87,8 +100,9 @@ export function usePlaceSelection() {
         })),
         priceLevel: gPlace.priceLevel as number | undefined,
         photoUrl: MOCK_PHOTO_URL,
-      });
+      };
 
+      setSelection({ status: "detail", place: newPlace });
       map.panTo({ lat, lng });
     },
     [map],
@@ -98,6 +112,10 @@ export function usePlaceSelection() {
     async (e: MapMouseEvent) => {
       const clickedPlaceId = e.detail.placeId;
       if (!clickedPlaceId || !placesLib) {
+        // 빈 곳 클릭: 모달만 닫고 마커는 유지
+        setSelection((prev) =>
+          prev.status === "detail" ? { status: "pinned", place: prev.place } : prev,
+        );
         return;
       }
 
@@ -106,17 +124,11 @@ export function usePlaceSelection() {
       try {
         await selectPlace(gPlace);
       } catch (_) {
-        setPlace(null);
+        setSelection({ status: "idle" });
       }
     },
     [placesLib, selectPlace],
   );
 
-  const clearSelection = useCallback(() => {
-    setPlace(null);
-  }, []);
-
-  const position = place ? { lat: place.lat, lng: place.lng } : null;
-
-  return { position, place, placesLib, selectPlace, handleMapClick, clearSelection };
+  return { position, place, placesLib, selectPlace, handleMapClick, clearSelection, isDetailOpen };
 }

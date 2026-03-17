@@ -14,7 +14,7 @@ export function MapsContent() {
   const status = useApiLoadingStatus();
   const autocompleteContainerRef = useRef<HTMLDivElement>(null);
 
-  const { position, place, placesLib, selectPlace, handleMapClick, clearSelection } =
+  const { position, place, placesLib, selectPlace, handleMapClick, clearSelection, isDetailOpen } =
     usePlaceSelection();
 
   usePlaceAutocomplete(autocompleteContainerRef, placesLib, selectPlace);
@@ -59,7 +59,7 @@ export function MapsContent() {
       >
         <Marker position={position || DEFAULT_CENTER} />
       </GoogleMap>
-      {place && <PlaceDetailSheet place={place} onClose={clearSelection} />}
+      {isDetailOpen && place && <PlaceDetailSheet place={place} onClose={clearSelection} />}
     </>
   );
 }
