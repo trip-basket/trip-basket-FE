@@ -8,13 +8,7 @@ export interface OverlapLayout {
 
 const OVERLAP_WIDTH_STEP = 15;
 
-export function computeOverlapLayout(blocks: ScheduledBlock[]): Map<string, OverlapLayout> {
-  const layout = new Map<string, OverlapLayout>();
-  if (blocks.length <= 1) {
-    return layout;
-  }
-
-  const sorted = [...blocks].sort((a, b) => a.startHour - b.startHour);
+function groupOverlappingBlocks(sorted: ScheduledBlock[]): ScheduledBlock[][] {
   const groups: ScheduledBlock[][] = [];
   let currentGroup: ScheduledBlock[] = [sorted[0]];
   let maxEnd = sorted[0].endHour;
@@ -22,26 +16,64 @@ export function computeOverlapLayout(blocks: ScheduledBlock[]): Map<string, Over
   for (let i = 1; i < sorted.length; i++) {
     if (sorted[i].startHour < maxEnd) {
       currentGroup.push(sorted[i]);
+      maxEnd = Math.max(maxEnd, sorted[i].endHour);
+    } else {
+      groups.push(currentGroup);
+      currentGroup = [sorted[i]];
       maxEnd = sorted[i].endHour;
-      continue;
     }
-
-    groups.push(currentGroup);
-    currentGroup = [sorted[i]];
-    maxEnd = sorted[i].endHour;
   }
 
   groups.push(currentGroup);
+  return groups;
+}
+
+function findMinAvailableDepth(
+  placed: { endHour: number; depth: number }[],
+  startHour: number,
+): number {
+  const occupied = new Set<number>();
+  for (const p of placed) {
+    if (p.endHour > startHour) {
+      occupied.add(p.depth);
+    }
+  }
+
+  let depth = 0;
+  while (occupied.has(depth)) {
+    depth++;
+  }
+  return depth;
+}
+
+export function computeOverlapLayout(blocks: ScheduledBlock[]): Map<string, OverlapLayout> {
+  const layout = new Map<string, OverlapLayout>();
+  if (blocks.length <= 1) {
+    return layout;
+  }
+
+  const sorted = [...blocks].sort((a, b) => a.startHour - b.startHour);
+  const groups = groupOverlappingBlocks(sorted);
 
   for (const group of groups) {
     if (group.length <= 1) {
       continue;
     }
-    for (let i = 0; i < group.length; i++) {
-      layout.set(group[i].id, {
-        zIndex: i + 1,
-        leftInset: i * OVERLAP_WIDTH_STEP,
-      });
+
+    const placed: { endHour: number; depth: number }[] = [{ endHour: group[0].endHour, depth: 0 }];
+
+    for (let i = 1; i < group.length; i++) {
+      const el = group[i];
+      const depth = findMinAvailableDepth(placed, el.startHour);
+
+      placed.push({ endHour: el.endHour, depth });
+
+      if (depth > 0) {
+        layout.set(el.id, {
+          zIndex: depth,
+          leftInset: depth * OVERLAP_WIDTH_STEP,
+        });
+      }
     }
   }
 

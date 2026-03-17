@@ -60,7 +60,7 @@ export function GridDraggableBlock({
     >
       {/* 상단 리사이저 */}
       <div
-        className="absolute z-10 cursor-ns-resize rounded-full left-2 right-2"
+        className="absolute cursor-ns-resize rounded-full left-2 right-2"
         style={{
           top: resizeHandleInset,
           height: resizeHandleHeight,
@@ -77,7 +77,7 @@ export function GridDraggableBlock({
       />
       {/* 하단 리사이저 */}
       <div
-        className="absolute z-10 cursor-ns-resize rounded-full left-2 right-2"
+        className="absolute cursor-ns-resize rounded-full left-2 right-2"
         style={{
           bottom: resizeHandleInset,
           height: resizeHandleHeight,
