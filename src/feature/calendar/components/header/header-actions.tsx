@@ -1,11 +1,9 @@
+import { Button } from "@/src/components/ui";
+
 export function HeaderActions() {
   return (
     <div className="flex items-center gap-1 shrink-0 ml-4">
-      <button
-        type="button"
-        className="flex items-center justify-center h-8 w-8 rounded-lg text-black/60 transition-colors hover:bg-black/10 hover:text-black"
-        aria-label="내보내기"
-      >
+      <Button variant="icon" color="neutral" size="sm" aria-label="내보내기">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path
             d="M5.5 2H3.5C2.67 2 2 2.67 2 3.5V12.5C2 13.33 2.67 14 3.5 14H12.5C13.33 14 14 13.33 14 12.5V10.5"
@@ -21,18 +19,14 @@ export function HeaderActions() {
             strokeLinejoin="round"
           />
         </svg>
-      </button>
-      <button
-        type="button"
-        className="flex items-center justify-center h-8 w-8 rounded-lg text-black/60 transition-colors hover:bg-black/10 hover:text-black"
-        aria-label="설정"
-      >
+      </Button>
+      <Button variant="icon" color="neutral" size="sm" aria-label="설정">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <circle cx="8" cy="3" r="1.2" fill="currentColor" />
           <circle cx="8" cy="8" r="1.2" fill="currentColor" />
           <circle cx="8" cy="13" r="1.2" fill="currentColor" />
         </svg>
-      </button>
+      </Button>
     </div>
   );
 }
