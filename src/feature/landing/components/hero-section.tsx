@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { GoogleIcon } from "./google-icon";
+import { GoogleIcon } from "@/src/feature/landing/components/google-icon";
 
 export const FLOATING_PHOTOS = [
   {

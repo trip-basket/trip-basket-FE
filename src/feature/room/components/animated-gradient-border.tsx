@@ -1,4 +1,8 @@
+import { useId } from "react";
+
 export function AnimatedGradientBorder() {
+  const gradientId = useId();
+
   return (
     <svg
       className="absolute -inset-1 w-[calc(100%+8px)] h-[calc(100%+8px)] pointer-events-none"
@@ -7,7 +11,7 @@ export function AnimatedGradientBorder() {
     >
       <defs>
         <linearGradient
-          id="border-grad"
+          id={gradientId}
           gradientUnits="userSpaceOnUse"
           x1="0"
           y1="0"
@@ -54,7 +58,7 @@ export function AnimatedGradientBorder() {
         rx="13"
         ry="13"
         fill="none"
-        stroke="url(#border-grad)"
+        stroke={`url(#${gradientId})`}
         strokeWidth="2.5"
         strokeDasharray="10 5"
         strokeLinecap="round"

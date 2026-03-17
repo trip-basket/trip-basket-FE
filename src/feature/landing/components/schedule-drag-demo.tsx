@@ -97,8 +97,8 @@ export function ScheduleDragDemo() {
   };
 
   const renderCol = (id: DayId, label: string, date: string) => (
+    // biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop demo drop zone
     <div
-      role="listbox"
       className={`flex-1 rounded-2xl border-2 border-dashed p-3 transition-colors duration-200 min-h-[160px] ${
         overCol === id ? "border-brand-400 bg-brand-50/50" : "border-gray-200 bg-gray-50/30"
       }`}
@@ -110,11 +110,9 @@ export function ScheduleDragDemo() {
       <p className="text-[10px] text-gray-400 mb-3">{date}</p>
       <div className="space-y-2">
         {schedule[id].map((b) => (
+          // biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop demo draggable item
           <div
             key={b.id}
-            role="option"
-            aria-selected={false}
-            tabIndex={0}
             draggable
             onDragStart={onDragStart(b.id, id)}
             onDragEnd={onDragEnd}

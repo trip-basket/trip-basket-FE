@@ -15,10 +15,15 @@ const STATUS_CONFIG: Record<TripStatus, { label: string; className: string }> = 
   },
 };
 
+function parseLocalDate(dateStr: string): Date {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
 export function getTripStatus(startDate: string, endDate: string): TripStatus {
   const now = new Date();
-  const start = new Date(startDate);
-  const end = new Date(endDate);
+  const start = parseLocalDate(startDate);
+  const end = parseLocalDate(endDate);
   end.setHours(23, 59, 59, 999);
 
   if (now < start) {
@@ -33,8 +38,7 @@ export function getTripStatus(startDate: string, endDate: string): TripStatus {
 export function getDday(startDate: string): string {
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-  const start = new Date(startDate);
-  start.setHours(0, 0, 0, 0);
+  const start = parseLocalDate(startDate);
   const diff = Math.ceil((start.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
   if (diff > 0) {

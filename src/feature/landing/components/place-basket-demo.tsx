@@ -86,6 +86,8 @@ export function PlaceBasketDemo() {
               <button
                 type="button"
                 onClick={() => toggle(p.id)}
+                aria-label={saved.has(p.id) ? "저장 해제" : "저장"}
+                aria-pressed={saved.has(p.id)}
                 className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer"
               >
                 <svg
