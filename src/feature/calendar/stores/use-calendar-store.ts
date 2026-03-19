@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import type { Place, PlaceCategory } from "@/src/types";
+import type { Place } from "@/src/types";
+import { CATEGORY_COLOR } from "../constants";
 import { MOCK_BUCKET_BLOCKS, MOCK_CALENDAR_BLOCKS } from "../mocks";
 import {
   type BlockColorName,
@@ -11,15 +12,6 @@ import {
 import { formatLocalDate } from "../utils";
 
 const DEFAULT_BLOCK_COLOR: BlockColorName = "slate";
-
-const CATEGORY_COLOR: Record<PlaceCategory, BlockColorName> = {
-  sightseeing: "sky",
-  food: "amber",
-  shopping: "violet",
-  transport: "indigo",
-  accommodation: "teal",
-  activity: "rose",
-};
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
