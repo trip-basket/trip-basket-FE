@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Room } from "../types/room";
+import type { RoomSummary } from "../types/room";
 import { getDday, getTripStatus, TripStatusBadge } from "./trip-status-badge";
 
 function formatDateRange(start: string, end: string): string {
@@ -41,7 +41,7 @@ function formatUpdatedAt(updatedAt: string): string {
   return new Date(updatedAt).toLocaleDateString("ko-KR");
 }
 
-export function TripCard({ room }: { room: Room }) {
+export function TripCard({ room }: { room: RoomSummary }) {
   const status = getTripStatus(room.tripStartDate, room.tripEndDate);
   const dday = getDday(room.tripStartDate);
 

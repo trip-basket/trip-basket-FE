@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Text } from "@/src/components/ui";
 import type { Member } from "@/src/feature/room/types";
 import { CATEGORY_LABELS } from "../../constants";
@@ -10,6 +13,16 @@ import { PropertyRow } from "./property-row";
 import { ReactionsProperty } from "./reactions-property";
 import { SectionHeader } from "./section-header";
 import { TodoSection } from "./todo-section";
+
+function formatDuration(hours: number): string {
+  if (hours < 1) {
+    return `${hours * 60}분`;
+  }
+  if (hours % 1 === 0) {
+    return `${hours}시간`;
+  }
+  return `${Math.floor(hours)}시간 ${(hours % 1) * 60}분`;
+}
 
 export function PanelContent({
   block,
@@ -26,30 +39,37 @@ export function PanelContent({
   members: Member[];
   currency?: string;
 }) {
+  const [isHoursOpen, setIsHoursOpen] = useState(false);
+
   const blockColor = getBlockColor(block.color);
   const categoryColor = blockColor.accent;
   const categoryLabel = block.place.category ? CATEGORY_LABELS[block.place.category] : undefined;
   const reactionsCount = block.reactions?.length ?? 0;
   const lockedByMember = block.lockedBy ? members.find((m) => m.id === block.lockedBy) : undefined;
+  const duration = block.endHour - block.startHour;
+  const openingHours = block.place.openingHours;
+  const hasOpeningHours = openingHours != null && openingHours.length > 0;
 
   return (
-    <div className="flex-1 overflow-y-auto px-10 pb-6">
-      {/* Title area */}
-      <div className="mb-6">
-        <div
-          className="flex items-center justify-center w-10 h-10 rounded-lg mb-3"
-          style={{ backgroundColor: `${categoryColor}15` }}
-        >
-          <CategoryIcon category={block.place.category} color={categoryColor} />
+    <div className="flex-1 overflow-y-auto px-7">
+      {/* ── Block name ── */}
+      <div className="pt-5 pb-4">
+        <div className="flex flex-col gap-3">
+          <div className="flex-1 min-w-0">
+            <Text variant="h2" className="text-lg font-bold text-gray-900 leading-snug">
+              {block.name}
+            </Text>
+            {block.place.placeName && block.place.placeName !== block.name && (
+              <Text variant="small" color="muted">
+                {block.place.placeName}
+              </Text>
+            )}
+          </div>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-0.5">{block.name}</h1>
-        {block.place.placeName && block.place.placeName !== block.name && (
-          <p className="text-sm text-gray-400">{block.place.placeName}</p>
-        )}
       </div>
 
-      {/* Properties table */}
-      <div className="mb-6 space-y-0.5">
+      {/* ── Properties ── */}
+      <div className="pb-6 space-y-0.5">
         <PropertyRow icon="calendarToday" label="날짜">
           <Text variant="small">
             {day ? `${day.dateNum}일 (${day.dayOfWeek})` : ""} {formatBlockTime(block)}
@@ -58,15 +78,19 @@ export function PanelContent({
 
         {categoryLabel && (
           <PropertyRow icon="label" label="카테고리">
-            <span
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium"
+            <Text
+              as="span"
+              variant="small"
+              weight="medium"
+              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full"
               style={{
-                backgroundColor: `${categoryColor}15`,
+                backgroundColor: `color-mix(in srgb, ${categoryColor} 15%, transparent)`,
                 color: categoryColor,
               }}
             >
+              <CategoryIcon category={block.place.category} color={categoryColor} size={12} />
               {categoryLabel}
-            </span>
+            </Text>
           </PropertyRow>
         )}
 
@@ -85,24 +109,88 @@ export function PanelContent({
             </Text>
           </PropertyRow>
         )}
+
+        <PropertyRow icon="schedule" label="소요시간">
+          <Text variant="small" color="muted">
+            {formatDuration(duration)}
+          </Text>
+        </PropertyRow>
       </div>
 
-      <div className="h-px bg-gray-100 mb-6" />
+      {/* ── 위치 ── */}
+      <div className="pb-6">
+        <SectionHeader icon="place" label="위치" />
+        <MapSection block={block} />
 
-      <MapSection block={block} />
+        {hasOpeningHours && (
+          <div className="mt-3">
+            <button
+              type="button"
+              onClick={() => setIsHoursOpen((v) => !v)}
+              className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors duration-150 cursor-pointer"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" />
+              </svg>
+              <Text as="span" variant="caption">
+                운영시간
+              </Text>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className={`transition-transform duration-200 ${isHoursOpen ? "rotate-180" : ""}`}
+                aria-hidden="true"
+              >
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
+              </svg>
+            </button>
+            <div
+              className="overflow-hidden transition-[max-height] duration-200 ease-out"
+              style={{ maxHeight: isHoursOpen ? "300px" : "0" }}
+            >
+              <div className="pt-2">
+                <OpeningHoursSection hours={openingHours} />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
-      {block.place.openingHours && block.place.openingHours.length > 0 && (
-        <OpeningHoursSection hours={block.place.openingHours} />
-      )}
+      {/* ── 메모 ── */}
+      <div className="pb-6">
+        <SectionHeader icon="editNote" label="메모" />
+        <textarea
+          className="w-full resize-none rounded-lg border border-gray-100 bg-gray-50/60 px-3 py-2.5 text-sm text-gray-700 leading-relaxed placeholder:text-gray-300 focus:placeholder:text-transparent focus:outline-none focus:bg-white focus:border-gray-300 transition-colors duration-150"
+          rows={3}
+          placeholder="메모를 입력하세요"
+          defaultValue={block.memo ?? ""}
+        />
+      </div>
 
-      {block.memo && (
-        <div className="mb-6">
-          <SectionHeader icon="edit_note" label="메모" />
-          <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">{block.memo}</p>
-        </div>
-      )}
-
-      {todos.length > 0 && <TodoSection todos={todos} />}
+      {/* ── 할 일 ── */}
+      <div className="pb-7">
+        <SectionHeader icon="checklist" label="할 일" />
+        {todos.length > 0 && <TodoSection todos={todos} />}
+        <button
+          type="button"
+          className="flex items-center gap-1.5 mt-2 text-xs text-gray-400 hover:text-gray-600 transition-colors duration-150 cursor-pointer"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          <Text as="span" variant="caption">
+            할 일 추가
+          </Text>
+        </button>
+      </div>
     </div>
   );
 }

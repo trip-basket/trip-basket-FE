@@ -1,5 +1,5 @@
+import { Text } from "@/src/components/ui";
 import type { OpeningHour } from "../../types";
-import { SectionHeader } from "./section-header";
 
 const DAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -13,15 +13,12 @@ function formatOpeningHour(hour: OpeningHour): string {
 
 export function OpeningHoursSection({ hours }: { hours: OpeningHour[] }) {
   return (
-    <div className="mb-6">
-      <SectionHeader icon="schedule" label="운영시간" />
-      <div className="space-y-0.5">
-        {hours.map((hour) => (
-          <p key={hour.day} className="text-xs text-gray-500 leading-relaxed">
-            {formatOpeningHour(hour)}
-          </p>
-        ))}
-      </div>
+    <div className="space-y-0.5">
+      {hours.map((hour) => (
+        <Text key={hour.day} variant="small" color="muted" className="leading-relaxed">
+          {formatOpeningHour(hour)}
+        </Text>
+      ))}
     </div>
   );
 }

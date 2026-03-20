@@ -58,7 +58,7 @@ feature/<name>/
 
 ### UI 컴포넌트 (`src/components/ui/`)
 
-**새로운 UI를 만들기 전에 반드시 기존 공용 컴포넌트를 확인하고, 사용 가능하면 사용한다.**
+**공용 컴포넌트가 커버하는 영역에서는 반드시 사용한다. raw HTML 태그(`<span>`, `<p>`, `<h1>`~`<h4>`, `<button>`, `<input>`)를 직접 쓰지 않는다.** 상세 규칙은 `src/components/ui/CLAUDE.md` 참조.
 
 - `Button` — variant(`solid`, `outline`, `ghost`, `link`, `icon`), color(`primary`, `danger`, `neutral`), size(`sm`, `md`, `lg`). tailwind-variants 기반.
 - `Input` — 텍스트 입력 필드

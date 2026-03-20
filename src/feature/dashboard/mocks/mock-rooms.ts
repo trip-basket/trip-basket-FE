@@ -1,6 +1,6 @@
-import type { Room } from "../types/room";
+import type { RoomSummary } from "../types/room";
 
-export const MOCK_ROOMS: Room[] = [
+export const MOCK_ROOMS: RoomSummary[] = [
   {
     id: "room-1",
     name: "런던 여행",

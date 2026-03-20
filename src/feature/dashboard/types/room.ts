@@ -1,4 +1,4 @@
-export interface Room {
+export interface RoomSummary {
   id: string;
   name: string;
   destination: string;

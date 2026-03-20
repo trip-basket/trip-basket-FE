@@ -1,6 +1,6 @@
 import { APIProvider, Map as GoogleMap, Marker } from "@vis.gl/react-google-maps";
+import { Text } from "@/src/components/ui";
 import type { ScheduledBlock } from "../../types";
-import { SectionHeader } from "./section-header";
 
 export function MapSection({ block }: { block: ScheduledBlock }) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -8,37 +8,50 @@ export function MapSection({ block }: { block: ScheduledBlock }) {
   const center = { lat: place.lat, lng: place.lng };
 
   return (
-    <div className="mb-6">
-      <SectionHeader icon="map" label="위치" />
-      {apiKey && (
-        <div className="rounded-xl overflow-hidden border border-gray-100 h-[160px]">
+    <>
+      <div className="rounded-xl overflow-hidden border border-gray-100 h-[160px]">
+        {apiKey ? (
           <APIProvider apiKey={apiKey}>
             <GoogleMap
-              defaultCenter={center}
+              center={center}
               defaultZoom={15}
               disableDefaultUI={true}
-              zoomControl={false}
-              gestureHandling="none"
+              zoomControl={true}
+              gestureHandling="greedy"
               clickableIcons={false}
               style={{ width: "100%", height: "100%" }}
             >
               <Marker position={center} />
             </GoogleMap>
           </APIProvider>
-        </div>
-      )}
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <Text variant="small" color="muted">
+              지도를 불러올 수 없습니다.
+            </Text>
+          </div>
+        )}
+      </div>
       {place.formattedAddress && (
-        <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{place.formattedAddress}</p>
+        <Text variant="caption" color="muted" className="mt-1.5 leading-relaxed">
+          {place.formattedAddress}
+        </Text>
       )}
       {place.rating != null && (
         <div className="flex items-center gap-1 mt-1">
-          <span className="text-yellow-500 text-xs">&#9733;</span>
-          <span className="text-xs text-gray-600 font-medium">{place.rating}</span>
+          <Text as="span" variant="caption" className="text-yellow-500">
+            &#9733;
+          </Text>
+          <Text as="span" variant="caption" weight="medium">
+            {place.rating}
+          </Text>
           {place.reviewCount != null && (
-            <span className="text-xs text-gray-400">({place.reviewCount?.toLocaleString()})</span>
+            <Text as="span" variant="caption" color="muted">
+              ({place.reviewCount?.toLocaleString()})
+            </Text>
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }

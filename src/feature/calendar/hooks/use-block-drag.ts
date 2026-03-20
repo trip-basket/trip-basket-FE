@@ -79,6 +79,10 @@ export function useBlockDrag(
   const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
     const s = stateRef.current;
 
+    if (!s.isDown) {
+      return;
+    }
+
     if (!s.hasDragged) {
       s.isDown = false;
       e.currentTarget.releasePointerCapture(e.pointerId);

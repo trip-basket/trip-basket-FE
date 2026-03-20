@@ -1,32 +1,55 @@
+import { Text } from "@/src/components/ui";
 import type { BlockTodo } from "../../types";
-import { SectionHeader } from "./section-header";
+
+function CheckIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path
+        d="M2 6.5L4.5 9L10 3"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function TodoCheckbox({ checked }: { checked: boolean }) {
+  return (
+    <span
+      className={`flex items-center justify-center w-[18px] h-[18px] rounded-md shrink-0 mt-px transition-colors duration-150 ${
+        checked
+          ? "bg-[var(--bg-accent)] text-white"
+          : "border border-gray-300 text-transparent hover:border-gray-400"
+      }`}
+    >
+      <CheckIcon />
+    </span>
+  );
+}
 
 export function TodoSection({ todos }: { todos: BlockTodo[] }) {
   return (
-    <div className="mb-6">
-      <SectionHeader icon="checklist" label="TODO" />
-      <ul className="space-y-1">
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            className="flex items-start gap-2 py-1 group hover:bg-gray-50 rounded -mx-1 px-1 transition-colors duration-100"
+    <ul className="space-y-1">
+      {todos.map((todo) => (
+        <li
+          key={todo.id}
+          className="flex items-start gap-2.5 py-1.5 group hover:bg-gray-50 rounded-lg -mx-1.5 px-1.5 transition-colors duration-100 cursor-pointer"
+        >
+          <TodoCheckbox checked={todo.completed} />
+          <Text
+            as="span"
+            variant="small"
+            color={todo.completed ? "muted" : "main"}
+            className={`leading-snug transition-colors duration-150 ${
+              todo.completed ? "line-through" : ""
+            }`}
           >
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              readOnly
-              className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500"
-            />
-            <span
-              className={`text-sm leading-snug ${
-                todo.completed ? "line-through text-gray-400" : "text-gray-700"
-              }`}
-            >
-              {todo.text}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+            {todo.text}
+          </Text>
+        </li>
+      ))}
+    </ul>
   );
 }
