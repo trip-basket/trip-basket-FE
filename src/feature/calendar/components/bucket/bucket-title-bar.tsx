@@ -54,7 +54,7 @@ export function BucketTitleBar({
       <div className="flex items-center gap-1">
         <button
           type="button"
-          className="flex cursor-pointer items-center justify-center rounded-md transition-colors hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]"
+          className="hover-item flex items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]"
           style={{ width: 28, height: 28, color: "var(--text-tertiary)" }}
           aria-label="장소 추가"
         >
@@ -70,7 +70,7 @@ export function BucketTitleBar({
         <button
           type="button"
           onClick={onTogglePin}
-          className="flex cursor-pointer items-center justify-center rounded-md transition-colors hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]"
+          className="hover-item flex items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]"
           style={{
             width: 28,
             height: 28,

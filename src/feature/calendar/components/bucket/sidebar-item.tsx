@@ -23,8 +23,8 @@ export function SidebarItem({
   return (
     <button
       type="button"
-      className={`flex w-full cursor-pointer items-center gap-2 rounded-md text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset ${
-        isSelected ? "hover:brightness-95" : "hover:bg-black/[0.04]"
+      className={`flex w-full items-center gap-2 rounded-md text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset ${
+        isSelected ? "hover:brightness-95 cursor-pointer transition-colors" : "hover-item"
       }`}
       style={{
         height: ITEM_HEIGHT,

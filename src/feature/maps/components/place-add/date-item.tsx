@@ -19,10 +19,8 @@ export function DateItem({
     <button
       ref={ref}
       type="button"
-      className={`group w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg border transition-colors cursor-pointer ${
-        isHovered
-          ? "border-gray-200 bg-gray-50 text-gray-900"
-          : "border-transparent text-gray-700 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900"
+      className={`hover-item group w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg ${
+        isHovered ? "border-gray-200 bg-gray-50 text-gray-900" : ""
       }`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
