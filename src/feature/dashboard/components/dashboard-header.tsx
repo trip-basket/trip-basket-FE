@@ -1,9 +1,15 @@
+import { Text } from "@/src/components/ui/text";
+
 export function DashboardHeader() {
   return (
     <header className="flex items-center justify-between">
       <div>
-        <p className="text-sm text-gray-400 font-medium">Travel Basket</p>
-        <h1 className="text-2xl font-bold text-gray-900 mt-0.5">내 여행</h1>
+        <Text variant="small" color="muted" weight="medium">
+          Travel Basket
+        </Text>
+        <Text variant="h2" weight="bold" className="mt-0.5">
+          내 여행
+        </Text>
       </div>
 
       {/* Profile placeholder */}

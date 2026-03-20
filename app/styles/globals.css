@@ -70,6 +70,9 @@ body {
   .hover-item {
     @apply border border-transparent transition-colors cursor-pointer hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900;
   }
+  .hover-item-active {
+    @apply border-gray-200 bg-gray-50 text-gray-900;
+  }
 }
 
 .pac-container {

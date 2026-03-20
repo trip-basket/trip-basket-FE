@@ -1,3 +1,5 @@
+import { Text } from "@/src/components/ui";
+
 const ITEM_HEIGHT = 32;
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 
@@ -40,14 +42,18 @@ export function SidebarItem({
       <span className="flex shrink-0 items-center justify-center" style={{ width: 16, height: 16 }}>
         {icon}
       </span>
-      <span className="flex-1 truncate text-xs font-medium">{label}</span>
+      <Text as="span" variant="caption" weight="medium" className="flex-1 truncate">
+        {label}
+      </Text>
       {count !== undefined && (
-        <span
+        <Text
+          as="span"
+          variant="caption"
           className="text-[10px] tabular-nums"
           style={{ color: isSelected ? "var(--text-accent)" : "var(--text-tertiary)" }}
         >
           {count}
-        </span>
+        </Text>
       )}
       {hasChevron && (
         <svg

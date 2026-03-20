@@ -1,3 +1,5 @@
+import { Text } from "@/src/components/ui/text";
+
 export function CreateTripCard() {
   return (
     <button
@@ -22,9 +24,14 @@ export function CreateTripCard() {
             />
           </svg>
         </div>
-        <span className="text-sm font-medium text-gray-400 group-hover:text-brand-600 transition-colors">
+        <Text
+          as="span"
+          variant="small"
+          weight="medium"
+          className="text-gray-400 group-hover:text-brand-600 transition-colors"
+        >
           새 여행 만들기
-        </span>
+        </Text>
       </div>
     </button>
   );

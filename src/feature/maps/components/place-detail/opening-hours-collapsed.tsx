@@ -1,5 +1,6 @@
 "use client";
 
+import { Text } from "@/src/components/ui";
 import type { OpeningHour } from "@/src/types";
 import { ClockIcon } from "./clock-icon";
 import { DAY_ABBR, DAY_NAME, formatRange, getTodayIndex } from "./utils";
@@ -19,23 +20,26 @@ export function OpeningHoursCollapsed({
       {todayEntry && (
         <div className="flex items-center gap-2 mb-1.5">
           <ClockIcon />
-          <span className="text-xs text-gray-700">
+          <Text as="span" variant="caption">
             {DAY_NAME[todayIndex]}: {formatRange(todayEntry)}
-          </span>
+          </Text>
         </div>
       )}
       <div className="flex items-center gap-1.5 ml-[22px]">
         {DAY_ABBR.map((abbr, dayIndex) => {
           const hasHours = hours.some((h) => h.day === dayIndex);
           return (
-            <span
+            <Text
+              as="span"
               key={abbr}
-              className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-medium ${
+              variant="caption"
+              weight="medium"
+              className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
                 hasHours ? "bg-gray-100 text-gray-500" : "bg-gray-50 text-gray-300"
               }`}
             >
               {abbr}
-            </span>
+            </Text>
           );
         })}
         <button

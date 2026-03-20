@@ -1,3 +1,4 @@
+import { Text } from "@/src/components/ui/text";
 import type { TripStatus } from "../types/room";
 
 const STATUS_CONFIG: Record<TripStatus, { label: string; className: string }> = {
@@ -59,10 +60,13 @@ export function TripStatusBadge({ status, dday }: { status: TripStatus; dday: st
   }
 
   return (
-    <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold tracking-wide ${config.className}`}
+    <Text
+      as="span"
+      variant="caption"
+      weight="bold"
+      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] tracking-wide ${config.className}`}
     >
       {label}
-    </span>
+    </Text>
   );
 }

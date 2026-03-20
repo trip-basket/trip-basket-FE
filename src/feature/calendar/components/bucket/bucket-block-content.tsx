@@ -22,16 +22,22 @@ export function BucketBlockContent({
           </Text>
           <CategoryIcon category={block.place.category} color={blockColor.accent} size={16} />
         </div>
-        {block.lockedBy && <span className="text-[10px] text-soft">🔒</span>}
+        {block.lockedBy && (
+          <Text as="span" variant="caption" color="soft" className="text-[10px]">
+            🔒
+          </Text>
+        )}
       </div>
       {block.cost !== undefined && block.cost > 0 && (
         <div className="flex justify-end">
-          <span
-            className="rounded-lg px-1.5 py-0.5 text-xs tabular-nums"
+          <Text
+            as="span"
+            variant="caption"
+            className="rounded-lg px-1.5 py-0.5 tabular-nums"
             style={{ backgroundColor: blockColor.tint, color: blockColor.accent }}
           >
             {formatCurrency(block.cost, room?.currency)}
-          </span>
+          </Text>
         </div>
       )}
     </div>

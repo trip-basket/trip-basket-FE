@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Text } from "@/src/components/ui/text";
 import type { RoomSummary } from "../types/room";
 import { getDday, getTripStatus, TripStatusBadge } from "./trip-status-badge";
 
@@ -85,11 +86,13 @@ export function TripCard({ room }: { room: RoomSummary }) {
 
       {/* Info */}
       <div className="flex flex-col gap-1.5 p-4">
-        <h3 className="font-bold text-gray-900 text-base truncate">{room.name}</h3>
+        <Text variant="body" weight="bold" className="truncate">
+          {room.name}
+        </Text>
 
-        <p className="text-xs text-gray-500">
+        <Text variant="caption" color="sub">
           {formatDateRange(room.tripStartDate, room.tripEndDate)}
-        </p>
+        </Text>
 
         {/* Meta row */}
         <div className="flex items-center justify-between mt-1">
@@ -122,7 +125,9 @@ export function TripCard({ room }: { room: RoomSummary }) {
             </span>
           </div>
 
-          <span className="text-[11px] text-gray-300">{formatUpdatedAt(room.updatedAt)}</span>
+          <Text as="span" variant="caption" color="muted" className="text-[11px]">
+            {formatUpdatedAt(room.updatedAt)}
+          </Text>
         </div>
       </div>
     </Link>

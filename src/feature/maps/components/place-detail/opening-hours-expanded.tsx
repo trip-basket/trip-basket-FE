@@ -1,5 +1,6 @@
 "use client";
 
+import { Text } from "@/src/components/ui";
 import type { OpeningHour } from "@/src/types";
 import { ClockIcon } from "./clock-icon";
 import { DAY_ABBR, DAY_NAME, formatRange, getTodayIndex } from "./utils";
@@ -25,18 +26,24 @@ export function OpeningHoursExpanded({
             const isToday = dayIndex === todayIndex;
             return (
               <div key={abbr} className="flex items-center gap-2">
-                <span
-                  className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold ${
+                <Text
+                  as="span"
+                  variant="caption"
+                  weight="semibold"
+                  className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] ${
                     isToday ? "bg-gray-700 text-white" : "bg-gray-100 text-gray-500"
                   }`}
                 >
                   {abbr}
-                </span>
-                <span
-                  className={`text-xs ${isToday ? "font-medium text-gray-900" : "text-gray-600"}`}
+                </Text>
+                <Text
+                  as="span"
+                  variant="caption"
+                  weight={isToday ? "medium" : "normal"}
+                  className={isToday ? "text-gray-900" : "text-gray-600"}
                 >
                   {DAY_NAME[dayIndex]}: {entry ? formatRange(entry) : "휴무"}
-                </span>
+                </Text>
               </div>
             );
           })}

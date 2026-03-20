@@ -71,7 +71,9 @@ export function GridBlockContent({
             </button>
           )}
           {block.lockedBy && lockedByMember && (
-            <span className="text-[10px] text-soft">🔒 {lockedByMember.nickname}</span>
+            <Text as="span" variant="caption" color="soft" className="text-[10px]">
+              🔒 {lockedByMember.nickname}
+            </Text>
           )}
         </div>
         {block.cost != null && block.cost > 0 && (
