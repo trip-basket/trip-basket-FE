@@ -1,5 +1,5 @@
-import { BLOCK_COLORS, CATEGORY_COLOR, CATEGORY_LABELS } from "../../constants";
-import type { PlaceCategory } from "../../types";
+import { BLOCK_COLORS, CATEGORY_COLOR, CATEGORY_LABELS } from "../../../constants";
+import type { PlaceCategory } from "../../../types";
 import {
   ClockIcon,
   CostSortIcon,

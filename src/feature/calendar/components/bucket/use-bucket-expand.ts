@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
 import useCalendarStore from "../../stores/use-calendar-store";
-import { SIDEBAR_MIN_WIDTH } from "./bucket-sidebar";
+import { SIDEBAR_MIN_WIDTH } from "./sidebar/bucket-sidebar";
 
 const GAP = 8;
 const PADDING = 8;

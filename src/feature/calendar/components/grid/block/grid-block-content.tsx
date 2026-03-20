@@ -1,8 +1,8 @@
 import { Avatar, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import type { BlockColorPalette, ScheduledBlock } from "../../types";
-import { formatBlockTime, formatCurrency } from "../../utils";
-import { CategoryIcon } from "../panel/category-icon";
+import type { BlockColorPalette, ScheduledBlock } from "../../../types";
+import { formatBlockTime, formatCurrency } from "../../../utils";
+import { CategoryIcon } from "../../panel/properties/category-icon";
 
 export function GridBlockContent({
   block,

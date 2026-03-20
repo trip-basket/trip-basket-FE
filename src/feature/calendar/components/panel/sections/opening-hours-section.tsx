@@ -1,5 +1,5 @@
 import { Text } from "@/src/components/ui";
-import type { OpeningHour } from "../../types";
+import type { OpeningHour } from "../../../types";
 
 const DAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
 

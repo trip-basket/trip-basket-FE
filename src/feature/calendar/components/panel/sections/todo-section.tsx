@@ -1,5 +1,5 @@
 import { Text } from "@/src/components/ui";
-import type { BlockTodo } from "../../types";
+import type { BlockTodo } from "../../../types";
 
 function CheckIcon() {
   return (

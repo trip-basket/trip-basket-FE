@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { BucketBlock, PlaceCategory } from "../../types";
+import type { BucketBlock, PlaceCategory } from "../../../types";
 
 export type BucketSortType = "addedAt" | "costAsc" | "costDesc" | "name";
 

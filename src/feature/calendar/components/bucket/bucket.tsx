@@ -2,10 +2,10 @@
 
 import useCalendarStore from "../../stores/use-calendar-store";
 import { BucketGrid } from "./bucket-grid";
-import { BucketSidebar } from "./bucket-sidebar";
 import { BucketTitleBar } from "./bucket-title-bar";
+import { BucketSidebar } from "./sidebar/bucket-sidebar";
+import { useBucketFilter } from "./sidebar/use-bucket-filter";
 import { BUCKET_INSET, TITLE_BAR_HEIGHT, useBucketExpand } from "./use-bucket-expand";
-import { useBucketFilter } from "./use-bucket-filter";
 
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 

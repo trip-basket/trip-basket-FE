@@ -6,13 +6,13 @@ import type { Member } from "@/src/feature/room/types";
 import { CATEGORY_LABELS } from "../../constants";
 import type { BlockTodo, ScheduledBlock, TripDay } from "../../types";
 import { formatBlockTime, formatCurrency, getBlockColor } from "../../utils";
-import { CategoryIcon } from "./category-icon";
-import { MapSection } from "./map-section";
-import { OpeningHoursSection } from "./opening-hours-section";
-import { PropertyRow } from "./property-row";
-import { ReactionsProperty } from "./reactions-property";
-import { SectionHeader } from "./section-header";
-import { TodoSection } from "./todo-section";
+import { CategoryIcon } from "./properties/category-icon";
+import { PropertyRow } from "./properties/property-row";
+import { ReactionsProperty } from "./properties/reactions-property";
+import { MapSection } from "./sections/map-section";
+import { OpeningHoursSection } from "./sections/opening-hours-section";
+import { SectionHeader } from "./sections/section-header";
+import { TodoSection } from "./sections/todo-section";
 
 function formatDuration(hours: number): string {
   if (hours < 1) {

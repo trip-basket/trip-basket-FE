@@ -1,7 +1,7 @@
 import { Text } from "@/src/components/ui";
 import { BUCKET_BLOCK_HEIGHT } from "../../constants";
 import type { BucketBlock as BucketBlockType } from "../../types";
-import { BucketBlock } from "./bucket-block";
+import { BucketBlock } from "./block/bucket-block";
 
 const GAP = 8;
 

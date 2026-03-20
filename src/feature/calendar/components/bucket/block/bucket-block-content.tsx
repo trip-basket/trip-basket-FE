@@ -1,8 +1,8 @@
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import type { BlockColorPalette, BucketBlock } from "../../types";
-import { formatCurrency } from "../../utils";
-import { CategoryIcon } from "../panel/category-icon";
+import type { BlockColorPalette, BucketBlock } from "../../../types";
+import { formatCurrency } from "../../../utils";
+import { CategoryIcon } from "../../panel/properties/category-icon";
 
 export function BucketBlockContent({
   block,
