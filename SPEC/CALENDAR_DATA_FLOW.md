@@ -6,7 +6,7 @@
 
 방 전체에서 공유하는 데이터. Calendar, Maps 등 여러 feature에서 읽기 전용으로 참조한다.
 
-```
+```text
 room: Room | null        ← 방 정보 (name, currency, budget, inviteCode)
 members: Member[]        ← 참여자 목록 (id, nickname, profileImageUrl, role)
 ```
@@ -17,7 +17,7 @@ members: Member[]        ← 참여자 목록 (id, nickname, profileImageUrl, ro
 
 캘린더 블록의 배치와 상태를 관리한다.
 
-```
+```text
 tripDays: TripDay[]             ← 날짜별 블록 배열 (date, dayOfWeek, dateNum, blocks)
 bucketBlocks: BucketBlock[]     ← 미배치 블록 (Bucket에 표시)
 gridRef: HTMLDivElement | null  ← 시간 그리드 DOM 참조 (드래그 좌표 계산용)
@@ -32,7 +32,7 @@ isBucketDragging: boolean       ← 버킷 블록 드래그 중 여부
 
 ## 타입 관계
 
-```
+```text
 Place (src/types)                BlockBase (calendar/types)
 ├─ placeId: string | null        ├─ id: string
 ├─ placeName: string | null      ├─ place: Place
@@ -71,11 +71,11 @@ Reaction
 
 ## 데이터 흐름 다이어그램
 
-```
+```text
 useRoomStore                         useCalendarStore
 ┌──────────────────┐                ┌───────────────────────────┐
 │ room             │                │ tripDays: TripDay[]       │
-│ members: Member[]│◄─── ID 참조 ──│   └─ blocks: Scheduled[]  │
+│ members: Member[]│◄─── ID 참조 ──│   └─ blocks: ScheduledBlock[]│
 │                  │                │ bucketBlocks: BucketBlock[]│
 │                  │                │ selectedBlockId            │
 └────────┬─────────┘                └──────────┬────────────────┘
@@ -114,7 +114,7 @@ members 아바타                                │
 
 ### Bucket → Calendar 드래그
 
-```
+```text
 BucketDraggableBlock
   → useBucketDrag → useBlockDrag(onDrop)
   → 포인터 이동 > 5px → isDragging = true
@@ -126,7 +126,7 @@ BucketDraggableBlock
 
 ### Calendar 내 드래그
 
-```
+```text
 GridDraggableBlock
   → useGridBlockDrag → useBlockDrag(onDrop, duration, onClick)
   → 포인터 이동 > 5px → isDragging = true
@@ -137,7 +137,7 @@ GridDraggableBlock
 
 ### 블록 클릭 → 상세 패널
 
-```
+```text
 GridDraggableBlock
   → useGridBlockDrag → useBlockDrag(onDrop, duration, onClick)
   → 포인터 이동 < 5px (클릭)
@@ -149,7 +149,7 @@ GridDraggableBlock
 
 ### 블록 리사이즈
 
-```
+```text
 GridDraggableBlock
   → useGridBlockResize(block, top, height)
   → 상단/하단 핸들 드래그
@@ -159,7 +159,7 @@ GridDraggableBlock
 
 ### Calendar → Bucket 이동
 
-```
+```text
 BlockDetailPanel "버킷으로 이동" 버튼 (미연결)
   → moveToBucket(block)
      ├─ tripDays[date].blocks에서 제거
@@ -172,7 +172,7 @@ BlockDetailPanel "버킷으로 이동" 버튼 (미연결)
 
 `getDropPosition` (hooks/utils.ts):
 
-```
+```text
 clientX, clientY (화면 좌표)
   → gridRef.getBoundingClientRect() 기준 상대 좌표
   → grabOffsetY 보정 (블록 내 잡은 위치)
@@ -201,7 +201,7 @@ clientX, clientY (화면 좌표)
 
 ## Maps feature와의 연결점
 
-```
+```text
 Place (src/types)
     │
     ├── BlockBase.place (블록의 장소 정보)

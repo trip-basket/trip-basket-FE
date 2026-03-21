@@ -27,15 +27,30 @@ export function useBucketFilter(blocks: BucketBlock[]) {
 
     switch (sortType) {
       case "costAsc":
-        result.sort((a, b) => (a.cost ?? 0) - (b.cost ?? 0));
+        result.sort((a, b) => {
+          if (a.cost === undefined) {
+            return 1;
+          }
+          if (b.cost === undefined) {
+            return -1;
+          }
+          return a.cost - b.cost;
+        });
         break;
       case "costDesc":
-        result.sort((a, b) => (b.cost ?? 0) - (a.cost ?? 0));
+        result.sort((a, b) => {
+          if (a.cost === undefined) {
+            return 1;
+          }
+          if (b.cost === undefined) {
+            return -1;
+          }
+          return b.cost - a.cost;
+        });
         break;
       case "name":
         result.sort((a, b) => a.name.localeCompare(b.name, "ko"));
         break;
-      case "addedAt":
       default:
         result.sort((a, b) => (a.addedAt ?? "").localeCompare(b.addedAt ?? ""));
         break;

@@ -96,6 +96,7 @@ export function ExpandableSection({
         transition: `max-height 200ms ${EXPAND_EASING}`,
         overflow: "hidden",
       }}
+      {...(!isExpanded && { hidden: true, "aria-hidden": true })}
     >
       {children}
     </div>
