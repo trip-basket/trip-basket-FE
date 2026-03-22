@@ -3,12 +3,8 @@
 import { BottomCta, FeatureShowcase, HeroSection } from "@/src/feature/landing";
 
 export default function LandingPage() {
-  const handleGoogleLogin = () => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    if (!apiUrl) {
-      return;
-    }
-    window.location.href = `${apiUrl}/oauth2/authorization/google`;
+  const handleGoogleLogin = async () => {
+    window.location.href = `https://api.luts.kr/oauth2/authorization/google`;
   };
 
   return (
