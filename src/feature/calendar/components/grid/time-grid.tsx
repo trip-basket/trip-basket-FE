@@ -4,7 +4,7 @@ import useCalendarStore from "../../stores/use-calendar-store";
 import type { ScheduledBlock } from "../../types";
 import { computeOverlapLayout } from "../../utils";
 import { AddDateGridColumn } from "../add-date-column";
-import { GridBlock } from "./grid-block";
+import { GridBlock } from "./block/grid-block";
 
 const gridHeight = HOURS.length * HOUR_HEIGHT;
 const gridStartHour = HOURS[0];

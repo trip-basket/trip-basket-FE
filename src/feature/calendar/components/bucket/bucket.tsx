@@ -3,22 +3,41 @@
 import useCalendarStore from "../../stores/use-calendar-store";
 import { BucketGrid } from "./bucket-grid";
 import { BucketTitleBar } from "./bucket-title-bar";
+import { BucketSidebar } from "./sidebar/bucket-sidebar";
+import { useBucketFilter } from "./sidebar/use-bucket-filter";
 import { BUCKET_INSET, TITLE_BAR_HEIGHT, useBucketExpand } from "./use-bucket-expand";
 
 const EXPAND_EASING = "cubic-bezier(0.165, 0.84, 0.44, 1)";
 
 export function Bucket() {
   const bucketBlocks = useCalendarStore((s) => s.bucketBlocks);
+
+  const {
+    filteredBlocks,
+    selectedCategory,
+    sortType,
+    isCategoryExpanded,
+    isCostExpanded,
+    categoryCounts,
+    availableCategories,
+    sidebarItemCount,
+    selectSort,
+    toggleCategoryExpand,
+    toggleCostExpand,
+    selectCategory,
+    clearFilter,
+  } = useBucketFilter(bucketBlocks);
+
   const {
     isExpanded,
     isPinned,
     togglePin,
     expandedHeight,
-    colsPerRow,
+    gridAreaWidth,
     measureRef,
     onMouseEnter,
     onMouseLeave,
-  } = useBucketExpand();
+  } = useBucketExpand(sidebarItemCount, filteredBlocks.length);
 
   return (
     <section
@@ -45,8 +64,24 @@ export function Bucket() {
         isPinned={isPinned}
         onTogglePin={togglePin}
       />
-      <div className="flex-1 min-h-0 overflow-y-auto p-2">
-        <BucketGrid blocks={bucketBlocks} colsPerRow={colsPerRow} />
+      <div className="flex flex-1 min-h-0">
+        <BucketSidebar
+          totalCount={bucketBlocks.length}
+          selectedCategory={selectedCategory}
+          sortType={sortType}
+          isCategoryExpanded={isCategoryExpanded}
+          isCostExpanded={isCostExpanded}
+          categoryCounts={categoryCounts}
+          availableCategories={availableCategories}
+          onToggleCategoryExpand={toggleCategoryExpand}
+          onToggleCostExpand={toggleCostExpand}
+          onSelectCategory={selectCategory}
+          onClearFilter={clearFilter}
+          onSelectSort={selectSort}
+        />
+        <div className="flex-1 overflow-y-auto p-2" style={{ width: gridAreaWidth }}>
+          <BucketGrid blocks={filteredBlocks} />
+        </div>
       </div>
     </section>
   );

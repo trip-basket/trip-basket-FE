@@ -1,6 +1,6 @@
-import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
-import type { BucketBlock } from "../../types";
-import { getBlockColor, getBlockShadow } from "../../utils";
+import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../../constants";
+import type { BucketBlock } from "../../../types";
+import { getBlockColor, getBlockShadow } from "../../../utils";
 import { BucketBlockContent } from "./bucket-block-content";
 
 export interface BucketDraggableBlockProps {

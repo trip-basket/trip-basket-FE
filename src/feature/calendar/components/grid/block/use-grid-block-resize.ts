@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { HOUR_HEIGHT, HOURS } from "../../constants";
-import useCalendarStore from "../../stores/use-calendar-store";
-import type { ScheduledBlock } from "../../types";
+import { HOUR_HEIGHT, HOURS } from "../../../constants";
+import useCalendarStore from "../../../stores/use-calendar-store";
+import type { ScheduledBlock } from "../../../types";
 
 const snapToHalfHour = (hour: number) => Math.round(hour * 2) / 2;
 

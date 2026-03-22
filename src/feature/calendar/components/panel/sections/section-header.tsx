@@ -8,28 +8,39 @@ const ICON_PATHS: Record<string, string> = {
   map: "M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z",
   editNote:
     "M3 10h11v2H3v-2zm0-2h11V6H3v2zm0 8h7v-2H3v2zm15.01-3.13l.71-.71c.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41l-.71.71-2.12-2.12zm-.71.71l-5.3 5.3V21h2.12l5.3-5.3-2.12-2.12z",
+  place:
+    "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
 };
 
 export function SectionHeader({ icon, label }: { icon: string; label: string }) {
   const path = ICON_PATHS[icon];
 
   return (
-    <div className="flex items-center gap-1.5 mb-2">
-      {path && (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="text-gray-400 shrink-0"
-          aria-hidden="true"
+    <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-1.5 shrink-0">
+        {path && (
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="text-gray-400 shrink-0"
+            aria-hidden="true"
+          >
+            <path d={path} />
+          </svg>
+        )}
+        <Text
+          as="span"
+          variant="caption"
+          color="muted"
+          weight="semibold"
+          className="uppercase tracking-wider"
         >
-          <path d={path} />
-        </svg>
-      )}
-      <Text variant="small" color="muted" weight="medium">
-        {label}
-      </Text>
+          {label}
+        </Text>
+      </div>
+      <div className="flex-1 h-px bg-gray-200" />
     </div>
   );
 }

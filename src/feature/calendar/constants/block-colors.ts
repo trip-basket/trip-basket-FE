@@ -43,6 +43,15 @@ export const BLOCK_COLORS: Record<BlockColorName, BlockColorPalette> = {
   },
 };
 
+export const CATEGORY_COLOR: Record<PlaceCategory, BlockColorName> = {
+  sightseeing: "sky",
+  food: "amber",
+  shopping: "violet",
+  transport: "indigo",
+  accommodation: "teal",
+  activity: "rose",
+};
+
 export const CATEGORY_LABELS: Record<PlaceCategory, string> = {
   sightseeing: "관광",
   food: "음식",

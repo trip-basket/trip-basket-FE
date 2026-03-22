@@ -65,5 +65,22 @@ body {
     border-color: var(--bg-accent);
     color: var(--text-on-accent);
   }
+
+  /* 공용 hover 스타일 — 리스트 아이템, 아이콘 버튼 등 */
+  .hover-item {
+    @apply border border-transparent transition-colors cursor-pointer hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900;
+  }
+  .hover-item-active {
+    @apply border-gray-200 bg-gray-50 text-gray-900;
+  }
 }
 
+@keyframes fill-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.pac-container {
+  border-radius: 10rem;
+  background-color: white;
+}

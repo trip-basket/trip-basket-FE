@@ -21,12 +21,20 @@ export function PlaceHeader({
             {name}
           </Text>
           {category && (
-            <span className="shrink-0 text-[11px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">
+            <Text
+              as="span"
+              variant="caption"
+              className="shrink-0 text-[11px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500"
+            >
               {CATEGORY_LABEL[category]}
-            </span>
+            </Text>
           )}
         </div>
-        {address && <p className="text-xs text-gray-400 mt-0.5">{address}</p>}
+        {address && (
+          <Text variant="caption" color="muted" className="mt-0.5">
+            {address}
+          </Text>
+        )}
       </div>
       <button
         type="button"

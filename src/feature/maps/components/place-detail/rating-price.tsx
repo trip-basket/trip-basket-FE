@@ -1,3 +1,4 @@
+import { Text } from "@/src/components/ui";
 import { PRICE_LABEL } from "./utils";
 
 export function RatingPrice({
@@ -17,17 +18,29 @@ export function RatingPrice({
     <div className="flex items-center gap-2 mb-3">
       {rating !== undefined && (
         <div className="flex items-center gap-1">
-          <span className="text-yellow-500 text-sm">&#9733;</span>
-          <span className="text-sm text-gray-700 font-medium">{rating}</span>
+          <Text as="span" variant="small" className="text-yellow-500">
+            &#9733;
+          </Text>
+          <Text as="span" variant="small" weight="medium">
+            {rating}
+          </Text>
           {reviewCount !== undefined && (
-            <span className="text-xs text-gray-400">({reviewCount.toLocaleString()})</span>
+            <Text as="span" variant="caption" color="muted">
+              ({reviewCount.toLocaleString()})
+            </Text>
           )}
         </div>
       )}
       {priceLevel !== undefined && PRICE_LABEL[priceLevel] && (
         <>
-          {rating !== undefined && <span className="text-gray-300 text-xs">·</span>}
-          <span className="text-xs text-gray-500 font-medium">{PRICE_LABEL[priceLevel]}</span>
+          {rating !== undefined && (
+            <Text as="span" variant="caption" color="muted">
+              ·
+            </Text>
+          )}
+          <Text as="span" variant="caption" color="sub" weight="medium">
+            {PRICE_LABEL[priceLevel]}
+          </Text>
         </>
       )}
     </div>

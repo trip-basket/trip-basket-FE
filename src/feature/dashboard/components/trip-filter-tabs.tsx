@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Room } from "../types/room";
+import type { RoomSummary } from "../types/room";
 import { TripGrid } from "./trip-grid";
 import { getTripStatus } from "./trip-status-badge";
 
@@ -13,7 +13,7 @@ const TABS: { key: FilterTab; label: string }[] = [
   { key: "past", label: "지난 여행" },
 ];
 
-function filterRooms(rooms: Room[], tab: FilterTab): Room[] {
+function filterRooms(rooms: RoomSummary[], tab: FilterTab): RoomSummary[] {
   if (tab === "all") {
     return rooms;
   }
@@ -27,7 +27,7 @@ function filterRooms(rooms: Room[], tab: FilterTab): Room[] {
   });
 }
 
-export function TripFilterTabs({ rooms }: { rooms: Room[] }) {
+export function TripFilterTabs({ rooms }: { rooms: RoomSummary[] }) {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const filtered = filterRooms(rooms, activeTab);
 

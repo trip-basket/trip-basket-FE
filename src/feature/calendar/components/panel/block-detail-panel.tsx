@@ -1,7 +1,6 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { Button } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import type { Member } from "@/src/feature/room/types";
 import { MOCK_BLOCK_TODOS } from "../../mocks";
@@ -33,11 +32,35 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
 
   return (
     <>
-      <div className="flex items-center justify-end px-3 py-2 shrink-0">
+      {/* Header bar */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 shrink-0">
+        <div className="flex items-center gap-0.5">
+          {/* 버킷으로 이동 */}
+          <button
+            type="button"
+            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-150 cursor-pointer"
+            aria-label="버킷으로 이동"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z" />
+            </svg>
+          </button>
+          {/* 삭제 */}
+          <button
+            type="button"
+            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors duration-150 cursor-pointer"
+            aria-label="삭제"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+            </svg>
+          </button>
+        </div>
+        {/* 닫기 */}
         <Dialog.Close asChild>
           <button
             type="button"
-            className="flex items-center justify-center h-7 w-7 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-150"
+            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-150 cursor-pointer"
             aria-label="닫기"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -60,17 +83,6 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
         members={members}
         currency={room?.currency}
       />
-
-      <div className="shrink-0 px-10 py-4 border-t border-gray-100 bg-white">
-        <div className="flex gap-2">
-          <Button variant="outline" color="neutral" size="sm" fullWidth>
-            버킷으로 이동
-          </Button>
-          <Button variant="outline" color="danger" size="sm" fullWidth>
-            삭제
-          </Button>
-        </div>
-      </div>
     </>
   );
 }

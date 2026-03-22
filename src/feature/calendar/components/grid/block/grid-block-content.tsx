@@ -1,8 +1,8 @@
 import { Avatar, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import type { BlockColorPalette, ScheduledBlock } from "../../types";
-import { formatBlockTime, formatCurrency } from "../../utils";
-import { CategoryIcon } from "../panel/category-icon";
+import type { BlockColorPalette, ScheduledBlock } from "../../../types";
+import { formatBlockTime, formatCurrency } from "../../../utils";
+import { CategoryIcon } from "../../panel/properties/category-icon";
 
 export function GridBlockContent({
   block,
@@ -71,7 +71,9 @@ export function GridBlockContent({
             </button>
           )}
           {block.lockedBy && lockedByMember && (
-            <span className="text-[10px] text-soft">🔒 {lockedByMember.nickname}</span>
+            <Text as="span" variant="caption" color="soft" className="text-[10px]">
+              🔒 {lockedByMember.nickname}
+            </Text>
           )}
         </div>
         {block.cost != null && block.cost > 0 && (

@@ -1,5 +1,5 @@
-import type { ScheduledBlock } from "../../types";
-import { getBlockAbsolutePosition, getBlockColor, type OverlapLayout } from "../../utils";
+import type { ScheduledBlock } from "../../../types";
+import { getBlockAbsolutePosition, getBlockColor, type OverlapLayout } from "../../../utils";
 import { GridBlockContent } from "./grid-block-content";
 import { GridDraggableBlock } from "./grid-draggable-block";
 import { useGridBlockDrag } from "./use-grid-block-drag";

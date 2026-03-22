@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { useBlockDrag } from "../../hooks";
-import useCalendarStore from "../../stores/use-calendar-store";
-import type { BucketBlock } from "../../types";
+import { useBlockDrag } from "../../../hooks";
+import useCalendarStore from "../../../stores/use-calendar-store";
+import type { BucketBlock } from "../../../types";
 
 export function useBucketDrag(block: BucketBlock) {
   const moveToCalendar = useCalendarStore((s) => s.moveToCalendar);

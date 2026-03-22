@@ -1,6 +1,6 @@
-import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../constants";
-import type { BucketBlock as BucketBlockType } from "../../types";
-import { getBlockColor } from "../../utils";
+import { BUCKET_BLOCK_HEIGHT, DAY_COL_MIN_W } from "../../../constants";
+import type { BucketBlock as BucketBlockType } from "../../../types";
+import { getBlockColor } from "../../../utils";
 import { BucketBlockContent } from "./bucket-block-content";
 import { BucketDraggableBlock } from "./bucket-draggable-block";
 import { useBucketDrag } from "./use-bucket-drag";
