@@ -13,6 +13,7 @@ export const inputVariants = tv({
       "bg-field transition-colors duration-200",
       "outline-none",
       "disabled:cursor-not-allowed disabled:opacity-50",
+      "focus:bg-field-focus focus:border-field-outline-focus",
     ],
     errorText: "text-sm text-error",
   },

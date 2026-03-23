@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import type { DateRange } from "react-day-picker";
 import { Button, Text } from "@/src/components/ui";
-import { formatSelectedRange } from "./utils";
+import { DateRangeLabel } from "@/src/components/ui/date-range-picker";
 
 export function PickerHeader({ range }: { range: DateRange | undefined }) {
   return (
@@ -12,9 +12,7 @@ export function PickerHeader({ range }: { range: DateRange | undefined }) {
             여행 날짜 설정
           </Text>
         </Dialog.Title>
-        <Text variant="small" color="sub">
-          {formatSelectedRange(range)}
-        </Text>
+        <DateRangeLabel range={range} />
       </div>
       <Dialog.Close asChild>
         <Button

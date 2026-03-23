@@ -1,15 +1,10 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/style.css";
-import { ko } from "react-day-picker/locale";
-import { calendarClassNames, rdpStyleOverrides } from "./constants";
-import { NavChevron } from "./nav-chevron";
+import { DateRangePicker, usePickerLayout } from "@/src/components/ui/date-range-picker";
 import { PickerFooter } from "./picker-footer";
 import { PickerHeader } from "./picker-header";
 import { useDateRange } from "./use-date-range";
-import { usePickerLayout } from "./use-picker-layout";
 
 export function DateRangePickerModal({
   open,
@@ -18,7 +13,7 @@ export function DateRangePickerModal({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const { numberOfMonths, modalWidth } = usePickerLayout();
+  const { width: modalWidth } = usePickerLayout();
   const {
     range,
     showWarning,
@@ -28,9 +23,6 @@ export function DateRangePickerModal({
     handleConfirm,
     handleRangeSelect,
   } = useDateRange(open, onOpenChange);
-
-  // biome-ignore lint/style/useNamingConvention: rdp API requires PascalCase component keys
-  const calendarComponents = { Chevron: NavChevron };
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -47,17 +39,11 @@ export function DateRangePickerModal({
         >
           <PickerHeader range={range} />
 
-          <div className="px-6 py-4 text-sm">
-            <DayPicker
-              mode="range"
-              selected={range}
-              onSelect={handleRangeSelect}
-              locale={ko}
-              numberOfMonths={numberOfMonths}
+          <div className="px-6 py-4">
+            <DateRangePicker
+              range={range}
+              onRangeSelect={handleRangeSelect}
               defaultMonth={defaultMonth}
-              classNames={calendarClassNames}
-              components={calendarComponents}
-              style={rdpStyleOverrides}
             />
           </div>
 
