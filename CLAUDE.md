@@ -80,7 +80,7 @@ app/styles/theme.css           → Tailwind 연결 (@theme inline)
 - **`api` 헬퍼를 사용한다.** `apiClient`를 직접 쓰지 않는다 (응답 헤더 등 전체 응답이 필요한 경우만 예외).
 - API 파일은 `src/lib/api/` 에 도메인별로 분리한다.
 
-```
+```text
 src/lib/api/
   api-client.ts   # axios 인스턴스 + interceptor + api 헬퍼
   room.ts         # 방(room) 관련 API
@@ -92,7 +92,7 @@ src/lib/api/
 ```typescript
 import { roomApi } from "@/src/lib/api";
 
-const room = await roomApi.create({ title: "도쿄 여행" });
+const room = await roomApi.create({ name: "도쿄 여행", tripStartDate: "2026-03-16", tripEndDate: "2026-03-29" });
 ```
 
 ## 상태 관리
