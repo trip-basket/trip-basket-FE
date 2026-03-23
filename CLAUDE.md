@@ -28,6 +28,7 @@ app/                          # Next.js App Router (페이지, 레이아웃)
   dashboard/                  # 대시보드 (여행 목록)
   styles/                     # 글로벌 CSS, 디자인 토큰
 src/
+  lib/api/                    # API 클라이언트 + 도메인별 API 모듈
   components/ui/              # 공용 UI 컴포넌트 (button, input, text, avatar, modal)
   feature/
     calendar/                 # 캘린더 기능 (블록 드래그/리사이즈)
@@ -72,6 +73,26 @@ feature/<name>/
 app/styles/design-tokens.css   → 원시 값 (색상 hex, spacing px)
 app/styles/semantic-tokens.css → 의미 부여 + 다크모드 (bg-primary, text-accent 등)
 app/styles/theme.css           → Tailwind 연결 (@theme inline)
+```
+
+## API 요청
+
+- **`api` 헬퍼를 사용한다.** `apiClient`를 직접 쓰지 않는다 (응답 헤더 등 전체 응답이 필요한 경우만 예외).
+- API 파일은 `src/lib/api/` 에 도메인별로 분리한다.
+
+```
+src/lib/api/
+  api-client.ts   # axios 인스턴스 + interceptor + api 헬퍼
+  room.ts         # 방(room) 관련 API
+  index.ts        # barrel export
+```
+
+사용 예시:
+
+```typescript
+import { roomApi } from "@/src/lib/api";
+
+const room = await roomApi.create({ title: "도쿄 여행" });
 ```
 
 ## 상태 관리

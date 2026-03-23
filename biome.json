@@ -82,6 +82,18 @@
       }
     }
   },
+  "overrides": [
+    {
+      "includes": ["src/lib/api/api-client.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    }
+  ],
   "javascript": {
     "formatter": {
       "quoteStyle": "double",

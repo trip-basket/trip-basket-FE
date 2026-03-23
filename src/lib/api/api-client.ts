@@ -8,13 +8,11 @@ if (!apiBaseUrl) {
 }
 
 export const apiClient = axios.create({
-  // biome-ignore lint/style/useNamingConvention: axios API property
   baseURL: apiBaseUrl,
   withCredentials: true,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
-    // biome-ignore lint/style/useNamingConvention: HTTP header
     Accept: "application/json",
   },
 });

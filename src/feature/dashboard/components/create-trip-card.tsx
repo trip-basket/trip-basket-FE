@@ -1,9 +1,25 @@
 import { Text } from "@/src/components/ui/text";
+import { roomApi } from "@/src/lib/api";
 
 export function CreateTripCard() {
+  const handleCreate = async () => {
+    try {
+      const room = await roomApi.create({
+        name: "런던 여행",
+        tripStartDate: "2026-03-16",
+        tripEndDate: "2026-03-29",
+      });
+      // TODO: 생성 후 해당 방으로 이동
+      window.location.href = `/plan/${room.id}`;
+    } catch {
+      // TODO: 에러 처리
+    }
+  };
+
   return (
     <button
       type="button"
+      onClick={handleCreate}
       className="group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 hover:border-brand-300 bg-gray-50/50 hover:bg-brand-50/50 transition-all duration-300 cursor-pointer h-full"
     >
       <div className="flex flex-col items-center gap-3">
