@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Text } from "@/src/components/ui/text";
 import type { RoomSummary } from "../types/room";
+import { TripCardMenu } from "./trip-card-menu";
 import { getDday, getTripStatus, TripStatusBadge } from "./trip-status-badge";
 
 function formatDateRange(start: string, end: string): string {
@@ -47,12 +48,9 @@ export function TripCard({ room }: { room: RoomSummary }) {
   const dday = getDday(room.tripStartDate);
 
   return (
-    <Link
-      href={`/plan/${room.id}`}
-      className="group relative flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-200/60 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-    >
-      {/* Cover Image */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <div className="group relative flex flex-col rounded-2xl overflow-hidden bg-white border border-outline shadow-sm">
+      {/* Cover Image — 클릭 시 네비게이션 */}
+      <Link href={`/plan/${room.id}`} className="relative aspect-[4/3] overflow-hidden">
         {room.coverImageUrl ? (
           <Image
             src={room.coverImageUrl}
@@ -69,7 +67,7 @@ export function TripCard({ room }: { room: RoomSummary }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
         {/* Status badge */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 left-3">
           <TripStatusBadge status={status} dday={dday} />
         </div>
 
@@ -82,10 +80,15 @@ export function TripCard({ room }: { room: RoomSummary }) {
             {room.destination}
           </span>
         </div>
+      </Link>
+
+      {/* Menu — Link 바깥 */}
+      <div className="absolute top-3 right-3">
+        <TripCardMenu roomId={room.id} roomName={room.name} />
       </div>
 
-      {/* Info */}
-      <div className="flex flex-col gap-1.5 p-4">
+      {/* Info — 클릭 시 네비게이션 */}
+      <Link href={`/plan/${room.id}`} className="flex flex-col gap-1.5 p-4">
         <Text variant="body" weight="bold" className="truncate">
           {room.name}
         </Text>
@@ -129,7 +132,7 @@ export function TripCard({ room }: { room: RoomSummary }) {
             {formatUpdatedAt(room.updatedAt)}
           </Text>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
