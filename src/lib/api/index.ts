@@ -1,2 +1,2 @@
 export { api, apiClient } from "./api-client";
-export { roomApi, roomErrorMessages } from "./room";
+export { ROOM_ERROR_MESSAGES, roomApi } from "./room";

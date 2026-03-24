@@ -11,7 +11,7 @@ import {
   DateRangePicker,
   usePickerLayout,
 } from "@/src/components/ui/date-range-picker";
-import { roomApi, roomErrorMessages } from "@/src/lib/api";
+import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
 import { request } from "@/src/lib/request";
 import { type CreateRoomInput, createRoomSchema } from "../../utils/validate-create-room";
 
@@ -59,7 +59,7 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
   };
 
   const onSubmit = async (data: CreateRoomInput) => {
-    const room = await request(() => roomApi.create(data), roomErrorMessages.create);
+    const room = await request(() => roomApi.create(data), ROOM_ERROR_MESSAGES.create);
     if (room) {
       handleOpenChange(false);
       window.location.href = `/plan/${room.id}`;

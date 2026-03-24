@@ -3,7 +3,7 @@
 import * as Popover from "@radix-ui/react-popover";
 import { useState } from "react";
 import { Button, Text } from "@/src/components/ui";
-import { roomApi, roomErrorMessages } from "@/src/lib/api";
+import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
 import { request } from "@/src/lib/request";
 
 interface TripCardMenuProps {
@@ -17,7 +17,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
   const handleIssueInviteCode = async () => {
     const result = await request(
       () => roomApi.issueInviteCode(roomId),
-      roomErrorMessages.issueInviteCode,
+      ROOM_ERROR_MESSAGES.issueInviteCode,
     );
     if (result) {
       await navigator.clipboard.writeText(result.inviteCode);
@@ -30,7 +30,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
       return;
     }
 
-    const result = await request(() => roomApi.delete(roomId), roomErrorMessages.delete);
+    const result = await request(() => roomApi.delete(roomId), ROOM_ERROR_MESSAGES.delete);
     if (result !== null) {
       window.location.reload();
     }
