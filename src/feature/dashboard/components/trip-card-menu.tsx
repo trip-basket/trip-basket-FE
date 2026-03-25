@@ -9,9 +9,10 @@ import { request } from "@/src/lib/request";
 interface TripCardMenuProps {
   roomId: string;
   roomName: string;
+  onDeleted?: () => void;
 }
 
-export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
+export function TripCardMenu({ roomId, roomName, onDeleted }: TripCardMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleIssueInviteCode = async () => {
@@ -32,7 +33,8 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
 
     const result = await request(() => roomApi.delete(roomId), ROOM_ERROR_MESSAGES.delete);
     if (result !== null) {
-      window.location.reload();
+      setIsOpen(false);
+      onDeleted?.();
     }
   };
 

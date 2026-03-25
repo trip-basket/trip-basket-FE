@@ -27,7 +27,13 @@ function filterRooms(rooms: RoomSummary[], tab: FilterTab): RoomSummary[] {
   });
 }
 
-export function TripFilterTabs({ rooms }: { rooms: RoomSummary[] }) {
+export function TripFilterTabs({
+  rooms,
+  onRoomDeleted,
+}: {
+  rooms: RoomSummary[];
+  onRoomDeleted?: () => void;
+}) {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const filtered = filterRooms(rooms, activeTab);
 
@@ -52,7 +58,7 @@ export function TripFilterTabs({ rooms }: { rooms: RoomSummary[] }) {
       </div>
 
       {/* Grid */}
-      <TripGrid rooms={filtered} />
+      <TripGrid rooms={filtered} onRoomDeleted={onRoomDeleted} />
     </div>
   );
 }
