@@ -1,3 +1,4 @@
+// API 명세 정의되면 변경, room.ts type 과 연동
 export interface RoomSummary {
   id: string;
   name: string;
@@ -5,7 +6,6 @@ export interface RoomSummary {
   tripStartDate: string;
   tripEndDate: string;
   currency: string;
-  inviteCode: string;
   coverImageUrl: string | null;
   memberCount: number;
   placeCount: number;

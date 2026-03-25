@@ -8,7 +8,7 @@ export const MOCK_ROOMS: RoomSummary[] = [
     tripStartDate: "2026-04-01",
     tripEndDate: "2026-04-08",
     currency: "GBP",
-    inviteCode: "LDN2026",
+
     coverImageUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
     memberCount: 3,
     placeCount: 12,
@@ -22,7 +22,7 @@ export const MOCK_ROOMS: RoomSummary[] = [
     tripStartDate: "2026-05-10",
     tripEndDate: "2026-05-14",
     currency: "JPY",
-    inviteCode: "OSK2026",
+
     coverImageUrl: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800&q=80",
     memberCount: 2,
     placeCount: 8,
@@ -36,7 +36,7 @@ export const MOCK_ROOMS: RoomSummary[] = [
     tripStartDate: "2026-03-20",
     tripEndDate: "2026-03-23",
     currency: "KRW",
-    inviteCode: "JJU2026",
+
     coverImageUrl: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
     memberCount: 4,
     placeCount: 15,
@@ -50,7 +50,7 @@ export const MOCK_ROOMS: RoomSummary[] = [
     tripStartDate: "2026-02-10",
     tripEndDate: "2026-02-17",
     currency: "EUR",
-    inviteCode: "PRS2026",
+
     coverImageUrl: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
     memberCount: 2,
     placeCount: 18,
