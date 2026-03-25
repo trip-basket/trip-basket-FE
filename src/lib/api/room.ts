@@ -22,6 +22,19 @@ interface RoomApi {
   members: RoomMemberApi[];
 }
 
+interface JoinRoomRequestApi {
+  inviteCode: string;
+}
+
+interface JoinRoomResponseApi {
+  roomId: string;
+  roomName: string;
+  tripStartDate: string;
+  tripEndDate: string;
+  role: "OWNER" | "MEMBER";
+  joinedAt: string;
+}
+
 interface IssueInviteCodeResponseApi {
   roomId: string;
   inviteCode: string;
@@ -35,6 +48,8 @@ export const roomApi = {
 
   delete: (roomId: string) => api.delete<void>(`/api/rooms/${roomId}`),
 
+  join: (data: JoinRoomRequestApi) => api.post<JoinRoomResponseApi>("/api/rooms/join", data),
+
   issueInviteCode: (roomId: string) =>
     api.post<IssueInviteCodeResponseApi>(`/api/rooms/${roomId}/invite-code`),
 };
@@ -43,5 +58,6 @@ export const ROOM_ERROR_MESSAGES = {
   create: "방 생성에 실패했습니다",
   get: "방 정보를 불러오는데 실패했습니다",
   delete: "방 삭제에 실패했습니다",
+  join: "방 참여에 실패했습니다",
   issueInviteCode: "초대코드 발급에 실패했습니다",
 } as const;

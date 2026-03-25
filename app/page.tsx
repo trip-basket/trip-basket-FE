@@ -1,10 +1,22 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { BottomCta, FeatureShowcase, HeroSection } from "@/src/feature/landing";
+import { memberApi } from "@/src/lib/api";
 
 export default function LandingPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    memberApi
+      .me()
+      .then(() => router.replace("/dashboard"))
+      .catch(() => {});
+  }, [router]);
+
   const handleGoogleLogin = async () => {
-    window.location.href = `https://api.luts.kr/oauth2/authorization/google`;
+    window.location.href = "https://api.luts.kr/oauth2/authorization/google";
   };
 
   return (
