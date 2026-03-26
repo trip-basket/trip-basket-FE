@@ -1,40 +1,44 @@
 "use client";
 
 import * as Popover from "@radix-ui/react-popover";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Button, Text } from "@/src/components/ui";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { toast } from "@/src/lib/toast";
 
 interface TripCardMenuProps {
   roomId: string;
   roomName: string;
-  onDeleted?: () => void;
 }
 
-export function TripCardMenu({ roomId, roomName, onDeleted }: TripCardMenuProps) {
+export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const queryClient = useQueryClient();
 
-  const handleIssueInviteCode = async () => {
-    const result = await request(
-      () => roomApi.issueInviteCode(roomId),
-      ROOM_ERROR_MESSAGES.issueInviteCode,
-    );
-    if (result) {
+  const inviteCodeMutation = useMutation({
+    mutationFn: () => roomApi.issueInviteCode(roomId),
+    onSuccess: async (result) => {
       await navigator.clipboard.writeText(result.inviteCode);
+      toast.success("초대코드가 복사되었습니다");
       setIsOpen(false);
-    }
-  };
+    },
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.issueInviteCode),
+  });
 
-  const handleDelete = async () => {
-    if (!window.confirm(`"${roomName}" 방을 삭제하시겠습니까?`)) {
-      return;
-    }
-
-    const result = await request(() => roomApi.delete(roomId), ROOM_ERROR_MESSAGES.delete);
-    if (result !== null) {
+  const deleteMutation = useMutation({
+    mutationFn: () => roomApi.delete(roomId),
+    onSuccess: async () => {
       setIsOpen(false);
-      onDeleted?.();
+      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
+    },
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.delete),
+  });
+
+  const handleDelete = () => {
+    if (window.confirm(`"${roomName}" 방을 삭제하시겠습니까?`)) {
+      deleteMutation.mutate();
     }
   };
 
@@ -68,7 +72,7 @@ export function TripCardMenu({ roomId, roomName, onDeleted }: TripCardMenuProps)
             <button
               type="button"
               className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer flex items-center gap-2"
-              onClick={handleIssueInviteCode}
+              onClick={() => inviteCodeMutation.mutate()}
             >
               <svg
                 width="14"

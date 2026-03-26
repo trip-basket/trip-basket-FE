@@ -95,6 +95,11 @@ import { roomApi } from "@/src/lib/api";
 const room = await roomApi.create({ name: "도쿄 여행", tripStartDate: "2026-03-16", tripEndDate: "2026-03-29" });
 ```
 
+## 폼
+
+- **react-hook-form + zod** — 폼은 `useForm` + `zodResolver`로 처리. `useState`로 직접 관리하지 않는다.
+- **비제어 기반** — `register`를 기본으로 사용. `ControlledInput`은 입력값에 따라 UI를 실시간으로 바꿔야 할 때만 사용.
+
 ## 상태 관리
 
 - **Zustand 5** — feature별 스토어 (`feature/<name>/stores/`)

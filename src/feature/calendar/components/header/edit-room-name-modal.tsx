@@ -2,13 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { toast } from "@/src/lib/toast";
 
 const editRoomNameSchema = z.object({
   name: z.string().trim().min(1, "방 이름을 입력해주세요"),
@@ -29,7 +30,7 @@ export function EditRoomNameModal({ open, onOpenChange }: EditRoomNameModalProps
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting, errors },
+    formState: { errors },
   } = useForm<EditRoomNameInput>({
     resolver: zodResolver(editRoomNameSchema),
     defaultValues: { name: room?.name ?? "" },
@@ -48,19 +49,23 @@ export function EditRoomNameModal({ open, onOpenChange }: EditRoomNameModalProps
     onOpenChange(nextOpen);
   };
 
-  const onSubmit = async (data: EditRoomNameInput) => {
+  const updateMutation = useMutation({
+    mutationFn: (data: { roomId: string; name: string }) =>
+      roomApi.update(data.roomId, { name: data.name }),
+    onSuccess: (result) => {
+      if (room) {
+        setRoom({ ...room, name: result.name });
+      }
+      handleOpenChange(false);
+    },
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
+  });
+
+  const onSubmit = (data: EditRoomNameInput) => {
     if (!room) {
       return;
     }
-
-    const result = await request(
-      () => roomApi.update(room.id, { name: data.name }),
-      ROOM_ERROR_MESSAGES.update,
-    );
-    if (result) {
-      setRoom({ ...room, name: result.name });
-      handleOpenChange(false);
-    }
+    updateMutation.mutate({ roomId: room.id, name: data.name });
   };
 
   return (
@@ -118,11 +123,11 @@ export function EditRoomNameModal({ open, onOpenChange }: EditRoomNameModalProps
             <Button
               size="sm"
               color="primary"
-              disabled={isSubmitting}
+              disabled={updateMutation.isPending}
               onClick={handleSubmit(onSubmit)}
               className="cursor-pointer"
             >
-              {isSubmitting ? "저장 중..." : "저장"}
+              {updateMutation.isPending ? "저장 중..." : "저장"}
             </Button>
           </div>
         </Dialog.Content>

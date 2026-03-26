@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
@@ -12,7 +13,7 @@ import {
   usePickerLayout,
 } from "@/src/components/ui/date-range-picker";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { toast } from "@/src/lib/toast";
 import { type CreateRoomInput, createRoomSchema } from "../../utils/validate-create-room";
 
 interface CreateRoomModalProps {
@@ -37,7 +38,7 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
     setValue,
     reset,
     clearErrors,
-    formState: { isSubmitting, errors },
+    formState: { errors },
   } = useForm<CreateRoomInput>({
     resolver: zodResolver(createRoomSchema),
     defaultValues: { name: "", tripStartDate: "", tripEndDate: "" },
@@ -58,13 +59,16 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
     clearErrors(["tripStartDate", "tripEndDate"]);
   };
 
-  const onSubmit = async (data: CreateRoomInput) => {
-    const room = await request(() => roomApi.create(data), ROOM_ERROR_MESSAGES.create);
-    if (room) {
+  const createMutation = useMutation({
+    mutationFn: (data: CreateRoomInput) => roomApi.create(data),
+    onSuccess: (room) => {
       handleOpenChange(false);
       window.location.href = `/plan/${room.id}`;
-    }
-  };
+    },
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.create),
+  });
+
+  const onSubmit = (data: CreateRoomInput) => createMutation.mutate(data);
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
@@ -141,11 +145,11 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
             <Button
               size="sm"
               color="primary"
-              disabled={isSubmitting}
+              disabled={createMutation.isPending}
               onClick={handleSubmit(onSubmit)}
               className="cursor-pointer"
             >
-              {isSubmitting ? "생성 중..." : "만들기"}
+              {createMutation.isPending ? "생성 중..." : "만들기"}
             </Button>
           </div>
         </Dialog.Content>

@@ -20,20 +20,13 @@ function filterRooms(rooms: RoomSummary[], tab: FilterTab): RoomSummary[] {
   return rooms.filter((room) => {
     const status = getTripStatus(room.tripStartDate, room.tripEndDate);
     if (tab === "upcoming") {
-      // "다가오는 여행" 탭에는 진행 중인 여행도 포함
       return status === "upcoming" || status === "ongoing";
     }
     return status === "past";
   });
 }
 
-export function TripFilterTabs({
-  rooms,
-  onRoomDeleted,
-}: {
-  rooms: RoomSummary[];
-  onRoomDeleted?: () => void;
-}) {
+export function TripFilterTabs({ rooms }: { rooms: RoomSummary[] }) {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const filtered = filterRooms(rooms, activeTab);
 
@@ -58,7 +51,7 @@ export function TripFilterTabs({
       </div>
 
       {/* Grid */}
-      <TripGrid rooms={filtered} onRoomDeleted={onRoomDeleted} />
+      <TripGrid rooms={filtered} />
     </div>
   );
 }

@@ -1,8 +1,9 @@
+import { useMutation } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { toast } from "@/src/lib/toast";
 import useCalendarStore from "../../stores/use-calendar-store";
 import { formatLocalDate } from "../../utils";
 
@@ -44,7 +45,17 @@ export function useDateRange(open: boolean, onOpenChange: (open: boolean) => voi
 
   const isRangeComplete = !!(range?.from && range?.to);
 
-  const handleConfirm = useCallback(async () => {
+  const updateMutation = useMutation({
+    mutationFn: (data: { roomId: string; tripStartDate: string; tripEndDate: string }) =>
+      roomApi.update(data.roomId, data),
+    onSuccess: (_, variables) => {
+      updateDateRange(variables.tripStartDate, variables.tripEndDate);
+      onOpenChange(false);
+    },
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
+  });
+
+  const handleConfirm = useCallback(() => {
     if (!range?.from || !range?.to || !room) {
       return;
     }
@@ -54,19 +65,12 @@ export function useDateRange(open: boolean, onOpenChange: (open: boolean) => voi
       return;
     }
 
-    const startDate = formatLocalDate(range.from);
-    const endDate = formatLocalDate(range.to);
-
-    const result = await request(
-      () => roomApi.update(room.id, { tripStartDate: startDate, tripEndDate: endDate }),
-      ROOM_ERROR_MESSAGES.update,
-    );
-
-    if (result) {
-      updateDateRange(startDate, endDate);
-      onOpenChange(false);
-    }
-  }, [range, room, blocksToDelete, showWarning, updateDateRange, onOpenChange]);
+    updateMutation.mutate({
+      roomId: room.id,
+      tripStartDate: formatLocalDate(range.from),
+      tripEndDate: formatLocalDate(range.to),
+    });
+  }, [range, room, blocksToDelete, showWarning, updateMutation]);
 
   const handleRangeSelect = useCallback((newRange: DateRange | undefined) => {
     setRange(newRange);

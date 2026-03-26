@@ -1,8 +1,9 @@
+import { useMutation } from "@tanstack/react-query";
 import { useCalendarStore } from "@/src/feature/calendar/stores";
 import { formatLocalDate } from "@/src/feature/calendar/utils";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { toast } from "@/src/lib/toast";
 
 export function AddDayButton({ label, position }: { label: string; position: "before" | "after" }) {
   const tripDays = useCalendarStore((s) => s.tripDays);
@@ -10,7 +11,13 @@ export function AddDayButton({ label, position }: { label: string; position: "be
   const addDayAfter = useCalendarStore((s) => s.addDayAfter);
   const room = useRoomStore((s) => s.room);
 
-  const handleClick = async () => {
+  const updateMutation = useMutation({
+    mutationFn: (data: { roomId: string; tripStartDate?: string; tripEndDate?: string }) =>
+      roomApi.update(data.roomId, data),
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
+  });
+
+  const handleClick = () => {
     if (!room || tripDays.length === 0) {
       return;
     }
@@ -18,23 +25,17 @@ export function AddDayButton({ label, position }: { label: string; position: "be
     if (position === "before") {
       const newStart = new Date(`${tripDays[0].date}T00:00:00`);
       newStart.setDate(newStart.getDate() - 1);
-      const result = await request(
-        () => roomApi.update(room.id, { tripStartDate: formatLocalDate(newStart) }),
-        ROOM_ERROR_MESSAGES.update,
+      updateMutation.mutate(
+        { roomId: room.id, tripStartDate: formatLocalDate(newStart) },
+        { onSuccess: addDayBefore },
       );
-      if (result) {
-        addDayBefore();
-      }
     } else {
       const newEnd = new Date(`${tripDays[tripDays.length - 1].date}T00:00:00`);
       newEnd.setDate(newEnd.getDate() + 1);
-      const result = await request(
-        () => roomApi.update(room.id, { tripEndDate: formatLocalDate(newEnd) }),
-        ROOM_ERROR_MESSAGES.update,
+      updateMutation.mutate(
+        { roomId: room.id, tripEndDate: formatLocalDate(newEnd) },
+        { onSuccess: addDayAfter },
       );
-      if (result) {
-        addDayAfter();
-      }
     }
   };
 

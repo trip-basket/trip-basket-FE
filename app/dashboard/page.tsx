@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { DashboardHeader, TripFilterTabs } from "@/src/feature/dashboard";
 import type { RoomSummary } from "@/src/feature/dashboard/types/room";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { roomApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
 
 function mapRooms(data: Awaited<ReturnType<typeof roomApi.list>>): RoomSummary[] {
   return data.map((r) => ({
@@ -18,20 +18,11 @@ function mapRooms(data: Awaited<ReturnType<typeof roomApi.list>>): RoomSummary[]
 }
 
 export default function DashboardPage() {
-  const [rooms, setRooms] = useState<RoomSummary[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchRooms = useCallback(async () => {
-    const data = await request(() => roomApi.list(), ROOM_ERROR_MESSAGES.list);
-    if (data) {
-      setRooms(mapRooms(data));
-    }
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
-    fetchRooms();
-  }, [fetchRooms]);
+  const { data, isLoading } = useQuery({
+    queryKey: QUERY_KEYS.rooms,
+    queryFn: () => roomApi.list(),
+    select: mapRooms,
+  });
 
   return (
     <div className="relative min-h-dvh bg-gray-50/30">
@@ -46,9 +37,7 @@ export default function DashboardPage() {
       <div className="relative mx-auto max-w-5xl px-6 py-8">
         <DashboardHeader />
 
-        <div className="mt-8">
-          {isLoading ? null : <TripFilterTabs rooms={rooms} onRoomDeleted={fetchRooms} />}
-        </div>
+        <div className="mt-8">{isLoading ? null : <TripFilterTabs rooms={data ?? []} />}</div>
       </div>
     </div>
   );

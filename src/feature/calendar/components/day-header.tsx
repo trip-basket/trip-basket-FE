@@ -1,8 +1,9 @@
+import { useMutation } from "@tanstack/react-query";
 import type { Ref } from "react";
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { toast } from "@/src/lib/toast";
 import { DAY_COL_MIN_W } from "../constants";
 import useCalendarStore from "../stores/use-calendar-store";
 import { formatCurrency, formatLocalDate } from "../utils";
@@ -14,36 +15,36 @@ export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
   const addDayAfter = useCalendarStore((s) => s.addDayAfter);
   const room = useRoomStore((s) => s.room);
 
-  const handleAddDayBefore = async () => {
+  const updateMutation = useMutation({
+    mutationFn: (data: { roomId: string; tripStartDate?: string; tripEndDate?: string }) =>
+      roomApi.update(data.roomId, data),
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
+  });
+
+  const handleAddDayBefore = () => {
     if (!room || tripDays.length === 0) {
       return;
     }
     const newStart = new Date(`${tripDays[0].date}T00:00:00`);
     newStart.setDate(newStart.getDate() - 1);
 
-    const result = await request(
-      () => roomApi.update(room.id, { tripStartDate: formatLocalDate(newStart) }),
-      ROOM_ERROR_MESSAGES.update,
+    updateMutation.mutate(
+      { roomId: room.id, tripStartDate: formatLocalDate(newStart) },
+      { onSuccess: addDayBefore },
     );
-    if (result) {
-      addDayBefore();
-    }
   };
 
-  const handleAddDayAfter = async () => {
+  const handleAddDayAfter = () => {
     if (!room || tripDays.length === 0) {
       return;
     }
     const newEnd = new Date(`${tripDays[tripDays.length - 1].date}T00:00:00`);
     newEnd.setDate(newEnd.getDate() + 1);
 
-    const result = await request(
-      () => roomApi.update(room.id, { tripEndDate: formatLocalDate(newEnd) }),
-      ROOM_ERROR_MESSAGES.update,
+    updateMutation.mutate(
+      { roomId: room.id, tripEndDate: formatLocalDate(newEnd) },
+      { onSuccess: addDayAfter },
     );
-    if (result) {
-      addDayAfter();
-    }
   };
 
   return (

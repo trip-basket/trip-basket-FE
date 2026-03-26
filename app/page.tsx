@@ -1,19 +1,25 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { BottomCta, FeatureShowcase, HeroSection } from "@/src/feature/landing";
 import { memberApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
 
 export default function LandingPage() {
   const router = useRouter();
+  const { isSuccess } = useQuery({
+    queryKey: QUERY_KEYS.me,
+    queryFn: () => memberApi.me(),
+    retry: false,
+  });
 
   useEffect(() => {
-    memberApi
-      .me()
-      .then(() => router.replace("/dashboard"))
-      .catch(() => {});
-  }, [router]);
+    if (isSuccess) {
+      router.replace("/dashboard");
+    }
+  }, [isSuccess, router]);
 
   const handleGoogleLogin = async () => {
     window.location.href = "https://api.luts.kr/oauth2/authorization/google";

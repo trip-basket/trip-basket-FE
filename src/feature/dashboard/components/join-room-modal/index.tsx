@@ -2,11 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { request } from "@/src/lib/request";
+import { toast } from "@/src/lib/toast";
 
 const joinRoomSchema = z.object({
   inviteCode: z.string().trim().min(1, "초대코드를 입력해주세요"),
@@ -24,7 +25,7 @@ export function JoinRoomModal({ open, onOpenChange }: JoinRoomModalProps) {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting, errors },
+    formState: { errors },
   } = useForm<JoinRoomInput>({
     resolver: zodResolver(joinRoomSchema),
     defaultValues: { inviteCode: "" },
@@ -37,13 +38,16 @@ export function JoinRoomModal({ open, onOpenChange }: JoinRoomModalProps) {
     onOpenChange(nextOpen);
   };
 
-  const onSubmit = async (data: JoinRoomInput) => {
-    const result = await request(() => roomApi.join(data), ROOM_ERROR_MESSAGES.join);
-    if (result) {
+  const joinMutation = useMutation({
+    mutationFn: (data: JoinRoomInput) => roomApi.join(data),
+    onSuccess: (result) => {
       handleOpenChange(false);
       window.location.href = `/plan/${result.roomId}`;
-    }
-  };
+    },
+    onError: () => toast.error(ROOM_ERROR_MESSAGES.join),
+  });
+
+  const onSubmit = (data: JoinRoomInput) => joinMutation.mutate(data);
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
@@ -109,11 +113,11 @@ export function JoinRoomModal({ open, onOpenChange }: JoinRoomModalProps) {
             <Button
               size="sm"
               color="primary"
-              disabled={isSubmitting}
+              disabled={joinMutation.isPending}
               onClick={handleSubmit(onSubmit)}
               className="cursor-pointer"
             >
-              {isSubmitting ? "참여 중..." : "참여하기"}
+              {joinMutation.isPending ? "참여 중..." : "참여하기"}
             </Button>
           </div>
         </Dialog.Content>

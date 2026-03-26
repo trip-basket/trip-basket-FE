@@ -21,7 +21,7 @@ function formatDateRange(start: string, end: string): string {
   return `${sMonth}.${sDay} - ${eDay}`;
 }
 
-export function TripCard({ room, onDeleted }: { room: RoomSummary; onDeleted?: () => void }) {
+export function TripCard({ room }: { room: RoomSummary }) {
   const status = getTripStatus(room.tripStartDate, room.tripEndDate);
   const dday = getDday(room.tripStartDate);
 
@@ -39,7 +39,7 @@ export function TripCard({ room, onDeleted }: { room: RoomSummary; onDeleted?: (
 
       {/* Menu — Link 바깥 */}
       <div className="absolute top-3 right-3">
-        <TripCardMenu roomId={room.id} roomName={room.name} onDeleted={onDeleted} />
+        <TripCardMenu roomId={room.id} roomName={room.name} />
       </div>
 
       {/* Info — 클릭 시 네비게이션 */}
