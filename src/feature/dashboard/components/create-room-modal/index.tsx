@@ -1,21 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import type { DateRange } from "react-day-picker";
-import { useForm } from "react-hook-form";
 import { Button, Input, Text } from "@/src/components/ui";
 import {
   DateRangeLabel,
   DateRangePicker,
   usePickerLayout,
 } from "@/src/components/ui/date-range-picker";
-import { formatLocalDate } from "@/src/feature/calendar/utils";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { toast } from "@/src/lib/toast";
-import { type CreateRoomInput, createRoomSchema } from "../../utils/validate-create-room";
+import { useCreateRoomForm } from "../../hooks/use-create-room-form";
 
 interface CreateRoomModalProps {
   open: boolean;
@@ -23,46 +15,16 @@ interface CreateRoomModalProps {
 }
 
 export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
-  const [range, setRange] = useState<DateRange | undefined>(undefined);
   const { width: pickerWidth } = usePickerLayout();
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    reset,
-    clearErrors,
-    formState: { errors },
-  } = useForm<CreateRoomInput>({
-    resolver: zodResolver(createRoomSchema),
-    defaultValues: { name: "", tripStartDate: "", tripEndDate: "" },
-  });
+  const { range, errors, isPending, register, resetForm, handleRangeSelect, onSubmit } =
+    useCreateRoomForm(() => onOpenChange(false));
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
-      reset();
-      setRange(undefined);
+      resetForm();
     }
     onOpenChange(nextOpen);
   };
-
-  const handleRangeSelect = (newRange: DateRange | undefined) => {
-    setRange(newRange);
-    setValue("tripStartDate", newRange?.from ? formatLocalDate(newRange.from) : "");
-    setValue("tripEndDate", newRange?.to ? formatLocalDate(newRange.to) : "");
-    clearErrors(["tripStartDate", "tripEndDate"]);
-  };
-
-  const createMutation = useMutation({
-    mutationFn: (data: CreateRoomInput) => roomApi.create(data),
-    onSuccess: (room) => {
-      handleOpenChange(false);
-      window.location.href = `/plan/${room.id}`;
-    },
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.create),
-  });
-
-  const onSubmit = (data: CreateRoomInput) => createMutation.mutate(data);
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
@@ -108,7 +70,7 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
           </div>
 
           {/* Name Input */}
-          <form onSubmit={handleSubmit(onSubmit)} className="px-6 py-4 flex flex-col gap-4">
+          <form onSubmit={onSubmit} className="px-6 py-4 flex flex-col gap-4">
             <Input
               label="여행 이름"
               placeholder="예: 런던 여행"
@@ -139,11 +101,11 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
             <Button
               size="sm"
               color="primary"
-              disabled={createMutation.isPending}
-              onClick={handleSubmit(onSubmit)}
+              disabled={isPending}
+              onClick={onSubmit}
               className="cursor-pointer"
             >
-              {createMutation.isPending ? "생성 중..." : "만들기"}
+              {isPending ? "생성 중..." : "만들기"}
             </Button>
           </div>
         </Dialog.Content>

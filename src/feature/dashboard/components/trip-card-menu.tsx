@@ -1,12 +1,12 @@
 "use client";
 
 import * as Popover from "@radix-ui/react-popover";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Button, Text } from "@/src/components/ui";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { QUERY_KEYS } from "@/src/lib/query-keys";
 import { toast } from "@/src/lib/toast";
+import { useDeleteRoom } from "../hooks/use-delete-room";
 
 interface TripCardMenuProps {
   roomId: string;
@@ -15,7 +15,7 @@ interface TripCardMenuProps {
 
 export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const queryClient = useQueryClient();
+  const { handleDelete } = useDeleteRoom(roomId, roomName);
 
   const inviteCodeMutation = useMutation({
     mutationFn: () => roomApi.issueInviteCode(roomId),
@@ -26,21 +26,6 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
     },
     onError: () => toast.error(ROOM_ERROR_MESSAGES.issueInviteCode),
   });
-
-  const deleteMutation = useMutation({
-    mutationFn: () => roomApi.delete(roomId),
-    onSuccess: async () => {
-      setIsOpen(false);
-      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
-    },
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.delete),
-  });
-
-  const handleDelete = () => {
-    if (window.confirm(`"${roomName}" 방을 삭제하시겠습니까?`)) {
-      deleteMutation.mutate();
-    }
-  };
 
   return (
     <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -69,9 +54,11 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
           className="z-50 animate-in fade-in-0 zoom-in-95"
         >
           <div className="bg-white rounded-xl shadow-xl border border-outline min-w-[160px] p-1.5">
-            <button
-              type="button"
-              className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer flex items-center gap-2"
+            <Button
+              variant="ghost"
+              color="neutral"
+              size="sm"
+              className="w-full justify-start gap-2 cursor-pointer"
               onClick={() => inviteCodeMutation.mutate()}
             >
               <svg
@@ -92,10 +79,12 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
               <Text as="span" variant="small">
                 초대코드 발급
               </Text>
-            </button>
-            <button
-              type="button"
-              className="w-full text-left px-3 py-2 rounded-lg hover:bg-error-50 transition-colors cursor-pointer flex items-center gap-2"
+            </Button>
+            <Button
+              variant="ghost"
+              color="danger"
+              size="sm"
+              className="w-full justify-start gap-2 cursor-pointer"
               onClick={handleDelete}
             >
               <svg
@@ -115,7 +104,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
               <Text as="span" variant="small" color="error">
                 방 삭제
               </Text>
-            </button>
+            </Button>
           </div>
         </Popover.Content>
       </Popover.Portal>
