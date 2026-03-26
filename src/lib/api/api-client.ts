@@ -36,7 +36,7 @@ apiClient.interceptors.response.use(
     switch (status) {
       case 401:
         // 인증 만료 — 로그인 페이지로 리다이렉트
-        if (typeof window !== "undefined") {
+        if (typeof window !== "undefined" && window.location.pathname !== "/") {
           window.location.href = "/";
         }
         break;

@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
+import useRoomStore from "@/src/feature/room/stores/use-room-store";
+import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { request } from "@/src/lib/request";
 import useCalendarStore from "../../stores/use-calendar-store";
 import { formatLocalDate } from "../../utils";
 
 export function useDateRange(open: boolean, onOpenChange: (open: boolean) => void) {
+  const room = useRoomStore((s) => s.room);
   const tripDays = useCalendarStore((s) => s.tripDays);
   const updateDateRange = useCalendarStore((s) => s.updateDateRange);
 
@@ -40,8 +44,8 @@ export function useDateRange(open: boolean, onOpenChange: (open: boolean) => voi
 
   const isRangeComplete = !!(range?.from && range?.to);
 
-  const handleConfirm = useCallback(() => {
-    if (!range?.from || !range?.to) {
+  const handleConfirm = useCallback(async () => {
+    if (!range?.from || !range?.to || !room) {
       return;
     }
 
@@ -50,9 +54,19 @@ export function useDateRange(open: boolean, onOpenChange: (open: boolean) => voi
       return;
     }
 
-    updateDateRange(formatLocalDate(range.from), formatLocalDate(range.to));
-    onOpenChange(false);
-  }, [range, blocksToDelete, showWarning, updateDateRange, onOpenChange]);
+    const startDate = formatLocalDate(range.from);
+    const endDate = formatLocalDate(range.to);
+
+    const result = await request(
+      () => roomApi.update(room.id, { tripStartDate: startDate, tripEndDate: endDate }),
+      ROOM_ERROR_MESSAGES.update,
+    );
+
+    if (result) {
+      updateDateRange(startDate, endDate);
+      onOpenChange(false);
+    }
+  }, [range, room, blocksToDelete, showWarning, updateDateRange, onOpenChange]);
 
   const handleRangeSelect = useCallback((newRange: DateRange | undefined) => {
     setRange(newRange);
