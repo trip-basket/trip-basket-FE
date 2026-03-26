@@ -1,18 +1,10 @@
 import { z } from "zod";
 
-export const createRoomSchema = z
-  .object({
-    name: z.string().trim().min(1, "여행 이름을 입력해주세요"),
-    tripStartDate: z.string().min(1, "시작일을 선택해주세요"),
-    tripEndDate: z.string().min(1, "종료일을 선택해주세요"),
-  })
-  .refine(
-    (data) => !data.tripStartDate || !data.tripEndDate || data.tripEndDate >= data.tripStartDate,
-    {
-      message: "종료일은 시작일 이후여야 합니다",
-      path: ["tripEndDate"],
-    },
-  );
+export const createRoomSchema = z.object({
+  name: z.string().trim().min(1, "여행 이름을 입력해주세요"),
+  tripStartDate: z.string().min(1, "시작일을 선택해주세요"),
+  tripEndDate: z.string().min(1, "종료일을 선택해주세요"),
+});
 
 export type CreateRoomInput = z.infer<typeof createRoomSchema>;
 

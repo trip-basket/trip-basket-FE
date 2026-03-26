@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import { roomApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { DEFAULT_CURRENCY } from "../constants";
 import useRoomStore from "../stores/use-room-store";
 import type { MemberRole } from "../types";
 
@@ -17,7 +18,7 @@ export function useInitRoom(roomId: string) {
   const setRoom = useRoomStore((s) => s.setRoom);
   const setDates = useCalendarStore((s) => s.setDates);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: QUERY_KEYS.room(roomId),
     queryFn: () => roomApi.get(roomId),
   });
@@ -27,7 +28,7 @@ export function useInitRoom(roomId: string) {
       setRoom({
         id: data.id,
         name: data.name,
-        currency: "₩",
+        currency: DEFAULT_CURRENCY,
         members: data.members.map((m) => ({
           id: m.memberId,
           nickname: m.nickname,
@@ -38,5 +39,5 @@ export function useInitRoom(roomId: string) {
     }
   }, [data, setRoom, setDates]);
 
-  return { isLoading };
+  return { isLoading, isError };
 }

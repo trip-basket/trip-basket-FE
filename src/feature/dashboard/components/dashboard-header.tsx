@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Text } from "@/src/components/ui/text";
+import { Button, Text } from "@/src/components/ui";
 import { JoinRoomModal } from "./join-room-modal";
 
 export function DashboardHeader() {
@@ -20,20 +20,24 @@ export function DashboardHeader() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            color="neutral"
+            size="sm"
             onClick={() => setIsJoinModalOpen(true)}
-            className="h-9 px-4 rounded-full bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition-colors cursor-pointer"
+            className="rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer"
           >
             초대코드로 참여
-          </button>
-          <button
-            type="button"
-            className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white text-sm font-bold shadow-sm cursor-pointer"
+          </Button>
+          <Button
+            variant="icon"
+            color="primary"
+            size="sm"
             aria-label="프로필"
+            className="rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-sm cursor-pointer"
           >
             T
-          </button>
+          </Button>
         </div>
       </header>
 

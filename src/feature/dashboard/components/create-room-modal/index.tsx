@@ -12,6 +12,7 @@ import {
   DateRangePicker,
   usePickerLayout,
 } from "@/src/components/ui/date-range-picker";
+import { formatLocalDate } from "@/src/feature/calendar/utils";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
 import { toast } from "@/src/lib/toast";
 import { type CreateRoomInput, createRoomSchema } from "../../utils/validate-create-room";
@@ -19,13 +20,6 @@ import { type CreateRoomInput, createRoomSchema } from "../../utils/validate-cre
 interface CreateRoomModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-}
-
-function formatDate(date: Date): string {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
 }
 
 export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
@@ -54,8 +48,8 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
 
   const handleRangeSelect = (newRange: DateRange | undefined) => {
     setRange(newRange);
-    setValue("tripStartDate", newRange?.from ? formatDate(newRange.from) : "");
-    setValue("tripEndDate", newRange?.to ? formatDate(newRange.to) : "");
+    setValue("tripStartDate", newRange?.from ? formatLocalDate(newRange.from) : "");
+    setValue("tripEndDate", newRange?.to ? formatLocalDate(newRange.to) : "");
     clearErrors(["tripStartDate", "tripEndDate"]);
   };
 
