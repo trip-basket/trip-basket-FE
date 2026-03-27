@@ -57,9 +57,6 @@ interface IssueInviteCodeResponseApi {
   issuedAt: string;
 }
 
-// delete, leaveRoom => 권한문제로 에러 뜸. 백엔드 수정 필요
-// join => 테스트 방법 필요함. 이거 쿠키 때문에 혼자 어떻게 테스트?
-
 export const roomApi = {
   list: () => api.get<MyRoomApi[]>("/api/rooms"),
 
