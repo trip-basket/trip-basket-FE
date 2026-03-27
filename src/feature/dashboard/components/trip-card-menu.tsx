@@ -53,12 +53,12 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
           collisionPadding={16}
           className="z-50 animate-in fade-in-0 zoom-in-95"
         >
-          <div className="bg-white rounded-xl shadow-xl border border-outline min-w-[160px] p-1.5">
+          <div className="flex flex-col bg-white rounded-xl shadow-xl border border-outline w-fit p-1.5">
             <Button
               variant="ghost"
               color="neutral"
               size="sm"
-              className="w-full justify-start gap-2 cursor-pointer"
+              className="justify-start cursor-pointer"
               onClick={() => inviteCodeMutation.mutate()}
             >
               <svg
@@ -84,7 +84,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
               variant="ghost"
               color="danger"
               size="sm"
-              className="w-full justify-start gap-2 cursor-pointer"
+              className="justify-start cursor-pointer"
               onClick={handleDelete}
             >
               <svg

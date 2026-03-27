@@ -2,11 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
 import { toast } from "@/src/lib/toast";
 
 const joinRoomSchema = z.object({
@@ -38,9 +39,12 @@ export function JoinRoomModal({ open, onOpenChange }: JoinRoomModalProps) {
     onOpenChange(nextOpen);
   };
 
+  const queryClient = useQueryClient();
+
   const joinMutation = useMutation({
     mutationFn: (data: JoinRoomInput) => roomApi.join(data),
-    onSuccess: (result) => {
+    onSuccess: async (result) => {
+      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
       handleOpenChange(false);
       window.location.href = `/plan/${result.roomId}`;
     },

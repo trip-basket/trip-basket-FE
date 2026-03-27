@@ -1,14 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { formatLocalDate } from "@/src/feature/calendar/utils";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
 import { toast } from "@/src/lib/toast";
 import { type CreateRoomInput, createRoomSchema } from "../utils/validate-create-room";
 
 export function useCreateRoomForm(onClose: () => void) {
+  const queryClient = useQueryClient();
   const [range, setRange] = useState<DateRange | undefined>(undefined);
 
   const {
@@ -25,7 +27,8 @@ export function useCreateRoomForm(onClose: () => void) {
 
   const createMutation = useMutation({
     mutationFn: (data: CreateRoomInput) => roomApi.create(data),
-    onSuccess: (room) => {
+    onSuccess: async (room) => {
+      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
       resetForm();
       onClose();
       window.location.href = `/plan/${room.id}`;

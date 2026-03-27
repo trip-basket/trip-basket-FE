@@ -1,8 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
 import { toast } from "@/src/lib/toast";
 import useCalendarStore from "../../stores/use-calendar-store";
 import { formatLocalDate } from "../../utils";
@@ -45,10 +46,13 @@ export function useDateRange(open: boolean, onOpenChange: (open: boolean) => voi
 
   const isRangeComplete = !!(range?.from && range?.to);
 
+  const queryClient = useQueryClient();
+
   const updateMutation = useMutation({
     mutationFn: (data: { roomId: string; tripStartDate: string; tripEndDate: string }) =>
       roomApi.update(data.roomId, data),
-    onSuccess: (_, variables) => {
+    onSuccess: async (_, variables) => {
+      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
       updateDateRange(variables.tripStartDate, variables.tripEndDate);
       onOpenChange(false);
     },

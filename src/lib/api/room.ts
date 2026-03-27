@@ -57,6 +57,9 @@ interface IssueInviteCodeResponseApi {
   issuedAt: string;
 }
 
+// delete, leaveRoom => 권한문제로 에러 뜸. 백엔드 수정 필요
+// join => 테스트 방법 필요함. 이거 쿠키 때문에 혼자 어떻게 테스트?
+
 export const roomApi = {
   list: () => api.get<MyRoomApi[]>("/api/rooms"),
 
@@ -84,6 +87,6 @@ export const ROOM_ERROR_MESSAGES = {
   update: "방 수정에 실패했습니다",
   delete: "방 삭제에 실패했습니다",
   join: "방 참여에 실패했습니다",
-  leaveRoom: "방 나가기에 실패했습니다",
+  leaveRoom: "방 탈퇴에 실패했습니다",
   issueInviteCode: "초대코드 발급에 실패했습니다",
 } as const;

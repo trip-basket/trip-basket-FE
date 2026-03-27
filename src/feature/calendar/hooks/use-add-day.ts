@@ -1,6 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
 import { toast } from "@/src/lib/toast";
 import useCalendarStore from "../stores/use-calendar-store";
 import { formatLocalDate } from "../utils";
@@ -10,10 +11,12 @@ export function useAddDay() {
   const addDayBefore = useCalendarStore((s) => s.addDayBefore);
   const addDayAfter = useCalendarStore((s) => s.addDayAfter);
   const room = useRoomStore((s) => s.room);
+  const queryClient = useQueryClient();
 
   const updateMutation = useMutation({
     mutationFn: (data: { roomId: string; tripStartDate?: string; tripEndDate?: string }) =>
       roomApi.update(data.roomId, data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms }),
     onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
   });
 

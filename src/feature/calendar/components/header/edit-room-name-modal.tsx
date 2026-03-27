@@ -2,13 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/query-keys";
 import { toast } from "@/src/lib/toast";
 
 const editRoomNameSchema = z.object({
@@ -49,10 +50,13 @@ export function EditRoomNameModal({ open, onOpenChange }: EditRoomNameModalProps
     onOpenChange(nextOpen);
   };
 
+  const queryClient = useQueryClient();
+
   const updateMutation = useMutation({
     mutationFn: (data: { roomId: string; name: string }) =>
       roomApi.update(data.roomId, { name: data.name }),
-    onSuccess: (result) => {
+    onSuccess: async (result) => {
+      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
       if (room) {
         setRoom({ ...room, name: result.name });
       }
