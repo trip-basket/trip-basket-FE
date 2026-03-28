@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { GridBackground } from "@/src/components/ui";
 import { BottomCta, FeatureShowcase, HeroSection } from "@/src/feature/landing";
 import { memberApi } from "@/src/lib/api";
-import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 
 export default function LandingPage() {
   const router = useRouter();

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 
 const joinRoomSchema = z.object({

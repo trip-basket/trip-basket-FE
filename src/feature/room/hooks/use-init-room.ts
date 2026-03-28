@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import { roomApi } from "@/src/lib/api";
-import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { DEFAULT_CURRENCY } from "../constants";
 import useRoomStore from "../stores/use-room-store";
 import type { MemberRole } from "../types";

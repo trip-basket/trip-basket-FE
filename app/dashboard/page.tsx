@@ -5,7 +5,7 @@ import { GridBackground } from "@/src/components/ui";
 import { DashboardHeader, TripFilterTabs } from "@/src/feature/dashboard";
 import type { RoomSummary } from "@/src/feature/dashboard/types/room";
 import { roomApi } from "@/src/lib/api";
-import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 
 function mapRooms(data: Awaited<ReturnType<typeof roomApi.list>>): RoomSummary[] {
   return data.map((r) => ({

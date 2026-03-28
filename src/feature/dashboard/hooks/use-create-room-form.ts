@@ -5,7 +5,7 @@ import type { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { formatLocalDate } from "@/src/feature/calendar/utils";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 import { type CreateRoomInput, createRoomSchema } from "../utils/validate-create-room";
 

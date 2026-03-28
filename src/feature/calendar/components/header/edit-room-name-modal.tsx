@@ -9,7 +9,7 @@ import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
-import { QUERY_KEYS } from "@/src/lib/query-keys";
+import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 
 const editRoomNameSchema = z.object({
