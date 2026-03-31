@@ -20,8 +20,12 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
   const inviteCodeMutation = useMutation({
     mutationFn: () => roomApi.issueInviteCode(roomId),
     onSuccess: async (result) => {
-      await navigator.clipboard.writeText(result.inviteCode);
-      toast.success("초대코드가 복사되었습니다");
+      try {
+        await navigator.clipboard.writeText(result.inviteCode);
+        toast.success("초대코드가 복사되었습니다");
+      } catch {
+        toast.error("클립보드 복사에 실패했습니다");
+      }
       setIsOpen(false);
     },
     onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.issueInviteCode)),
