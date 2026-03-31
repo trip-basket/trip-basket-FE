@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { getErrorMessage, ROOM_TOAST_MESSAGES, roomApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 import { EditRoomNameModal } from "./edit-room-name-modal";
@@ -19,17 +19,12 @@ export function HeaderActions() {
   const queryClient = useQueryClient();
 
   const leaveRoomMutation = useMutation({
-    mutationFn: () => {
-      if (!room) {
-        return Promise.reject(new Error("room not found"));
-      }
-      return roomApi.leaveRoom(room.id);
-    },
+    mutationFn: () => roomApi.leaveRoom(room!.id),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
       router.replace("/dashboard");
     },
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.leaveRoom),
+    onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.leaveRoom)),
   });
 
   const handleLeaveRoom = () => {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { formatLocalDate } from "@/src/feature/calendar/utils";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { getErrorMessage, ROOM_TOAST_MESSAGES, roomApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 import { type CreateRoomInput, createRoomSchema } from "../utils/validate-create-room";
@@ -33,7 +33,7 @@ export function useCreateRoomForm(onClose: () => void) {
       onClose();
       window.location.href = `/plan/${room.id}`;
     },
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.create),
+    onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.create)),
   });
 
   const resetForm = () => {

@@ -4,7 +4,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Button, Text } from "@/src/components/ui";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { getErrorMessage, ROOM_TOAST_MESSAGES, roomApi } from "@/src/lib/api";
 import { toast } from "@/src/lib/toast";
 import { useDeleteRoom } from "../hooks/use-delete-room";
 
@@ -24,7 +24,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
       toast.success("초대코드가 복사되었습니다");
       setIsOpen(false);
     },
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.issueInviteCode),
+    onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.issueInviteCode)),
   });
 
   return (

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { getErrorMessage, ROOM_TOAST_MESSAGES, roomApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 
@@ -62,7 +62,7 @@ export function EditRoomNameModal({ open, onOpenChange }: EditRoomNameModalProps
       }
       handleOpenChange(false);
     },
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
+    onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.update)),
   });
 
   const onSubmit = (data: EditRoomNameInput) => {

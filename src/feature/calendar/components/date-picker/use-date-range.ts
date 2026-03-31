@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { getErrorMessage, ROOM_TOAST_MESSAGES, roomApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 import useCalendarStore from "../../stores/use-calendar-store";
@@ -56,7 +56,7 @@ export function useDateRange(open: boolean, onOpenChange: (open: boolean) => voi
       updateDateRange(variables.tripStartDate, variables.tripEndDate);
       onOpenChange(false);
     },
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
+    onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.update)),
   });
 
   const handleConfirm = useCallback(() => {

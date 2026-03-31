@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useCalendarStore } from "@/src/feature/calendar/stores";
 import { formatLocalDate } from "@/src/feature/calendar/utils";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import { ROOM_ERROR_MESSAGES, roomApi } from "@/src/lib/api";
+import { getErrorMessage, ROOM_TOAST_MESSAGES, roomApi } from "@/src/lib/api";
 import { toast } from "@/src/lib/toast";
 
 export function AddDayButton({ label, position }: { label: string; position: "before" | "after" }) {
@@ -14,7 +14,7 @@ export function AddDayButton({ label, position }: { label: string; position: "be
   const updateMutation = useMutation({
     mutationFn: (data: { roomId: string; tripStartDate?: string; tripEndDate?: string }) =>
       roomApi.update(data.roomId, data),
-    onError: () => toast.error(ROOM_ERROR_MESSAGES.update),
+    onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.update)),
   });
 
   const handleClick = () => {
