@@ -8,6 +8,16 @@ import { toast } from "@/src/lib/toast";
 import useCalendarStore from "../../stores/use-calendar-store";
 import { formatLocalDate } from "../../utils";
 
+function rangeFromTripDays(tripDays: { date: string }[]): DateRange | undefined {
+  if (tripDays.length === 0) {
+    return undefined;
+  }
+  return {
+    from: new Date(`${tripDays[0].date}T00:00:00`),
+    to: new Date(`${tripDays[tripDays.length - 1].date}T00:00:00`),
+  };
+}
+
 export function useDateRange(open: boolean, onOpenChange: (open: boolean) => void) {
   const room = useRoomStore((s) => s.room);
   const tripDays = useCalendarStore((s) => s.tripDays);
@@ -17,11 +27,8 @@ export function useDateRange(open: boolean, onOpenChange: (open: boolean) => voi
   const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
-    if (open && tripDays.length > 0) {
-      setRange({
-        from: new Date(`${tripDays[0].date}T00:00:00`),
-        to: new Date(`${tripDays[tripDays.length - 1].date}T00:00:00`),
-      });
+    if (open) {
+      setRange(rangeFromTripDays(tripDays));
       setShowWarning(false);
     }
   }, [open, tripDays]);
