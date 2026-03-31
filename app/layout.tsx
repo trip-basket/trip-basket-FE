@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
+import { QueryProvider } from "@/src/lib/query-provider";
 
 import "./styles/globals.css";
 
@@ -18,7 +20,8 @@ export default function RootLayout({
         className="flex h-full flex-col antialiased"
         style={{ fontFamily: "'NanumSquareRound', system-ui, sans-serif" }}
       >
-        {children}
+        <QueryProvider>{children}</QueryProvider>
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

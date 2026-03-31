@@ -196,7 +196,9 @@ export function Button({
             <LoadingSpinner />
           </div>
         )}
-        <span className={isLoading ? "invisible" : ""}>{children}</span>
+        <span className={`flex items-center gap-2 ${isLoading ? "invisible" : ""}`}>
+          {children}
+        </span>
       </div>
     </button>
   );

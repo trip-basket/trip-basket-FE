@@ -2,19 +2,19 @@ import type { Ref } from "react";
 import { Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { DAY_COL_MIN_W } from "../constants";
+import { useAddDay } from "../hooks/use-add-day";
 import useCalendarStore from "../stores/use-calendar-store";
 import { formatCurrency } from "../utils";
 import { AddDateHeaderCell } from "./add-date-column";
 
 export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
   const tripDays = useCalendarStore((s) => s.tripDays);
-  const addDayBefore = useCalendarStore((s) => s.addDayBefore);
-  const addDayAfter = useCalendarStore((s) => s.addDayAfter);
   const room = useRoomStore((s) => s.room);
+  const { handleAddDayBefore, handleAddDayAfter } = useAddDay();
 
   return (
     <div ref={ref} className="sticky top-0 z-20 flex bg-elevated border-b border-grid-line">
-      <AddDateHeaderCell onClick={addDayBefore} position="left" />
+      <AddDateHeaderCell onClick={handleAddDayBefore} position="left" />
       {tripDays.map((day) => {
         const dayCost = day.blocks.reduce((sum, b) => sum + (b.cost ?? 0), 0);
 
@@ -36,7 +36,7 @@ export function DayHeader({ ref }: { ref?: Ref<HTMLDivElement> }) {
           </div>
         );
       })}
-      <AddDateHeaderCell onClick={addDayAfter} position="right" />
+      <AddDateHeaderCell onClick={handleAddDayAfter} position="right" />
     </div>
   );
 }

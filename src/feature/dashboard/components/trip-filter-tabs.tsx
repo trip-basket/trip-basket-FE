@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { Spinner } from "@/src/components/ui";
 import type { RoomSummary } from "../types/room";
 import { TripGrid } from "./trip-grid";
 import { getTripStatus } from "./trip-status-badge";
@@ -20,39 +21,46 @@ function filterRooms(rooms: RoomSummary[], tab: FilterTab): RoomSummary[] {
   return rooms.filter((room) => {
     const status = getTripStatus(room.tripStartDate, room.tripEndDate);
     if (tab === "upcoming") {
-      // "다가오는 여행" 탭에는 진행 중인 여행도 포함
       return status === "upcoming" || status === "ongoing";
     }
     return status === "past";
   });
 }
 
-export function TripFilterTabs({ rooms }: { rooms: RoomSummary[] }) {
+export function TripFilterTabs({ isLoading, rooms }: { isLoading: boolean; rooms: RoomSummary[] }) {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
-  const filtered = filterRooms(rooms, activeTab);
+  const filtered = useMemo(() => filterRooms(rooms, activeTab), [rooms, activeTab]);
 
   return (
-    <div className="flex flex-col gap-5">
-      {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-fit">
-        {TABS.map((tab) => (
-          <button
-            key={tab.key}
-            type="button"
-            onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
-              activeTab === tab.key
-                ? "bg-white text-brand-600 shadow-sm"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+    <div className="mt-8">
+      {isLoading ? (
+        <div className="flex justify-center py-20">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-5">
+          {/* Tabs */}
+          <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-fit">
+            {TABS.map((tab) => (
+              <button
+                key={tab.key}
+                type="button"
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
+                  activeTab === tab.key
+                    ? "bg-white text-brand-600 shadow-sm"
+                    : "text-gray-500 hover:text-gray-700"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
 
-      {/* Grid */}
-      <TripGrid rooms={filtered} />
+          {/* Grid */}
+          <TripGrid rooms={filtered} />
+        </div>
+      )}
     </div>
   );
 }

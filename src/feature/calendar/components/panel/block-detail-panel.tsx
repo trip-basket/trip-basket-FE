@@ -9,7 +9,7 @@ import { PanelContent } from "./panel-content";
 
 export function BlockDetailPanel({ blockId }: { blockId: string }) {
   const room = useRoomStore((s) => s.room);
-  const members = useRoomStore((s) => s.members);
+  const members = room?.members ?? [];
   const findBlock = useCalendarStore((s) => s.findBlock);
   const tripDays = useCalendarStore((s) => s.tripDays);
 

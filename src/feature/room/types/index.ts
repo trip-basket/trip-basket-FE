@@ -13,5 +13,5 @@ export interface Room {
   name: string;
   currency: string;
   budget?: number;
-  inviteCode: string;
+  members: Member[];
 }

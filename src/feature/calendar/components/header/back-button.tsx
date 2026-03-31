@@ -1,13 +1,19 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "@/src/components/ui";
 
 export function BackButton() {
+  const router = useRouter();
+
   return (
     <Button
       variant="icon"
       color="neutral"
       size="sm"
-      className="hover-item"
-      aria-label="홈으로 이동"
+      className="hover-item cursor-pointer"
+      aria-label="대시보드로 이동"
+      onClick={() => router.push("/dashboard")}
     >
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path

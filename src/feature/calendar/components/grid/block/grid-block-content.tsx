@@ -14,7 +14,7 @@ export function GridBlockContent({
   resizeHandleOffset?: number;
 }) {
   const room = useRoomStore((s) => s.room);
-  const members = useRoomStore((s) => s.members);
+  const members = room?.members ?? [];
   const reactionsCount = block.reactions?.length ?? 0;
   const lockedByMember = block.lockedBy ? members.find((m) => m.id === block.lockedBy) : undefined;
 

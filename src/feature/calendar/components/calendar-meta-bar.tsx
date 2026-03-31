@@ -8,7 +8,7 @@ import { CostChip, DateChip, MemberList } from "./meta";
 
 export function CalendarMetaBar() {
   const room = useRoomStore((s) => s.room);
-  const members = useRoomStore((s) => s.members);
+  const members = room?.members ?? [];
   const tripDays = useCalendarStore((s) => s.tripDays);
   const bucketBlocks = useCalendarStore((s) => s.bucketBlocks);
 

@@ -1,16 +1,10 @@
 export interface RoomSummary {
   id: string;
   name: string;
-  destination: string;
   tripStartDate: string;
   tripEndDate: string;
-  currency: string;
-  inviteCode: string;
-  coverImageUrl: string | null;
+  role: "OWNER" | "MEMBER";
   memberCount: number;
-  placeCount: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export type TripStatus = "upcoming" | "ongoing" | "past";

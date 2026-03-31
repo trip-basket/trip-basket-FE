@@ -1,25 +1,52 @@
-import { DashboardHeader, TripFilterTabs } from "@/src/feature/dashboard";
-import { MOCK_ROOMS } from "@/src/feature/dashboard/mocks/mock-rooms";
+"use client";
 
-export default function DashboardPage() {
+import { useQuery } from "@tanstack/react-query";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback, GridBackground } from "@/src/components/ui";
+import { DashboardHeader, TripFilterTabs } from "@/src/feature/dashboard";
+import type { RoomSummary } from "@/src/feature/dashboard/types/room";
+import { ROOM_FALLBACK_MESSAGES, roomApi } from "@/src/lib/api";
+import { QUERY_KEYS } from "@/src/lib/api/query-keys";
+
+function mapRooms(data: Awaited<ReturnType<typeof roomApi.list>>): RoomSummary[] {
+  return data.map((r) => ({
+    id: r.roomId,
+    name: r.name,
+    tripStartDate: r.tripStartDate,
+    tripEndDate: r.tripEndDate,
+    role: r.role,
+    memberCount: r.memberCount,
+  }));
+}
+
+function DashboardContent() {
+  const { data, isLoading } = useQuery({
+    queryKey: QUERY_KEYS.rooms,
+    queryFn: () => roomApi.list(),
+    select: mapRooms,
+    throwOnError: true,
+  });
+
   return (
     <div className="relative min-h-dvh bg-gray-50/30">
-      {/* Grid pattern — scrolls with page */}
-      <div
-        className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none z-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
+      <GridBackground />
       <div className="relative mx-auto max-w-5xl px-6 py-8">
         <DashboardHeader />
 
-        <div className="mt-8">
-          <TripFilterTabs rooms={MOCK_ROOMS} />
-        </div>
+        <TripFilterTabs isLoading={isLoading} rooms={data ?? []} />
       </div>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <ErrorBoundary
+      fallbackRender={(props) => (
+        <ErrorFallback {...props} errorContents={ROOM_FALLBACK_MESSAGES.list} />
+      )}
+    >
+      <DashboardContent />
+    </ErrorBoundary>
   );
 }

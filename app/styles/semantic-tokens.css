@@ -52,9 +52,9 @@
     --shadow-floating: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
 
     /* Field (Inputs, Textareas, etc.) */
-    --bg-field-primary: var(--gray-100);
-    --bg-field-primary-focus: #ffffff;
-    --border-field-primary: var(--gray-300);
+    --bg-field-primary: var(--gray-50);
+    --bg-field-primary-focus: var(--gray-50);
+    --border-field-primary: var(--gray-200);
     --border-field-primary-focus: var(--brand-500);
     --border-field-primary-error: var(--error-500);
     --text-field-primary: var(--gray-900);
@@ -106,7 +106,7 @@
     --shadow-floating: 0 8px 32px rgba(0, 0, 0, 0.24), 0 2px 8px rgba(0, 0, 0, 0.12);
 
     /* Field (Inputs, Textareas, etc.) */
-    --bg-field-primary: var(--gray-800);
+    --bg-field-primary: var(--gray-900);
     --bg-field-primary-focus: var(--gray-900);
     --border-field-primary: var(--gray-700);
     --border-field-primary-focus: var(--brand-400);
