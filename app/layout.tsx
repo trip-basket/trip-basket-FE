@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import { QueryProvider } from "@/src/lib/query-provider";
 
 import "./styles/globals.css";
@@ -20,6 +21,7 @@ export default function RootLayout({
         style={{ fontFamily: "'NanumSquareRound', system-ui, sans-serif" }}
       >
         <QueryProvider>{children}</QueryProvider>
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );
