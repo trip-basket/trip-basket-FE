@@ -18,9 +18,10 @@ export function useInitRoom(roomId: string) {
   const setRoom = useRoomStore((s) => s.setRoom);
   const setDates = useCalendarStore((s) => s.setDates);
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: QUERY_KEYS.room(roomId),
     queryFn: () => roomApi.get(roomId),
+    throwOnError: true,
   });
 
   useEffect(() => {
@@ -39,5 +40,5 @@ export function useInitRoom(roomId: string) {
     }
   }, [data, setRoom, setDates]);
 
-  return { isLoading, isError };
+  return { isLoading };
 }

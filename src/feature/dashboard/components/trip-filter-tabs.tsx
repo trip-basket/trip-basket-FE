@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Spinner } from "@/src/components/ui";
 import type { RoomSummary } from "../types/room";
 import { TripGrid } from "./trip-grid";
 import { getTripStatus } from "./trip-status-badge";
@@ -32,7 +33,11 @@ export function TripFilterTabs({ isLoading, rooms }: { isLoading: boolean; rooms
 
   return (
     <div className="mt-8">
-      {isLoading ? null : (
+      {isLoading ? (
+        <div className="flex justify-center py-20">
+          <Spinner />
+        </div>
+      ) : (
         <div className="flex flex-col gap-5">
           {/* Tabs */}
           <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-fit">
