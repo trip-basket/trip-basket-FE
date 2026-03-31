@@ -1,5 +1,6 @@
 import type { AxiosError, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import axios from "axios";
+import { ApiError } from "./api-error";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -28,21 +29,18 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (!error.response) {
-      return Promise.reject(error);
+      return Promise.reject(new ApiError());
     }
 
     const { status } = error.response;
 
-    switch (status) {
-      case 401:
-        // 인증 만료 — 로그인 페이지로 리다이렉트
-        if (typeof window !== "undefined" && window.location.pathname !== "/") {
-          window.location.href = "/";
-        }
-        break;
+    if (status === 401) {
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = "/";
+      }
     }
 
-    return Promise.reject(error);
+    return Promise.reject(new ApiError(status));
   },
 );
 
