@@ -7,6 +7,7 @@ export const CATEGORY_LABEL: Record<PlaceCategory, string> = {
   transport: "교통",
   accommodation: "숙소",
   activity: "액티비티",
+  other: "기타",
 };
 
 export const PRICE_LABEL: Record<number, string> = {

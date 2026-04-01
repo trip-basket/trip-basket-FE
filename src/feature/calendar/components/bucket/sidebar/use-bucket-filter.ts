@@ -10,6 +10,7 @@ const ALL_CATEGORIES: PlaceCategory[] = [
   "transport",
   "accommodation",
   "activity",
+  "other",
 ];
 
 export function useBucketFilter(blocks: BucketBlock[]) {

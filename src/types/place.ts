@@ -4,7 +4,13 @@ export type PlaceCategory =
   | "shopping"
   | "transport"
   | "accommodation"
-  | "activity";
+  | "activity"
+  | "other";
+
+export interface Position {
+  lat: number;
+  lng: number;
+}
 
 export interface OpeningHour {
   day: number;
@@ -13,12 +19,11 @@ export interface OpeningHour {
 }
 
 export interface Place {
-  placeId: string | null;
-  placeName: string | null;
-  lat: number;
-  lng: number;
+  googlePlaceId: string | null;
+  name: string | null;
+  address?: string;
+  position: Position;
   category?: PlaceCategory;
-  formattedAddress?: string;
   rating?: number;
   reviewCount?: number;
   openingHours?: OpeningHour[];

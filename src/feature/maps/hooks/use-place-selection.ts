@@ -38,7 +38,7 @@ function toPlaceCategory(primaryType?: string): PlaceCategory | undefined {
   if (!primaryType) {
     return undefined;
   }
-  return GOOGLE_TYPE_TO_CATEGORY.get(primaryType);
+  return GOOGLE_TYPE_TO_CATEGORY.get(primaryType) ?? "other";
 }
 
 type PlaceSelection =
@@ -53,7 +53,7 @@ export function usePlaceSelection() {
 
   const place = selection.status !== "idle" ? selection.place : null;
   const isDetailOpen = selection.status === "detail";
-  const position = place ? { lat: place.lat, lng: place.lng } : null;
+  const position = place ? place.position : null;
 
   const clearSelection = useCallback(() => {
     setSelection({ status: "idle" });
@@ -83,12 +83,11 @@ export function usePlaceSelection() {
       const lng = gPlace.location.lng();
 
       const newPlace: Place = {
-        placeId: gPlace.id,
-        placeName: gPlace.displayName ?? "",
-        lat,
-        lng,
+        googlePlaceId: gPlace.id,
+        name: gPlace.displayName ?? "",
+        position: { lat, lng },
         category: toPlaceCategory(gPlace.primaryType ?? undefined),
-        formattedAddress: gPlace.formattedAddress ?? "",
+        address: gPlace.formattedAddress ?? "",
         rating: gPlace.rating ?? undefined,
         reviewCount: gPlace.userRatingCount ?? undefined,
         openingHours: gPlace.regularOpeningHours?.periods?.map((p) => ({
