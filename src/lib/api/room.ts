@@ -13,10 +13,6 @@ export const roomApi = {
 
   delete: (roomId: string) => api.delete<void>(`/api/rooms/${roomId}`),
 
-  join: (data: JoinRoomRequestApi) => api.post<JoinRoomResponseApi>("/api/rooms/join", data),
-
-  leaveRoom: (roomId: string) => api.delete<void>(`/api/rooms/${roomId}/members/me`),
-
   issueInviteCode: (roomId: string) =>
     api.post<IssueInviteCodeResponseApi>(`/api/rooms/${roomId}/invite-code`),
 };
@@ -29,8 +25,6 @@ export const roomApi = {
  * GET    /api/rooms/{roomId}             → 404
  * PATCH  /api/rooms/{roomId}             → 400, 404
  * DELETE /api/rooms/{roomId}             → 404
- * POST   /api/rooms/join                 → 400, 404, 409
- * DELETE /api/rooms/{roomId}/members/me  → 400, 403
  * POST   /api/rooms/{roomId}/invite-code → 401, 403, 404
  */
 export const ROOM_TOAST_MESSAGES: Record<string, ErrorMessages> = {
@@ -46,16 +40,6 @@ export const ROOM_TOAST_MESSAGES: Record<string, ErrorMessages> = {
     403: "방 삭제 권한이 없습니다",
     404: "이미 삭제된 방입니다",
     default: "방 삭제에 실패했습니다",
-  },
-  join: {
-    404: "유효하지 않은 초대코드입니다",
-    409: "이미 참여한 방입니다",
-    default: "방 참여에 실패했습니다",
-  },
-  leaveRoom: {
-    400: "방장은 방을 나갈 수 없습니다",
-    403: "방 접근 권한이 없습니다",
-    default: "방 탈퇴에 실패했습니다",
   },
   issueInviteCode: {
     403: "방장만 초대코드를 발급할 수 있습니다",
@@ -107,19 +91,6 @@ interface RoomApi {
   tripEndDate: string;
   createdAt: string;
   members: RoomMemberApi[];
-}
-
-interface JoinRoomRequestApi {
-  inviteCode: string;
-}
-
-interface JoinRoomResponseApi {
-  roomId: string;
-  roomName: string;
-  tripStartDate: string;
-  tripEndDate: string;
-  role: "OWNER" | "MEMBER";
-  joinedAt: string;
 }
 
 interface MyRoomApi {
