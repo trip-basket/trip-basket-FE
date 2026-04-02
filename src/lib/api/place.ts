@@ -1,3 +1,4 @@
+import type { PlaceCategory } from "@/src/types";
 import { api } from "./api-client";
 import type { ErrorMessages } from "./api-error";
 
@@ -32,5 +33,5 @@ export interface PlaceDetailResponseApi {
   openingHours: OpeningHourApi[];
   priceLevel: number;
   photoUrl: string;
-  category: string;
+  category: PlaceCategory;
 }
