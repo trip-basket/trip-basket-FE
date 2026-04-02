@@ -50,6 +50,7 @@ export const CATEGORY_COLOR: Record<PlaceCategory, BlockColorName> = {
   transport: "indigo",
   accommodation: "teal",
   activity: "rose",
+  other: "slate",
 };
 
 export const CATEGORY_LABELS: Record<PlaceCategory, string> = {
@@ -59,4 +60,5 @@ export const CATEGORY_LABELS: Record<PlaceCategory, string> = {
   transport: "교통",
   accommodation: "숙소",
   activity: "액티비티",
+  other: "기타",
 };

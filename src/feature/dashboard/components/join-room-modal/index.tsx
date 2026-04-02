@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button, Input, Text } from "@/src/components/ui";
-import { getErrorMessage, ROOM_TOAST_MESSAGES, roomApi } from "@/src/lib/api";
+import { getErrorMessage, ROOM_MEMBER_TOAST_MESSAGES, roomMemberApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import { toast } from "@/src/lib/toast";
 
@@ -42,13 +42,13 @@ export function JoinRoomModal({ open, onOpenChange }: JoinRoomModalProps) {
   const queryClient = useQueryClient();
 
   const joinMutation = useMutation({
-    mutationFn: (data: JoinRoomInput) => roomApi.join(data),
+    mutationFn: (data: JoinRoomInput) => roomMemberApi.join(data),
     onSuccess: async (result) => {
       await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.rooms });
       handleOpenChange(false);
       window.location.href = `/plan/${result.roomId}`;
     },
-    onError: (error) => toast.error(getErrorMessage(error, ROOM_TOAST_MESSAGES.join)),
+    onError: (error) => toast.error(getErrorMessage(error, ROOM_MEMBER_TOAST_MESSAGES.join)),
   });
 
   const onSubmit = (data: JoinRoomInput) => joinMutation.mutate(data);

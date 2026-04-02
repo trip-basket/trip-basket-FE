@@ -5,7 +5,7 @@ import type { ScheduledBlock } from "../../../types";
 export function MapSection({ block }: { block: ScheduledBlock }) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const { place } = block;
-  const center = { lat: place.lat, lng: place.lng };
+  const center = place.position;
 
   return (
     <>
@@ -32,9 +32,9 @@ export function MapSection({ block }: { block: ScheduledBlock }) {
           </div>
         )}
       </div>
-      {place.formattedAddress && (
+      {place.address && (
         <Text variant="caption" color="muted" className="mt-1.5 leading-relaxed">
-          {place.formattedAddress}
+          {place.address}
         </Text>
       )}
       {place.rating != null && (

@@ -153,7 +153,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     const newBlock: BucketBlock = {
       id: crypto.randomUUID(),
       place,
-      name: place.placeName ?? "",
+      name: place.name ?? "",
       color,
       status: "bucket",
     };
@@ -166,7 +166,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     const newBlock: ScheduledBlock = {
       id: crypto.randomUUID(),
       place,
-      name: place.placeName ?? "",
+      name: place.name ?? "",
       color,
       status: "scheduled",
       startHour,

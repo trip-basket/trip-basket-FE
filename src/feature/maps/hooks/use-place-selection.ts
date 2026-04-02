@@ -1,8 +1,9 @@
+import { useMutation } from "@tanstack/react-query";
 import { type MapMouseEvent, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
+import { getErrorMessage, PLACE_TOAST_MESSAGES, placeApi } from "@/src/lib/api";
 import type { Place, PlaceCategory } from "@/src/types";
-
-const MOCK_PHOTO_URL = "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80";
 
 const GOOGLE_TYPE_TO_CATEGORY = new Map<string, PlaceCategory>([
   ["tourist_attraction", "sightseeing"],
@@ -36,9 +37,9 @@ const GOOGLE_TYPE_TO_CATEGORY = new Map<string, PlaceCategory>([
 
 function toPlaceCategory(primaryType?: string): PlaceCategory | undefined {
   if (!primaryType) {
-    return undefined;
+    return "other";
   }
-  return GOOGLE_TYPE_TO_CATEGORY.get(primaryType);
+  return GOOGLE_TYPE_TO_CATEGORY.get(primaryType) ?? "other";
 }
 
 type PlaceSelection =
@@ -53,7 +54,12 @@ export function usePlaceSelection() {
 
   const place = selection.status !== "idle" ? selection.place : null;
   const isDetailOpen = selection.status === "detail";
-  const position = place ? { lat: place.lat, lng: place.lng } : null;
+  const position = place ? place.position : null;
+
+  const placeDetailMutation = useMutation({
+    mutationFn: (data: { googlePlaceId: string }) => placeApi.get(data.googlePlaceId),
+    onError: (error) => toast.error(getErrorMessage(error, PLACE_TOAST_MESSAGES.get)),
+  });
 
   const clearSelection = useCallback(() => {
     setSelection({ status: "idle" });
@@ -62,50 +68,28 @@ export function usePlaceSelection() {
   const selectPlace = useCallback(
     async (gPlace: google.maps.places.Place) => {
       await gPlace.fetchFields({
-        fields: [
-          "id",
-          "location",
-          "displayName",
-          "formattedAddress",
-          "rating",
-          "userRatingCount",
-          "regularOpeningHours",
-          "priceLevel",
-          "primaryType",
-        ],
+        fields: ["id"],
       });
 
-      if (!gPlace.location || !gPlace.id || !map) {
+      if (!gPlace.id || !map) {
         return;
       }
 
-      const lat = gPlace.location.lat();
-      const lng = gPlace.location.lng();
+      const place = await placeDetailMutation.mutateAsync({ googlePlaceId: gPlace.id });
+      const { lat, lng } = place.position;
 
+      // rating, reviewCount 는 백엔드 협의 후 추후 추가
       const newPlace: Place = {
-        placeId: gPlace.id,
-        placeName: gPlace.displayName ?? "",
-        lat,
-        lng,
-        category: toPlaceCategory(gPlace.primaryType ?? undefined),
-        formattedAddress: gPlace.formattedAddress ?? "",
-        rating: gPlace.rating ?? undefined,
-        reviewCount: gPlace.userRatingCount ?? undefined,
-        openingHours: gPlace.regularOpeningHours?.periods?.map((p) => ({
-          day: p.open?.day ?? 0,
-          open: `${String(p.open?.hour ?? 0).padStart(2, "0")}:${String(p.open?.minute ?? 0).padStart(2, "0")}`,
-          close: p.close
-            ? `${String(p.close.hour ?? 0).padStart(2, "0")}:${String(p.close.minute ?? 0).padStart(2, "0")}`
-            : null,
-        })),
-        priceLevel: gPlace.priceLevel as number | undefined,
-        photoUrl: MOCK_PHOTO_URL,
+        ...place,
+        category: toPlaceCategory(place.category),
+        rating: 4.6,
+        reviewCount: 21,
       };
 
       setSelection({ status: "detail", place: newPlace });
       map.panTo({ lat, lng });
     },
-    [map],
+    [map, placeDetailMutation],
   );
 
   const handleMapClick = useCallback(

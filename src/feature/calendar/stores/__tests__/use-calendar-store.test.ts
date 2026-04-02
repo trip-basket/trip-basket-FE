@@ -12,7 +12,13 @@ const mockBlock: BucketBlock = {
   name: "테스트 장소",
   color: "sky",
   cost: 10000,
-  place: { placeId: null, placeName: null, lat: 0, lng: 0, category: "sightseeing" },
+  place: {
+    googlePlaceId: null,
+    name: null,
+    address: "",
+    position: { lat: 0, lng: 0 },
+    category: "sightseeing",
+  },
 };
 
 const mockBlock2: BucketBlock = {
@@ -21,7 +27,13 @@ const mockBlock2: BucketBlock = {
   name: "테스트 장소 2",
   color: "indigo",
   cost: 20000,
-  place: { placeId: null, placeName: null, lat: 0, lng: 0, category: "food" },
+  place: {
+    googlePlaceId: null,
+    name: null,
+    address: "",
+    position: { lat: 0, lng: 0 },
+    category: "food",
+  },
 };
 
 describe("useCalendarStore", () => {
