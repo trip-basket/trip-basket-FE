@@ -29,7 +29,10 @@ export function PlacePhoto({ url }: { url: string }) {
         sizes="100%"
         className="object-cover"
         onLoad={() => setIsLoading(false)}
-        onError={() => setIsError(true)}
+        onError={() => {
+          setIsLoading(false);
+          setIsError(true);
+        }}
       />
     </div>
   );
