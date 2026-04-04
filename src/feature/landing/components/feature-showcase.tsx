@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { Text } from "@/src/components/ui";
+import { DashedBorder, Text } from "@/src/components/ui";
+import "./showcase-animation.css";
 
 const DURATION = 10;
 
@@ -14,9 +15,6 @@ const features = [
     ),
     title: "장소 저장",
     description: "가고 싶은 장소를 바구니에 담아두세요",
-    borderColor: "#fbbf24",
-    fillColor: "rgba(251, 191, 36, 0.12)",
-    iconColor: "#d97706",
   },
   {
     icon: (
@@ -34,9 +32,6 @@ const features = [
     ),
     title: "일정 관리",
     description: "드래그로 일정을 자유롭게 배치하세요",
-    borderColor: "#a78bfa",
-    fillColor: "rgba(167, 139, 250, 0.12)",
-    iconColor: "#7c3aed",
   },
   {
     icon: (
@@ -46,9 +41,6 @@ const features = [
     ),
     title: "실시간 협업",
     description: "함께 만드는 여행 일정",
-    borderColor: "#34d399",
-    fillColor: "rgba(52, 211, 153, 0.12)",
-    iconColor: "#059669",
   },
   {
     icon: (
@@ -58,24 +50,18 @@ const features = [
     ),
     title: "이동 경로",
     description: "장소 사이 이동 시간을 자동 계산",
-    borderColor: "#2dd4bf",
-    fillColor: "rgba(45, 212, 191, 0.12)",
-    iconColor: "#0d9488",
   },
 ];
 
 export function FeatureShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [animKey, setAnimKey] = useState(0);
 
   const handleBoxClick = useCallback((index: number) => {
     setActiveIndex(index);
-    setAnimKey((k) => k + 1);
   }, []);
 
   const handleAnimationEnd = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % features.length);
-    setAnimKey((k) => k + 1);
   }, []);
 
   return (
@@ -85,47 +71,59 @@ export function FeatureShowcase() {
           {features.map((feature, index) => {
             const isActive = index === activeIndex;
             return (
-              <button
-                key={feature.title}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => handleBoxClick(index)}
-                className="relative overflow-hidden rounded-xl border-2 p-4 text-left transition-colors cursor-pointer"
-                style={{
-                  borderColor: isActive ? feature.borderColor : "#e5e7eb",
-                }}
-              >
+              <div className="relative" key={feature.title}>
                 {isActive && (
-                  <div
-                    key={animKey}
-                    className="absolute inset-0"
-                    style={{
-                      backgroundColor: feature.fillColor,
-                      animation: `fill-progress ${DURATION}s linear forwards`,
-                      transformOrigin: "left",
-                    }}
-                    onAnimationEnd={handleAnimationEnd}
-                  />
+                  <div className="relative rounded-card p-4 text-left bg-amber-50">
+                    <DashedBorder radius={16} className="text-amber-400" />
+                    <div className="relative z-10">
+                      <div className="mb-2 text-amber-600">{feature.icon}</div>
+                      <Text variant="small" weight="semibold">
+                        {feature.title}
+                      </Text>
+                      <Text as="span" variant="caption" color="sub" className="mt-1 block">
+                        {feature.description}
+                      </Text>
+                    </div>
+                  </div>
                 )}
 
-                <div className="relative z-10">
-                  <div className="mb-2" style={{ color: feature.iconColor }}>
-                    {feature.icon}
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => handleBoxClick(index)}
+                  key={isActive ? activeIndex : undefined}
+                  onAnimationEnd={isActive ? handleAnimationEnd : undefined}
+                  className={`w-full rounded-card p-4 text-left transition-all duration-200 cursor-pointer bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
+                    isActive ? "absolute inset-0 z-10" : "relative"
+                  }`}
+                  style={{
+                    animation: isActive ? `hide-progress ${DURATION}s linear forwards` : "",
+                  }}
+                >
+                  <DashedBorder radius={16} />
+                  <div className="relative z-10">
+                    <div className="mb-2 text-muted">{feature.icon}</div>
+                    <Text variant="small" weight="semibold" color="soft">
+                      {feature.title}
+                    </Text>
+                    <Text as="span" variant="caption" color="muted" className="mt-1 block">
+                      {feature.description}
+                    </Text>
                   </div>
-                  <Text variant="small" weight="semibold">
-                    {feature.title}
-                  </Text>
-                  <Text as="span" variant="caption" color="muted" className="mt-1 block">
-                    {feature.description}
-                  </Text>
-                </div>
-              </button>
+                </button>
+              </div>
             );
           })}
         </div>
 
-        <div className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 aspect-video flex items-center justify-center">
+        <div
+          className="relative mt-6 rounded-container 
+          bg-white aspect-video flex items-center  
+          justify-center 
+          "
+        >
+          <DashedBorder radius={16} />
           <Text variant="h3" color="muted">
             영상이 들어갈 자리
           </Text>

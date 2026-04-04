@@ -4,7 +4,7 @@ import type { TripStatus } from "../types/room";
 const STATUS_CONFIG: Record<TripStatus, { label: string; className: string }> = {
   upcoming: {
     label: "",
-    className: "bg-brand-50 text-brand-600",
+    className: "bg-accent-subtle text-accent-text",
   },
   ongoing: {
     label: "NOW",
@@ -12,7 +12,7 @@ const STATUS_CONFIG: Record<TripStatus, { label: string; className: string }> = 
   },
   past: {
     label: "",
-    className: "bg-gray-100 text-gray-500",
+    className: "bg-inset text-soft",
   },
 };
 

@@ -17,6 +17,7 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
   const [visible, setVisible] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+
   const sheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

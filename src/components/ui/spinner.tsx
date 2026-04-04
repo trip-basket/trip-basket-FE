@@ -1,5 +1,3 @@
-import { GridBackground } from "./grid-background";
-
 export function Spinner({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -22,7 +20,6 @@ export function Spinner({ className = "" }: { className?: string }) {
 export function PageSpinner() {
   return (
     <div className="relative flex w-full min-h-dvh items-center justify-center bg-gray-50/30">
-      <GridBackground />
       <Spinner />
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback, GridBackground } from "@/src/components/ui";
+import { ErrorFallback } from "@/src/components/ui";
 import { DashboardHeader, TripFilterTabs } from "@/src/feature/dashboard";
 import type { RoomSummary } from "@/src/feature/dashboard/types/room";
 import { ROOM_FALLBACK_MESSAGES, roomApi } from "@/src/lib/api";
@@ -28,11 +28,9 @@ function DashboardContent() {
   });
 
   return (
-    <div className="relative min-h-dvh bg-gray-50/30">
-      <GridBackground />
+    <div className="relative min-h-dvh bg-page">
       <div className="relative mx-auto max-w-5xl px-6 py-8">
         <DashboardHeader />
-
         <TripFilterTabs isLoading={isLoading} rooms={data ?? []} />
       </div>
     </div>

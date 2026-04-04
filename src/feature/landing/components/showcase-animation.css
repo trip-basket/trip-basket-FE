@@ -1,0 +1,4 @@
+@keyframes hide-progress {
+  from { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(0 0 0 100%); }
+}

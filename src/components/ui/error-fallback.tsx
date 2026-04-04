@@ -5,7 +5,6 @@ import type { FallbackProps } from "react-error-boundary";
 import { ApiError } from "@/src/lib/api";
 import type { FallbackMessages } from "@/src/lib/api/api-error";
 import { Button } from "./button";
-import { GridBackground } from "./grid-background";
 import { Text } from "./text";
 
 const DEFAULT_CONTENT = {
@@ -33,7 +32,6 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
 
   return (
     <div className="relative flex w-full min-h-dvh items-center justify-center bg-gray-50/30">
-      <GridBackground />
       <div className="relative flex flex-col items-center px-6 text-center">
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50">
           <svg

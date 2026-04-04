@@ -75,11 +75,6 @@ body {
   }
 }
 
-@keyframes fill-progress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-
 .pac-container {
   border-radius: 10rem;
   background-color: white;
