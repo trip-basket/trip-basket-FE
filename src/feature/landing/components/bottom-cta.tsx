@@ -8,9 +8,20 @@ export function BottomCta({ onGoogleLogin }: { onGoogleLogin: () => void }) {
         <Text variant="h2" weight="extrabold" className="relative mb-4">
           지금 바로 시작하세요
         </Text>
-        <Text variant="body" color="soft" className="relative mb-8">
+        <Text variant="body" color="soft" className="relative mb-4">
           복잡한 가입 절차 없이, Google 계정으로 바로 여행 계획을 시작할 수 있습니다.
         </Text>
+
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {["장소 저장", "일정 드래그", "실시간 협업", "이동 경로"].map((label) => (
+            <span
+              key={label}
+              className="px-3 py-1 rounded-full text-xs font-medium bg-inset text-sub"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
         <Button
           variant="solid"
           color="primary"

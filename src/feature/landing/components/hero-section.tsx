@@ -12,52 +12,52 @@ export const FLOATING_ITEMS: FloatingItem[] = [
   {
     type: "photo",
     src: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400&q=80",
-    alt: "London",
-    className: "top-[6%] left-[8%] w-56 h-44 -rotate-6",
-  },
-  {
-    type: "photo",
-    src: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&q=80",
-    alt: "Paris",
-    className: "top-[14%] right-[12%] w-52 h-40 rotate-4",
-  },
-  {
-    type: "empty",
-    className: "top-[18%] left-[18%] w-44 h-36 rotate-2",
-  },
-  {
-    type: "photo",
-    src: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400&q=80",
-    alt: "Osaka",
-    className: "top-[38%] left-[5%] w-52 h-40 rotate-6",
+    alt: "런던 타워 브릿지와 시티 스카이라인",
+    className: "top-[6%] left-[8%] w-52 h-40 -rotate-6",
   },
   {
     type: "photo",
     src: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80",
-    alt: "Santorini",
-    className: "top-[42%] right-[6%] w-56 h-44 -rotate-4",
+    alt: "산토리니 하얀 마을과 푸른 바다",
+    className: "top-[23%] right-[6%] w-46 h-34 -rotate-4",
   },
   {
     type: "photo",
+    src: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&q=80",
+    alt: "파리 에펠탑 석양",
+    className: "top-[8%] right-[12%] w-50 h-38 rotate-4",
+  },
+  {
+    type: "empty",
+    className: "top-[18%] left-[18%] w-40 h-32 rotate-2",
+  },
+  // {
+  //   type: "photo",
+  //   src: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400&q=80",
+  //   alt: "오사카 도톤보리 거리 야경",
+  //   className: "top-[38%] left-[5%] w-48 h-36 rotate-6",
+  // }
+  {
+    type: "photo",
     src: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80",
-    alt: "Beach",
-    className: "bottom-[8%] left-[12%] w-52 h-40 -rotate-3",
+    alt: "열대 해변과 에메랄드빛 바다",
+    className: "bottom-[8%] left-[12%] w-48 h-36 -rotate-3",
   },
   {
     type: "photo",
     src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80",
-    alt: "Lake",
-    className: "bottom-[6%] right-[8%] w-56 h-44 rotate-5",
+    alt: "호수와 산이 어우러진 풍경",
+    className: "bottom-[6%] right-[8%] w-52 h-40 rotate-5",
   },
   {
     type: "empty",
-    className: "bottom-[22%] right-[15%] w-44 h-36 -rotate-6",
+    className: "bottom-[22%] right-[15%] w-40 h-32 -rotate-6",
   },
   {
     type: "photo",
-    src: "https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?w=400&q=80",
-    alt: "Greek",
-    className: "bottom-[20%] left-[6%] w-44 h-36 rotate-3",
+    src: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400&q=80",
+    alt: "그리스 파란 지붕 성당과 바다",
+    className: "bottom-[20%] left-[6%] w-40 h-32 rotate-3",
   },
 ];
 
@@ -92,33 +92,49 @@ export function HeroSection({ onGoogleLogin }: { onGoogleLogin: () => void }) {
     <section className="relative h-dvh overflow-hidden bg-page">
       {/* Dashed flight paths */}
       <svg
-        className="absolute inset-0 w-full h-full text-amber-500 opacity-40"
+        className="absolute inset-0 w-full h-full text-amber-400 opacity-70"
         viewBox="0 0 1200 800"
         fill="none"
         preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
       >
-        <path
+        {/* Path 1: 좌 → 우 상단 곡선 */}
+        {/* <path
           d="M -50 350 Q 100 80, 350 120 Q 550 150, 700 80 Q 900 -10, 1250 180"
           stroke="currentColor"
           strokeWidth="2.5"
           strokeDasharray="10 8"
           strokeLinecap="round"
+        /> */}
+        {/* <g transform="translate(524, 127) rotate(85)" className="text-amber-600">
+          <path
+            d="M-2-8 L0-10 L2-8 L2-2 L6 2 L6 4 L2 1 L2 6 L4 8 L4 9.5 L0 8 L-4 9.5 L-4 8 L-2 6 L-2 1 L-6 4 L-6 2 L-2-2Z"
+            fill="currentColor"
+          />
+        </g> */}
+        {/* Path 2: 좌측에서 들어와 좌상단 카드를 감싸고 다시 좌측으로 */}
+        <path
+          d="M -50 -30 Q 100 50, 280 20 Q 450 -10, 400 120 Q 350 250, 150 300 Q -20 340, -500 420"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeDasharray="8 10"
+          strokeLinecap="round"
         />
-        <g transform="translate(524, 127) rotate(85)" className="text-amber-600">
+        <g transform="translate(396, 130) rotate(205)" className="text-amber-600">
           <path
             d="M-2-8 L0-10 L2-8 L2-2 L6 2 L6 4 L2 1 L2 6 L4 8 L4 9.5 L0 8 L-4 9.5 L-4 8 L-2 6 L-2 1 L-6 4 L-6 2 L-2-2Z"
             fill="currentColor"
           />
         </g>
+        {/* Path 3: 우상단 밖 → 파리 → 산토리니 → 빈슬롯 → 호수 → 우하단 밖 (둥근 곡선) */}
         <path
-          d="M -50 620 Q 150 750, 400 680 Q 600 620, 800 700 Q 1000 770, 1250 650"
+          d="M 1300 -50 Q 1100 40, 1060 100 Q 1000 180, 1080 250 Q 1160 320, 1100 450 Q 1020 580, 1080 680 Q 1150 760, 1350 830"
           stroke="currentColor"
-          strokeWidth="2.5"
-          strokeDasharray="10 8"
+          strokeWidth="2"
+          strokeDasharray="8 10"
           strokeLinecap="round"
         />
-        <g transform="translate(707, 671) rotate(103)" className="text-amber-600">
+        <g transform="translate(1100, 450) rotate(30)" className="text-amber-600">
           <path
             d="M-2-8 L0-10 L2-8 L2-2 L6 2 L6 4 L2 1 L2 6 L4 8 L4 9.5 L0 8 L-4 9.5 L-4 8 L-2 6 L-2 1 L-6 4 L-6 2 L-2-2Z"
             fill="currentColor"
@@ -146,13 +162,6 @@ export function HeroSection({ onGoogleLogin }: { onGoogleLogin: () => void }) {
 
       {/* Hero content */}
       <div className="relative flex flex-col items-center justify-center h-full px-6">
-        {/* Icon badge */}
-        <div className="mb-6 w-14 h-14 rounded-container bg-action flex items-center justify-center shadow-lg text-amber-400">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-          </svg>
-        </div>
-
         <Text variant="caption" weight="bold" className="tracking-widest uppercase mb-4">
           Travel Basket
         </Text>
@@ -190,6 +199,22 @@ export function HeroSection({ onGoogleLogin }: { onGoogleLogin: () => void }) {
             무료로 시작 · 로그인 후 바로 일정 만들기
           </Text>
         </div>
+      </div>
+
+      {/* Scroll hint */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted animate-bounce">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+        </svg>
       </div>
     </section>
   );
