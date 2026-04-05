@@ -35,8 +35,8 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
     <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
       <Popover.Trigger asChild>
         <Button
-          variant="icon"
-          size="sm"
+          variant="borderless"
+          size="icon"
           aria-label="방 설정"
           className="cursor-pointer bg-black/30 hover:bg-black/20 text-white backdrop-blur-sm"
         >
@@ -58,7 +58,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
         >
           <div className="flex flex-col bg-white rounded-xl shadow-xl border border-outline w-fit p-1.5">
             <Button
-              variant="tertiary"
+              variant="borderless"
               size="sm"
               className="justify-start cursor-pointer"
               onClick={() => inviteCodeMutation.mutate()}
@@ -83,7 +83,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
               </Text>
             </Button>
             <Button
-              variant="tertiary"
+              variant="borderless"
               size="sm"
               className="justify-start cursor-pointer text-error hover:bg-error-50"
               onClick={handleDelete}

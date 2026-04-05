@@ -26,26 +26,33 @@ Travel Basket은 **청춘 배낭여행의 설렘을 디지털로 옮긴** 서비
 
 ### Brand Triad: Yellow + Black + White
 
-블랙이 주인공이고, 옐로우는 포인트 강조에만 사용한다. 아이폰 기본 앱의 깔끔한 느낌을 차용하되, 여행의 따뜻함과 에너지를 옐로우로 표현한다.
+블랙이 주인공이고, 옐로우는 포인트 강조에만 사용한다. Apple Notes의 깔끔한 느낌을 차용하되, 여행의 따뜻함과 에너지를 옐로우로 표현한다.
 
 **Black (Primary)**
-- **Near Black** (`#222222`): 기본 CTA 버튼, 주요 텍스트, 아이콘. 모든 UI의 주인공.
+- **Near Black** (`#222222`): 기본 CTA 버튼, 주요 텍스트. 모든 UI의 주인공.
 - **Soft Black** (`#333333`): hover 텍스트, 보조 강조
 
-**Yellow (Accent Point)**
-- **Basket Yellow** (`#FBBF24`): 브랜드 포인트 컬러. 아이콘 fill, 점선 경로, 뱃지, 강조 밑줄, 활성 상태 indicator에 사용. **절대 배경색이나 버튼 배경으로 쓰지 않는다.**
-- **Dark Amber** (`#92400E`): 옐로우 계열 텍스트가 필요할 때 (화이트 위에서 접근성 확보). 뱃지 텍스트, 가격 태그 등.
-- **Soft Yellow** (`#FEF9C3`): 연한 옐로우 틴트. 선택 상태 배경, 활성 탭 배경, 알림 배경 등 미세한 하이라이트.
-- **Yellow Border** (`#FDE68A`): 옐로우 계열 테두리. 포커스 링, 선택 상태 테두리.
+**Yellow (Accent — Apple System Yellow 기반)**
+- **Basket Yellow** (`#FFD60A`): 브랜드 포인트 컬러. 체크마크, 선택 상태, 공유 영역 점선, 강조 밑줄. 두 가지 위계:
+  - **강한 악센트**: `#FFD60A` 배경 + 흰 텍스트 (체크마크, 활성 indicator)
+  - **약한 악센트**: `#FFF8E1` 배경 + 검정 텍스트 (선택 상태, 하이라이트)
+- **Dark Yellow** (`#7C6800`): 옐로우 계열 텍스트 (접근성 확보).
+- **Soft Yellow** (`#FFF8E1`): 연한 옐로우 틴트. 선택 상태 배경.
+- **Yellow Border** (`#FFE566`): 옐로우 계열 테두리. 포커스 링, 선택 상태 테두리.
 
 **White (Canvas)**
-- Pure White (`#FFFFFF`)와 Warm White (`#FAFAF8`)는 Surface & Background 섹션 참조.
+- Pure White (`#FFFFFF`)와 Warm White (`#FEFEFE`)는 Surface & Background 섹션 참조.
 
 ### Surface & Background
-- **Warm White** (`#FAFAF8`): 메인 배경 — 순백이 아닌 미세한 크림 톤. 노트/종이 느낌.
+- **Warm White** (`#FEFEFE`): 메인 배경 — 거의 순백에 가까운 톤. Apple Notes처럼 깨끗한 느낌.
 - **Pure White** (`#FFFFFF`): 카드, 모달, 플로팅 요소의 표면
-- **Warm Inset** (`#F5F5F3`): 인셋 배경, 입력 필드, 비활성 영역
+- **Warm Inset** (`#F7F7F6`): 인셋 배경, 입력 필드, 비활성 영역
 - **Cream Tint** (`#F0EDE8`): 섹션 구분, 사이드바 배경
+
+### Hover 패턴
+- **hover는 어두워지는 방향**: `rgba(0,0,0,0.04)` — Apple 스타일. 밝은 배경 위에서 살짝 어두워짐.
+- **강한 hover**: `rgba(0,0,0,0.08)` — 인터랙티브 요소에서 클릭 가능함을 명확히.
+- 버튼에 hover 시 border를 추가하지 않는다 — Apple Notes처럼 border-free.
 
 ### Text Scale
 - **Near Black** (`#222222`): 주요 텍스트 — 따뜻하고 부드러운 검정
@@ -57,7 +64,7 @@ Travel Basket은 **청춘 배낭여행의 설렘을 디지털로 옮긴** 서비
 ### Border & Divider
 - **Soft Border** (`#E8E5E0`): 주요 테두리 — 순수 회색이 아닌 따뜻한 톤
 - **Medium Border** (`#D4D0C8`): 강조 테두리, 구분선
-- **Accent Border** (`#FDE68A`): 옐로우 액센트 테두리 (선택/포커스)
+- **Accent Border** (`#FFE566`): 옐로우 액센트 테두리 (선택/포커스)
 
 ### Calendar Block Colors
 카테고리별 블록 색상. 각 색상은 3단계(base/tint/accent) 체계를 따른다:

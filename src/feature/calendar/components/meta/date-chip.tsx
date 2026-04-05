@@ -1,4 +1,4 @@
-import { Text } from "@/src/components/ui";
+import { Button, Text } from "@/src/components/ui";
 
 const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
   month: "long",
@@ -22,7 +22,7 @@ export function DateChip({
   onClick?: () => void;
 }) {
   return (
-    <button type="button" className="chip-inset chip-inset--strong shrink-0" onClick={onClick}>
+    <Button variant="bordered" size="sm" className="shrink-0" onClick={onClick}>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
         <path
@@ -32,9 +32,9 @@ export function DateChip({
           strokeLinecap="round"
         />
       </svg>
-      <Text variant="caption" className="text-inherit">
+      <Text variant="caption" weight="bold" className="text-inherit">
         {formatDateRange(startDate, endDate)}
       </Text>
-    </button>
+    </Button>
   );
 }

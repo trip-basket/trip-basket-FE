@@ -61,7 +61,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
 
         <div className="flex gap-3">
           <Button
-            variant="secondary"
+            variant="borderless"
             size="md"
             className="cursor-pointer"
             onClick={() => router.push("/dashboard")}

@@ -104,6 +104,8 @@
     --color-page: var(--bg-page);
     --color-inset: var(--bg-inset);
     --color-elevated: var(--bg-tertiary);
+    --color-hover: var(--bg-hover);
+    --color-hover-strong: var(--bg-hover-strong);
 
     /* Accent */
     --color-accent: var(--bg-accent);

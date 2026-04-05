@@ -21,7 +21,7 @@ export function DashboardHeader() {
 
         <div className="flex items-center gap-3">
           <Button
-            variant="tertiary"
+            variant="borderless"
             size="sm"
             onClick={() => setIsJoinModalOpen(true)}
             className="rounded-full"

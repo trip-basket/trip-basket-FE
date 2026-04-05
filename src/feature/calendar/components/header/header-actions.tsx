@@ -50,9 +50,8 @@ export function HeaderActions() {
       <div className="flex items-center gap-1 shrink-0 ml-4">
         {/* 내보내기 버튼 */}
         <Button
-          variant="icon"
-          size="sm"
-          className="hover-item"
+          variant="borderless"
+          size="icon"
           aria-label="내보내기"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -76,9 +75,8 @@ export function HeaderActions() {
         <Popover.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <Popover.Trigger asChild>
             <Button
-              variant="icon"
-              size="sm"
-              className="hover-item cursor-pointer"
+              variant="borderless"
+              size="icon"
               aria-label="설정"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -99,7 +97,7 @@ export function HeaderActions() {
             >
               <div className="flex flex-col bg-white rounded-xl shadow-xl border border-outline w-fit p-1.5">
                 <Button
-                  variant="tertiary"
+                  variant="borderless"
                   size="sm"
                   className="justify-start cursor-pointer"
                   onClick={handleEditName}
@@ -124,7 +122,7 @@ export function HeaderActions() {
                   </Text>
                 </Button>
                 <Button
-                  variant="tertiary"
+                  variant="borderless"
                   size="sm"
                   className="justify-start cursor-pointer text-error hover:bg-error-50"
                   onClick={handleLeaveRoom}

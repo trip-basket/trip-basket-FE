@@ -8,9 +8,8 @@ export function BackButton() {
 
   return (
     <Button
-      variant="icon"
-      size="sm"
-      className="hover-item cursor-pointer"
+      variant="borderless"
+      size="icon"
       aria-label="대시보드로 이동"
       onClick={() => router.push("/dashboard")}
     >

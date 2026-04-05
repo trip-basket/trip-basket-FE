@@ -282,10 +282,10 @@ export default function DesignSystemPage() {
             <div className="space-y-4 rounded-xl border border-outline bg-surface p-6">
               <div className="flex flex-wrap items-center gap-3">
                 <Button variant="primary">Primary</Button>
-                <Button variant="secondary">Secondary</Button>
-                <Button variant="tertiary">Tertiary</Button>
+                <Button variant="bordered">Bordered</Button>
+                <Button variant="borderless">Borderless</Button>
                 <Button variant="danger">Danger</Button>
-                <Button variant="icon" aria-label="Open menu">
+                <Button variant="borderless" size="icon" aria-label="Open menu">
                   <MenuIcon />
                 </Button>
               </div>
@@ -299,6 +299,9 @@ export default function DesignSystemPage() {
               <Button size="sm">Small</Button>
               <Button size="md">Medium</Button>
               <Button size="lg">Large</Button>
+              <Button size="icon" variant="borderless" aria-label="Icon size">
+                <MenuIcon />
+              </Button>
             </div>
           </div>
 

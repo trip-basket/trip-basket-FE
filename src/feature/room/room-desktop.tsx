@@ -48,7 +48,7 @@ export function RoomDesktop() {
 
       {/* 캘린더 패널: 콘텐츠에 맞춰 동적 너비 */}
       <div
-        className={`relative z-10 flex h-full flex-col bg-neutral-100${hasMountedRef.current ? " transition-[width] duration-300 ease-out" : ""}`}
+        className={`relative z-10 flex h-full flex-col bg-page${hasMountedRef.current ? " transition-[width] duration-300 ease-out" : ""}`}
         style={{
           width: calendarWidth,
           boxShadow: "4px 0 32px rgba(0, 0, 0, 0.10), 12px 0 64px rgba(0, 0, 0, 0.06)",

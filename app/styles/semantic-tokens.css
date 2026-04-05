@@ -27,16 +27,20 @@
     --border-primary: var(--warm-200);
     --border-secondary: var(--warm-300);
 
+    /* Hover (어두워지는 패턴) */
+    --bg-hover: rgba(0, 0, 0, 0.04);
+    --bg-hover-strong: rgba(0, 0, 0, 0.08);
+
     /* Dashed (점선 전용) */
     --border-dashed: var(--warm-200);
     --border-dashed-hover: var(--warm-300);
 
-    /* Accent (Yellow point — 포커스, 활성 상태, 강조 포인트) */
-    --bg-accent: #FBBF24;
-    --bg-accent-subtle: #FEF9C3;
-    --text-on-accent: #222222;
-    --text-accent: #92400E;
-    --border-accent: #FDE68A;
+    /* Accent (Apple system yellow — 포커스, 활성 상태, 강조 포인트) */
+    --bg-accent: #F9B624;
+    --bg-accent-subtle: #FBE59B;
+    --text-on-accent: #ffffff;
+    --text-accent: #7C6800;
+    --border-accent: #FBE59B;
 
     /* Border Radius (semantic) */
     --radius-button: var(--radius-md);

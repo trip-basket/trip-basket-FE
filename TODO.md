@@ -2,3 +2,4 @@
 - [ ] 장소 상세 조회 시 UI 와 명세 사이 차이 맞추기
   - rating, reviewCount 를 명세에 추가, 현재 UI 에선 mocking 중
 - [ ] use-calendar-store 에서 place.name 이 없을 시 예외처리
+- [ ] 지도에서 장소 상세 모달 띄울 때, 장소 값 정보 받기 전, 미리 핀 이동(반응성 향상)

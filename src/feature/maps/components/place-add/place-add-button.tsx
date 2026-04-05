@@ -6,9 +6,8 @@ import { CalendarPopoverTrigger } from "./calendar-popover-trigger";
 
 export function PlaceAddButton({ place }: { place: Place }) {
   return (
-    <div className="flex rounded-lg overflow-hidden">
+    <div className="flex">
       <CalendarPopoverTrigger place={place} />
-      <div className="w-px bg-action-hover" />
       <BucketButton place={place} />
     </div>
   );

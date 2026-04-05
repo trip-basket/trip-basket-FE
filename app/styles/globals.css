@@ -53,25 +53,24 @@ body {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     transition: background 150ms, border-color 150ms, color 150ms, box-shadow 150ms;
   }
+  
   .chip-inset:hover {
-    background: var(--bg-accent-subtle);
-    border-color: var(--border-accent);
-    color: var(--text-accent);
+    background: var(--bg-hover);
+    color: var(--text-primary);
   }
 
-  /* Strong variant — hover 시 accent 배경 + 흰색 텍스트 */
+  /* Strong variant — hover 시 더 어둡게 */
   .chip-inset--strong:hover {
-    background: var(--bg-accent);
-    border-color: var(--bg-accent);
-    color: var(--text-on-accent);
+    background: var(--bg-hover-strong);
+    color: var(--text-primary);
   }
 
   /* 공용 hover 스타일 — 리스트 아이템, 아이콘 버튼 등 */
   .hover-item {
-    @apply border border-transparent transition-colors cursor-pointer hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900;
+    @apply transition-colors cursor-pointer hover:bg-hover;
   }
   .hover-item-active {
-    @apply border-gray-200 bg-gray-50 text-gray-900;
+    @apply bg-hover;
   }
 }
 

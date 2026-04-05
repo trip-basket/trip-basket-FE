@@ -12,25 +12,22 @@ export const buttonVariants = tv({
   variants: {
     variant: {
       primary: "bg-action text-on-action hover:bg-action-hover",
-      secondary: "bg-transparent border border-outline-strong text-main hover:bg-inset",
-      tertiary: "bg-transparent text-sub hover:bg-inset hover:text-main",
+      confirm: "bg-action text-on-action hover:bg-action-hover",
+      bordered:
+        "bg-white border border-black/[0.06] shadow-[0_0.5px_2px_rgba(0,0,0,0.06)] text-sub hover:bg-hover hover:text-main",
+      borderless: "bg-transparent text-sub hover:bg-hover hover:text-main",
       danger: "bg-action-danger text-on-action-danger hover:bg-action-danger-hover",
-      icon: "bg-transparent rounded-md p-0 text-sub hover:bg-inset hover:text-soft",
     },
     size: {
       sm: "h-8 px-3 text-sm",
       md: "h-10 px-4 text-base",
       lg: "h-12 px-6 text-lg",
+      icon: "h-8 w-8 px-0",
     },
     fullWidth: {
       true: "w-full",
     },
   },
-  compoundVariants: [
-    { variant: "icon", size: "sm", class: "h-8 w-8 px-0" },
-    { variant: "icon", size: "md", class: "h-10 w-10 px-0" },
-    { variant: "icon", size: "lg", class: "h-12 w-12 px-0" },
-  ],
   defaultVariants: {
     variant: "primary",
     size: "md",

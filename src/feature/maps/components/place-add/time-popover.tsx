@@ -15,7 +15,7 @@ export function TimePopover({
   return (
     // biome-ignore lint/a11y/noStaticElementInteractions: cascading popover의 hover 영역 유지용
     <div
-      className="bg-white rounded-xl shadow-xl border border-gray-100 ml-1 w-[120px] overflow-hidden"
+      className="bg-white rounded-xl shadow-xl border border-outline ml-1 w-[120px] overflow-hidden"
       style={{ maxHeight: 250 }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -25,7 +25,7 @@ export function TimePopover({
           <button
             key={hour}
             type="button"
-            className="w-full text-left px-3 py-1.5 text-sm text-gray-500 rounded-lg border border-transparent hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-colors cursor-pointer"
+            className="w-full text-left px-3 py-1.5 text-sm text-sub rounded-lg hover:bg-hover hover:text-main transition-colors cursor-pointer"
             onClick={() => onSelect(hour)}
           >
             {formatHour(hour)}
