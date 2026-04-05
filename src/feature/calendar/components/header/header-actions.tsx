@@ -51,7 +51,6 @@ export function HeaderActions() {
         {/* 내보내기 버튼 */}
         <Button
           variant="icon"
-          color="neutral"
           size="sm"
           className="hover-item"
           aria-label="내보내기"
@@ -78,7 +77,6 @@ export function HeaderActions() {
           <Popover.Trigger asChild>
             <Button
               variant="icon"
-              color="neutral"
               size="sm"
               className="hover-item cursor-pointer"
               aria-label="설정"
@@ -101,8 +99,7 @@ export function HeaderActions() {
             >
               <div className="flex flex-col bg-white rounded-xl shadow-xl border border-outline w-fit p-1.5">
                 <Button
-                  variant="ghost"
-                  color="neutral"
+                  variant="tertiary"
                   size="sm"
                   className="justify-start cursor-pointer"
                   onClick={handleEditName}
@@ -127,10 +124,9 @@ export function HeaderActions() {
                   </Text>
                 </Button>
                 <Button
-                  variant="ghost"
-                  color="danger"
+                  variant="tertiary"
                   size="sm"
-                  className="justify-start cursor-pointer"
+                  className="justify-start cursor-pointer text-error hover:bg-error-50"
                   onClick={handleLeaveRoom}
                 >
                   <svg

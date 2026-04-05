@@ -9,7 +9,6 @@ export function BackButton() {
   return (
     <Button
       variant="icon"
-      color="neutral"
       size="sm"
       className="hover-item cursor-pointer"
       aria-label="대시보드로 이동"

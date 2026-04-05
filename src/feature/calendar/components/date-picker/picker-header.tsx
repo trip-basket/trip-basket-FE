@@ -17,7 +17,6 @@ export function PickerHeader({ range }: { range: DateRange | undefined }) {
       <Dialog.Close asChild>
         <Button
           variant="icon"
-          color="neutral"
           size="sm"
           aria-label="닫기"
           className="cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:outline-none"

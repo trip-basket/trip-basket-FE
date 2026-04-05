@@ -23,8 +23,7 @@ export function BottomCta({ onGoogleLogin }: { onGoogleLogin: () => void }) {
           ))}
         </div>
         <Button
-          variant="solid"
-          color="primary"
+          variant="primary"
           size="lg"
           onClick={onGoogleLogin}
           className="relative px-7 shadow-md hover:shadow-lg"

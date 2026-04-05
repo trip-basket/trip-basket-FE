@@ -18,7 +18,7 @@ export function RoomMobile() {
       </div>
 
       <Button
-        variant="solid"
+        variant="primary"
         onClick={mapModal.open}
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40"
       >

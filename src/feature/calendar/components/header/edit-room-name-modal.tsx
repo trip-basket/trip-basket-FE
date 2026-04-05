@@ -92,7 +92,6 @@ export function EditRoomNameModal({ open, onOpenChange }: EditRoomNameModalProps
             <Dialog.Close asChild>
               <Button
                 variant="icon"
-                color="neutral"
                 size="sm"
                 aria-label="닫기"
                 className="cursor-pointer"
@@ -120,13 +119,13 @@ export function EditRoomNameModal({ open, onOpenChange }: EditRoomNameModalProps
 
           <div className="flex items-center justify-end gap-2 px-6 pb-5 pt-2">
             <Dialog.Close asChild>
-              <Button variant="ghost" color="neutral" size="sm" className="cursor-pointer">
+              <Button variant="tertiary" size="sm" className="cursor-pointer">
                 취소
               </Button>
             </Dialog.Close>
             <Button
               size="sm"
-              color="primary"
+              variant="primary"
               disabled={updateMutation.isPending}
               onClick={handleSubmit(onSubmit)}
               className="cursor-pointer"

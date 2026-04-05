@@ -25,18 +25,25 @@ import { Text } from "@/src/components/ui";
 
 ### Button
 
-모든 클릭 가능한 액션 요소에 사용. 아이콘 전용 버튼은 `variant="icon"`을 쓴다.
+모든 클릭 가능한 액션 요소에 사용. `variant`는 **의도(시맨틱)** 기반 — 색상이 아닌 행동의 중요도로 선택한다.
 
 ```tsx
 import { Button } from "@/src/components/ui";
 
-<Button variant="solid" color="primary" size="md">확인</Button>
-<Button variant="outline" color="danger" size="sm">삭제</Button>
+<Button variant="primary" size="lg">확인</Button>
+<Button variant="secondary" size="sm">취소</Button>
+<Button variant="danger">삭제</Button>
+<Button variant="icon" aria-label="닫기">✕</Button>
 ```
 
-- **variant**: `solid` | `outline` | `ghost` | `link` | `icon`
-- **color**: `primary` | `danger` | `neutral`
+- **variant**: `primary` | `secondary` | `tertiary` | `danger` | `icon`
+  - `primary`: 주요 행동 (CTA). near-black solid.
+  - `secondary`: 보조 행동. outline border.
+  - `tertiary`: 삼차 행동 (취소, 메뉴 아이템). 배경 없는 텍스트 버튼.
+  - `danger`: 위험 행동 (삭제). red solid.
+  - `icon`: 아이콘 전용. 투명 배경, 정사각형.
 - **size**: `sm` | `md` | `lg`
+- **`color` prop은 없다.** 세세한 색상 조정이 필요하면 `className`으로. 같은 패턴이 2회 이상 반복되면 새 variant를 만든다.
 
 **예외**: 드래그 핸들, 체크박스 토글 등 시맨틱이 버튼이 아닌 인터랙티브 요소.
 

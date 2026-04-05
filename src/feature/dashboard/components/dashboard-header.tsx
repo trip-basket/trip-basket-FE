@@ -21,21 +21,14 @@ export function DashboardHeader() {
 
         <div className="flex items-center gap-3">
           <Button
-            variant="outline"
-            color="neutral"
+            variant="tertiary"
             size="sm"
             onClick={() => setIsJoinModalOpen(true)}
             className="rounded-full"
           >
             초대코드로 참여
           </Button>
-          <Button
-            variant="icon"
-            color="neutral"
-            size="sm"
-            aria-label="프로필"
-            className="rounded-full bg-action text-inverse shadow-sm"
-          >
+          <Button variant="primary" size="sm" aria-label="프로필" className="rounded-full w-8 px-0">
             T
           </Button>
         </div>

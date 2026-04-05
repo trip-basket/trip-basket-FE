@@ -61,8 +61,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
 
         <div className="flex gap-3">
           <Button
-            variant="outline"
-            color="neutral"
+            variant="secondary"
             size="md"
             className="cursor-pointer"
             onClick={() => router.push("/dashboard")}
@@ -70,8 +69,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
             대시보드로 이동
           </Button>
           <Button
-            variant="solid"
-            color="primary"
+            variant="primary"
             size="md"
             className="cursor-pointer"
             onClick={resetErrorBoundary}

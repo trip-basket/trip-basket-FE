@@ -41,8 +41,7 @@ export function PickerFooter({
       <div className="flex items-center gap-2">
         <Dialog.Close asChild>
           <Button
-            variant="ghost"
-            color="neutral"
+            variant="tertiary"
             size="sm"
             className="cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:outline-none"
           >
@@ -51,7 +50,7 @@ export function PickerFooter({
         </Dialog.Close>
         <Button
           size="sm"
-          color={hasBlocksToDelete ? "danger" : "primary"}
+          variant={hasBlocksToDelete ? "danger" : "primary"}
           disabled={!isRangeComplete}
           onClick={onConfirm}
           className="cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:outline-none"

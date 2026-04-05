@@ -186,8 +186,7 @@ export function HeroSection({ onGoogleLogin }: { onGoogleLogin: () => void }) {
 
         <div className="mt-10 flex flex-col items-center gap-3">
           <Button
-            variant="solid"
-            color="primary"
+            variant="primary"
             size="lg"
             onClick={onGoogleLogin}
             className="px-7 shadow-md hover:shadow-lg"
