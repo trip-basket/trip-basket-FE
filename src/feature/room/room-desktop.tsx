@@ -14,7 +14,6 @@ import {
 import { ADD_COL_W, DAY_COL_MIN_W, TIME_COL_W } from "@/src/feature/calendar/constants";
 import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import { Maps } from "@/src/feature/maps";
-import { AnimatedGradientBorder } from "./components/animated-gradient-border";
 
 export function RoomDesktop() {
   const selectedBlockId = useCalendarStore((s) => s.selectedBlockId);
@@ -48,7 +47,7 @@ export function RoomDesktop() {
 
       {/* 캘린더 패널: 콘텐츠에 맞춰 동적 너비 */}
       <div
-        className={`relative z-10 flex h-full flex-col bg-page${hasMountedRef.current ? " transition-[width] duration-300 ease-out" : ""}`}
+        className={`relative z-10 flex h-full flex-col bg-inset${hasMountedRef.current ? " transition-[width] duration-300 ease-out" : ""}`}
         style={{
           width: calendarWidth,
           boxShadow: "4px 0 32px rgba(0, 0, 0, 0.10), 12px 0 64px rgba(0, 0, 0, 0.06)",
@@ -57,9 +56,8 @@ export function RoomDesktop() {
         <div className="px-3 py-2">
           <CalendarHeader />
         </div>
-        <div className="relative flex flex-1 min-h-0 flex-col mx-2 mb-2 rounded-xl">
-          <AnimatedGradientBorder />
-          <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden rounded-[11px] bg-white">
+        <div className="relative flex flex-1 min-h-0 flex-col mx-2 mb-2">
+          <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden rounded-block bg-white border border-black/[0.06] shadow-[0_0.5px_2px_rgba(0,0,0,0.06)]">
             <CalendarMetaBar />
             <Calendar />
             <Bucket />

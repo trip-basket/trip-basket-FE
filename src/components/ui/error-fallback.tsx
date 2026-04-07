@@ -33,7 +33,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
   return (
     <div className="relative flex w-full min-h-dvh items-center justify-center bg-inset">
       <div className="relative flex flex-col items-center px-6 text-center">
-        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-inset">
           <svg
             width="28"
             height="28"
@@ -43,7 +43,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-brand-500"
+            className="text-soft"
             aria-hidden="true"
           >
             <circle cx="12" cy="12" r="10" />

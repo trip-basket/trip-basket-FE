@@ -70,7 +70,7 @@ export function PlaceBasketDemo() {
             <div
               key={p.id}
               className={`flex items-center gap-3 p-3 rounded-xl ${p.bg} border ${p.border} transition-all duration-300 ${
-                saved.has(p.id) ? "ring-2 ring-brand-300 ring-offset-1" : ""
+                saved.has(p.id) ? "ring-2 ring-accent-outline ring-offset-1" : ""
               }`}
             >
               <div className="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center flex-shrink-0">

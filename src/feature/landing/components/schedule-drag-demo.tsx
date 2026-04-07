@@ -100,7 +100,7 @@ export function ScheduleDragDemo() {
     // biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop demo drop zone
     <div
       className={`flex-1 rounded-2xl border-2 border-dashed p-3 transition-colors duration-200 min-h-[160px] ${
-        overCol === id ? "border-brand-400 bg-brand-50/50" : "border-outline bg-inset"
+        overCol === id ? "border-accent-outline bg-accent-subtle" : "border-outline bg-inset"
       }`}
       onDragOver={onDragOver(id)}
       onDragLeave={() => setOverCol(null)}

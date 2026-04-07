@@ -40,7 +40,7 @@ export function SectionHeader({ icon, label }: { icon: string; label: string }) 
           {label}
         </Text>
       </div>
-      <div className="flex-1 h-px bg-gray-200" />
+      <div className="flex-1 h-px bg-outline" />
     </div>
   );
 }
