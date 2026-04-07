@@ -49,11 +49,7 @@ export function HeaderActions() {
     <>
       <div className="flex items-center gap-1 shrink-0 ml-4">
         {/* 내보내기 버튼 */}
-        <Button
-          variant="borderless"
-          size="icon"
-          aria-label="내보내기"
-        >
+        <Button variant="borderless" size="icon" aria-label="내보내기">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path
               d="M5.5 2H3.5C2.67 2 2 2.67 2 3.5V12.5C2 13.33 2.67 14 3.5 14H12.5C13.33 14 14 13.33 14 12.5V10.5"
@@ -74,11 +70,7 @@ export function HeaderActions() {
         {/* 설정 메뉴 */}
         <Popover.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <Popover.Trigger asChild>
-            <Button
-              variant="borderless"
-              size="icon"
-              aria-label="설정"
-            >
+            <Button variant="borderless" size="icon" aria-label="설정">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <circle cx="8" cy="3" r="1.2" fill="currentColor" />
                 <circle cx="8" cy="8" r="1.2" fill="currentColor" />

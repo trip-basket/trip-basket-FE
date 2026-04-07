@@ -105,9 +105,7 @@ export function PlaceBasketDemo() {
             </div>
           ))}
         </div>
-        <p className="text-center text-[11px] text-muted mt-3">
-          북마크를 눌러 장소를 저장해보세요
-        </p>
+        <p className="text-center text-[11px] text-muted mt-3">북마크를 눌러 장소를 저장해보세요</p>
       </div>
     </div>
   );

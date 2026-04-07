@@ -74,7 +74,12 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   selectedBlockId: null,
   isBucketDragging: false,
 
-  setDates: (startDate, endDate) => set({ tripDays: generateTripDays(startDate, endDate) }),
+  setDates: (startDate, endDate) => {
+    if (useMockData) {
+      return;
+    }
+    set({ tripDays: generateTripDays(startDate, endDate) });
+  },
 
   setGridRef: (ref) => set({ gridRef: ref }),
   setSelectedBlockId: (id) => set({ selectedBlockId: id }),
@@ -153,7 +158,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     const newBlock: BucketBlock = {
       id: crypto.randomUUID(),
       place,
-      name: place.name ?? "",
+      name: place.placeName,
       color,
       status: "bucket",
     };
@@ -166,7 +171,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     const newBlock: ScheduledBlock = {
       id: crypto.randomUUID(),
       place,
-      name: place.name ?? "",
+      name: place.placeName,
       color,
       status: "scheduled",
       startHour,

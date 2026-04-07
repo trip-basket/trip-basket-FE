@@ -32,9 +32,9 @@ export function MapSection({ block }: { block: ScheduledBlock }) {
           </div>
         )}
       </div>
-      {place.address && (
+      {place.formattedAddress && (
         <Text variant="caption" color="muted" className="mt-1.5 leading-relaxed">
-          {place.address}
+          {place.formattedAddress}
         </Text>
       )}
       {place.rating != null && (

@@ -19,14 +19,14 @@ export interface OpeningHour {
 }
 
 export interface Place {
-  googlePlaceId: string | null;
-  name: string | null;
-  address?: string;
+  googlePlaceId: string;
+  placeName: string;
+  formattedAddress: string;
   position: Position;
-  category?: PlaceCategory;
-  rating?: number;
-  reviewCount?: number;
-  openingHours?: OpeningHour[];
-  priceLevel?: number;
-  photoUrl?: string;
+  category: PlaceCategory;
+  rating: number | null;
+  reviewCount: number | null;
+  openingHours: OpeningHour[];
+  priceLevel: number | null;
+  photoUrl: string;
 }

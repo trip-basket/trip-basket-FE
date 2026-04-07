@@ -14,8 +14,8 @@ export function PlaceDetailSheet({ place, onClose }: { place: Place; onClose: ()
 
       <div className="p-4">
         <PlaceHeader
-          name={place.name}
-          address={place.address}
+          name={place.placeName}
+          address={place.formattedAddress}
           category={place.category}
           onClose={onClose}
         />

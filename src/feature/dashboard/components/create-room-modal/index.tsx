@@ -50,12 +50,7 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
               <DateRangeLabel range={range} />
             </div>
             <Dialog.Close asChild>
-              <Button
-                variant="borderless"
-                size="icon"
-                aria-label="닫기"
-                className="cursor-pointer"
-              >
+              <Button variant="borderless" size="icon" aria-label="닫기" className="cursor-pointer">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path
                     d="M4 4l8 8M12 4l-8 8"
