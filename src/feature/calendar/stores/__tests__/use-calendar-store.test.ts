@@ -13,11 +13,16 @@ const mockBlock: BucketBlock = {
   color: "sky",
   cost: 10000,
   place: {
-    googlePlaceId: null,
-    name: null,
-    address: "",
+    googlePlaceId: "",
+    placeName: "",
+    formattedAddress: "",
     position: { lat: 0, lng: 0 },
     category: "sightseeing",
+    rating: 0,
+    reviewCount: 0,
+    openingHours: [],
+    priceLevel: 0,
+    photoUrl: "",
   },
 };
 
@@ -28,11 +33,16 @@ const mockBlock2: BucketBlock = {
   color: "indigo",
   cost: 20000,
   place: {
-    googlePlaceId: null,
-    name: null,
-    address: "",
+    googlePlaceId: "",
+    placeName: "",
+    formattedAddress: "",
     position: { lat: 0, lng: 0 },
     category: "food",
+    rating: 0,
+    reviewCount: 0,
+    openingHours: [],
+    priceLevel: 0,
+    photoUrl: "",
   },
 };
 

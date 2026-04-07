@@ -1,4 +1,4 @@
-import type { PlaceCategory } from "@/src/types";
+import type { OpeningHour, Position } from "@/src/types";
 import { api } from "./api-client";
 import type { ErrorMessages } from "./api-error";
 
@@ -14,24 +14,15 @@ export const PLACE_TOAST_MESSAGES: Record<string, ErrorMessages> = {
   },
 } as const;
 
-interface PositionApi {
-  lat: number;
-  lng: number;
-}
-
-interface OpeningHourApi {
-  day: number;
-  open: string;
-  close: string;
-}
-
 export interface PlaceDetailResponseApi {
   googlePlaceId: string;
-  name: string;
-  address: string;
-  position: PositionApi;
-  openingHours: OpeningHourApi[];
+  placeName: string;
+  formattedAddress: string;
+  position: Position;
+  openingHours: OpeningHour[];
   priceLevel: number;
+  rating: number;
+  reviewCount: number;
   photoUrl: string;
-  category: PlaceCategory;
+  category: string;
 }

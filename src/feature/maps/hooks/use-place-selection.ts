@@ -35,7 +35,7 @@ const GOOGLE_TYPE_TO_CATEGORY = new Map<string, PlaceCategory>([
   ["hotel", "accommodation"],
 ]);
 
-function toPlaceCategory(primaryType?: string): PlaceCategory | undefined {
+function toPlaceCategory(primaryType?: string): PlaceCategory {
   if (!primaryType) {
     return "other";
   }
@@ -78,12 +78,9 @@ export function usePlaceSelection() {
       const place = await placeDetailMutation.mutateAsync({ googlePlaceId: gPlace.id });
       const { lat, lng } = place.position;
 
-      // rating, reviewCount 는 백엔드 협의 후 추후 추가
       const newPlace: Place = {
         ...place,
         category: toPlaceCategory(place.category),
-        rating: 4.6,
-        reviewCount: 21,
       };
 
       setSelection({ status: "detail", place: newPlace });

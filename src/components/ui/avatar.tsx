@@ -37,10 +37,7 @@ export function Avatar({
           className="h-full w-full object-cover"
         />
       ) : (
-        <span
-          className="font-semibold text-soft"
-          style={{ fontSize: Math.max(8, size * 0.35) }}
-        >
+        <span className="font-semibold text-soft" style={{ fontSize: Math.max(8, size * 0.35) }}>
           {member.nickname.charAt(0)}
         </span>
       )}

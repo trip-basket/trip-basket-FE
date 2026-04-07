@@ -8,9 +8,9 @@ export function PlaceHeader({
   category,
   onClose,
 }: {
-  name: string | null;
-  address?: string;
-  category?: PlaceCategory;
+  name: string;
+  address: string;
+  category: PlaceCategory;
   onClose: () => void;
 }) {
   return (
