@@ -59,7 +59,7 @@ export function PanelContent({
             <Text variant="h2" className="text-lg font-bold text-main leading-snug">
               {block.name}
             </Text>
-            {block.place.placeName && block.place.placeName !== block.name && (
+            {block.place.placeName !== block.name && (
               <Text variant="small" color="muted">
                 {block.place.placeName}
               </Text>
