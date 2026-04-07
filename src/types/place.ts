@@ -24,9 +24,9 @@ export interface Place {
   formattedAddress: string;
   position: Position;
   category: PlaceCategory;
-  rating: number;
-  reviewCount: number;
+  rating: number | null;
+  reviewCount: number | null;
   openingHours: OpeningHour[];
-  priceLevel: number;
+  priceLevel: number | null;
   photoUrl: string;
 }

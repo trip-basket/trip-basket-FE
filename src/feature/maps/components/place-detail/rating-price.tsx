@@ -6,17 +6,17 @@ export function RatingPrice({
   reviewCount,
   priceLevel,
 }: {
-  rating?: number;
-  reviewCount?: number;
-  priceLevel?: number;
+  rating: number | null;
+  reviewCount: number | null;
+  priceLevel: number | null;
 }) {
-  if (rating === undefined && priceLevel === undefined) {
+  if (rating === null && priceLevel === null) {
     return null;
   }
 
   return (
     <div className="flex items-center gap-2 mb-3">
-      {rating !== undefined && (
+      {rating !== null && (
         <div className="flex items-center gap-1">
           <Text as="span" variant="small" className="text-yellow-500">
             &#9733;
@@ -24,16 +24,16 @@ export function RatingPrice({
           <Text as="span" variant="small" weight="medium">
             {rating}
           </Text>
-          {reviewCount !== undefined && (
+          {reviewCount !== null && (
             <Text as="span" variant="caption" color="muted">
               ({reviewCount.toLocaleString()})
             </Text>
           )}
         </div>
       )}
-      {priceLevel !== undefined && PRICE_LABEL[priceLevel] && (
+      {priceLevel !== null && PRICE_LABEL[priceLevel] && (
         <>
-          {rating !== undefined && (
+          {rating !== null && (
             <Text as="span" variant="caption" color="muted">
               ·
             </Text>

@@ -20,9 +20,9 @@ export interface PlaceDetailResponseApi {
   formattedAddress: string;
   position: Position;
   openingHours: OpeningHour[];
-  priceLevel: number;
-  rating: number;
-  reviewCount: number;
+  priceLevel: number | null;
+  rating: number | null;
+  reviewCount: number | null;
   photoUrl: string;
   category: string;
 }

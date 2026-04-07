@@ -17,7 +17,7 @@ export function OpeningHoursExpanded({
   return (
     <div>
       <div className="flex items-start gap-2 mb-2">
-        <div className="mt-0.5">
+        <div className="mt-[4px]">
           <ClockIcon />
         </div>
         <div className="flex flex-col gap-1.5">
