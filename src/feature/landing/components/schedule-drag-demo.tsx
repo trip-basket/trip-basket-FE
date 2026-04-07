@@ -100,14 +100,14 @@ export function ScheduleDragDemo() {
     // biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop demo drop zone
     <div
       className={`flex-1 rounded-2xl border-2 border-dashed p-3 transition-colors duration-200 min-h-[160px] ${
-        overCol === id ? "border-brand-400 bg-brand-50/50" : "border-gray-200 bg-gray-50/30"
+        overCol === id ? "border-brand-400 bg-brand-50/50" : "border-outline bg-inset"
       }`}
       onDragOver={onDragOver(id)}
       onDragLeave={() => setOverCol(null)}
       onDrop={onDrop(id)}
     >
-      <p className="text-xs font-bold text-gray-800 mb-0.5">{label}</p>
-      <p className="text-[10px] text-gray-400 mb-3">{date}</p>
+      <p className="text-xs font-bold text-main mb-0.5">{label}</p>
+      <p className="text-[10px] text-muted mb-3">{date}</p>
       <div className="space-y-2">
         {schedule[id].map((b) => (
           // biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop demo draggable item
@@ -121,11 +121,11 @@ export function ScheduleDragDemo() {
             }`}
           >
             <p className={`text-xs font-semibold ${b.text}`}>{b.label}</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">{b.time}</p>
+            <p className="text-[10px] text-muted mt-0.5">{b.time}</p>
           </div>
         ))}
         {schedule[id].length === 0 && (
-          <div className="flex items-center justify-center h-16 rounded-xl border border-dashed border-gray-200 text-[11px] text-gray-300">
+          <div className="flex items-center justify-center h-16 rounded-xl border border-dashed border-outline text-[11px] text-muted">
             여기에 놓으세요
           </div>
         )}
@@ -135,13 +135,13 @@ export function ScheduleDragDemo() {
 
   return (
     <div className="w-full max-w-md">
-      <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-5">
+      <div className="rounded-3xl bg-white border border-outline shadow-xl p-5">
         <WindowDots title="파리 여행 일정" />
         <div className="flex gap-3">
           {renderCol("day1", "Day 1", "3월 15일 (토)")}
           {renderCol("day2", "Day 2", "3월 16일 (일)")}
         </div>
-        <p className="text-center text-[11px] text-gray-300 mt-3">
+        <p className="text-center text-[11px] text-muted mt-3">
           블록을 드래그해서 다른 날짜로 옮겨보세요
         </p>
       </div>

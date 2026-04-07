@@ -110,7 +110,7 @@ export function BottomSheet({ modalRef, children }: BottomSheetProps) {
           onPointerDown={onPointerDown}
           className="shrink-0 flex justify-center max-h-screen py-3 cursor-grab active:cursor-grabbing touch-none"
         >
-          <div className="w-10 h-1 rounded-full bg-gray-300" />
+          <div className="w-10 h-1 rounded-full bg-outline-strong" />
         </div>
 
         <div className="flex-1 min-h-0 overscroll-contain">{children}</div>

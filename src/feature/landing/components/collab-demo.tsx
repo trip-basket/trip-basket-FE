@@ -14,7 +14,7 @@ export function CollabDemo() {
     <>
       <style>{COLLAB_STYLES}</style>
       <div className="w-full max-w-sm">
-        <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-5">
+        <div className="rounded-3xl bg-white border border-outline shadow-xl p-5">
           <div className="flex items-center justify-between">
             <WindowDots title="오사카 여행" />
             <div className="flex -space-x-1.5 -mt-5 mb-5">
@@ -33,7 +33,7 @@ export function CollabDemo() {
           {/* Mini calendar grid */}
           <div className="grid grid-cols-3 gap-2 relative">
             <div>
-              <p className="text-[10px] text-gray-400 mb-2 text-center">Day 1</p>
+              <p className="text-[10px] text-muted mb-2 text-center">Day 1</p>
               <div className="space-y-1.5">
                 <div className="h-9 rounded-lg bg-sky-100 border border-sky-200 flex items-center justify-center">
                   <span className="text-[10px] text-sky-600 font-medium">도톤보리</span>
@@ -44,7 +44,7 @@ export function CollabDemo() {
               </div>
             </div>
             <div>
-              <p className="text-[10px] text-gray-400 mb-2 text-center">Day 2</p>
+              <p className="text-[10px] text-muted mb-2 text-center">Day 2</p>
               <div className="space-y-1.5">
                 <div className="h-10 rounded-lg bg-violet-100 border border-violet-200 flex items-center justify-center relative">
                   <span className="text-[10px] text-violet-600 font-medium">나라 공원</span>
@@ -58,7 +58,7 @@ export function CollabDemo() {
               </div>
             </div>
             <div>
-              <p className="text-[10px] text-gray-400 mb-2 text-center">Day 3</p>
+              <p className="text-[10px] text-muted mb-2 text-center">Day 3</p>
               <div className="space-y-1.5">
                 <div className="h-9 rounded-lg bg-teal-100 border border-teal-200 flex items-center justify-center">
                   <span className="text-[10px] text-teal-600 font-medium">유니버셜</span>
@@ -87,7 +87,7 @@ export function CollabDemo() {
           </div>
 
           {/* Editing indicator */}
-          <div className="mt-4 flex items-center gap-3 text-[10px] text-gray-400">
+          <div className="mt-4 flex items-center gap-3 text-[10px] text-muted">
             <div className="flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>민수님이 Day 2 편집 중</span>

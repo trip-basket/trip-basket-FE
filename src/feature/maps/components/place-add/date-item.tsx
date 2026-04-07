@@ -35,7 +35,7 @@ export function DateItem({
         as="span"
         variant="small"
         color="muted"
-        className="group-hover:text-gray-500 transition-colors"
+        className="group-hover:text-soft transition-colors"
       >
         ({day.dayOfWeek})
       </Text>

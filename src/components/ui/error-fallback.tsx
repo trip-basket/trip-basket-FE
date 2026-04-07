@@ -31,7 +31,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
   const { title, description } = getContent(error, errorContents);
 
   return (
-    <div className="relative flex w-full min-h-dvh items-center justify-center bg-gray-50/30">
+    <div className="relative flex w-full min-h-dvh items-center justify-center bg-inset">
       <div className="relative flex flex-col items-center px-6 text-center">
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50">
           <svg

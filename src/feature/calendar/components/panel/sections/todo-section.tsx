@@ -21,7 +21,7 @@ function TodoCheckbox({ checked }: { checked: boolean }) {
       className={`flex items-center justify-center w-[18px] h-[18px] rounded-md shrink-0 mt-px transition-colors duration-150 ${
         checked
           ? "bg-[var(--bg-accent)] text-white"
-          : "border border-gray-300 text-transparent hover:border-gray-400"
+          : "border border-outline-strong text-transparent hover:border-outline-strong"
       }`}
     >
       <CheckIcon />
@@ -35,7 +35,7 @@ export function TodoSection({ todos }: { todos: BlockTodo[] }) {
       {todos.map((todo) => (
         <li
           key={todo.id}
-          className="flex items-start gap-2.5 py-1.5 group hover:bg-gray-50 rounded-lg -mx-1.5 px-1.5 transition-colors duration-100 cursor-pointer"
+          className="flex items-start gap-2.5 py-1.5 group hover:bg-hover rounded-lg -mx-1.5 px-1.5 transition-colors duration-100 cursor-pointer"
         >
           <TodoCheckbox checked={todo.completed} />
           <Text

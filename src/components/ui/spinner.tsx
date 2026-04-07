@@ -19,7 +19,7 @@ export function Spinner({ className = "" }: { className?: string }) {
 
 export function PageSpinner() {
   return (
-    <div className="relative flex w-full min-h-dvh items-center justify-center bg-gray-50/30">
+    <div className="relative flex w-full min-h-dvh items-center justify-center bg-inset">
       <Spinner />
     </div>
   );

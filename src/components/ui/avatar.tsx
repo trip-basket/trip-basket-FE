@@ -25,7 +25,7 @@ export function Avatar({
 
   return (
     <div
-      className={`flex items-center justify-center rounded-full overflow-hidden bg-gray-200 ${showPresence ? "" : border}`}
+      className={`flex items-center justify-center rounded-full overflow-hidden bg-hover ${showPresence ? "" : border}`}
       style={{ width: size, height: size, ...presenceStyle }}
       title={member.nickname}
     >
@@ -38,7 +38,7 @@ export function Avatar({
         />
       ) : (
         <span
-          className="font-semibold text-gray-500"
+          className="font-semibold text-soft"
           style={{ fontSize: Math.max(8, size * 0.35) }}
         >
           {member.nickname.charAt(0)}

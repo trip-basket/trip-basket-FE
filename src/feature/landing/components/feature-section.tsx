@@ -20,7 +20,7 @@ export function FeatureSection({
       <div className="relative">
         {badge}
         {title}
-        <p className="mt-5 text-gray-500 leading-relaxed text-lg">{description}</p>
+        <p className="mt-5 text-soft leading-relaxed text-lg">{description}</p>
       </div>
     </div>
   );

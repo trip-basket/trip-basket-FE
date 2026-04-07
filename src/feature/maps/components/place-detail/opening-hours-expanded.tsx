@@ -31,7 +31,7 @@ export function OpeningHoursExpanded({
                   variant="caption"
                   weight="semibold"
                   className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] ${
-                    isToday ? "bg-gray-700 text-white" : "bg-gray-100 text-gray-500"
+                    isToday ? "bg-action text-on-action" : "bg-inset text-soft"
                   }`}
                 >
                   {abbr}
@@ -40,7 +40,7 @@ export function OpeningHoursExpanded({
                   as="span"
                   variant="caption"
                   weight={isToday ? "medium" : "normal"}
-                  className={isToday ? "text-gray-900" : "text-gray-600"}
+                  className={isToday ? "text-main" : "text-sub"}
                 >
                   {DAY_NAME[dayIndex]}: {entry ? formatRange(entry) : "휴무"}
                 </Text>
@@ -51,7 +51,7 @@ export function OpeningHoursExpanded({
       </div>
       <button
         type="button"
-        className="text-xs text-blue-500 hover:text-blue-600 transition-colors cursor-pointer ml-[22px]"
+        className="text-xs text-accent-text hover:text-accent-text transition-colors cursor-pointer ml-[22px]"
         onClick={onCollapse}
       >
         영업시간 접기

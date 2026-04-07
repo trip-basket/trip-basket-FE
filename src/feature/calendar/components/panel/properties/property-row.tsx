@@ -27,7 +27,7 @@ export function PropertyRow({
   const path = ICON_PATHS[icon];
 
   return (
-    <div className="flex items-center min-h-[32px] group hover:bg-gray-50 rounded-sm -mx-1 px-1 transition-colors duration-100">
+    <div className="flex items-center min-h-[32px] group hover:bg-hover rounded-sm -mx-1 px-1 transition-colors duration-100">
       <div className="flex items-center gap-1.5 w-24 shrink-0">
         {path && (
           <svg
@@ -35,7 +35,7 @@ export function PropertyRow({
             height="14"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="text-gray-300 shrink-0"
+            className="text-muted shrink-0"
             aria-hidden="true"
           >
             <path d={path} />

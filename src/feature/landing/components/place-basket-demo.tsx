@@ -47,9 +47,9 @@ export function PlaceBasketDemo() {
 
   return (
     <div className="w-full max-w-sm">
-      <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-5">
+      <div className="rounded-3xl bg-white border border-outline shadow-xl p-5">
         <WindowDots title="장소 바구니" />
-        <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-100 mb-4">
+        <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-inset border border-outline mb-4">
           <svg
             width="15"
             height="15"
@@ -63,7 +63,7 @@ export function PlaceBasketDemo() {
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.35-4.35" />
           </svg>
-          <span className="text-sm text-gray-400">장소 검색...</span>
+          <span className="text-sm text-muted">장소 검색...</span>
         </div>
         <div className="space-y-2.5">
           {PLACES.map((p) => (
@@ -80,8 +80,8 @@ export function PlaceBasketDemo() {
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 truncate">{p.name}</p>
-                <p className="text-xs text-gray-400">{p.sub}</p>
+                <p className="text-sm font-semibold text-main truncate">{p.name}</p>
+                <p className="text-xs text-muted">{p.sub}</p>
               </div>
               <button
                 type="button"
@@ -105,7 +105,7 @@ export function PlaceBasketDemo() {
             </div>
           ))}
         </div>
-        <p className="text-center text-[11px] text-gray-300 mt-3">
+        <p className="text-center text-[11px] text-muted mt-3">
           북마크를 눌러 장소를 저장해보세요
         </p>
       </div>

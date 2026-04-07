@@ -9,7 +9,7 @@ import { RatingPrice } from "./rating-price";
 
 export function PlaceDetailSheet({ place, onClose }: { place: Place; onClose: () => void }) {
   return (
-    <div className="absolute bottom-4 left-4 right-4 z-20 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+    <div className="absolute bottom-4 left-4 right-4 z-20 bg-white rounded-xl shadow-xl border border-outline overflow-hidden">
       {place.photoUrl && <PlacePhoto url={place.photoUrl} key={place.photoUrl} />}
 
       <div className="p-4">
