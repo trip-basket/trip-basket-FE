@@ -25,7 +25,7 @@ export function DatePopoverContent({
   return (
     <div ref={dateListRef} data-date-list className="relative">
       <div
-        className="bg-white rounded-xl shadow-xl border border-gray-100 min-w-[180px] overflow-hidden"
+        className="bg-white rounded-xl shadow-xl border border-outline min-w-[180px] overflow-hidden"
         style={{ maxHeight: 300 }}
       >
         <div className="overflow-y-auto p-1.5" style={{ maxHeight: 300 }}>

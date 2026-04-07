@@ -51,9 +51,8 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
             </div>
             <Dialog.Close asChild>
               <Button
-                variant="icon"
-                color="neutral"
-                size="sm"
+                variant="borderless"
+                size="icon"
                 aria-label="닫기"
                 className="cursor-pointer"
               >
@@ -94,13 +93,13 @@ export function CreateRoomModal({ open, onOpenChange }: CreateRoomModalProps) {
           {/* Footer */}
           <div className="flex items-center justify-end gap-2 px-6 pb-5 pt-2">
             <Dialog.Close asChild>
-              <Button variant="ghost" color="neutral" size="sm" className="cursor-pointer">
+              <Button variant="borderless" size="sm" className="cursor-pointer">
                 취소
               </Button>
             </Dialog.Close>
             <Button
               size="sm"
-              color="primary"
+              variant="confirm"
               disabled={isPending}
               onClick={onSubmit}
               className="cursor-pointer"

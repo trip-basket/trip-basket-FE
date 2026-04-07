@@ -1,3 +1,4 @@
+import { Text } from "@/src/components/ui";
 import { WindowDots } from "./window-dots";
 
 const WAYPOINTS = [
@@ -14,7 +15,7 @@ const TRANSPORTS = [
   },
   {
     label: "버스 8분 · 3.5km",
-    bg: "bg-gray-100 border-gray-200 text-gray-600",
+    bg: "bg-inset border-outline text-sub",
     icon: "M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM18 11H6V6h12v5z",
   },
 ];
@@ -22,7 +23,7 @@ const TRANSPORTS = [
 export function RouteDemo() {
   return (
     <div className="w-full max-w-sm">
-      <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-5">
+      <div className="rounded-3xl bg-white border border-outline shadow-xl p-5">
         <WindowDots title="이동 경로" />
 
         <div className="relative pl-8">
@@ -35,15 +36,21 @@ export function RouteDemo() {
                 <div className="absolute -left-[21px] top-0.5 w-6 h-6 rounded-full bg-teal-500 border-2 border-white shadow-sm flex items-center justify-center">
                   <span className="text-[9px] font-bold text-white">{i + 1}</span>
                 </div>
-                <p className="text-sm font-semibold text-gray-900">{wp.label}</p>
-                <p className="text-[11px] text-gray-400">{wp.time}</p>
+                <Text as="p" variant="small" weight="semibold">
+                  {wp.label}
+                </Text>
+                <Text as="p" variant="caption" color="muted" className="!text-[11px]">
+                  {wp.time}
+                </Text>
               </div>
 
               {/* Transport (between waypoints) */}
               {i < TRANSPORTS.length && (
                 <div className="relative mb-5 -ml-1">
-                  <span
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-medium ${TRANSPORTS[i].bg}`}
+                  <Text
+                    as="span"
+                    variant="caption"
+                    className={`!text-[11px] inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border font-medium ${TRANSPORTS[i].bg}`}
                   >
                     <svg
                       width="12"
@@ -55,16 +62,20 @@ export function RouteDemo() {
                       <path d={TRANSPORTS[i].icon} />
                     </svg>
                     {TRANSPORTS[i].label}
-                  </span>
+                  </Text>
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        <div className="mt-5 pt-3 border-t border-gray-100 flex items-center justify-between">
-          <span className="text-xs text-gray-400">총 이동</span>
-          <span className="text-xs font-semibold text-teal-700">23분 · 4.7km</span>
+        <div className="mt-5 pt-3 border-t border-outline flex items-center justify-between">
+          <Text variant="caption" color="muted">
+            총 이동
+          </Text>
+          <Text variant="caption" weight="semibold" className="text-teal-700">
+            23분 · 4.7km
+          </Text>
         </div>
       </div>
     </div>

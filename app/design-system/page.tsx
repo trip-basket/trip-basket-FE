@@ -280,77 +280,14 @@ export default function DesignSystemPage() {
           <div className="mb-8">
             <h3 className="mb-4 font-medium text-lg text-sub">Variants</h3>
             <div className="space-y-4 rounded-xl border border-outline bg-surface p-6">
-              {/* Primary */}
-              <div>
-                <p className="mb-3 text-sm text-muted">Primary</p>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="solid" color="primary">
-                    Solid
-                  </Button>
-                  <Button variant="outline" color="primary">
-                    Outline
-                  </Button>
-                  <Button variant="ghost" color="primary">
-                    Ghost
-                  </Button>
-                  <Button variant="link" color="primary" href="/">
-                    Link
-                  </Button>
-                </div>
-              </div>
-
-              {/* Danger */}
-              <div>
-                <p className="mb-3 text-sm text-muted">Danger</p>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="solid" color="danger">
-                    Solid
-                  </Button>
-                  <Button variant="outline" color="danger">
-                    Outline
-                  </Button>
-                  <Button variant="ghost" color="danger">
-                    Ghost
-                  </Button>
-                  <Button variant="link" color="danger" href="/">
-                    Link
-                  </Button>
-                </div>
-              </div>
-
-              {/* Neutral */}
-              <div>
-                <p className="mb-3 text-sm text-muted">Neutral</p>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="solid" color="neutral">
-                    Solid
-                  </Button>
-                  <Button variant="outline" color="neutral">
-                    Outline
-                  </Button>
-                  <Button variant="ghost" color="neutral">
-                    Ghost
-                  </Button>
-                  <Button variant="link" color="neutral" href="/">
-                    Link
-                  </Button>
-                </div>
-              </div>
-
-              {/* Icon */}
-              <div>
-                <p className="mb-3 text-sm text-muted">Icon</p>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="icon" color="primary" aria-label="Add item">
-                    <PlusIcon />
-                  </Button>
-                  <Button variant="icon" color="danger" aria-label="Delete item">
-                    <TrashIcon />
-                  </Button>
-                  <Button variant="icon" color="neutral" aria-label="Open menu">
-                    <MenuIcon />
-                  </Button>
-                </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button variant="primary">Primary</Button>
+                <Button variant="bordered">Bordered</Button>
+                <Button variant="borderless">Borderless</Button>
+                <Button variant="danger">Danger</Button>
+                <Button variant="borderless" size="icon" aria-label="Open menu">
+                  <MenuIcon />
+                </Button>
               </div>
             </div>
           </div>
@@ -362,6 +299,9 @@ export default function DesignSystemPage() {
               <Button size="sm">Small</Button>
               <Button size="md">Medium</Button>
               <Button size="lg">Large</Button>
+              <Button size="icon" variant="borderless" aria-label="Icon size">
+                <MenuIcon />
+              </Button>
             </div>
           </div>
 

@@ -6,8 +6,8 @@ export function Maps() {
 
   if (!apiKey) {
     return (
-      <div className="flex items-center justify-center border border-gray-200 rounded-md p-4 bg-gray-50 h-full w-full">
-        <p className="text-gray-500 text-sm text-center">
+      <div className="flex items-center justify-center border border-outline rounded-md p-4 bg-inset h-full w-full">
+        <p className="text-soft text-sm text-center">
           지도를 표시하는 중 오류가 발생했습니다.
           <br />
           잠시 후 다시 시도해 주세요.

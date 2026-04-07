@@ -24,7 +24,7 @@ export function ReactionsProperty({
         )}
         <button
           type="button"
-          className="ml-1 flex items-center justify-center h-6 w-6 rounded hover:bg-red-50 text-gray-300 hover:text-red-400 transition-colors duration-150"
+          className="ml-1 flex items-center justify-center h-6 w-6 rounded hover:bg-red-50 text-muted hover:text-red-400 transition-colors duration-150"
           aria-label="좋아요 토글"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">

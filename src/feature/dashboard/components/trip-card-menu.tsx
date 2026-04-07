@@ -35,11 +35,10 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
     <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
       <Popover.Trigger asChild>
         <Button
-          variant="icon"
-          color="neutral"
-          size="sm"
+          variant="borderless"
+          size="icon"
           aria-label="방 설정"
-          className="cursor-pointer bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm"
+          className="cursor-pointer bg-black/30 hover:bg-black/20 text-white backdrop-blur-sm"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <circle cx="8" cy="3.5" r="1.5" />
@@ -59,8 +58,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
         >
           <div className="flex flex-col bg-white rounded-xl shadow-xl border border-outline w-fit p-1.5">
             <Button
-              variant="ghost"
-              color="neutral"
+              variant="borderless"
               size="sm"
               className="justify-start cursor-pointer"
               onClick={() => inviteCodeMutation.mutate()}
@@ -75,7 +73,7 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden="true"
-                className="text-gray-500"
+                className="text-soft"
               >
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
@@ -85,10 +83,9 @@ export function TripCardMenu({ roomId, roomName }: TripCardMenuProps) {
               </Text>
             </Button>
             <Button
-              variant="ghost"
-              color="danger"
+              variant="borderless"
               size="sm"
-              className="justify-start cursor-pointer"
+              className="justify-start cursor-pointer text-error hover:bg-error-50"
               onClick={handleDelete}
             >
               <svg

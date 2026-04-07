@@ -56,7 +56,7 @@ export function PanelContent({
       <div className="pt-5 pb-4">
         <div className="flex flex-col gap-3">
           <div className="flex-1 min-w-0">
-            <Text variant="h2" className="text-lg font-bold text-gray-900 leading-snug">
+            <Text variant="h2" className="text-lg font-bold text-main leading-snug">
               {block.name}
             </Text>
             {block.place.name && block.place.name !== block.name && (
@@ -127,7 +127,7 @@ export function PanelContent({
             <button
               type="button"
               onClick={() => setIsHoursOpen((v) => !v)}
-              className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors duration-150 cursor-pointer"
+              className="flex items-center gap-1.5 text-xs font-medium text-soft hover:text-sub transition-colors duration-150 cursor-pointer"
             >
               <svg
                 width="12"
@@ -168,7 +168,7 @@ export function PanelContent({
       <div className="pb-6">
         <SectionHeader icon="editNote" label="메모" />
         <textarea
-          className="w-full resize-none rounded-lg border border-gray-100 bg-gray-50/60 px-3 py-2.5 text-sm text-gray-700 leading-relaxed placeholder:text-gray-300 focus:placeholder:text-transparent focus:outline-none focus:bg-white focus:border-gray-300 transition-colors duration-150"
+          className="w-full resize-none rounded-lg border border-outline bg-inset px-3 py-2.5 text-sm text-sub leading-relaxed placeholder:text-muted focus:placeholder:text-transparent focus:outline-none focus:bg-white focus:border-outline-strong transition-colors duration-150"
           rows={3}
           placeholder="메모를 입력하세요"
           defaultValue={block.memo ?? ""}
@@ -181,7 +181,7 @@ export function PanelContent({
         {todos.length > 0 && <TodoSection todos={todos} />}
         <button
           type="button"
-          className="flex items-center gap-1.5 mt-2 text-xs text-gray-400 hover:text-gray-600 transition-colors duration-150 cursor-pointer"
+          className="flex items-center gap-1.5 mt-2 text-xs text-muted hover:text-sub transition-colors duration-150 cursor-pointer"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />

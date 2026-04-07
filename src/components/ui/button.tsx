@@ -5,144 +5,31 @@ import { tv, type VariantProps } from "tailwind-variants";
 export const buttonVariants = tv({
   base: [
     "relative inline-flex items-center justify-center gap-2",
-    "font-medium rounded-lg cursor-pointer",
+    "font-medium rounded-button cursor-pointer",
     "transition-colors duration-200",
     "disabled:opacity-50 disabled:cursor-not-allowed",
   ],
   variants: {
     variant: {
-      solid: "",
-      outline: "bg-transparent border",
-      ghost: "bg-transparent",
-      link: "bg-transparent underline-offset-4 hover:underline",
-      icon: "bg-transparent rounded-md p-0",
-    },
-    color: {
-      primary: "",
-      danger: "",
-      neutral: "",
+      primary: "bg-action text-on-action hover:bg-action-hover",
+      confirm: "bg-action text-on-action hover:bg-action-hover",
+      bordered:
+        "bg-white border border-black/[0.06] shadow-[0_0.5px_2px_rgba(0,0,0,0.06)] text-sub hover:bg-hover hover:text-main",
+      borderless: "bg-transparent text-sub hover:bg-hover hover:text-main",
+      danger: "bg-action-danger text-on-action-danger hover:bg-action-danger-hover",
     },
     size: {
       sm: "h-8 px-3 text-sm",
       md: "h-10 px-4 text-base",
       lg: "h-12 px-6 text-lg",
+      icon: "h-8 w-8 px-0",
     },
     fullWidth: {
       true: "w-full",
     },
   },
-  compoundVariants: [
-    // Primary Solid
-    {
-      variant: "solid",
-      color: "primary",
-      class: "bg-action text-on-action hover:bg-action-hover",
-    },
-    // Primary Outline
-    {
-      variant: "outline",
-      color: "primary",
-      class: "border-action-outline text-action hover:bg-action-hover hover:text-on-action",
-    },
-    // Primary Ghost
-    {
-      variant: "ghost",
-      color: "primary",
-      class: "text-action hover:bg-brand-100",
-    },
-    // Primary Link
-    {
-      variant: "link",
-      color: "primary",
-      class: "text-action hover:text-action-hover",
-    },
-    // Danger Solid
-    {
-      variant: "solid",
-      color: "danger",
-      class: "bg-action-danger text-on-action-danger hover:bg-action-danger-hover",
-    },
-    // Danger Outline
-    {
-      variant: "outline",
-      color: "danger",
-      class:
-        "border-action-danger-outline text-action-danger hover:bg-action-danger hover:text-on-action-danger",
-    },
-    // Danger Ghost
-    {
-      variant: "ghost",
-      color: "danger",
-      class: "text-action-danger hover:bg-error-100",
-    },
-    // Danger Link
-    {
-      variant: "link",
-      color: "danger",
-      class: "text-action-danger hover:text-action-danger-hover",
-    },
-    // Neutral Solid
-    {
-      variant: "solid",
-      color: "neutral",
-      class: "bg-gray-600 text-inverse hover:bg-gray-700",
-    },
-    // Neutral Outline
-    {
-      variant: "outline",
-      color: "neutral",
-      class: "border-outline-strong text-main hover:bg-gray-100",
-    },
-    // Neutral Ghost
-    {
-      variant: "ghost",
-      color: "neutral",
-      class: "text-main hover:bg-gray-100",
-    },
-    // Neutral Link
-    {
-      variant: "link",
-      color: "neutral",
-      class: "text-sub hover:text-main",
-    },
-    // Icon Primary
-    {
-      variant: "icon",
-      color: "primary",
-      class: "text-action hover:bg-brand-100",
-    },
-    // Icon Danger
-    {
-      variant: "icon",
-      color: "danger",
-      class: "text-action-danger hover:bg-error-100",
-    },
-    // Icon Neutral
-    {
-      variant: "icon",
-      color: "neutral",
-      class: "text-sub hover:bg-gray-100 hover:text-main",
-    },
-    // Icon sizes (정사각형)
-    {
-      variant: "icon",
-      size: "sm",
-      class: "h-8 w-8 px-0",
-    },
-    {
-      variant: "icon",
-      size: "md",
-      class: "h-10 w-10 px-0",
-    },
-    {
-      variant: "icon",
-      size: "lg",
-      class: "h-12 w-12 px-0",
-    },
-  ],
   defaultVariants: {
-    variant: "solid",
-    color: "primary",
+    variant: "primary",
     size: "md",
   },
 });
@@ -163,7 +50,6 @@ type ButtonProps = ButtonVariants & {
 
 export function Button({
   variant,
-  color,
   size,
   fullWidth,
   isLoading,
@@ -172,11 +58,11 @@ export function Button({
   ...props
 }: ButtonProps) {
   const styles = useMemo(
-    () => buttonVariants({ variant, color, size, fullWidth, className }),
-    [variant, color, size, fullWidth, className],
+    () => buttonVariants({ variant, size, fullWidth, className }),
+    [variant, size, fullWidth, className],
   );
 
-  if (variant === "link" && props.href) {
+  if (props.href) {
     const { href, ...linkProps } = props as ButtonAsLink;
 
     return (

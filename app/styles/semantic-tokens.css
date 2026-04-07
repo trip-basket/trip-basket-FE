@@ -10,11 +10,12 @@
 :root {
     /* Background */
     --bg-primary: #ffffff;
-    --bg-inset: rgba(0, 0, 0, 0.03);
+    --bg-page: var(--warm-white);
+    --bg-inset: var(--warm-50);
     --bg-tertiary: #ffffff;
 
     /* Text */
-    --text-primary: var(--gray-900);
+    --text-primary: #222222;
     --text-secondary: var(--gray-600);
     --text-soft: var(--gray-500);
     --text-tertiary: var(--gray-400);
@@ -23,22 +24,36 @@
     --text-success: var(--success-500);
 
     /* Border */
-    --border-primary: var(--gray-200);
-    --border-secondary: var(--gray-300);
+    --border-primary: var(--warm-200);
+    --border-secondary: var(--warm-300);
 
-    /* Accent (Primary emphasis — TimeColumn, Bucket info 등 강조 영역) */
-    --bg-accent: var(--brand-500);
-    --bg-accent-subtle: var(--brand-50);
-    --text-on-accent: #ffffff;
-    --text-accent: var(--brand-700);
-    --border-accent: var(--brand-200);
+    /* Hover (어두워지는 패턴) */
+    --bg-hover: rgba(0, 0, 0, 0.04);
+    --bg-hover-strong: rgba(0, 0, 0, 0.08);
 
-    /* Interactive (Buttons, Links, etc.) */
-    --bg-interactive-primary: var(--brand-500);
-    --bg-interactive-primary-hover: var(--brand-600);
+    /* Dashed (점선 전용) */
+    --border-dashed: var(--warm-200);
+    --border-dashed-hover: var(--warm-300);
+
+    /* Accent (Apple system yellow — 포커스, 활성 상태, 강조 포인트) */
+    --bg-accent: #F9B624;
+    --bg-accent-subtle: #FBE59B;
+    --text-on-accent: #222222;
+    --text-accent: #7C6800;
+    --border-accent: #FBE59B;
+
+    /* Border Radius (semantic) */
+    --radius-button: var(--radius-md);
+    --radius-block: var(--radius-lg);
+    --radius-card: var(--radius-xl);
+    --radius-container: var(--radius-2xl);
+
+    /* Interactive (Buttons, Links, etc.) — Near Black primary */
+    --bg-interactive-primary: #222222;
+    --bg-interactive-primary-hover: #333333;
     --text-interactive-primary: #ffffff;
-    --border-interactive-primary: var(--brand-600);
-    --border-interactive-primary-hover: var(--brand-700);
+    --border-interactive-primary: #222222;
+    --border-interactive-primary-hover: #333333;
 
     /* Interactive - Destructive */
     --bg-interactive-destructive: var(--error-600);

@@ -12,6 +12,13 @@
   --gray-900: #111827;
   --gray-950: #030712;
 
+  /* Warm Neutrals */
+  --warm-white: #FEFEFE;
+  --warm-50: #F7F7F6;
+  --warm-100: #F0EDE8;
+  --warm-200: #E8E5E0;
+  --warm-300: #D4D0C8;
+
   /* Brand (Blue — #3B82F6 기준) */
   --brand-50: #eff6ff;
   --brand-100: #dbeafe;
@@ -119,9 +126,11 @@
   /* ----------------------------------------
      Border Radius
      ---------------------------------------- */
-  --radius-sm: 0.25rem;    /* 4px */
-  --radius-md: 0.375rem;   /* 6px */
-  --radius-lg: 0.5rem;     /* 8px */
-  --radius-xl: 0.75rem;    /* 12px */
+  --radius-sm: 0.25rem;    /* 4px  — 태그, 뱃지 */
+  --radius-md: 0.5rem;     /* 8px  — 버튼, 입력 필드 */
+  --radius-lg: 0.75rem;    /* 12px — 캘린더 블록, 드롭다운 */
+  --radius-xl: 1rem;       /* 16px — 패널, 작은 카드 */
+  --radius-2xl: 1.25rem;   /* 20px — 장소 카드, 이미지 컨테이너 */
+  --radius-3xl: 1.5rem;    /* 24px — 대형 컨테이너, 모달 */
   --radius-full: 9999px;
 }

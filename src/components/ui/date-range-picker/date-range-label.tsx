@@ -40,7 +40,7 @@ export function DateRangeLabel({ range }: { range: DateRange | undefined }) {
         as="span"
         variant="small"
         weight="medium"
-        className="bg-brand-50 text-brand-700 px-2 py-0.5 rounded-md"
+        className="bg-accent-subtle text-primary px-2 py-0.5 rounded-md"
       >
         {from}
       </Text>
@@ -53,7 +53,7 @@ export function DateRangeLabel({ range }: { range: DateRange | undefined }) {
             as="span"
             variant="small"
             weight="medium"
-            className="bg-brand-50 text-brand-700 px-2 py-0.5 rounded-md"
+            className="bg-accent-subtle text-primary px-2 py-0.5 rounded-md"
           >
             {to}
           </Text>

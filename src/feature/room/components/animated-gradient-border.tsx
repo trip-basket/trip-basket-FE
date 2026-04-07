@@ -18,34 +18,34 @@ export function AnimatedGradientBorder() {
           x2="800"
           y2="400"
         >
-          <stop offset="0%" stopColor="#d1d5db">
+          <stop offset="0%" stopColor="#FFE566">
             <animate
               attributeName="stop-color"
-              values="#d1d5db;#9ca3af;#d1d5db;#6b7280;#d1d5db"
+              values="#FFE566;#FFD60A;#FFE566;#FFCA00;#FFE566"
               dur="5s"
               repeatCount="indefinite"
             />
           </stop>
-          <stop offset="33%" stopColor="#9ca3af">
+          <stop offset="33%" stopColor="#FFD60A">
             <animate
               attributeName="stop-color"
-              values="#9ca3af;#d1d5db;#6b7280;#d1d5db;#9ca3af"
+              values="#FFD60A;#FFE566;#FFCA00;#FFE566;#FFD60A"
               dur="5s"
               repeatCount="indefinite"
             />
           </stop>
-          <stop offset="66%" stopColor="#6b7280">
+          <stop offset="66%" stopColor="#FFCA00">
             <animate
               attributeName="stop-color"
-              values="#6b7280;#9ca3af;#d1d5db;#9ca3af;#6b7280"
+              values="#FFCA00;#FFD60A;#FFE566;#FFD60A;#FFCA00"
               dur="5s"
               repeatCount="indefinite"
             />
           </stop>
-          <stop offset="100%" stopColor="#d1d5db">
+          <stop offset="100%" stopColor="#FFE566">
             <animate
               attributeName="stop-color"
-              values="#d1d5db;#6b7280;#9ca3af;#d1d5db;#d1d5db"
+              values="#FFE566;#FFCA00;#FFD60A;#FFE566;#FFE566"
               dur="5s"
               repeatCount="indefinite"
             />
@@ -59,15 +59,15 @@ export function AnimatedGradientBorder() {
         ry="13"
         fill="none"
         stroke={`url(#${gradientId})`}
-        strokeWidth="2.5"
-        strokeDasharray="10 5"
+        strokeWidth="2"
+        strokeDasharray="8 6"
         strokeLinecap="round"
         style={{ width: "calc(100% - 4px)", height: "calc(100% - 4px)" }}
       >
         <animate
           attributeName="stroke-dashoffset"
-          values="0;-15"
-          dur="2s"
+          values="0;-14"
+          dur="3s"
           repeatCount="indefinite"
         />
       </rect>

@@ -40,16 +40,16 @@ export function TripFilterTabs({ isLoading, rooms }: { isLoading: boolean; rooms
       ) : (
         <div className="flex flex-col gap-5">
           {/* Tabs */}
-          <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-fit">
+          <div className="flex gap-1 bg-inset p-1 rounded-block w-fit">
             {TABS.map((tab) => (
               <button
                 key={tab.key}
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
-                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
+                className={`px-4 py-1.5 rounded-button text-sm font-medium transition-all duration-200 cursor-pointer ${
                   activeTab === tab.key
-                    ? "bg-white text-brand-600 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
+                    ? "bg-white text-main shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
+                    : "text-soft hover:text-main"
                 }`}
               >
                 {tab.label}
@@ -58,7 +58,7 @@ export function TripFilterTabs({ isLoading, rooms }: { isLoading: boolean; rooms
           </div>
 
           {/* Grid */}
-          <TripGrid rooms={filtered} />
+          <TripGrid rooms={filtered} showCreate={activeTab !== "past"} />
         </div>
       )}
     </div>

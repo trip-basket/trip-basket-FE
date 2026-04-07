@@ -73,7 +73,15 @@
     --radius-md: var(--radius-md);
     --radius-lg: var(--radius-lg);
     --radius-xl: var(--radius-xl);
+    --radius-2xl: var(--radius-2xl);
+    --radius-3xl: var(--radius-3xl);
     --radius-full: var(--radius-full);
+
+    /* Semantic Radius */
+    --radius-button: var(--radius-button);
+    --radius-block: var(--radius-block);
+    --radius-card: var(--radius-card);
+    --radius-container: var(--radius-container);
 
     /* ============================================
        Font Sizes
@@ -93,8 +101,11 @@
 
     /* Background */
     --color-canvas: var(--bg-primary);
+    --color-page: var(--bg-page);
     --color-inset: var(--bg-inset);
     --color-elevated: var(--bg-tertiary);
+    --color-hover: var(--bg-hover);
+    --color-hover-strong: var(--bg-hover-strong);
 
     /* Accent */
     --color-accent: var(--bg-accent);
@@ -115,6 +126,8 @@
     /* Border */
     --color-outline: var(--border-primary);
     --color-outline-strong: var(--border-secondary);
+    --color-dashed: var(--border-dashed);
+    --color-dashed-hover: var(--border-dashed-hover);
 
     /* Interactive (Buttons, Links, etc.) */
     --color-action: var(--bg-interactive-primary);

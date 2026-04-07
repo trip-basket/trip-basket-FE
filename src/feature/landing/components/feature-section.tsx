@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { RadialGlow } from "./radial-glow";
+import { Text } from "@/src/components/ui";
 
 interface FeatureSectionProps {
   badge: ReactNode;
@@ -18,11 +18,12 @@ export function FeatureSection({
 }: FeatureSectionProps) {
   const textBlock = (
     <div className="flex-1 max-w-lg relative">
-      <RadialGlow />
       <div className="relative">
         {badge}
         {title}
-        <p className="mt-5 text-gray-500 leading-relaxed text-lg">{description}</p>
+        <Text as="p" variant="h4" color="soft" className="mt-5 leading-relaxed font-normal">
+          {description}
+        </Text>
       </div>
     </div>
   );
@@ -31,7 +32,6 @@ export function FeatureSection({
     <div
       className={`flex-1 flex justify-center ${reversed ? "lg:justify-start" : "lg:justify-end"} relative`}
     >
-      <RadialGlow />
       <div className="relative">{demo}</div>
     </div>
   );

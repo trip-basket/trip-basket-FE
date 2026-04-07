@@ -16,11 +16,10 @@ export function PickerHeader({ range }: { range: DateRange | undefined }) {
       </div>
       <Dialog.Close asChild>
         <Button
-          variant="icon"
-          color="neutral"
-          size="sm"
+          variant="borderless"
+          size="icon"
           aria-label="닫기"
-          className="cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:outline-none"
+          className="cursor-pointer focus-visible:ring-2 focus-visible:ring-accent-outline focus-visible:outline-none"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path

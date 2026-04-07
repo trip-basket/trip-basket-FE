@@ -7,7 +7,7 @@ export function PlacePhoto({ url }: { url: string }) {
   const [isError, setIsError] = useState(false);
 
   return (
-    <div className="relative w-full h-32 bg-gray-100">
+    <div className="relative w-full h-32 bg-inset">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">
           <Spinner />

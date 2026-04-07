@@ -1,9 +1,7 @@
-import { GridBackground } from "./grid-background";
-
 export function Spinner({ className = "" }: { className?: string }) {
   return (
     <svg
-      className={`h-6 w-6 animate-spin text-brand-500 ${className}`}
+      className={`h-6 w-6 animate-spin text-soft ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -21,8 +19,7 @@ export function Spinner({ className = "" }: { className?: string }) {
 
 export function PageSpinner() {
   return (
-    <div className="relative flex w-full min-h-dvh items-center justify-center bg-gray-50/30">
-      <GridBackground />
+    <div className="relative flex w-full min-h-dvh items-center justify-center bg-inset">
       <Spinner />
     </div>
   );

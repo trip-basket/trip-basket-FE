@@ -2,6 +2,7 @@
 
 import * as Popover from "@radix-ui/react-popover";
 import { useCallback, useState } from "react";
+import { Button } from "@/src/components/ui";
 import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import type { Place } from "@/src/types";
 import { DatePopoverContent } from "./date-popover";
@@ -30,10 +31,11 @@ export function CalendarPopoverTrigger({ place }: { place: Place }) {
       }}
     >
       <Popover.Trigger asChild>
-        <button
-          type="button"
+        <Button
+          variant="bordered"
+          size="sm"
           disabled={!hasTripDays}
-          className="flex items-center justify-center w-9 bg-action text-on-action transition-colors cursor-pointer hover:bg-action-hover disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex items-center justify-center w-9 px-0 rounded-l-button rounded-r-none border-r-0"
           aria-label={hasTripDays ? "날짜 선택" : "여행 날짜를 먼저 추가해 주세요"}
         >
           <svg
@@ -52,7 +54,7 @@ export function CalendarPopoverTrigger({ place }: { place: Place }) {
               strokeLinejoin="round"
             />
           </svg>
-        </button>
+        </Button>
       </Popover.Trigger>
 
       {hasTripDays && (

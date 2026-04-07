@@ -24,7 +24,7 @@ export function SectionHeader({ icon, label }: { icon: string; label: string }) 
             height="15"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="text-gray-400 shrink-0"
+            className="text-muted shrink-0"
             aria-hidden="true"
           >
             <path d={path} />
@@ -40,7 +40,7 @@ export function SectionHeader({ icon, label }: { icon: string; label: string }) 
           {label}
         </Text>
       </div>
-      <div className="flex-1 h-px bg-gray-200" />
+      <div className="flex-1 h-px bg-outline" />
     </div>
   );
 }

@@ -30,7 +30,7 @@ export function CalendarMetaBar() {
 
   return (
     <>
-      <div className="flex items-center justify-between shrink-0 px-3 py-2 border-b border-black/6">
+      <div className="flex items-center justify-between shrink-0 px-3 py-2 border-b border-outline">
         <div className="flex items-center gap-1.5">
           {startDate && endDate && (
             <DateChip

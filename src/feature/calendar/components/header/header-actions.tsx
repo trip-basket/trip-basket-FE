@@ -50,10 +50,8 @@ export function HeaderActions() {
       <div className="flex items-center gap-1 shrink-0 ml-4">
         {/* 내보내기 버튼 */}
         <Button
-          variant="icon"
-          color="neutral"
-          size="sm"
-          className="hover-item"
+          variant="borderless"
+          size="icon"
           aria-label="내보내기"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -77,10 +75,8 @@ export function HeaderActions() {
         <Popover.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <Popover.Trigger asChild>
             <Button
-              variant="icon"
-              color="neutral"
-              size="sm"
-              className="hover-item cursor-pointer"
+              variant="borderless"
+              size="icon"
               aria-label="설정"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -101,8 +97,7 @@ export function HeaderActions() {
             >
               <div className="flex flex-col bg-white rounded-xl shadow-xl border border-outline w-fit p-1.5">
                 <Button
-                  variant="ghost"
-                  color="neutral"
+                  variant="borderless"
                   size="sm"
                   className="justify-start cursor-pointer"
                   onClick={handleEditName}
@@ -117,7 +112,7 @@ export function HeaderActions() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     aria-hidden="true"
-                    className="text-gray-500"
+                    className="text-soft"
                   >
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
@@ -127,10 +122,9 @@ export function HeaderActions() {
                   </Text>
                 </Button>
                 <Button
-                  variant="ghost"
-                  color="danger"
+                  variant="borderless"
                   size="sm"
-                  className="justify-start cursor-pointer"
+                  className="justify-start cursor-pointer text-error hover:bg-error-50"
                   onClick={handleLeaveRoom}
                 >
                   <svg

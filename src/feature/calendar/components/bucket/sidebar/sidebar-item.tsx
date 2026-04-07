@@ -32,10 +32,8 @@ export function SidebarItem({
         height: ITEM_HEIGHT,
         paddingLeft: indent ? 24 : 8,
         paddingRight: 8,
-        backgroundColor: isSelected ? "var(--bg-accent-subtle)" : undefined,
-        color: isSelected ? "var(--text-accent)" : "var(--text-secondary)",
-        // @ts-expect-error -- CSS variable for focus ring
-        "--tw-ring-color": "var(--border-accent)",
+        backgroundColor: isSelected ? "var(--bg-hover)" : undefined,
+        color: isSelected ? "var(--text-primary)" : "var(--text-secondary)",
       }}
       onClick={onClick}
     >
@@ -50,7 +48,7 @@ export function SidebarItem({
           as="span"
           variant="caption"
           className="text-[10px] tabular-nums"
-          style={{ color: isSelected ? "var(--text-accent)" : "var(--text-tertiary)" }}
+          style={{ color: isSelected ? "var(--text-primary)" : "var(--text-tertiary)" }}
         >
           {count}
         </Text>

@@ -35,7 +35,7 @@ export function OpeningHoursCollapsed({
               variant="caption"
               weight="medium"
               className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
-                hasHours ? "bg-gray-100 text-gray-500" : "bg-gray-50 text-gray-300"
+                hasHours ? "bg-inset text-soft" : "bg-inset text-muted"
               }`}
             >
               {abbr}
@@ -44,7 +44,7 @@ export function OpeningHoursCollapsed({
         })}
         <button
           type="button"
-          className="text-xs text-blue-500 hover:text-blue-600 transition-colors cursor-pointer ml-1"
+          className="text-xs text-accent-text hover:text-accent-text transition-colors cursor-pointer ml-1"
           onClick={onExpand}
         >
           영업시간 보기

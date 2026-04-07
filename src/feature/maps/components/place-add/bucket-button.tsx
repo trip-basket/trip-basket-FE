@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { Button, Text } from "@/src/components/ui";
 import useCalendarStore from "@/src/feature/calendar/stores/use-calendar-store";
 import type { Place } from "@/src/types";
 
@@ -12,10 +13,11 @@ export function BucketButton({ place }: { place: Place }) {
   }, [addToBucket, place]);
 
   return (
-    <button
-      type="button"
+    <Button
+      variant="bordered"
+      size="sm"
       onClick={handleClick}
-      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-medium bg-action text-on-action hover:bg-action-hover transition-colors cursor-pointer"
+      className="flex-1 justify-center rounded-l-none rounded-r-button"
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path
@@ -25,7 +27,9 @@ export function BucketButton({ place }: { place: Place }) {
           fill="none"
         />
       </svg>
-      버킷에 담기
-    </button>
+      <Text variant="small" weight="medium">
+        버킷에 담기
+      </Text>
+    </Button>
   );
 }

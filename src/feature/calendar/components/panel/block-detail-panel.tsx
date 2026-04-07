@@ -33,12 +33,12 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
   return (
     <>
       {/* Header bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 shrink-0">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-outline shrink-0">
         <div className="flex items-center gap-0.5">
           {/* 버킷으로 이동 */}
           <button
             type="button"
-            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-150 cursor-pointer"
+            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-hover text-muted hover:text-sub transition-colors duration-150 cursor-pointer"
             aria-label="버킷으로 이동"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -48,7 +48,7 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
           {/* 삭제 */}
           <button
             type="button"
-            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors duration-150 cursor-pointer"
+            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-red-50 text-muted hover:text-red-500 transition-colors duration-150 cursor-pointer"
             aria-label="삭제"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -60,7 +60,7 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
         <Dialog.Close asChild>
           <button
             type="button"
-            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-150 cursor-pointer"
+            className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-hover text-muted hover:text-sub transition-colors duration-150 cursor-pointer"
             aria-label="닫기"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

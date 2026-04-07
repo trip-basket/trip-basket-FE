@@ -15,13 +15,13 @@ export function AddDateHeaderCell({
       style={{ width: ADD_COL_W }}
       aria-label={position === "left" ? "이전 날짜 추가" : "다음 날짜 추가"}
     >
-      <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-gray-200 group-hover:border-gray-300 group-hover:bg-black/[0.02] transition-colors">
+      <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-outline group-hover:border-outline-strong group-hover:bg-hover transition-colors">
         <svg
           width="16"
           height="16"
           viewBox="0 0 16 16"
           fill="none"
-          className="text-gray-300 group-hover:text-gray-400 transition-colors"
+          className="text-muted group-hover:text-soft transition-colors"
         >
           <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>

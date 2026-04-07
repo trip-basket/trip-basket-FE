@@ -24,7 +24,7 @@ export function PlaceHeader({
             <Text
               as="span"
               variant="caption"
-              className="shrink-0 text-[11px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500"
+              className="shrink-0 text-[11px] px-1.5 py-0.5 rounded-full bg-inset text-soft"
             >
               {CATEGORY_LABEL[category]}
             </Text>
@@ -39,7 +39,7 @@ export function PlaceHeader({
       <button
         type="button"
         onClick={onClose}
-        className="flex items-center justify-center h-7 w-7 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors duration-150 shrink-0 ml-2"
+        className="flex items-center justify-center h-7 w-7 rounded hover:bg-hover text-muted hover:text-sub transition-colors duration-150 shrink-0 ml-2"
         aria-label="닫기"
       >
         <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">

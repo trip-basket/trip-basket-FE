@@ -5,7 +5,6 @@ import type { FallbackProps } from "react-error-boundary";
 import { ApiError } from "@/src/lib/api";
 import type { FallbackMessages } from "@/src/lib/api/api-error";
 import { Button } from "./button";
-import { GridBackground } from "./grid-background";
 import { Text } from "./text";
 
 const DEFAULT_CONTENT = {
@@ -32,10 +31,9 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
   const { title, description } = getContent(error, errorContents);
 
   return (
-    <div className="relative flex w-full min-h-dvh items-center justify-center bg-gray-50/30">
-      <GridBackground />
+    <div className="relative flex w-full min-h-dvh items-center justify-center bg-inset">
       <div className="relative flex flex-col items-center px-6 text-center">
-        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-inset">
           <svg
             width="28"
             height="28"
@@ -45,7 +43,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-brand-500"
+            className="text-soft"
             aria-hidden="true"
           >
             <circle cx="12" cy="12" r="10" />
@@ -63,8 +61,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
 
         <div className="flex gap-3">
           <Button
-            variant="outline"
-            color="neutral"
+            variant="borderless"
             size="md"
             className="cursor-pointer"
             onClick={() => router.push("/dashboard")}
@@ -72,8 +69,7 @@ export function ErrorFallback({ error, resetErrorBoundary, errorContents }: Erro
             대시보드로 이동
           </Button>
           <Button
-            variant="solid"
-            color="primary"
+            variant="primary"
             size="md"
             className="cursor-pointer"
             onClick={resetErrorBoundary}

@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { GridBackground } from "@/src/components/ui";
 import { BottomCta, FeatureShowcase, HeroSection } from "@/src/feature/landing";
 import { memberApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
@@ -28,9 +27,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="relative">
-      <GridBackground />
-
+    <div className="relative bg-page">
       <HeroSection onGoogleLogin={handleGoogleLogin} />
 
       <FeatureShowcase />

@@ -41,20 +41,19 @@ export function PickerFooter({
       <div className="flex items-center gap-2">
         <Dialog.Close asChild>
           <Button
-            variant="ghost"
-            color="neutral"
+            variant="borderless"
             size="sm"
-            className="cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:outline-none"
+            className="cursor-pointer focus-visible:ring-2 focus-visible:ring-accent-outline focus-visible:outline-none"
           >
             취소
           </Button>
         </Dialog.Close>
         <Button
           size="sm"
-          color={hasBlocksToDelete ? "danger" : "primary"}
+          variant={hasBlocksToDelete ? "danger" : "confirm"}
           disabled={!isRangeComplete}
           onClick={onConfirm}
-          className="cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:outline-none"
+          className="cursor-pointer focus-visible:ring-2 focus-visible:ring-accent-outline focus-visible:outline-none"
         >
           {hasBlocksToDelete ? "삭제하고 변경" : "확인"}
         </Button>
