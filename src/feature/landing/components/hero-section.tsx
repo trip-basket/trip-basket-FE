@@ -201,7 +201,7 @@ export function HeroSection({ onGoogleLogin }: { onGoogleLogin: () => void }) {
       </div>
 
       {/* Scroll hint */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted animate-bounce">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted animate-bounce motion-reduce:animate-none">
         <svg
           width="20"
           height="20"

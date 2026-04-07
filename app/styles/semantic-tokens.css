@@ -38,7 +38,7 @@
     /* Accent (Apple system yellow — 포커스, 활성 상태, 강조 포인트) */
     --bg-accent: #F9B624;
     --bg-accent-subtle: #FBE59B;
-    --text-on-accent: #ffffff;
+    --text-on-accent: #222222;
     --text-accent: #7C6800;
     --border-accent: #FBE59B;
 

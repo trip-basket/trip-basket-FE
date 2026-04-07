@@ -1,3 +1,4 @@
+import { Text } from "@/src/components/ui";
 import { WindowDots } from "./window-dots";
 
 const COLLAB_STYLES = `
@@ -33,38 +34,71 @@ export function CollabDemo() {
           {/* Mini calendar grid */}
           <div className="grid grid-cols-3 gap-2 relative">
             <div>
-              <p className="text-[10px] text-muted mb-2 text-center">Day 1</p>
+              <Text
+                as="p"
+                variant="caption"
+                color="muted"
+                className="!text-[10px] mb-2 text-center"
+              >
+                Day 1
+              </Text>
               <div className="space-y-1.5">
                 <div className="h-9 rounded-lg bg-sky-100 border border-sky-200 flex items-center justify-center">
-                  <span className="text-[10px] text-sky-600 font-medium">도톤보리</span>
+                  <Text variant="caption" className="!text-[10px] text-sky-600 font-medium">
+                    도톤보리
+                  </Text>
                 </div>
                 <div className="h-12 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center">
-                  <span className="text-[10px] text-amber-600 font-medium">오사카성</span>
+                  <Text variant="caption" className="!text-[10px] text-amber-600 font-medium">
+                    오사카성
+                  </Text>
                 </div>
               </div>
             </div>
             <div>
-              <p className="text-[10px] text-muted mb-2 text-center">Day 2</p>
+              <Text
+                as="p"
+                variant="caption"
+                color="muted"
+                className="!text-[10px] mb-2 text-center"
+              >
+                Day 2
+              </Text>
               <div className="space-y-1.5">
                 <div className="h-10 rounded-lg bg-violet-100 border border-violet-200 flex items-center justify-center relative">
-                  <span className="text-[10px] text-violet-600 font-medium">나라 공원</span>
+                  <Text variant="caption" className="!text-[10px] text-violet-600 font-medium">
+                    나라 공원
+                  </Text>
                   <div className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white text-[7px] font-bold text-white flex items-center justify-center shadow-sm">
                     M
                   </div>
                 </div>
                 <div className="h-7 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center">
-                  <span className="text-[10px] text-rose-600 font-medium">신사이바시</span>
+                  <Text variant="caption" className="!text-[10px] text-rose-600 font-medium">
+                    신사이바시
+                  </Text>
                 </div>
               </div>
             </div>
             <div>
-              <p className="text-[10px] text-muted mb-2 text-center">Day 3</p>
+              <Text
+                as="p"
+                variant="caption"
+                color="muted"
+                className="!text-[10px] mb-2 text-center"
+              >
+                Day 3
+              </Text>
               <div className="space-y-1.5">
                 <div className="h-9 rounded-lg bg-teal-100 border border-teal-200 flex items-center justify-center">
-                  <span className="text-[10px] text-teal-600 font-medium">유니버셜</span>
+                  <Text variant="caption" className="!text-[10px] text-teal-600 font-medium">
+                    유니버셜
+                  </Text>
                 </div>
                 <div className="h-9 rounded-lg border-2 border-dashed border-violet-300 flex items-center justify-center animate-pulse relative">
-                  <span className="text-[10px] text-violet-400">추가 중...</span>
+                  <Text variant="caption" className="!text-[10px] text-violet-400">
+                    추가 중...
+                  </Text>
                   <div className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-violet-400 border-2 border-white text-[7px] font-bold text-white flex items-center justify-center shadow-sm">
                     S
                   </div>
@@ -80,9 +114,12 @@ export function CollabDemo() {
               <svg width="12" height="16" viewBox="0 0 12 16" fill="#F43F5E" aria-hidden="true">
                 <path d="M0 0l12 8.5-5 1L4.5 16 0 0z" />
               </svg>
-              <span className="text-[8px] bg-rose-500 text-white px-1 py-0.5 rounded ml-0.5 whitespace-nowrap">
+              <Text
+                variant="caption"
+                className="!text-[8px] bg-rose-500 text-white px-1 py-0.5 rounded ml-0.5 whitespace-nowrap"
+              >
                 지민
-              </span>
+              </Text>
             </div>
           </div>
 
@@ -90,7 +127,9 @@ export function CollabDemo() {
           <div className="mt-4 flex items-center gap-3 text-[10px] text-muted">
             <div className="flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>민수님이 Day 2 편집 중</span>
+              <Text variant="caption" className="!text-[10px]">
+                민수님이 Day 2 편집 중
+              </Text>
             </div>
           </div>
         </div>

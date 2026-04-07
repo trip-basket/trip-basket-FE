@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Text } from "@/src/components/ui";
 
 interface FeatureSectionProps {
   badge: ReactNode;
@@ -20,7 +21,9 @@ export function FeatureSection({
       <div className="relative">
         {badge}
         {title}
-        <p className="mt-5 text-soft leading-relaxed text-lg">{description}</p>
+        <Text as="p" variant="h4" color="soft" className="mt-5 leading-relaxed font-normal">
+          {description}
+        </Text>
       </div>
     </div>
   );

@@ -36,14 +36,14 @@ import { Button } from "@/src/components/ui";
 <Button variant="icon" aria-label="닫기">✕</Button>
 ```
 
-- **variant**: `primary` | `secondary` | `tertiary` | `danger` | `icon`
+- **variant**: `primary` | `bordered` | `borderless` | `confirm` | `danger`
   - `primary`: 주요 행동 (CTA). near-black solid.
-  - `secondary`: 보조 행동. outline border.
-  - `tertiary`: 삼차 행동 (취소, 메뉴 아이템). 배경 없는 텍스트 버튼.
-  - `danger`: 위험 행동 (삭제). red solid.
-  - `icon`: 아이콘 전용. 투명 배경, 정사각형.
-- **size**: `sm` | `md` | `lg`
-- **`color` prop은 없다.** 세세한 색상 조정이 필요하면 `className`으로. 같은 패턴이 2회 이상 반복되면 새 variant를 만든다.
+  - `bordered`: 테두리 + 그림자. 칩, 툴바 아이콘, 확인 이외 bordered 요소.
+  - `borderless`: 배경 없음. 취소, 메뉴 아이템.
+  - `confirm`: 모달 내 확인 행동. near-black solid.
+  - `danger`: 위험 행동. red solid.
+- **size**: `sm` | `md` | `lg` | `icon`
+  - `icon`: 정사각형 32px.
 
 **예외**: 드래그 핸들, 체크박스 토글 등 시맨틱이 버튼이 아닌 인터랙티브 요소.
 

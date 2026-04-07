@@ -61,7 +61,7 @@ feature/<name>/
 
 **공용 컴포넌트가 커버하는 영역에서는 반드시 사용한다. raw HTML 태그(`<span>`, `<p>`, `<h1>`~`<h4>`, `<button>`, `<input>`)를 직접 쓰지 않는다.** 상세 규칙은 `src/components/ui/CLAUDE.md` 참조.
 
-- `Button` — variant(`primary`, `secondary`, `tertiary`, `danger`, `icon`), size(`sm`, `md`, `lg`). 시맨틱 기반, `color` prop 없음. tailwind-variants.
+- `Button` — variant(`primary`, `bordered`, `borderless`, `confirm`, `danger`), size(`sm`, `md`, `lg`, `icon`). 시맨틱 기반. tailwind-variants.
 - `Input` — 텍스트 입력 필드. 검증은 zod + react-hook-form.
 - `Text` — 텍스트 타이포그래피
 - `Avatar` — 사용자 아바타

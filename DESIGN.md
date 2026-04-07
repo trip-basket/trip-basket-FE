@@ -209,7 +209,7 @@ Travel Basket은 **청춘 배낭여행의 설렘을 디지털로 옮긴** 서비
 - 접힘/펼침 전환: 250ms cubic-bezier(0.165, 0.84, 0.44, 1)
 
 **시각적 레이어 구조:**
-```
+```text
 Page Background (#FAFAF8 Warm White)
   └─ Shared Panel (#FFFFFF + dashed border)
        ├─ Calendar Grid (#FFFFFF) — 블록들이 위에 놓임
@@ -241,6 +241,7 @@ Page Background (#FAFAF8 Warm White)
 - **비대칭 여백**: 제목 위 여백 > 아래 여백 (콘텐츠와의 시각적 연결)
 
 ### Border Radius Scale
+
 | Token | Value | Use |
 |-------|-------|-----|
 | sm | 4px | 태그, 뱃지, 작은 인터랙티브 요소 |
@@ -294,6 +295,7 @@ Page Background (#FAFAF8 Warm White)
 ## 8. Responsive Behavior
 
 ### Breakpoints
+
 | Name | Width | Key Changes |
 |------|-------|-------------|
 | Mobile | < 640px | 1열 레이아웃, 캘린더 일별 보기, 지도 토글 |
