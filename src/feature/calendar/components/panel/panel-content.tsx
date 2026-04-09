@@ -41,7 +41,7 @@ export function PanelContent({
 }) {
   const [isHoursOpen, setIsHoursOpen] = useState(false);
 
-  const blockColor = getBlockColor(block.color);
+  const blockColor = getBlockColor(block.place.category);
   const categoryColor = blockColor.accent;
   const categoryLabel = block.place.category ? CATEGORY_LABELS[block.place.category] : undefined;
   const reactionsCount = block.reactions?.length ?? 0;

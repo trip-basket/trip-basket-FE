@@ -35,7 +35,6 @@ interface BlockBase {
   id: string;
   place: Place;
   name: string;
-  color: BlockColorName;
   cost?: number;
   memo?: string;
   addedBy?: string;

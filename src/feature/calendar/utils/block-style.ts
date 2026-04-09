@@ -1,8 +1,11 @@
-import { BLOCK_COLORS } from "../constants";
-import type { BlockColorName, BlockColorPalette } from "../types";
+import { BLOCK_COLORS, CATEGORY_COLOR } from "../constants";
+import type { BlockColorPalette, PlaceCategory } from "../types";
 
-export function getBlockColor(color: BlockColorName): BlockColorPalette {
-  return BLOCK_COLORS[color];
+const DEFAULT_BLOCK_COLOR_NAME = "slate" as const;
+
+export function getBlockColor(category: PlaceCategory | undefined): BlockColorPalette {
+  const colorName = category ? CATEGORY_COLOR[category] : DEFAULT_BLOCK_COLOR_NAME;
+  return BLOCK_COLORS[colorName];
 }
 
 export function getBlockShadow(isDragging: boolean, blockColor: BlockColorPalette): string {

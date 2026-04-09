@@ -1,17 +1,13 @@
 import { create } from "zustand";
 import type { Place } from "@/src/types";
-import { CATEGORY_COLOR } from "../constants";
 import { MOCK_BUCKET_BLOCKS, MOCK_CALENDAR_BLOCKS } from "../mocks";
 import {
-  type BlockColorName,
   type BucketBlock,
   DEFAULT_BLOCK_DURATION,
   type ScheduledBlock,
   type TripDay,
 } from "../types";
 import { formatLocalDate } from "../utils";
-
-const DEFAULT_BLOCK_COLOR: BlockColorName = "slate";
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
@@ -153,26 +149,20 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   },
 
   addToBucket: (place) => {
-    const color = place.category ? CATEGORY_COLOR[place.category] : DEFAULT_BLOCK_COLOR;
-
     const newBlock: BucketBlock = {
       id: crypto.randomUUID(),
       place,
       name: place.placeName,
-      color,
       status: "bucket",
     };
     set({ bucketBlocks: [...get().bucketBlocks, newBlock] });
   },
 
   addToCalendar: (place, date, startHour) => {
-    const color = place.category ? CATEGORY_COLOR[place.category] : DEFAULT_BLOCK_COLOR;
-
     const newBlock: ScheduledBlock = {
       id: crypto.randomUUID(),
       place,
       name: place.placeName,
-      color,
       status: "scheduled",
       startHour,
       endHour: startHour + DEFAULT_BLOCK_DURATION,
