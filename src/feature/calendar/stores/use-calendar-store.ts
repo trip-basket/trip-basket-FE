@@ -1,4 +1,7 @@
 import { create } from "zustand";
+import useRoomStore from "@/src/feature/room/stores/use-room-store";
+import { BLOCK_TOAST_MESSAGES, blockApi, getErrorMessage } from "@/src/lib/api";
+import { toast } from "@/src/lib/toast";
 import type { Place } from "@/src/types";
 import { MOCK_BUCKET_BLOCKS, MOCK_CALENDAR_BLOCKS } from "../mocks";
 import {
@@ -7,7 +10,13 @@ import {
   type ScheduledBlock,
   type TripDay,
 } from "../types";
-import { formatLocalDate } from "../utils";
+import {
+  formatLocalDate,
+  toBucketBlock,
+  toCreateBucketRequest,
+  toCreateScheduledRequest,
+  toScheduledBlock,
+} from "../utils";
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
@@ -149,17 +158,46 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   },
 
   addToBucket: (place) => {
-    const newBlock: BucketBlock = {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return;
+    }
+
+    const tempBlock: BucketBlock = {
       id: crypto.randomUUID(),
       place,
       name: place.placeName,
       status: "bucket",
     };
-    set({ bucketBlocks: [...get().bucketBlocks, newBlock] });
+
+    set({ bucketBlocks: [...get().bucketBlocks, tempBlock] });
+
+    const request = toCreateBucketRequest(place, place.placeName);
+
+    // 웹소켓을 도입하면 블록 CRUD는 보통 REST API로 요청 → 서버가 웹소켓으로 변경사항 브로드캐스트 방식이 일반적
+    // 현재 tanstack 엔 재요청 로직이 존재
+    // tanstack 을 사용하면 재요청까지 포함하면서 중복 생성 위험이 있기 때문에, mutation 을 사용하지 않고 스토어 안에서 API 직접 호출
+    blockApi.create(roomId, request).then(
+      (res) => {
+        const realBlock = toBucketBlock(res);
+        set({
+          bucketBlocks: get().bucketBlocks.map((b) => (b.id === tempBlock.id ? realBlock : b)),
+        });
+      },
+      (error) => {
+        set({ bucketBlocks: get().bucketBlocks.filter((b) => b.id !== tempBlock.id) });
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.create));
+      },
+    );
   },
 
   addToCalendar: (place, date, startHour) => {
-    const newBlock: ScheduledBlock = {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return;
+    }
+
+    const tempBlock: ScheduledBlock = {
       id: crypto.randomUUID(),
       place,
       name: place.placeName,
@@ -170,9 +208,31 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
 
     set({
       tripDays: get().tripDays.map((day) =>
-        day.date === date ? { ...day, blocks: [...day.blocks, newBlock] } : day,
+        day.date === date ? { ...day, blocks: [...day.blocks, tempBlock] } : day,
       ),
     });
+
+    const request = toCreateScheduledRequest(place, place.placeName, date, startHour);
+    blockApi.create(roomId, request).then(
+      (res) => {
+        const realBlock = toScheduledBlock(res);
+        set({
+          tripDays: get().tripDays.map((day) => ({
+            ...day,
+            blocks: day.blocks.map((b) => (b.id === tempBlock.id ? realBlock : b)),
+          })),
+        });
+      },
+      (error) => {
+        set({
+          tripDays: get().tripDays.map((day) => ({
+            ...day,
+            blocks: day.blocks.filter((b) => b.id !== tempBlock.id),
+          })),
+        });
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.create));
+      },
+    );
   },
 
   addDayBefore: () => {
