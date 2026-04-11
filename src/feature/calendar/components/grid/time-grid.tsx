@@ -115,6 +115,7 @@ function DayColumn({
   const overlapMap = useMemo(() => computeOverlapLayout(blocks), [blocks]);
   const [hoverHour, setHoverHour] = useState<number | null>(null);
   const isBlockResizing = useCalendarStore((s) => s.isBlockResizing);
+  const isBlockDragging = useCalendarStore((s) => s.isBlockDragging);
   const isBucketDragging = useCalendarStore((s) => s.isBucketDragging);
 
   const hasBlockAt = useCallback(
@@ -127,7 +128,7 @@ function DayColumn({
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      if (isBucketDragging || isBlockResizing) {
+      if (isBucketDragging || isBlockResizing || isBlockDragging) {
         setHoverHour(null);
         return;
       }
@@ -137,7 +138,7 @@ function DayColumn({
       const snapped = Math.floor(rawHour); // 1시간 단위 스냅
       setHoverHour(hasBlockAt(snapped) ? null : snapped);
     },
-    [hasBlockAt, isBlockResizing, isBucketDragging],
+    [hasBlockAt, isBlockResizing, isBucketDragging, isBlockDragging],
   );
 
   const handlePointerLeave = useCallback(() => {

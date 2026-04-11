@@ -57,11 +57,13 @@ interface CalendarStore {
   gridRef: HTMLDivElement | null;
   selectedBlockId: string | null;
   isBucketDragging: boolean;
+  isBlockDragging: boolean;
   isBlockResizing: boolean;
   setDates: (startDate: string, endDate: string) => void;
   setGridRef: (ref: HTMLDivElement | null) => void;
   setSelectedBlockId: (id: string | null) => void;
   setIsBucketDragging: (v: boolean) => void;
+  setIsBlockDragging: (v: boolean) => void;
   setIsBlockResizing: (v: boolean) => void;
   moveToCalendar: (block: BucketBlock, date: string, startHour: number) => void;
   moveInCalendar: (blockId: string, date: string, startHour: number) => void;
@@ -80,6 +82,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   gridRef: null,
   selectedBlockId: null,
   isBucketDragging: false,
+  isBlockDragging: false,
   isBlockResizing: false,
 
   setDates: (startDate, endDate) => {
@@ -92,6 +95,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   setGridRef: (ref) => set({ gridRef: ref }),
   setSelectedBlockId: (id) => set({ selectedBlockId: id }),
   setIsBucketDragging: (v) => set({ isBucketDragging: v }),
+  setIsBlockDragging: (v) => set({ isBlockDragging: v }),
   setIsBlockResizing: (v) => set({ isBlockResizing: v }),
 
   moveToCalendar: (block, date, startHour) =>
