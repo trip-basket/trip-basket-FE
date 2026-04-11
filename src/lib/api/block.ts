@@ -2,8 +2,9 @@ import { api } from "./api-client";
 import type { ErrorMessages } from "./api-error";
 
 export const blockApi = {
-  list: (roomId: string) =>
-    api.get<BlockListResponseApi>(`/api/rooms/${roomId}/blocks`),
+  list: (roomId: string) => api.get<BlockListResponseApi>(`/api/rooms/${roomId}/blocks`),
+  get: (roomId: string, blockId: string) =>
+    api.get<BlockResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}`),
   create: (roomId: string, data: CreateBlockRequestApi) =>
     api.post<BlockResponseApi>(`/api/rooms/${roomId}/blocks`, data),
 };
@@ -13,6 +14,11 @@ export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
     403: "방 접근 권한이 없습니다",
     404: "방을 찾을 수 없습니다",
     default: "블록 목록을 불러오지 못했습니다",
+  },
+  get: {
+    403: "방 접근 권한이 없습니다",
+    404: "블록을 찾을 수 없습니다",
+    default: "블록 정보를 불러오지 못했습니다",
   },
   create: {
     403: "방 접근 권한이 없습니다",
