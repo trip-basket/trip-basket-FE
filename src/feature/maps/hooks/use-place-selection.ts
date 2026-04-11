@@ -3,44 +3,8 @@ import { type MapMouseEvent, useMap, useMapsLibrary } from "@vis.gl/react-google
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { getErrorMessage, PLACE_TOAST_MESSAGES, placeApi } from "@/src/lib/api";
-import type { Place, PlaceCategory } from "@/src/types";
-
-const GOOGLE_TYPE_TO_CATEGORY = new Map<string, PlaceCategory>([
-  ["tourist_attraction", "sightseeing"],
-  ["museum", "sightseeing"],
-  ["park", "sightseeing"],
-  ["church", "sightseeing"],
-  ["zoo", "sightseeing"],
-  ["aquarium", "sightseeing"],
-  ["amusement_park", "activity"],
-  ["stadium", "activity"],
-  ["gym", "activity"],
-  ["restaurant", "food"],
-  ["cafe", "food"],
-  ["bakery", "food"],
-  ["bar", "food"],
-  ["meal_delivery", "food"],
-  ["meal_takeaway", "food"],
-  ["shopping_mall", "shopping"],
-  ["store", "shopping"],
-  ["supermarket", "shopping"],
-  ["clothing_store", "shopping"],
-  ["book_store", "shopping"],
-  ["train_station", "transport"],
-  ["bus_station", "transport"],
-  ["airport", "transport"],
-  ["subway_station", "transport"],
-  ["transit_station", "transport"],
-  ["lodging", "accommodation"],
-  ["hotel", "accommodation"],
-]);
-
-function toPlaceCategory(primaryType?: string): PlaceCategory {
-  if (!primaryType) {
-    return "other";
-  }
-  return GOOGLE_TYPE_TO_CATEGORY.get(primaryType) ?? "other";
-}
+import type { Place } from "@/src/types";
+import { toPlaceCategory } from "@/src/types";
 
 type PlaceSelection =
   | { status: "idle" }

@@ -1,5 +1,6 @@
 import type { BlockResponseApi, CreateBlockRequestApi } from "@/src/lib/api/block";
 import type { Place } from "@/src/types";
+import { toPlaceCategory } from "@/src/types";
 import type { BucketBlock, ScheduledBlock } from "../types";
 import { DEFAULT_BLOCK_DURATION } from "../types";
 
@@ -66,7 +67,7 @@ function toPlace(api: BlockResponseApi["place"]): Place {
     placeName: api.placeName,
     formattedAddress: api.formattedAddress,
     position: api.position,
-    category: api.category ?? "other",
+    category: toPlaceCategory(api.category),
     rating: api.rating,
     reviewCount: api.reviewCount,
     openingHours: api.openingHours,

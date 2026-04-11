@@ -167,10 +167,7 @@ function DayColumn({
           className="absolute inset-x-1 rounded-xl pointer-events-none cursor-pointer bg-action/8 flex items-center justify-center"
           style={{ top: ghostTop, height: ghostHeight }}
         >
-          <svg
-            className="absolute inset-0 w-full h-full text-action/40"
-            aria-hidden="true"
-          >
+          <svg className="absolute inset-0 w-full h-full text-action/40" aria-hidden="true">
             <rect
               x="1"
               y="1"
@@ -184,7 +181,13 @@ function DayColumn({
               strokeDasharray="6 5"
             />
           </svg>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-action/60 relative">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            className="text-action/60 relative"
+          >
             <path
               d="M10 4v12M4 10h12"
               stroke="currentColor"

@@ -1,4 +1,3 @@
-import type { PlaceCategory } from "@/src/types";
 import { api } from "./api-client";
 import type { ErrorMessages } from "./api-error";
 
@@ -39,7 +38,7 @@ interface BlockPlaceResponseApi {
   googlePlaceId: string;
   placeName: string;
   position: PositionApi;
-  category: PlaceCategory | null;
+  category: string | null;
   formattedAddress: string;
   rating: number | null;
   reviewCount: number | null;

@@ -4,7 +4,8 @@ import type { BlockColorPalette, PlaceCategory } from "../types";
 const DEFAULT_BLOCK_COLOR_NAME = "slate" as const;
 
 export function getBlockColor(category: PlaceCategory | undefined): BlockColorPalette {
-  const colorName = category ? CATEGORY_COLOR[category] : DEFAULT_BLOCK_COLOR_NAME;
+  const colorName =
+    category && CATEGORY_COLOR[category] ? CATEGORY_COLOR[category] : DEFAULT_BLOCK_COLOR_NAME;
   return BLOCK_COLORS[colorName];
 }
 
