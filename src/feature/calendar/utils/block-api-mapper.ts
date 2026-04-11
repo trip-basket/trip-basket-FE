@@ -1,4 +1,8 @@
-import type { BlockResponseApi, CreateBlockRequestApi } from "@/src/lib/api/block";
+import type {
+  BlockListItemApi,
+  BlockResponseApi,
+  CreateBlockRequestApi,
+} from "@/src/lib/api/block";
 import type { Place } from "@/src/types";
 import { toPlaceCategory } from "@/src/types";
 import type { BucketBlock, ScheduledBlock } from "../types";
@@ -34,6 +38,47 @@ export function toScheduledBlock(api: BlockResponseApi): ScheduledBlock {
 
     startHour: api.startTime ? parseHour(api.startTime) : 9,
     endHour: api.endTime ? parseHour(api.endTime) : 10,
+  };
+}
+
+export function toBucketBlockFromList(api: BlockListItemApi): BucketBlock {
+  return {
+    id: api.id,
+    place: toListPlace(api.place),
+    name: api.name,
+    status: "bucket",
+    addedBy: api.addedBy,
+    addedAt: api.addedAt,
+    reactions: api.reactions.map((r) => ({ memberId: r.memberId })),
+  };
+}
+
+export function toScheduledBlockFromList(api: BlockListItemApi): ScheduledBlock {
+  return {
+    id: api.id,
+    place: toListPlace(api.place),
+    name: api.name,
+    status: "scheduled",
+    addedBy: api.addedBy,
+    addedAt: api.addedAt,
+    reactions: api.reactions.map((r) => ({ memberId: r.memberId })),
+    startHour: api.startTime ? parseHour(api.startTime) : 9,
+    endHour: api.endTime ? parseHour(api.endTime) : 10,
+  };
+}
+
+function toListPlace(api: BlockListItemApi["place"]): Place {
+  return {
+    googlePlaceId: api.placeId,
+    placeName: api.placeName,
+    formattedAddress: "",
+    position: { lat: api.lat, lng: api.lng },
+    category: "other", // TODO: 카테고리 정보 추가 필요
+    rating: null,
+    reviewCount: null,
+    openingHours: [],
+    priceLevel: null,
+    photoUrl: "",
   };
 }
 

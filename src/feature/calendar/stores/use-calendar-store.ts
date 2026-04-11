@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
 import { BLOCK_TOAST_MESSAGES, blockApi, getErrorMessage } from "@/src/lib/api";
+import type { BlockListItemApi } from "@/src/lib/api/block";
 import { toast } from "@/src/lib/toast";
 import type { Place } from "@/src/types";
 import { MOCK_BUCKET_BLOCKS, MOCK_CALENDAR_BLOCKS } from "../mocks";
@@ -13,9 +14,11 @@ import {
 import {
   formatLocalDate,
   toBucketBlock,
+  toBucketBlockFromList,
   toCreateBucketRequest,
   toCreateScheduledRequest,
   toScheduledBlock,
+  toScheduledBlockFromList,
 } from "../utils";
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
@@ -71,6 +74,7 @@ interface CalendarStore {
   findBlock: (blockId: string) => { block: ScheduledBlock; date: string } | null;
   addToBucket: (place: Place) => void;
   addToCalendar: (place: Place, date: string, startHour: number) => void;
+  initBlocks: (blocks: BlockListItemApi[]) => void;
   addDayBefore: () => void;
   addDayAfter: () => void;
   updateDateRange: (startDate: string, endDate: string) => void;
@@ -197,6 +201,38 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
         toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.create));
       },
     );
+  },
+
+  initBlocks: (blocks) => {
+    if (useMockData) {
+      return;
+    }
+
+    const bucketBlocks: BucketBlock[] = [];
+    const scheduledByDate = new Map<string, ScheduledBlock[]>();
+
+    for (const item of blocks) {
+      if (item.status === "bucket") {
+        bucketBlocks.push(toBucketBlockFromList(item));
+        continue;
+      }
+
+      const block = toScheduledBlockFromList(item);
+      const date = item.startTime?.split("T")[0];
+      if (date) {
+        const existing = scheduledByDate.get(date) ?? [];
+        existing.push(block);
+        scheduledByDate.set(date, existing);
+      }
+    }
+
+    set((state) => ({
+      bucketBlocks,
+      tripDays: state.tripDays.map((day) => ({
+        ...day,
+        blocks: scheduledByDate.get(day.date) ?? [],
+      })),
+    }));
   },
 
   addToCalendar: (place, date, startHour) => {

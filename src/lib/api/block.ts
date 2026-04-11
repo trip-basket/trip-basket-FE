@@ -2,11 +2,18 @@ import { api } from "./api-client";
 import type { ErrorMessages } from "./api-error";
 
 export const blockApi = {
+  list: (roomId: string) =>
+    api.get<BlockListResponseApi>(`/api/rooms/${roomId}/blocks`),
   create: (roomId: string, data: CreateBlockRequestApi) =>
     api.post<BlockResponseApi>(`/api/rooms/${roomId}/blocks`, data),
 };
 
 export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
+  list: {
+    403: "방 접근 권한이 없습니다",
+    404: "방을 찾을 수 없습니다",
+    default: "블록 목록을 불러오지 못했습니다",
+  },
   create: {
     403: "방 접근 권한이 없습니다",
     404: "방 또는 장소를 찾을 수 없습니다",
@@ -45,6 +52,33 @@ interface BlockPlaceResponseApi {
   openingHours: OpeningHourApi[];
   priceLevel: number | null;
   photoUrl: string | null;
+}
+
+interface BlockListPlaceApi {
+  placeId: string;
+  placeName: string;
+  lat: number;
+  lng: number;
+}
+
+export interface BlockListItemApi {
+  id: string;
+  roomId: string;
+  status: "bucket" | "scheduled";
+  place: BlockListPlaceApi;
+  name: string;
+  startTime: string | null;
+  endTime: string | null;
+  timezoneId: string | null;
+  startUtcOffsetMinutes: number | null;
+  endUtcOffsetMinutes: number | null;
+  addedBy: string;
+  addedAt: string;
+  reactions: { memberId: string; type: string }[];
+}
+
+export interface BlockListResponseApi {
+  blocks: BlockListItemApi[];
 }
 
 export interface BlockResponseApi {
