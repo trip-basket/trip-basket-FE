@@ -127,10 +127,15 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
 
     if (roomId) {
       const request = toScheduleUpdateRequest(date, startHour, endHour);
-      blockApi.update(roomId, block.id, request).then(null, (error) => {
-        set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
-        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
-      });
+      blockApi.update(roomId, block.id, request).then(
+        () => {
+          toast.success("캘린더로 이동했습니다");
+        },
+        (error) => {
+          set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
+          toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+        },
+      );
     }
   },
 
@@ -230,6 +235,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
         set({
           bucketBlocks: get().bucketBlocks.map((b) => (b.id === tempBlock.id ? realBlock : b)),
         });
+        toast.success("버킷에 블록을 추가했습니다");
       },
       (error) => {
         set({ bucketBlocks: get().bucketBlocks.filter((b) => b.id !== tempBlock.id) });
@@ -301,6 +307,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
             blocks: day.blocks.map((b) => (b.id === tempBlock.id ? realBlock : b)),
           })),
         });
+        toast.success("캘린더에 블록을 추가했습니다");
       },
       (error) => {
         set({
@@ -334,11 +341,15 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       bucketBlocks: prevBucketBlocks.filter((b) => b.id !== blockId),
     });
 
-    blockApi.delete(roomId, blockId).then(null, (error) => {
-      // 실패 시 롤백
-      set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
-      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.delete));
-    });
+    blockApi.delete(roomId, blockId).then(
+      () => {
+        toast.success("블록을 삭제했습니다");
+      },
+      (error) => {
+        set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.delete));
+      },
+    );
   },
 
   addDayBefore: () => {
