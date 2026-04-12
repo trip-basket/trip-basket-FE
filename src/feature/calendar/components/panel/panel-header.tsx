@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 
-export function PanelHeader() {
+export function PanelHeader({ onDelete }: { onDelete?: () => void }) {
   return (
     <div className="flex items-center justify-between px-4 py-2.5 border-b border-outline shrink-0">
       <div className="flex items-center gap-0.5">
@@ -17,6 +17,7 @@ export function PanelHeader() {
         {/* 삭제 */}
         <button
           type="button"
+          onClick={onDelete}
           className="flex items-center justify-center h-8 w-8 rounded-lg hover:bg-red-50 text-muted hover:text-red-500 transition-colors duration-150 cursor-pointer"
           aria-label="삭제"
         >

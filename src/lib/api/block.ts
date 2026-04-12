@@ -7,6 +7,8 @@ export const blockApi = {
     api.get<BlockResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}`),
   create: (roomId: string, data: CreateBlockRequestApi) =>
     api.post<BlockResponseApi>(`/api/rooms/${roomId}/blocks`, data),
+  delete: (roomId: string, blockId: string) =>
+    api.delete<void>(`/api/rooms/${roomId}/blocks/${blockId}`),
 };
 
 export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
@@ -19,6 +21,11 @@ export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
     403: "방 접근 권한이 없습니다",
     404: "블록을 찾을 수 없습니다",
     default: "블록 정보를 불러오지 못했습니다",
+  },
+  delete: {
+    403: "방 접근 권한이 없습니다",
+    404: "블록을 찾을 수 없습니다",
+    default: "블록 삭제에 실패했습니다",
   },
   create: {
     403: "방 접근 권한이 없습니다",

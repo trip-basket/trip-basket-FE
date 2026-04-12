@@ -74,6 +74,7 @@ interface CalendarStore {
   findBlock: (blockId: string) => { block: ScheduledBlock; date: string } | null;
   addToBucket: (place: Place) => void;
   addToCalendar: (place: Place, date: string, startHour: number) => void;
+  deleteBlock: (blockId: string) => void;
   initBlocks: (blocks: BlockListItemApi[]) => void;
   addDayBefore: () => void;
   addDayAfter: () => void;
@@ -277,6 +278,33 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
         toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.create));
       },
     );
+  },
+
+  deleteBlock: (blockId) => {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return;
+    }
+
+    // 롤백용 스냅샷
+    const prevTripDays = get().tripDays;
+    const prevBucketBlocks = get().bucketBlocks;
+
+    // 낙관적 삭제 + 패널 닫기
+    set({
+      selectedBlockId: null,
+      tripDays: prevTripDays.map((day) => ({
+        ...day,
+        blocks: day.blocks.filter((b) => b.id !== blockId),
+      })),
+      bucketBlocks: prevBucketBlocks.filter((b) => b.id !== blockId),
+    });
+
+    blockApi.delete(roomId, blockId).then(null, (error) => {
+      // 실패 시 롤백
+      set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
+      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.delete));
+    });
   },
 
   addDayBefore: () => {
