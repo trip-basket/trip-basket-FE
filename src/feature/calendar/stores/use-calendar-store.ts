@@ -17,6 +17,7 @@ import {
   toBucketBlockFromList,
   toCreateBucketRequest,
   toCreateScheduledRequest,
+  toScheduleUpdateRequest,
   toScheduledBlock,
   toScheduledBlockFromList,
 } from "../utils";
@@ -103,7 +104,12 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   setIsBlockDragging: (v) => set({ isBlockDragging: v }),
   setIsBlockResizing: (v) => set({ isBlockResizing: v }),
 
-  moveToCalendar: (block, date, startHour) =>
+  moveToCalendar: (block, date, startHour) => {
+    const roomId = useRoomStore.getState().room?.id;
+    const prevTripDays = get().tripDays;
+    const prevBucketBlocks = get().bucketBlocks;
+    const endHour = startHour + DEFAULT_BLOCK_DURATION;
+
     set((state) => ({
       bucketBlocks: state.bucketBlocks.filter((b) => b.id !== block.id),
       tripDays: state.tripDays.map((day) =>
@@ -112,30 +118,37 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
               ...day,
               blocks: [
                 ...day.blocks,
-                {
-                  ...block,
-                  status: "scheduled" as const,
-                  startHour,
-                  endHour: startHour + DEFAULT_BLOCK_DURATION,
-                },
+                { ...block, status: "scheduled" as const, startHour, endHour },
               ],
             }
           : day,
       ),
-    })),
+    }));
+
+    if (roomId) {
+      const request = toScheduleUpdateRequest(date, startHour, endHour);
+      blockApi.update(roomId, block.id, request).then(null, (error) => {
+        set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+      });
+    }
+  },
 
   moveInCalendar: (blockId, toDate, startHour) => {
+    const roomId = useRoomStore.getState().room?.id;
     const found = get().findBlock(blockId);
     if (!found) {
       return;
     }
 
+    const prevTripDays = get().tripDays;
     const { block: movingBlock } = found;
     const duration = movingBlock.endHour - movingBlock.startHour;
+    const endHour = startHour + duration;
     const movedBlock: ScheduledBlock = {
       ...movingBlock,
       startHour,
-      endHour: startHour + duration,
+      endHour,
     };
 
     set((state) => ({
@@ -147,9 +160,21 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
         return filtered.length !== day.blocks.length ? { ...day, blocks: filtered } : day;
       }),
     }));
+
+    if (roomId) {
+      const request = toScheduleUpdateRequest(toDate, startHour, endHour);
+      blockApi.update(roomId, blockId, request).then(null, (error) => {
+        set({ tripDays: prevTripDays });
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+      });
+    }
   },
 
-  resizeBlock: (blockId, startHour, endHour) =>
+  resizeBlock: (blockId, startHour, endHour) => {
+    const roomId = useRoomStore.getState().room?.id;
+    const found = get().findBlock(blockId);
+    const prevTripDays = get().tripDays;
+
     set((state) => ({
       tripDays: state.tripDays.map((day) => ({
         ...day,
@@ -157,7 +182,16 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
           block.id === blockId ? { ...block, startHour, endHour } : block,
         ),
       })),
-    })),
+    }));
+
+    if (roomId && found) {
+      const request = toScheduleUpdateRequest(found.date, startHour, endHour);
+      blockApi.update(roomId, blockId, request).then(null, (error) => {
+        set({ tripDays: prevTripDays });
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+      });
+    }
+  },
 
   findBlock: (blockId) => {
     const { tripDays } = get();

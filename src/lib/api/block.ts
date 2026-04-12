@@ -7,6 +7,8 @@ export const blockApi = {
     api.get<BlockResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}`),
   create: (roomId: string, data: CreateBlockRequestApi) =>
     api.post<BlockResponseApi>(`/api/rooms/${roomId}/blocks`, data),
+  update: (roomId: string, blockId: string, data: UpdateBlockRequestApi) =>
+    api.patch<BlockResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}`, data),
   delete: (roomId: string, blockId: string) =>
     api.delete<void>(`/api/rooms/${roomId}/blocks/${blockId}`),
 };
@@ -22,6 +24,11 @@ export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
     404: "블록을 찾을 수 없습니다",
     default: "블록 정보를 불러오지 못했습니다",
   },
+  update: {
+    403: "방 접근 권한이 없습니다",
+    404: "블록을 찾을 수 없습니다",
+    default: "블록 수정에 실패했습니다",
+  },
   delete: {
     403: "방 접근 권한이 없습니다",
     404: "블록을 찾을 수 없습니다",
@@ -34,6 +41,13 @@ export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
     default: "블록 생성을 실패했습니다",
   },
 } as const;
+
+export interface UpdateBlockRequestApi {
+  status?: "bucket" | "scheduled";
+  name?: string;
+  startTime?: string | null;
+  endTime?: string | null;
+}
 
 export interface CreateBlockRequestApi {
   status: "bucket" | "scheduled";

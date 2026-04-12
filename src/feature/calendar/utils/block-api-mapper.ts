@@ -2,6 +2,7 @@ import type {
   BlockListItemApi,
   BlockResponseApi,
   CreateBlockRequestApi,
+  UpdateBlockRequestApi,
 } from "@/src/lib/api/block";
 import type { Place } from "@/src/types";
 import { toPlaceCategory } from "@/src/types";
@@ -103,6 +104,26 @@ export function toCreateScheduledRequest(
     name,
     startTime: `${date}T${hourToTimeString(startHour)}`,
     endTime: `${date}T${hourToTimeString(endHour)}`,
+  };
+}
+
+export function toScheduleUpdateRequest(
+  date: string,
+  startHour: number,
+  endHour: number,
+): UpdateBlockRequestApi {
+  return {
+    status: "scheduled",
+    startTime: `${date}T${hourToTimeString(startHour)}`,
+    endTime: `${date}T${hourToTimeString(endHour)}`,
+  };
+}
+
+export function toBucketUpdateRequest(): UpdateBlockRequestApi {
+  return {
+    status: "bucket",
+    startTime: null,
+    endTime: null,
   };
 }
 
