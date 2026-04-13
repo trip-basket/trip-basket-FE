@@ -36,7 +36,6 @@ export function toScheduledBlock(api: BlockResponseApi): ScheduledBlock {
     addedAt: api.addedAt,
     reactions: api.reactions.map((r) => ({ memberId: r.memberId })),
     todos: api.todos.map((t) => ({ ...t, blockId: api.id })),
-
     startHour: api.startTime ? parseHour(api.startTime) : 9,
     endHour: api.endTime ? parseHour(api.endTime) : 10,
   };
@@ -72,14 +71,7 @@ function toListPlace(api: BlockListItemApi["place"]): Place {
   return {
     googlePlaceId: api.placeId,
     placeName: api.placeName,
-    formattedAddress: "",
-    position: { lat: api.lat, lng: api.lng },
-    category: "other", // TODO: 카테고리 정보 추가 필요
-    rating: null,
-    reviewCount: null,
-    openingHours: [],
-    priceLevel: null,
-    photoUrl: "",
+    category: toPlaceCategory(api.category),
   };
 }
 

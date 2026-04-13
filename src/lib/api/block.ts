@@ -84,8 +84,7 @@ interface BlockPlaceResponseApi {
 interface BlockListPlaceApi {
   placeId: string;
   placeName: string;
-  lat: number;
-  lng: number;
+  category: string | null;
 }
 
 export interface BlockListItemApi {

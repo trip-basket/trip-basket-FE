@@ -21,12 +21,12 @@ export interface OpeningHour {
 export interface Place {
   googlePlaceId: string;
   placeName: string;
-  formattedAddress: string;
-  position: Position;
   category: PlaceCategory;
-  rating: number | null;
-  reviewCount: number | null;
-  openingHours: OpeningHour[];
-  priceLevel: number | null;
-  photoUrl: string;
+  formattedAddress?: string;
+  position?: Position;
+  rating?: number | null;
+  reviewCount?: number | null;
+  openingHours?: OpeningHour[];
+  priceLevel?: number | null;
+  photoUrl?: string;
 }

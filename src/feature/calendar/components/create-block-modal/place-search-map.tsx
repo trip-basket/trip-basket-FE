@@ -71,8 +71,10 @@ function PlaceSearchMapInner({ selectedPlace, onPlaceSelect }: PlaceSearchMapPro
         category: toPlaceCategory(placeData.category),
       };
 
-      setPosition(newPlace.position);
-      map.panTo(newPlace.position);
+      if (newPlace.position) {
+        setPosition(newPlace.position);
+        map.panTo(newPlace.position);
+      }
       onPlaceSelect(newPlace);
     },
     [map, placeDetailMutation, onPlaceSelect],

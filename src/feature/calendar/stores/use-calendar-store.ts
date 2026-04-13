@@ -17,9 +17,9 @@ import {
   toBucketBlockFromList,
   toCreateBucketRequest,
   toCreateScheduledRequest,
-  toScheduleUpdateRequest,
   toScheduledBlock,
   toScheduledBlockFromList,
+  toScheduleUpdateRequest,
 } from "../utils";
 
 const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";

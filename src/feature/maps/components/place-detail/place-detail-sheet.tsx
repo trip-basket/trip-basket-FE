@@ -15,15 +15,15 @@ export function PlaceDetailSheet({ place, onClose }: { place: Place; onClose: ()
       <div className="p-4">
         <PlaceHeader
           name={place.placeName}
-          address={place.formattedAddress}
+          address={place.formattedAddress ?? ""}
           category={place.category}
           onClose={onClose}
         />
 
         <RatingPrice
-          rating={place.rating}
-          reviewCount={place.reviewCount}
-          priceLevel={place.priceLevel}
+          rating={place.rating ?? null}
+          reviewCount={place.reviewCount ?? null}
+          priceLevel={place.priceLevel ?? null}
         />
 
         {place.openingHours && place.openingHours.length > 0 && (
