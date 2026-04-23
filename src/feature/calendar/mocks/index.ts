@@ -185,7 +185,7 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     endHour: 11,
     cost: 39000,
     addedBy: "m1",
-    reactions: [{ memberId: "m2" }],
+    reactions: [{ memberId: "m2", type: "like" }],
     place: {
       googlePlaceId: "ChIJtV5bzSAFdkgRpwLZFPWrJgo",
       placeName: "Buckingham Palace",
@@ -217,7 +217,7 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     endHour: 14,
     cost: 33000,
     addedBy: "m2",
-    reactions: [{ memberId: "m1" }, { memberId: "m3" }],
+    reactions: [{ memberId: "m1", type: "like" }, { memberId: "m3", type: "like" }],
     memo: "유명한 스트리트 푸드 마켓. Fish & Chips, 라클렛 추천.",
     place: {
       googlePlaceId: "ChIJA_0nSIcEdkgR1ntGaAuQEAo",
@@ -327,7 +327,7 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     endHour: 13.5,
     cost: 0,
     addedBy: "m3",
-    reactions: [{ memberId: "m1" }, { memberId: "m2" }, { memberId: "m3" }],
+    reactions: [{ memberId: "m1", type: "like" }, { memberId: "m2", type: "like" }, { memberId: "m3", type: "like" }],
     memo: "엘리자베스 타워 내부 투어는 사전 예약 필수. 영국 시민/거주자만 가능.",
     place: {
       googlePlaceId: "ChIJmb5GBMkEdkgRIM_OfMkVNHk",
@@ -345,29 +345,9 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
 ];
 
 export const MOCK_BLOCK_TODOS: BlockTodo[] = [
-  { id: "todo-1", blockId: "7", text: "야경 사진 찍기", completed: false },
-  {
-    id: "todo-2",
-    blockId: "7",
-    text: "웨스트민스터 브릿지에서 전경 촬영",
-    completed: true,
-  },
-  {
-    id: "todo-3",
-    blockId: "5",
-    text: "근위병 교대식 시간 확인",
-    completed: false,
-  },
-  {
-    id: "todo-4",
-    blockId: "6",
-    text: "라클렛 맛집 위치 확인",
-    completed: false,
-  },
-  {
-    id: "todo-5",
-    blockId: "6",
-    text: "현금 준비 (일부 가게 카드 불가)",
-    completed: false,
-  },
+  { id: "todo-1", text: "야경 사진 찍기", completed: false },
+  { id: "todo-2", text: "웨스트민스터 브릿지에서 전경 촬영", completed: true },
+  { id: "todo-3", text: "근위병 교대식 시간 확인", completed: false },
+  { id: "todo-4", text: "라클렛 맛집 위치 확인", completed: false },
+  { id: "todo-5", text: "현금 준비 (일부 가게 카드 불가)", completed: false },
 ];

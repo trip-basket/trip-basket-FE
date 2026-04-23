@@ -1,30 +1,41 @@
-import { Avatar, Text } from "@/src/components/ui";
-import type { Member } from "@/src/feature/room/types";
+import { Text } from "@/src/components/ui";
+import type { Reaction } from "../../../types";
 import { PropertyRow } from "./property-row";
 
 export function ReactionsProperty({
-  members,
-  reactionsCount,
+  reactions,
+  onToggle,
 }: {
-  members: Member[];
-  reactionsCount: number;
+  reactions: Reaction[];
+  onToggle: (memberId: string) => void;
 }) {
   return (
     <PropertyRow icon="favorite" label="좋아요">
       <div className="flex items-center gap-1.5">
-        <div className="flex -space-x-1">
-          {members.slice(0, 5).map((member) => (
-            <Avatar key={member.id} member={member} size={20} />
-          ))}
-        </div>
-        {reactionsCount > 0 && (
-          <Text variant="caption" color="muted">
-            {reactionsCount}
-          </Text>
+        {reactions.length > 0 && (
+          <div className="flex items-center gap-1">
+            {reactions.slice(0, 5).map((r) => (
+              <Text
+                key={r.memberId}
+                as="span"
+                variant="caption"
+                color="muted"
+                className="px-1.5 py-0.5 rounded bg-hover"
+              >
+                {r.memberId.slice(0, 5)}
+              </Text>
+            ))}
+            {reactions.length > 5 && (
+              <Text variant="caption" color="muted">
+                +{reactions.length - 5}
+              </Text>
+            )}
+          </div>
         )}
         <button
           type="button"
-          className="ml-1 flex items-center justify-center h-6 w-6 rounded hover:bg-red-50 text-muted hover:text-red-400 transition-colors duration-150"
+          onClick={() => onToggle("me")}
+          className="ml-1 flex items-center justify-center h-6 w-6 rounded hover:bg-red-50 text-muted hover:text-red-400 transition-colors duration-150 cursor-pointer"
           aria-label="좋아요 토글"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">

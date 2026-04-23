@@ -1,11 +1,10 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useState } from "react";
 import { Button, Spinner, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import type { Member } from "@/src/feature/room/types";
 import { BLOCK_TOAST_MESSAGES, blockApi, getErrorMessage } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import useCalendarStore from "../../stores/use-calendar-store";
@@ -16,11 +15,23 @@ import { PanelHeader } from "./panel-header";
 export function BlockDetailPanel({ blockId }: { blockId: string }) {
   const room = useRoomStore((s) => s.room);
   const roomId = room?.id;
-  const members = room?.members ?? [];
   const findBlock = useCalendarStore((s) => s.findBlock);
   const tripDays = useCalendarStore((s) => s.tripDays);
   const deleteBlock = useCalendarStore((s) => s.deleteBlock);
+  const updateMemo = useCalendarStore((s) => s.updateMemo);
+  const updateDuration = useCalendarStore((s) => s.updateDuration);
+  const moveInCalendar = useCalendarStore((s) => s.moveInCalendar);
+  const addTodo = useCalendarStore((s) => s.addTodo);
+  const updateTodo = useCalendarStore((s) => s.updateTodo);
+  const deleteTodo = useCalendarStore((s) => s.deleteTodo);
+  const queryClient = useQueryClient();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const invalidateBlock = useCallback(() => {
+    if (roomId) {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.block(roomId, blockId) });
+    }
+  }, [queryClient, roomId, blockId]);
 
   const handleDelete = () => {
     deleteBlock(blockId);
@@ -39,6 +50,7 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
     queryFn: () => blockApi.get(roomId!, blockId),
     enabled: !!roomId,
   });
+  console.log(blockDetail);
 
   let content: React.ReactNode;
 
@@ -60,17 +72,39 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
     );
   } else {
     const block = toScheduledBlock(blockDetail);
-    const reactionMembers = (block.reactions ?? [])
-      .map((r) => members.find((m) => m.id === r.memberId))
-      .filter((m): m is Member => m !== undefined);
+
+    const firstDate = tripDays[0]?.date ?? "";
+    const lastDate = tripDays[tripDays.length - 1]?.date ?? "";
 
     content = (
       <PanelContent
         block={block}
         day={day}
-        todos={block.todos ?? []}
-        reactionMembers={reactionMembers}
-        members={members}
+        onUpdateMemo={(memo) => {
+          updateMemo(blockId, memo);
+          invalidateBlock();
+        }}
+        onUpdateDuration={(endHour) => {
+          updateDuration(blockId, endHour);
+          invalidateBlock();
+        }}
+        onMoveBlock={(date, startHour) => {
+          moveInCalendar(blockId, date, startHour);
+          invalidateBlock();
+        }}
+        onAddTodo={(text) => {
+          addTodo(blockId, text);
+          invalidateBlock();
+        }}
+        onUpdateTodo={(todoId, updates) => {
+          updateTodo(blockId, todoId, updates);
+          invalidateBlock();
+        }}
+        onDeleteTodo={(todoId) => {
+          deleteTodo(blockId, todoId);
+          invalidateBlock();
+        }}
+        dateRange={{ start: firstDate, end: lastDate }}
         currency={room?.currency}
       />
     );
@@ -111,12 +145,7 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
                   취소
                 </Button>
               </Dialog.Close>
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={handleDelete}
-                className="cursor-pointer"
-              >
+              <Button variant="danger" size="sm" onClick={handleDelete} className="cursor-pointer">
                 삭제
               </Button>
             </div>

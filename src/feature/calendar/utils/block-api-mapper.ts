@@ -19,8 +19,8 @@ export function toBucketBlock(api: BlockResponseApi): BucketBlock {
     memo: api.memo ?? undefined,
     addedBy: api.addedBy,
     addedAt: api.addedAt,
-    reactions: api.reactions.map((r) => ({ memberId: r.memberId })),
-    todos: api.todos.map((t) => ({ ...t, blockId: api.id })),
+    reactions: api.reactions,
+    todos: api.todos,
   };
 }
 
@@ -34,8 +34,8 @@ export function toScheduledBlock(api: BlockResponseApi): ScheduledBlock {
     memo: api.memo ?? undefined,
     addedBy: api.addedBy,
     addedAt: api.addedAt,
-    reactions: api.reactions.map((r) => ({ memberId: r.memberId })),
-    todos: api.todos.map((t) => ({ ...t, blockId: api.id })),
+    reactions: api.reactions,
+    todos: api.todos,
     startHour: api.startTime ? parseHour(api.startTime) : 9,
     endHour: api.endTime ? parseHour(api.endTime) : 10,
   };
@@ -49,7 +49,6 @@ export function toBucketBlockFromList(api: BlockListItemApi): BucketBlock {
     status: "bucket",
     addedBy: api.addedBy,
     addedAt: api.addedAt,
-    reactions: api.reactions.map((r) => ({ memberId: r.memberId })),
   };
 }
 
@@ -61,7 +60,6 @@ export function toScheduledBlockFromList(api: BlockListItemApi): ScheduledBlock 
     status: "scheduled",
     addedBy: api.addedBy,
     addedAt: api.addedAt,
-    reactions: api.reactions.map((r) => ({ memberId: r.memberId })),
     startHour: api.startTime ? parseHour(api.startTime) : 9,
     endHour: api.endTime ? parseHour(api.endTime) : 10,
   };
@@ -94,8 +92,8 @@ export function toCreateScheduledRequest(
     status: "scheduled",
     googlePlaceId: place.googlePlaceId,
     name,
-    startTime: `${date}T${hourToTimeString(startHour)}`,
-    endTime: `${date}T${hourToTimeString(endHour)}`,
+    startTime: toDateTimeString(date, startHour),
+    endTime: toDateTimeString(date, endHour),
   };
 }
 
@@ -106,8 +104,8 @@ export function toScheduleUpdateRequest(
 ): UpdateBlockRequestApi {
   return {
     status: "scheduled",
-    startTime: `${date}T${hourToTimeString(startHour)}`,
-    endTime: `${date}T${hourToTimeString(endHour)}`,
+    startTime: toDateTimeString(date, startHour),
+    endTime: toDateTimeString(date, endHour),
   };
 }
 
@@ -140,8 +138,15 @@ function parseHour(isoDatetime: string): number {
   return hours + minutes / 60;
 }
 
-function hourToTimeString(hour: number): string {
-  const h = Math.floor(hour);
-  const m = Math.round((hour - h) * 60);
-  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:00`;
+function toDateTimeString(date: string, hour: number): string {
+  const d = new Date(`${date}T00:00:00`);
+  const days = Math.floor(hour / 24);
+  const remainingHour = hour - days * 24;
+  d.setDate(d.getDate() + days);
+  const h = Math.floor(remainingHour);
+  const m = Math.round((remainingHour - h) * 60);
+  const y = d.getFullYear();
+  const mo = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${y}-${mo}-${dd}T${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:00`;
 }

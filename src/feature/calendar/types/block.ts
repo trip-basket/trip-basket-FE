@@ -22,11 +22,11 @@ export interface BlockColorPalette {
 
 export interface Reaction {
   memberId: string;
+  type: string;
 }
 
 export interface BlockTodo {
   id: string;
-  blockId: string;
   text: string;
   completed: boolean;
 }

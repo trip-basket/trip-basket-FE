@@ -6,6 +6,7 @@ import { toast } from "@/src/lib/toast";
 import type { Place } from "@/src/types";
 import { MOCK_BUCKET_BLOCKS, MOCK_CALENDAR_BLOCKS } from "../mocks";
 import {
+  type BlockTodo,
   type BucketBlock,
   DEFAULT_BLOCK_DURATION,
   type ScheduledBlock,
@@ -76,6 +77,15 @@ interface CalendarStore {
   addToBucket: (place: Place) => void;
   addToCalendar: (place: Place, date: string, startHour: number) => void;
   deleteBlock: (blockId: string) => void;
+  updateMemo: (blockId: string, memo: string | undefined) => void;
+  updateDuration: (blockId: string, endHour: number) => void;
+  addTodo: (blockId: string, text: string) => void;
+  updateTodo: (
+    blockId: string,
+    todoId: string,
+    updates: { text?: string; completed?: boolean },
+  ) => void;
+  deleteTodo: (blockId: string, todoId: string) => void;
   initBlocks: (blocks: BlockListItemApi[]) => void;
   addDayBefore: () => void;
   addDayAfter: () => void;
@@ -350,6 +360,148 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
         toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.delete));
       },
     );
+  },
+
+  updateMemo: (blockId, memo) => {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return;
+    }
+
+    set((state) => ({
+      tripDays: state.tripDays.map((day) => ({
+        ...day,
+        blocks: day.blocks.map((b) => (b.id === blockId ? { ...b, memo } : b)),
+      })),
+    }));
+
+    blockApi.update(roomId, blockId, { memo: memo ?? null }).then(null, (error) => {
+      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+    });
+  },
+
+  updateDuration: (blockId, endHour) => {
+    const roomId = useRoomStore.getState().room?.id;
+    const found = get().findBlock(blockId);
+    if (!roomId || !found) {
+      return;
+    }
+
+    const { block, date } = found;
+
+    set((state) => ({
+      tripDays: state.tripDays.map((day) => ({
+        ...day,
+        blocks: day.blocks.map((b) => (b.id === blockId ? { ...b, endHour } : b)),
+      })),
+    }));
+
+    const request = toScheduleUpdateRequest(date, block.startHour, endHour);
+    blockApi.update(roomId, blockId, request).then(null, (error) => {
+      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+    });
+  },
+
+  addTodo: (blockId, text) => {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return;
+    }
+
+    // 낙관적 위한 임시 id
+    const tempTodo: BlockTodo = { id: crypto.randomUUID(), text, completed: false };
+
+    // 낙관적 추가
+    set((state) => ({
+      tripDays: state.tripDays.map((day) => ({
+        ...day,
+        blocks: day.blocks.map((b) =>
+          b.id === blockId ? { ...b, todos: [...(b.todos ?? []), tempTodo] } : b,
+        ),
+      })),
+    }));
+
+    blockApi.createTodo(roomId, blockId, { text }).then(
+      (res) => {
+        // temp id → 서버 id 교체
+        set((state) => ({
+          tripDays: state.tripDays.map((day) => ({
+            ...day,
+            blocks: day.blocks.map((b) =>
+              b.id === blockId
+                ? { ...b, todos: (b.todos ?? []).map((t) => (t.id === tempTodo.id ? res : t)) }
+                : b,
+            ),
+          })),
+        }));
+      },
+      (error) => {
+        // 실패 시 제거
+        set((state) => ({
+          tripDays: state.tripDays.map((day) => ({
+            ...day,
+            blocks: day.blocks.map((b) =>
+              b.id === blockId
+                ? { ...b, todos: (b.todos ?? []).filter((t) => t.id !== tempTodo.id) }
+                : b,
+            ),
+          })),
+        }));
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
+      },
+    );
+  },
+
+  updateTodo: (blockId, todoId, updates) => {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return;
+    }
+
+    // 롤백용 스냅샷
+    const prevTripDays = get().tripDays;
+
+    set((state) => ({
+      tripDays: state.tripDays.map((day) => ({
+        ...day,
+        blocks: day.blocks.map((b) =>
+          b.id === blockId
+            ? {
+                ...b,
+                todos: (b.todos ?? []).map((t) => (t.id === todoId ? { ...t, ...updates } : t)),
+              }
+            : b,
+        ),
+      })),
+    }));
+
+    blockApi.updateTodo(roomId, blockId, todoId, updates).then(null, (error) => {
+      set({ tripDays: prevTripDays });
+      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
+    });
+  },
+
+  deleteTodo: (blockId, todoId) => {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return;
+    }
+
+    const prevTripDays = get().tripDays;
+
+    set((state) => ({
+      tripDays: state.tripDays.map((day) => ({
+        ...day,
+        blocks: day.blocks.map((b) =>
+          b.id === blockId ? { ...b, todos: (b.todos ?? []).filter((t) => t.id !== todoId) } : b,
+        ),
+      })),
+    }));
+
+    blockApi.deleteTodo(roomId, blockId, todoId).then(null, (error) => {
+      set({ tripDays: prevTripDays });
+      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
+    });
   },
 
   addDayBefore: () => {

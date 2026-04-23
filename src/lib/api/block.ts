@@ -11,6 +11,15 @@ export const blockApi = {
     api.patch<BlockResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}`, data),
   delete: (roomId: string, blockId: string) =>
     api.delete<void>(`/api/rooms/${roomId}/blocks/${blockId}`),
+  createTodo: (roomId: string, blockId: string, data: CreateTodoRequestApi) =>
+    api.post<TodoResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}/todos`, data),
+  updateTodo: (roomId: string, blockId: string, todoId: string, data: UpdateTodoRequestApi) =>
+    api.patch<TodoResponseApi>(
+      `/api/rooms/${roomId}/blocks/${blockId}/todos/${todoId}`,
+      data,
+    ),
+  deleteTodo: (roomId: string, blockId: string, todoId: string) =>
+    api.delete<void>(`/api/rooms/${roomId}/blocks/${blockId}/todos/${todoId}`),
 };
 
 export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
@@ -40,6 +49,11 @@ export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
     502: "장소 정보를 불러오는 데 실패했습니다",
     default: "블록 생성을 실패했습니다",
   },
+  todo: {
+    403: "방 접근 권한이 없습니다",
+    404: "블록 또는 할 일을 찾을 수 없습니다",
+    default: "할 일 처리에 실패했습니다",
+  },
 } as const;
 
 export interface UpdateBlockRequestApi {
@@ -47,6 +61,22 @@ export interface UpdateBlockRequestApi {
   name?: string;
   startTime?: string | null;
   endTime?: string | null;
+  memo?: string | null;
+}
+
+export interface CreateTodoRequestApi {
+  text: string;
+}
+
+export interface UpdateTodoRequestApi {
+  text?: string;
+  completed?: boolean;
+}
+
+export interface TodoResponseApi {
+  id: string;
+  text: string;
+  completed: boolean;
 }
 
 export interface CreateBlockRequestApi {
