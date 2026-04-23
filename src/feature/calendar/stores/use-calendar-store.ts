@@ -77,15 +77,15 @@ interface CalendarStore {
   addToBucket: (place: Place) => void;
   addToCalendar: (place: Place, date: string, startHour: number) => void;
   deleteBlock: (blockId: string) => void;
-  updateMemo: (blockId: string, memo: string | undefined) => void;
+  updateMemo: (blockId: string, memo: string | undefined) => Promise<void>;
   updateDuration: (blockId: string, endHour: number) => void;
-  addTodo: (blockId: string, text: string) => void;
+  addTodo: (blockId: string, text: string) => Promise<void>;
   updateTodo: (
     blockId: string,
     todoId: string,
     updates: { text?: string; completed?: boolean },
-  ) => void;
-  deleteTodo: (blockId: string, todoId: string) => void;
+  ) => Promise<void>;
+  deleteTodo: (blockId: string, todoId: string) => Promise<void>;
   initBlocks: (blocks: BlockListItemApi[]) => void;
   addDayBefore: () => void;
   addDayAfter: () => void;
@@ -365,7 +365,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   updateMemo: (blockId, memo) => {
     const roomId = useRoomStore.getState().room?.id;
     if (!roomId) {
-      return;
+      return Promise.resolve();
     }
 
     set((state) => ({
@@ -375,7 +375,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       })),
     }));
 
-    blockApi.update(roomId, blockId, { memo: memo ?? null }).then(null, (error) => {
+    return blockApi.update(roomId, blockId, { memo: memo ?? null }).then(null, (error) => {
       toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
     });
   },
@@ -405,7 +405,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   addTodo: (blockId, text) => {
     const roomId = useRoomStore.getState().room?.id;
     if (!roomId) {
-      return;
+      return Promise.resolve();
     }
 
     // 낙관적 위한 임시 id
@@ -421,7 +421,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       })),
     }));
 
-    blockApi.createTodo(roomId, blockId, { text }).then(
+    return blockApi.createTodo(roomId, blockId, { text }).then(
       (res) => {
         // temp id → 서버 id 교체
         set((state) => ({
@@ -455,7 +455,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   updateTodo: (blockId, todoId, updates) => {
     const roomId = useRoomStore.getState().room?.id;
     if (!roomId) {
-      return;
+      return Promise.resolve();
     }
 
     // 롤백용 스냅샷
@@ -475,7 +475,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       })),
     }));
 
-    blockApi.updateTodo(roomId, blockId, todoId, updates).then(null, (error) => {
+    return blockApi.updateTodo(roomId, blockId, todoId, updates).then(null, (error) => {
       set({ tripDays: prevTripDays });
       toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
     });
@@ -484,7 +484,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
   deleteTodo: (blockId, todoId) => {
     const roomId = useRoomStore.getState().room?.id;
     if (!roomId) {
-      return;
+      return Promise.resolve();
     }
 
     const prevTripDays = get().tripDays;
@@ -498,7 +498,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       })),
     }));
 
-    blockApi.deleteTodo(roomId, blockId, todoId).then(null, (error) => {
+    return blockApi.deleteTodo(roomId, blockId, todoId).then(null, (error) => {
       set({ tripDays: prevTripDays });
       toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
     });

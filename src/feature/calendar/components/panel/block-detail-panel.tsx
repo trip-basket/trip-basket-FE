@@ -81,8 +81,7 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
         block={block}
         day={day}
         onUpdateMemo={(memo) => {
-          updateMemo(blockId, memo);
-          invalidateBlock();
+          updateMemo(blockId, memo).then(invalidateBlock);
         }}
         onUpdateDuration={(endHour) => {
           updateDuration(blockId, endHour);
@@ -93,16 +92,13 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
           invalidateBlock();
         }}
         onAddTodo={(text) => {
-          addTodo(blockId, text);
-          invalidateBlock();
+          addTodo(blockId, text).then(invalidateBlock);
         }}
         onUpdateTodo={(todoId, updates) => {
-          updateTodo(blockId, todoId, updates);
-          invalidateBlock();
+          updateTodo(blockId, todoId, updates).then(invalidateBlock);
         }}
         onDeleteTodo={(todoId) => {
-          deleteTodo(blockId, todoId);
-          invalidateBlock();
+          deleteTodo(blockId, todoId).then(invalidateBlock);
         }}
         dateRange={{ start: firstDate, end: lastDate }}
         currency={room?.currency}
