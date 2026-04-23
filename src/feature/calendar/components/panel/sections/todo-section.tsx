@@ -32,14 +32,24 @@ function TodoCheckbox({ checked, onClick }: { checked: boolean; onClick: () => v
   );
 }
 
+function TrashIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+    </svg>
+  );
+}
+
 function TodoItem({
   todo,
   onToggle,
   onUpdate,
+  onDelete,
 }: {
   todo: BlockTodo;
   onToggle: () => void;
   onUpdate: (text: string) => void;
+  onDelete: () => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -81,6 +91,11 @@ function TodoItem({
     );
   }
 
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete();
+  };
+
   return (
     <li
       className="flex items-start gap-2.5 py-1.5 group hover:bg-hover rounded-lg -mx-1.5 px-1.5 transition-colors duration-100 cursor-pointer"
@@ -96,12 +111,20 @@ function TodoItem({
         as="span"
         variant="small"
         color={todo.completed ? "muted" : "main"}
-        className={`leading-snug transition-colors duration-150 ${
+        className={`flex-1 leading-snug transition-colors duration-150 ${
           todo.completed ? "line-through" : ""
         }`}
       >
         {todo.text}
       </Text>
+      <button
+        type="button"
+        onClick={handleDeleteClick}
+        aria-label="할 일 삭제"
+        className="shrink-0 flex items-center justify-center w-6 h-6 rounded-md text-muted hover:text-red-500 hover:bg-red-50 transition-all duration-150 cursor-pointer opacity-100 md:opacity-0 md:group-hover:opacity-100"
+      >
+        <TrashIcon />
+      </button>
     </li>
   );
 }
@@ -175,11 +198,13 @@ export function TodoSection({
   onToggle,
   onUpdate,
   onAdd,
+  onDelete,
 }: {
   todos: BlockTodo[];
   onToggle: (todoId: string) => void;
   onUpdate: (todoId: string, text: string) => void;
   onAdd: (text: string) => void;
+  onDelete: (todoId: string) => void;
 }) {
   return (
     <div>
@@ -191,6 +216,7 @@ export function TodoSection({
               todo={todo}
               onToggle={() => onToggle(todo.id)}
               onUpdate={(text) => onUpdate(todo.id, text)}
+              onDelete={() => onDelete(todo.id)}
             />
           ))}
         </ul>

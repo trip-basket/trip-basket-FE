@@ -258,6 +258,7 @@ export function PanelContent({
           onToggle={handleTodoToggle}
           onUpdate={handleTodoUpdate}
           onAdd={handleTodoAdd}
+          onDelete={onDeleteTodo}
         />
       </div>
 
