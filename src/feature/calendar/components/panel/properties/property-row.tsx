@@ -47,13 +47,19 @@ export function PropertyRow({
           {label}
         </Text>
       </div>
-      <button
-        className={`flex items-center min-h-[32px] group hover:bg-hover rounded-sm -mx-1 px-1 transition-colors duration-100 cursor-pointer`}
-        onClick={onClick}
-        type="button"
-      >
-        <div className="flex-1 min-w-0">{children}</div>
-      </button>
+      {onClick ? (
+        <button
+          className="flex items-center min-h-[32px] group hover:bg-hover rounded-sm -mx-1 px-1 transition-colors duration-100 cursor-pointer"
+          onClick={onClick}
+          type="button"
+        >
+          <div className="flex-1 min-w-0">{children}</div>
+        </button>
+      ) : (
+        <div className="flex items-center min-h-[32px] -mx-1 px-1">
+          <div className="flex-1 min-w-0">{children}</div>
+        </div>
+      )}
     </div>
   );
 }
