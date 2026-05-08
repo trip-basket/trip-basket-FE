@@ -39,7 +39,7 @@ function GridGhostBlock({
   top: number;
   height: number;
 }) {
-  const blockColor = getBlockColor(block.color);
+  const blockColor = getBlockColor(block.place.category);
   return (
     <div
       className="absolute inset-x-0 rounded-xl opacity-50 overflow-hidden"

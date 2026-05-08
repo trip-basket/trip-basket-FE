@@ -22,7 +22,7 @@ export function BucketBlock({ block }: { block: BucketBlockType }) {
 }
 
 function BucketGhostBlock({ block }: { block: BucketBlockType }) {
-  const blockColor = getBlockColor(block.color);
+  const blockColor = getBlockColor(block.place.category);
 
   return (
     <div

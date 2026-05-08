@@ -17,7 +17,7 @@ export function BucketDraggableBlock({
   handlers,
 }: BucketDraggableBlockProps) {
   const isLocked = !!block.lockedBy;
-  const blockColor = getBlockColor(block.color);
+  const blockColor = getBlockColor(block.place.category);
 
   return (
     <div

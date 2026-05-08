@@ -16,6 +16,8 @@ export function useGridBlockResize({ block, top, height }: UseGridBlockResizePar
   const gridEndHour = HOURS[HOURS.length - 1];
   const resizeBlock = useCalendarStore((s) => s.resizeBlock);
 
+  const setIsBlockResizing = useCalendarStore((s) => s.setIsBlockResizing);
+
   const [resizeHandle, setResizeHandle] = useState<"top" | "bottom" | null>(null);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -38,6 +40,8 @@ export function useGridBlockResize({ block, top, height }: UseGridBlockResizePar
     if (!isResizing) {
       return;
     }
+
+    setIsBlockResizing(true);
 
     const deltaY = e.clientY - startY;
     const deltaHour = deltaY / HOUR_HEIGHT;
@@ -71,6 +75,7 @@ export function useGridBlockResize({ block, top, height }: UseGridBlockResizePar
 
     e.currentTarget.releasePointerCapture(e.pointerId);
     setIsResizing(false);
+    setIsBlockResizing(false);
   };
 
   return {

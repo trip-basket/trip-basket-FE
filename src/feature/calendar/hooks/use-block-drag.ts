@@ -23,7 +23,9 @@ export function useBlockDrag(
   duration?: number,
   onClick?: () => void,
 ) {
-  const { gridRef } = useCalendarStore();
+  const gridRef = useCalendarStore((s) => s.gridRef);
+  const setIsBlockDragging = useCalendarStore((s) => s.setIsBlockDragging);
+
   const { updateScroll, stopScroll } = useAutoScroll(gridRef);
 
   const [isDragging, setIsDragging] = useState(false);
@@ -66,6 +68,7 @@ export function useBlockDrag(
       }
       s.hasDragged = true;
       setIsDragging(true);
+      setIsBlockDragging(true);
       setDragWidth(s.elementWidth);
     }
 
@@ -107,11 +110,13 @@ export function useBlockDrag(
     s.isDown = false;
     s.hasDragged = false;
     e.currentTarget.releasePointerCapture(e.pointerId);
+    setIsBlockDragging(false);
     stopScroll();
   };
 
   const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
     setIsDragging(false);
+    setIsBlockDragging(false);
     stateRef.current.isDown = false;
     stateRef.current.hasDragged = false;
     e.currentTarget.releasePointerCapture(e.pointerId);

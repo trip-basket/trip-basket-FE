@@ -7,7 +7,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "1",
     status: "bucket",
     name: "히드로 공항",
-    color: "sky",
+
     cost: 15000,
     addedBy: "m1",
     place: {
@@ -27,7 +27,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "2",
     status: "bucket",
     name: "대영박물관",
-    color: "indigo",
+
     cost: 0,
     addedBy: "m2",
     place: {
@@ -55,7 +55,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "4",
     status: "bucket",
     name: "타워브릿지",
-    color: "rose",
+
     cost: 16000,
     addedBy: "m1",
     lockedBy: "m2",
@@ -76,7 +76,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "b5",
     status: "bucket",
     name: "노팅힐 마켓",
-    color: "amber",
+
     cost: 0,
     addedBy: "m3",
     place: {
@@ -96,7 +96,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "b6",
     status: "bucket",
     name: "웨스트민스터 사원",
-    color: "violet",
+
     cost: 29000,
     addedBy: "m1",
     place: {
@@ -116,7 +116,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "b7",
     status: "bucket",
     name: "캠든 마켓",
-    color: "teal",
+
     cost: 18000,
     addedBy: "m2",
     place: {
@@ -136,7 +136,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "b8",
     status: "bucket",
     name: "그리니치 천문대",
-    color: "fuchsia",
+
     cost: 22000,
     addedBy: "m3",
     place: {
@@ -156,7 +156,7 @@ export const MOCK_BUCKET_BLOCKS: BucketBlock[] = [
     id: "b9",
     status: "bucket",
     name: "세인트폴 대성당",
-    color: "indigo",
+
     cost: 25000,
     addedBy: "m1",
     place: {
@@ -179,13 +179,13 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     id: "5",
     status: "scheduled",
     name: "버킹엄 궁전",
-    color: "teal",
+
     dayIndex: 0,
     startHour: 9,
     endHour: 11,
     cost: 39000,
     addedBy: "m1",
-    reactions: [{ memberId: "m2" }],
+    reactions: [{ id: "r1", memberId: "m2", type: "like" }],
     place: {
       googlePlaceId: "ChIJtV5bzSAFdkgRpwLZFPWrJgo",
       placeName: "Buckingham Palace",
@@ -211,13 +211,16 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     id: "6",
     status: "scheduled",
     name: "Borough Market 점심",
-    color: "amber",
+
     dayIndex: 1,
     startHour: 8,
     endHour: 14,
     cost: 33000,
     addedBy: "m2",
-    reactions: [{ memberId: "m1" }, { memberId: "m3" }],
+    reactions: [
+      { id: "r2", memberId: "m1", type: "like" },
+      { id: "r3", memberId: "m3", type: "like" },
+    ],
     memo: "유명한 스트리트 푸드 마켓. Fish & Chips, 라클렛 추천.",
     place: {
       googlePlaceId: "ChIJA_0nSIcEdkgR1ntGaAuQEAo",
@@ -243,7 +246,7 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     id: "3b",
     status: "scheduled",
     name: "런던아이",
-    color: "violet",
+
     dayIndex: 2,
     startHour: 7,
     endHour: 10,
@@ -266,7 +269,7 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     id: "8",
     status: "scheduled",
     name: "해로즈 백화점",
-    color: "slate",
+
     dayIndex: 2,
     startHour: 13,
     endHour: 15,
@@ -298,7 +301,7 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     id: "9",
     status: "scheduled",
     name: "킹스크로스 → 에딘버러",
-    color: "sky",
+
     dayIndex: 3,
     startHour: 8,
     endHour: 12.5,
@@ -321,13 +324,17 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     id: "7",
     status: "scheduled",
     name: "빅벤",
-    color: "fuchsia",
+
     dayIndex: 3,
     startHour: 10,
     endHour: 13.5,
     cost: 0,
     addedBy: "m3",
-    reactions: [{ memberId: "m1" }, { memberId: "m2" }, { memberId: "m3" }],
+    reactions: [
+      { id: "r4", memberId: "m1", type: "like" },
+      { id: "r5", memberId: "m2", type: "like" },
+      { id: "r6", memberId: "m3", type: "like" },
+    ],
     memo: "엘리자베스 타워 내부 투어는 사전 예약 필수. 영국 시민/거주자만 가능.",
     place: {
       googlePlaceId: "ChIJmb5GBMkEdkgRIM_OfMkVNHk",
@@ -345,29 +352,9 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
 ];
 
 export const MOCK_BLOCK_TODOS: BlockTodo[] = [
-  { id: "todo-1", blockId: "7", text: "야경 사진 찍기", completed: false },
-  {
-    id: "todo-2",
-    blockId: "7",
-    text: "웨스트민스터 브릿지에서 전경 촬영",
-    completed: true,
-  },
-  {
-    id: "todo-3",
-    blockId: "5",
-    text: "근위병 교대식 시간 확인",
-    completed: false,
-  },
-  {
-    id: "todo-4",
-    blockId: "6",
-    text: "라클렛 맛집 위치 확인",
-    completed: false,
-  },
-  {
-    id: "todo-5",
-    blockId: "6",
-    text: "현금 준비 (일부 가게 카드 불가)",
-    completed: false,
-  },
+  { id: "todo-1", text: "야경 사진 찍기", completed: false },
+  { id: "todo-2", text: "웨스트민스터 브릿지에서 전경 촬영", completed: true },
+  { id: "todo-3", text: "근위병 교대식 시간 확인", completed: false },
+  { id: "todo-4", text: "라클렛 맛집 위치 확인", completed: false },
+  { id: "todo-5", text: "현금 준비 (일부 가게 카드 불가)", completed: false },
 ];

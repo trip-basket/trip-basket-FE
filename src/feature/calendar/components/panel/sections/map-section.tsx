@@ -9,7 +9,7 @@ export function MapSection({ block }: { block: ScheduledBlock }) {
 
   return (
     <>
-      <div className="rounded-xl overflow-hidden border border-outline h-[160px]">
+      <div className="rounded-xl overflow-hidden border border-outline h-[200px]">
         {apiKey ? (
           <APIProvider apiKey={apiKey}>
             <GoogleMap

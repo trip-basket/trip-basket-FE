@@ -19,15 +19,17 @@ export function PropertyRow({
   icon,
   label,
   children,
+  onClick,
 }: {
   icon: string;
   label: string;
   children: ReactNode;
+  onClick?: () => void;
 }) {
   const path = ICON_PATHS[icon];
 
   return (
-    <div className="flex items-center min-h-[32px] group hover:bg-hover rounded-sm -mx-1 px-1 transition-colors duration-100">
+    <div className="flex flex-row">
       <div className="flex items-center gap-1.5 w-24 shrink-0">
         {path && (
           <svg
@@ -45,7 +47,19 @@ export function PropertyRow({
           {label}
         </Text>
       </div>
-      <div className="flex-1 min-w-0">{children}</div>
+      {onClick ? (
+        <button
+          className="flex items-center min-h-[32px] group hover:bg-hover rounded-sm -mx-1 px-1 transition-colors duration-100 cursor-pointer"
+          onClick={onClick}
+          type="button"
+        >
+          <div className="flex-1 min-w-0">{children}</div>
+        </button>
+      ) : (
+        <div className="flex items-center min-h-[32px] -mx-1 px-1">
+          <div className="flex-1 min-w-0">{children}</div>
+        </div>
+      )}
     </div>
   );
 }

@@ -21,12 +21,13 @@ export interface BlockColorPalette {
 }
 
 export interface Reaction {
+  id: string;
   memberId: string;
+  type: string;
 }
 
 export interface BlockTodo {
   id: string;
-  blockId: string;
   text: string;
   completed: boolean;
 }
@@ -35,7 +36,6 @@ interface BlockBase {
   id: string;
   place: Place;
   name: string;
-  color: BlockColorName;
   cost?: number;
   memo?: string;
   addedBy?: string;
