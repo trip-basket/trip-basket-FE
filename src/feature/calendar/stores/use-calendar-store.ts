@@ -24,7 +24,8 @@ import {
   toScheduleUpdateRequest,
 } from "../utils";
 
-const useMockData = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
+const useMockData =
+  process.env.NODE_ENV !== "production" && process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
 const DAY_OF_WEEK_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
 
