@@ -36,9 +36,9 @@ export function CreateBlockModal({
     if (!place) {
       return;
     }
-    addToCalendar(place, date, startHour);
+    addToCalendar(place, date, startHour, endHour);
     onOpenChange(false);
-  }, [place, date, startHour, addToCalendar, onOpenChange]);
+  }, [place, date, startHour, endHour, addToCalendar, onOpenChange]);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>

@@ -3,7 +3,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Text } from "@/src/components/ui";
 import { CATEGORY_LABELS } from "../../constants";
-import type { Reaction, ScheduledBlock, TripDay } from "../../types";
+import type { ScheduledBlock, TripDay } from "../../types";
 import { formatBlockTime, formatCurrency, getBlockColor } from "../../utils";
 import { CostDialog } from "./dialogs/cost-dialog";
 import { DateTimeDialog } from "./dialogs/date-time-dialog";
@@ -29,9 +29,12 @@ function formatDuration(hours: number): string {
 export function PanelContent({
   block,
   day,
+  myMemberId,
   onUpdateMemo,
+  onUpdateCost,
   onUpdateDuration,
   onMoveBlock,
+  onToggleReaction,
   onAddTodo,
   onUpdateTodo,
   onDeleteTodo,
@@ -40,9 +43,12 @@ export function PanelContent({
 }: {
   block: ScheduledBlock;
   day: TripDay | undefined;
+  myMemberId: string | undefined;
   onUpdateMemo: (memo: string | undefined) => void;
+  onUpdateCost: (cost: number | undefined) => void;
   onUpdateDuration: (endHour: number) => void;
   onMoveBlock: (date: string, startHour: number) => void;
+  onToggleReaction: () => void;
   onAddTodo: (text: string) => void;
   onUpdateTodo: (todoId: string, updates: { text?: string; completed?: boolean }) => void;
   onDeleteTodo: (todoId: string) => void;
@@ -87,14 +93,16 @@ export function PanelContent({
     }
   }, [block.memo, onUpdateMemo]);
 
-  // TODO: 비용 API 추가 후 연동
-  const handleCostConfirm = useCallback((_cost: number | undefined) => {}, []);
-
-  // TODO: 좋아요 API 추가 후 연동
-  const handleReactionToggle = useCallback(
-    (_memberId: string) => {},
-    [],
+  const handleCostConfirm = useCallback(
+    (cost: number | undefined) => {
+      onUpdateCost(cost);
+    },
+    [onUpdateCost],
   );
+
+  const handleReactionToggle = useCallback(() => {
+    onToggleReaction();
+  }, [onToggleReaction]);
 
   const handleTodoToggle = useCallback(
     (todoId: string) => {
@@ -179,7 +187,11 @@ export function PanelContent({
           </Text>
         </PropertyRow>
 
-        <ReactionsProperty reactions={reactions} onToggle={handleReactionToggle} />
+        <ReactionsProperty
+          reactions={reactions}
+          myMemberId={myMemberId}
+          onToggle={handleReactionToggle}
+        />
 
         {lockedByMember && (
           <PropertyRow icon="lock" label="편집 중">
@@ -241,6 +253,7 @@ export function PanelContent({
       <div className="pb-6">
         <SectionHeader icon="editNote" label="메모" />
         <textarea
+          key={block.id}
           ref={memoRef}
           className="w-full resize-none rounded-lg border border-outline bg-inset px-3 py-2.5 text-sm text-sub leading-relaxed placeholder:text-muted focus:placeholder:text-transparent focus:outline-none focus:bg-white focus:border-outline-strong transition-colors duration-150"
           rows={3}
@@ -279,6 +292,7 @@ export function PanelContent({
         open={isDurationOpen}
         onOpenChange={setIsDurationOpen}
         currentDuration={duration}
+        maxDuration={24 - block.startHour}
         onConfirm={handleDurationConfirm}
       />
 

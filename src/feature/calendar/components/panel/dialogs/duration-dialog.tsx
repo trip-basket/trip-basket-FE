@@ -5,9 +5,10 @@ import * as Select from "@radix-ui/react-select";
 import { useState } from "react";
 import { Button, Text } from "@/src/components/ui";
 
-function generateDurationSlots(): { label: string; value: string }[] {
+function generateDurationSlots(maxHours: number): { label: string; value: string }[] {
   const slots: { label: string; value: string }[] = [];
-  for (let i = 1; i <= 24; i++) {
+  const maxStep = Math.floor(maxHours / 0.5);
+  for (let i = 1; i <= maxStep; i++) {
     const hours = i * 0.5;
     let label: string;
     if (hours < 1) {
@@ -22,12 +23,11 @@ function generateDurationSlots(): { label: string; value: string }[] {
   return slots;
 }
 
-const DURATION_SLOTS = generateDurationSlots();
-
 interface DurationDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   currentDuration: number;
+  maxDuration?: number;
   onConfirm: (duration: number) => void;
 }
 
@@ -35,9 +35,11 @@ export function DurationDialog({
   open,
   onOpenChange,
   currentDuration,
+  maxDuration = 12,
   onConfirm,
 }: DurationDialogProps) {
   const [selected, setSelected] = useState(String(currentDuration));
+  const slots = generateDurationSlots(maxDuration);
 
   const handleOpen = (isOpen: boolean) => {
     if (isOpen) {
@@ -47,7 +49,11 @@ export function DurationDialog({
   };
 
   const handleConfirm = () => {
-    onConfirm(Number(selected));
+    const duration = Number(selected);
+    if (!Number.isFinite(duration) || duration <= 0 || duration > maxDuration) {
+      return;
+    }
+    onConfirm(duration);
     onOpenChange(false);
   };
 
@@ -99,7 +105,7 @@ export function DurationDialog({
                     </svg>
                   </Select.ScrollUpButton>
                   <Select.Viewport className="p-1 max-h-[200px]">
-                    {DURATION_SLOTS.map((slot) => (
+                    {slots.map((slot) => (
                       <Select.Item
                         key={slot.value}
                         value={slot.value}

@@ -57,17 +57,18 @@ function TimePickerButton({
               onWheel={(e) => e.stopPropagation()}
             >
               {HOURS.filter((h) => !filterHours || filterHours(h)).map((h) => (
-                <button
+                <Button
                   key={h}
-                  type="button"
-                  className="w-full text-left px-3 py-1.5 text-sm text-sub rounded-lg hover:bg-hover hover:text-main transition-colors cursor-pointer"
+                  variant="borderless"
+                  size="sm"
+                  className="w-full justify-start text-sub hover:text-main cursor-pointer"
                   onClick={() => {
                     onSelect(h);
                     setOpen(false);
                   }}
                 >
                   {formatHour(h)}
-                </button>
+                </Button>
               ))}
             </div>
           </Popover.Content>
@@ -83,16 +84,23 @@ export function TimeSelector({
   onStartHourChange,
   onEndHourChange,
 }: TimeSelectorProps) {
+  const hasLaterHour = (hour: number) => HOURS.some((candidate) => candidate > hour);
+  const getNextHour = (hour: number) => HOURS.find((candidate) => candidate > hour);
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-end gap-3">
         <TimePickerButton
           label="시작"
           hour={startHour}
+          filterHours={hasLaterHour}
           onSelect={(h) => {
             onStartHourChange(h);
             if (h >= endHour) {
-              onEndHourChange(h + 1);
+              const next = getNextHour(h);
+              if (next !== undefined) {
+                onEndHourChange(next);
+              }
             }
           }}
         />

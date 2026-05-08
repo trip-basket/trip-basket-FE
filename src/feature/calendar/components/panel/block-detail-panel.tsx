@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { Button, Spinner, Text } from "@/src/components/ui";
 import useRoomStore from "@/src/feature/room/stores/use-room-store";
-import { BLOCK_TOAST_MESSAGES, blockApi, getErrorMessage } from "@/src/lib/api";
+import { BLOCK_TOAST_MESSAGES, blockApi, getErrorMessage, memberApi } from "@/src/lib/api";
 import { QUERY_KEYS } from "@/src/lib/api/query-keys";
 import useCalendarStore from "../../stores/use-calendar-store";
 import { toScheduledBlock } from "../../utils";
@@ -19,13 +19,22 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
   const tripDays = useCalendarStore((s) => s.tripDays);
   const deleteBlock = useCalendarStore((s) => s.deleteBlock);
   const updateMemo = useCalendarStore((s) => s.updateMemo);
+  const updateCost = useCalendarStore((s) => s.updateCost);
   const updateDuration = useCalendarStore((s) => s.updateDuration);
   const moveInCalendar = useCalendarStore((s) => s.moveInCalendar);
+  const toggleReaction = useCalendarStore((s) => s.toggleReaction);
   const addTodo = useCalendarStore((s) => s.addTodo);
   const updateTodo = useCalendarStore((s) => s.updateTodo);
   const deleteTodo = useCalendarStore((s) => s.deleteTodo);
   const queryClient = useQueryClient();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const { data: me } = useQuery({
+    queryKey: QUERY_KEYS.me,
+    queryFn: () => memberApi.me(),
+    staleTime: Number.POSITIVE_INFINITY,
+  });
+  const myMemberId = me?.id;
 
   const invalidateBlock = useCallback(() => {
     if (roomId) {
@@ -50,7 +59,6 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
     queryFn: () => blockApi.get(roomId!, blockId),
     enabled: !!roomId,
   });
-  console.log(blockDetail);
 
   let content: React.ReactNode;
 
@@ -80,16 +88,24 @@ export function BlockDetailPanel({ blockId }: { blockId: string }) {
       <PanelContent
         block={block}
         day={day}
+        myMemberId={myMemberId}
         onUpdateMemo={(memo) => {
           updateMemo(blockId, memo).then(invalidateBlock);
         }}
+        onUpdateCost={(cost) => {
+          updateCost(blockId, cost).then(invalidateBlock);
+        }}
         onUpdateDuration={(endHour) => {
-          updateDuration(blockId, endHour);
-          invalidateBlock();
+          updateDuration(blockId, endHour).then(invalidateBlock);
         }}
         onMoveBlock={(date, startHour) => {
-          moveInCalendar(blockId, date, startHour);
-          invalidateBlock();
+          moveInCalendar(blockId, date, startHour).then(invalidateBlock);
+        }}
+        onToggleReaction={() => {
+          if (!myMemberId) {
+            return;
+          }
+          toggleReaction(blockId, myMemberId).then(invalidateBlock);
         }}
         onAddTodo={(text) => {
           addTodo(blockId, text).then(invalidateBlock);

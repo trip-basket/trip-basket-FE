@@ -38,7 +38,7 @@ export function CostDialog({
   const handleConfirm = () => {
     const trimmed = value.trim();
     const cost = trimmed === "" ? undefined : Number(trimmed);
-    if (cost !== undefined && Number.isNaN(cost)) {
+    if (cost !== undefined && (!Number.isFinite(cost) || cost < 0)) {
       return;
     }
     onConfirm(cost);

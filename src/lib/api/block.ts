@@ -14,12 +14,13 @@ export const blockApi = {
   createTodo: (roomId: string, blockId: string, data: CreateTodoRequestApi) =>
     api.post<TodoResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}/todos`, data),
   updateTodo: (roomId: string, blockId: string, todoId: string, data: UpdateTodoRequestApi) =>
-    api.patch<TodoResponseApi>(
-      `/api/rooms/${roomId}/blocks/${blockId}/todos/${todoId}`,
-      data,
-    ),
+    api.patch<TodoResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}/todos/${todoId}`, data),
   deleteTodo: (roomId: string, blockId: string, todoId: string) =>
     api.delete<void>(`/api/rooms/${roomId}/blocks/${blockId}/todos/${todoId}`),
+  createReaction: (roomId: string, blockId: string, data: CreateReactionRequestApi) =>
+    api.post<ReactionResponseApi>(`/api/rooms/${roomId}/blocks/${blockId}/reactions`, data),
+  deleteReaction: (roomId: string, blockId: string, reactionId: string) =>
+    api.delete<void>(`/api/rooms/${roomId}/blocks/${blockId}/reactions/${reactionId}`),
 };
 
 export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
@@ -54,6 +55,12 @@ export const BLOCK_TOAST_MESSAGES: Record<string, ErrorMessages> = {
     404: "블록 또는 할 일을 찾을 수 없습니다",
     default: "할 일 처리에 실패했습니다",
   },
+  reaction: {
+    403: "방 접근 권한이 없습니다",
+    404: "블록 또는 리액션을 찾을 수 없습니다",
+    409: "이미 좋아요를 눌렀습니다",
+    default: "좋아요 처리에 실패했습니다",
+  },
 } as const;
 
 export interface UpdateBlockRequestApi {
@@ -62,6 +69,20 @@ export interface UpdateBlockRequestApi {
   startTime?: string | null;
   endTime?: string | null;
   memo?: string | null;
+  cost?: number | null;
+}
+
+export type ReactionType = "LIKE";
+
+export interface CreateReactionRequestApi {
+  type: ReactionType;
+}
+
+export interface ReactionResponseApi {
+  id: string;
+  blockId: string;
+  memberId: string;
+  type: string;
 }
 
 export interface CreateTodoRequestApi {
@@ -130,7 +151,7 @@ export interface BlockListItemApi {
   endUtcOffsetMinutes: number | null;
   addedBy: string;
   addedAt: string;
-  reactions: { memberId: string; type: string }[];
+  reactions: ReactionResponseApi[];
 }
 
 export interface BlockListResponseApi {
@@ -152,6 +173,6 @@ export interface BlockResponseApi {
   memo: string | null;
   addedBy: string;
   addedAt: string;
-  reactions: { memberId: string; type: string }[];
+  reactions: ReactionResponseApi[];
   todos: { id: string; text: string; completed: boolean }[];
 }

@@ -21,6 +21,7 @@ export interface BlockColorPalette {
 }
 
 export interface Reaction {
+  id: string;
   memberId: string;
   type: string;
 }

@@ -185,7 +185,7 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     endHour: 11,
     cost: 39000,
     addedBy: "m1",
-    reactions: [{ memberId: "m2", type: "like" }],
+    reactions: [{ id: "r1", memberId: "m2", type: "like" }],
     place: {
       googlePlaceId: "ChIJtV5bzSAFdkgRpwLZFPWrJgo",
       placeName: "Buckingham Palace",
@@ -217,7 +217,10 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     endHour: 14,
     cost: 33000,
     addedBy: "m2",
-    reactions: [{ memberId: "m1", type: "like" }, { memberId: "m3", type: "like" }],
+    reactions: [
+      { id: "r2", memberId: "m1", type: "like" },
+      { id: "r3", memberId: "m3", type: "like" },
+    ],
     memo: "유명한 스트리트 푸드 마켓. Fish & Chips, 라클렛 추천.",
     place: {
       googlePlaceId: "ChIJA_0nSIcEdkgR1ntGaAuQEAo",
@@ -327,7 +330,11 @@ export const MOCK_CALENDAR_BLOCKS: MockBlock[] = [
     endHour: 13.5,
     cost: 0,
     addedBy: "m3",
-    reactions: [{ memberId: "m1", type: "like" }, { memberId: "m2", type: "like" }, { memberId: "m3", type: "like" }],
+    reactions: [
+      { id: "r4", memberId: "m1", type: "like" },
+      { id: "r5", memberId: "m2", type: "like" },
+      { id: "r6", memberId: "m3", type: "like" },
+    ],
     memo: "엘리자베스 타워 내부 투어는 사전 예약 필수. 영국 시민/거주자만 가능.",
     place: {
       googlePlaceId: "ChIJmb5GBMkEdkgRIM_OfMkVNHk",

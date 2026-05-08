@@ -20,7 +20,12 @@ function TodoCheckbox({ checked, onClick }: { checked: boolean; onClick: () => v
   return (
     <button
       type="button"
-      onClick={onClick}
+      aria-label={checked ? "할 일 완료 해제" : "할 일 완료"}
+      aria-pressed={checked}
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick();
+      }}
       className={`flex items-center justify-center w-[18px] h-[18px] rounded-md shrink-0 mt-px transition-colors duration-150 cursor-pointer ${
         checked
           ? "bg-[var(--bg-accent)] text-white"

@@ -9,6 +9,7 @@ import {
   type BlockTodo,
   type BucketBlock,
   DEFAULT_BLOCK_DURATION,
+  type Reaction,
   type ScheduledBlock,
   type TripDay,
 } from "../types";
@@ -71,14 +72,16 @@ interface CalendarStore {
   setIsBlockDragging: (v: boolean) => void;
   setIsBlockResizing: (v: boolean) => void;
   moveToCalendar: (block: BucketBlock, date: string, startHour: number) => void;
-  moveInCalendar: (blockId: string, date: string, startHour: number) => void;
+  moveInCalendar: (blockId: string, date: string, startHour: number) => Promise<void>;
   resizeBlock: (blockId: string, startHour: number, endHour: number) => void;
   findBlock: (blockId: string) => { block: ScheduledBlock; date: string } | null;
   addToBucket: (place: Place) => void;
-  addToCalendar: (place: Place, date: string, startHour: number) => void;
+  addToCalendar: (place: Place, date: string, startHour: number, endHour?: number) => void;
   deleteBlock: (blockId: string) => void;
   updateMemo: (blockId: string, memo: string | undefined) => Promise<void>;
-  updateDuration: (blockId: string, endHour: number) => void;
+  updateCost: (blockId: string, cost: number | undefined) => Promise<void>;
+  updateDuration: (blockId: string, endHour: number) => Promise<void>;
+  toggleReaction: (blockId: string, myMemberId: string) => Promise<void>;
   addTodo: (blockId: string, text: string) => Promise<void>;
   updateTodo: (
     blockId: string,
@@ -153,7 +156,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     const roomId = useRoomStore.getState().room?.id;
     const found = get().findBlock(blockId);
     if (!found) {
-      return;
+      return Promise.resolve();
     }
 
     const prevTripDays = get().tripDays;
@@ -176,13 +179,15 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       }),
     }));
 
-    if (roomId) {
-      const request = toScheduleUpdateRequest(toDate, startHour, endHour);
-      blockApi.update(roomId, blockId, request).then(null, (error) => {
-        set({ tripDays: prevTripDays });
-        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
-      });
+    if (!roomId) {
+      return Promise.resolve();
     }
+
+    const request = toScheduleUpdateRequest(toDate, startHour, endHour);
+    return blockApi.update(roomId, blockId, request).then(null, (error) => {
+      set({ tripDays: prevTripDays });
+      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+    });
   },
 
   resizeBlock: (blockId, startHour, endHour) => {
@@ -286,19 +291,20 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     }));
   },
 
-  addToCalendar: (place, date, startHour) => {
+  addToCalendar: (place, date, startHour, endHour) => {
     const roomId = useRoomStore.getState().room?.id;
     if (!roomId) {
       return;
     }
 
+    const resolvedEndHour = endHour ?? startHour + DEFAULT_BLOCK_DURATION;
     const tempBlock: ScheduledBlock = {
       id: crypto.randomUUID(),
       place,
       name: place.placeName,
       status: "scheduled",
       startHour,
-      endHour: startHour + DEFAULT_BLOCK_DURATION,
+      endHour: resolvedEndHour,
     };
 
     set({
@@ -307,7 +313,13 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
       ),
     });
 
-    const request = toCreateScheduledRequest(place, place.placeName, date, startHour);
+    const request = toCreateScheduledRequest(
+      place,
+      place.placeName,
+      date,
+      startHour,
+      resolvedEndHour,
+    );
     blockApi.create(roomId, request).then(
       (res) => {
         const realBlock = toScheduledBlock(res);
@@ -373,9 +385,29 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
         ...day,
         blocks: day.blocks.map((b) => (b.id === blockId ? { ...b, memo } : b)),
       })),
+      bucketBlocks: state.bucketBlocks.map((b) => (b.id === blockId ? { ...b, memo } : b)),
     }));
 
     return blockApi.update(roomId, blockId, { memo: memo ?? null }).then(null, (error) => {
+      toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
+    });
+  },
+
+  updateCost: (blockId, cost) => {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return Promise.resolve();
+    }
+
+    set((state) => ({
+      tripDays: state.tripDays.map((day) => ({
+        ...day,
+        blocks: day.blocks.map((b) => (b.id === blockId ? { ...b, cost } : b)),
+      })),
+      bucketBlocks: state.bucketBlocks.map((b) => (b.id === blockId ? { ...b, cost } : b)),
+    }));
+
+    return blockApi.update(roomId, blockId, { cost: cost ?? null }).then(null, (error) => {
       toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
     });
   },
@@ -384,10 +416,11 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     const roomId = useRoomStore.getState().room?.id;
     const found = get().findBlock(blockId);
     if (!roomId || !found) {
-      return;
+      return Promise.resolve();
     }
 
     const { block, date } = found;
+    const prevTripDays = get().tripDays;
 
     set((state) => ({
       tripDays: state.tripDays.map((day) => ({
@@ -397,9 +430,75 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     }));
 
     const request = toScheduleUpdateRequest(date, block.startHour, endHour);
-    blockApi.update(roomId, blockId, request).then(null, (error) => {
+    return blockApi.update(roomId, blockId, request).then(null, (error) => {
+      set({ tripDays: prevTripDays });
       toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.update));
     });
+  },
+
+  toggleReaction: (blockId, myMemberId) => {
+    const roomId = useRoomStore.getState().room?.id;
+    if (!roomId) {
+      return Promise.resolve();
+    }
+
+    const findReactions = (blockId: string): Reaction[] => {
+      for (const day of get().tripDays) {
+        const block = day.blocks.find((b) => b.id === blockId);
+        if (block) {
+          return block.reactions ?? [];
+        }
+      }
+      const bucket = get().bucketBlocks.find((b) => b.id === blockId);
+      return bucket?.reactions ?? [];
+    };
+
+    const existing = findReactions(blockId).find((r) => r.memberId === myMemberId);
+
+    const setReactions = (next: (prev: Reaction[]) => Reaction[]) => {
+      set((state) => ({
+        tripDays: state.tripDays.map((day) => ({
+          ...day,
+          blocks: day.blocks.map((b) =>
+            b.id === blockId ? { ...b, reactions: next(b.reactions ?? []) } : b,
+          ),
+        })),
+        bucketBlocks: state.bucketBlocks.map((b) =>
+          b.id === blockId ? { ...b, reactions: next(b.reactions ?? []) } : b,
+        ),
+      }));
+    };
+
+    if (existing) {
+      const prev = findReactions(blockId);
+      setReactions((rs) => rs.filter((r) => r.id !== existing.id));
+
+      return blockApi.deleteReaction(roomId, blockId, existing.id).then(null, (error) => {
+        setReactions(() => prev);
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.reaction));
+      });
+    }
+
+    const tempReaction: Reaction = {
+      id: crypto.randomUUID(),
+      memberId: myMemberId,
+      type: "like",
+    };
+    setReactions((rs) => [...rs, tempReaction]);
+
+    return blockApi.createReaction(roomId, blockId, { type: "LIKE" }).then(
+      (res) => {
+        setReactions((rs) =>
+          rs.map((r) =>
+            r.id === tempReaction.id ? { id: res.id, memberId: res.memberId, type: res.type } : r,
+          ),
+        );
+      },
+      (error) => {
+        setReactions((rs) => rs.filter((r) => r.id !== tempReaction.id));
+        toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.reaction));
+      },
+    );
   },
 
   addTodo: (blockId, text) => {
@@ -411,14 +510,26 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     // 낙관적 위한 임시 id
     const tempTodo: BlockTodo = { id: crypto.randomUUID(), text, completed: false };
 
+    const appendTodo = (todos: BlockTodo[] | undefined, todo: BlockTodo) => [
+      ...(todos ?? []),
+      todo,
+    ];
+    const replaceTodo = (todos: BlockTodo[] | undefined, fromId: string, next: BlockTodo) =>
+      (todos ?? []).map((t) => (t.id === fromId ? next : t));
+    const removeTodo = (todos: BlockTodo[] | undefined, id: string) =>
+      (todos ?? []).filter((t) => t.id !== id);
+
     // 낙관적 추가
     set((state) => ({
       tripDays: state.tripDays.map((day) => ({
         ...day,
         blocks: day.blocks.map((b) =>
-          b.id === blockId ? { ...b, todos: [...(b.todos ?? []), tempTodo] } : b,
+          b.id === blockId ? { ...b, todos: appendTodo(b.todos, tempTodo) } : b,
         ),
       })),
+      bucketBlocks: state.bucketBlocks.map((b) =>
+        b.id === blockId ? { ...b, todos: appendTodo(b.todos, tempTodo) } : b,
+      ),
     }));
 
     return blockApi.createTodo(roomId, blockId, { text }).then(
@@ -428,11 +539,12 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
           tripDays: state.tripDays.map((day) => ({
             ...day,
             blocks: day.blocks.map((b) =>
-              b.id === blockId
-                ? { ...b, todos: (b.todos ?? []).map((t) => (t.id === tempTodo.id ? res : t)) }
-                : b,
+              b.id === blockId ? { ...b, todos: replaceTodo(b.todos, tempTodo.id, res) } : b,
             ),
           })),
+          bucketBlocks: state.bucketBlocks.map((b) =>
+            b.id === blockId ? { ...b, todos: replaceTodo(b.todos, tempTodo.id, res) } : b,
+          ),
         }));
       },
       (error) => {
@@ -441,11 +553,12 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
           tripDays: state.tripDays.map((day) => ({
             ...day,
             blocks: day.blocks.map((b) =>
-              b.id === blockId
-                ? { ...b, todos: (b.todos ?? []).filter((t) => t.id !== tempTodo.id) }
-                : b,
+              b.id === blockId ? { ...b, todos: removeTodo(b.todos, tempTodo.id) } : b,
             ),
           })),
+          bucketBlocks: state.bucketBlocks.map((b) =>
+            b.id === blockId ? { ...b, todos: removeTodo(b.todos, tempTodo.id) } : b,
+          ),
         }));
         toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
       },
@@ -460,6 +573,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
 
     // 롤백용 스냅샷
     const prevTripDays = get().tripDays;
+    const prevBucketBlocks = get().bucketBlocks;
 
     set((state) => ({
       tripDays: state.tripDays.map((day) => ({
@@ -473,10 +587,18 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
             : b,
         ),
       })),
+      bucketBlocks: state.bucketBlocks.map((b) =>
+        b.id === blockId
+          ? {
+              ...b,
+              todos: (b.todos ?? []).map((t) => (t.id === todoId ? { ...t, ...updates } : t)),
+            }
+          : b,
+      ),
     }));
 
     return blockApi.updateTodo(roomId, blockId, todoId, updates).then(null, (error) => {
-      set({ tripDays: prevTripDays });
+      set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
       toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
     });
   },
@@ -488,6 +610,7 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
     }
 
     const prevTripDays = get().tripDays;
+    const prevBucketBlocks = get().bucketBlocks;
 
     set((state) => ({
       tripDays: state.tripDays.map((day) => ({
@@ -496,10 +619,13 @@ const useCalendarStore = create<CalendarStore>((set, get) => ({
           b.id === blockId ? { ...b, todos: (b.todos ?? []).filter((t) => t.id !== todoId) } : b,
         ),
       })),
+      bucketBlocks: state.bucketBlocks.map((b) =>
+        b.id === blockId ? { ...b, todos: (b.todos ?? []).filter((t) => t.id !== todoId) } : b,
+      ),
     }));
 
     return blockApi.deleteTodo(roomId, blockId, todoId).then(null, (error) => {
-      set({ tripDays: prevTripDays });
+      set({ tripDays: prevTripDays, bucketBlocks: prevBucketBlocks });
       toast.error(getErrorMessage(error, BLOCK_TOAST_MESSAGES.todo));
     });
   },

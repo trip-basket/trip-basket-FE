@@ -49,6 +49,7 @@ export function toBucketBlockFromList(api: BlockListItemApi): BucketBlock {
     status: "bucket",
     addedBy: api.addedBy,
     addedAt: api.addedAt,
+    reactions: api.reactions,
   };
 }
 
@@ -60,6 +61,7 @@ export function toScheduledBlockFromList(api: BlockListItemApi): ScheduledBlock 
     status: "scheduled",
     addedBy: api.addedBy,
     addedAt: api.addedAt,
+    reactions: api.reactions,
     startHour: api.startTime ? parseHour(api.startTime) : 9,
     endHour: api.endTime ? parseHour(api.endTime) : 10,
   };
@@ -86,8 +88,8 @@ export function toCreateScheduledRequest(
   name: string,
   date: string,
   startHour: number,
+  endHour: number = startHour + DEFAULT_BLOCK_DURATION,
 ): CreateBlockRequestApi {
-  const endHour = startHour + DEFAULT_BLOCK_DURATION;
   return {
     status: "scheduled",
     googlePlaceId: place.googlePlaceId,

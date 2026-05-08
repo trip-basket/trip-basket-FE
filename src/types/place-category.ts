@@ -206,16 +206,14 @@ const ACTIVITY_TYPES: string[] = [
   "roller_coaster",
 ];
 
-const CATEGORY_LOOKUP: Map<string, PlaceCategory> = new Map(
-  [
-    ...SIGHTSEEING_TYPES.map((t) => [t, "sightseeing"] as const),
-    ...FOOD_TYPES.map((t) => [t, "food"] as const),
-    ...SHOPPING_TYPES.map((t) => [t, "shopping"] as const),
-    ...TRANSPORT_TYPES.map((t) => [t, "transport"] as const),
-    ...ACCOMMODATION_TYPES.map((t) => [t, "accommodation"] as const),
-    ...ACTIVITY_TYPES.map((t) => [t, "activity"] as const),
-  ],
-);
+const CATEGORY_LOOKUP: Map<string, PlaceCategory> = new Map([
+  ...SIGHTSEEING_TYPES.map((t) => [t, "sightseeing"] as const),
+  ...FOOD_TYPES.map((t) => [t, "food"] as const),
+  ...SHOPPING_TYPES.map((t) => [t, "shopping"] as const),
+  ...TRANSPORT_TYPES.map((t) => [t, "transport"] as const),
+  ...ACCOMMODATION_TYPES.map((t) => [t, "accommodation"] as const),
+  ...ACTIVITY_TYPES.map((t) => [t, "activity"] as const),
+]);
 
 export function toPlaceCategory(googleType: string | null | undefined): PlaceCategory {
   if (!googleType) {
